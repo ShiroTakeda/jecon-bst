@@ -1,15 +1,14 @@
 Filename:            CHANGES.txt
 Author:		     Shiro Takeda
-e-mail               <zbc08106@park.zero.ad.jp>
+e-mail               <shiro.takeda@gmail.com>
 First-written:       <2006/12/04>
-Time-stamp:	     <2016-01-30 12:49:38 st>
-$Id: $
+Time-stamp:	     <2016-01-30 22:20:20 st>
 
 jecon.bst の変更履歴．
 
 --------------------------------------------------------------------------
 
-Ver. 4.0 ()
+Ver. 4.0 (2016-01-30)
 ----------------------------------
 
 * `bst.year.backward' という関数を廃止し、`bst.year.position' を新たに追加。
@@ -62,7 +61,7 @@ Ver. 4.0 ()
   #1: スタイル1のような省略方法 (これがデフォールト)
   #2: スタイル2のような省略方法
 
-  詳しくは jecon-sample.pdf を見てください。
+  詳しくは jecon-sample.pdf の「著者名の省略方法の変更」の部分を見てください。
 
 
 Ver. 3.2 (2015-01-24)

@@ -1,7 +1,7 @@
 % jecon.bst: 経済学用 BibTeX style file.
 %
 % First-written:       <2002/11/03>
-% Time-stamp:	       <2016-01-30 11:09:52 st>
+% Time-stamp:	       <2016-01-30 23:25:11 st>
 % Version 3.3
 %
 % これは，飯田修さんによって作成された jpolisci.bst を経済学用に
@@ -1884,7 +1884,7 @@ FUNCTION {format.authors}
       if$
       extra.label.bysame "bysame" =
 	{ insert.bysame }
- 	{ s author remove.ss.period.auth }
+ 	{ author s remove.ss.period.auth }
       if$
     }
   if$
@@ -1902,7 +1902,7 @@ FUNCTION {format.editors}
       extra.label.bysame "bysame" =
 	{ #1 'bysame.check :=
 	  insert.bysame }
- 	{ s editor remove.ss.period.auth }
+ 	{ editor s remove.ss.period.auth }
       if$
       #1 bysame.check =
         { "" * }
