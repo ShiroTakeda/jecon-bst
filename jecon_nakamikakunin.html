@@ -55,7 +55,7 @@
 <span class="comment">% jecon.bst: &#32076;&#28168;&#23398;&#29992; BibTeX style file.</span>
 <span class="comment">%</span>
 <span class="comment">% First-written:       &lt;2002/11/03&gt;</span>
-<span class="comment">% Time-stamp:          &lt;2016-01-30 11:11:38 st&gt;</span>
+<span class="comment">% Time-stamp:          &lt;2016-01-30 23:24:50 st&gt;</span>
 <span class="comment">% Version 3.3</span>
 <span class="comment">%</span>
 <span class="comment">% &#12371;&#12428;&#12399;&#65292;&#39151;&#30000;&#20462;&#12373;&#12435;&#12395;&#12424;&#12387;&#12390;&#20316;&#25104;&#12373;&#12428;&#12383; jpolisci.bst &#12434;&#32076;&#28168;&#23398;&#29992;&#12395;</span>
@@ -1912,7 +1912,7 @@
       <span class="builtin">if$</span>
       extra.label.bysame <span class="string">"bysame"</span> =
         { insert.bysame }
-        { s <span class="variable-name">author</span> remove.ss.period.auth }
+        { <span class="variable-name">author</span> s remove.ss.period.auth }
       <span class="builtin">if$</span>
     }
   <span class="builtin">if$</span>
@@ -1930,7 +1930,7 @@
       extra.label.bysame <span class="string">"bysame"</span> =
         { #1 'bysame.check <span class="constant">:=</span>
           insert.bysame }
-        { s <span class="variable-name">editor</span> remove.ss.period.auth }
+        { <span class="variable-name">editor</span> s remove.ss.period.auth }
       <span class="builtin">if$</span>
       #1 bysame.check =
         { <span class="string">""</span> * }
