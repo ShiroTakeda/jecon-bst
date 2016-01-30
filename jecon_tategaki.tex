@@ -1,0 +1,85 @@
+% Author:	       Shiro Takeda
+% First-written:       <2002/11/02>
+% Time-stamp:	       <2016-01-30 13:10:02 st>
+%
+%############################## Main #################################
+\documentclass[10pt]{tarticle}
+
+%% natbib.sty を使う。
+\usepackage{natbib}
+\usepackage{mathpazo}
+\usepackage{color}
+\definecolor{MyBrown}{rgb}{0.3,0,0}
+\definecolor{MyBlue}{rgb}{0,0,0.3}
+\definecolor{MyRed}{rgb}{0.6,0,0.1}
+\definecolor{MyGreen}{rgb}{0,0.4,0}
+\usepackage[dvipdfm,
+bookmarks=true,%
+bookmarksnumbered=true,%
+colorlinks=true,%
+linkcolor=MyBlue,%
+citecolor=MyRed,%
+filecolor=MyBlue,%
+pagecolor=MyBlue,%
+urlcolor=MyGreen%
+]{hyperref}
+
+\setlength{\topmargin}{-20pt} 
+\setlength{\textheight}{648pt}
+\setlength{\oddsidemargin}{15pt}
+\setlength{\textwidth}{440pt}
+
+\bibpunct{\hskip-0.5em（}{）\hskip-0.5em}{}{}{}{}
+
+% dvipdfmx の縦書き用オプション
+\AtBeginDvi{\special{landscape}}
+
+% \DeclareFontShape{JY1}{mc}{m}{n}{<-> s * [0.961] jis}{}
+% \DeclareFontShape{JY1}{gt}{m}{n}{<-> s * [0.961] jisg}{}
+
+%#####################################################################
+%######################### Document Starts ###########################
+%#####################################################################
+\begin{document}
+
+\verb|\bibliographystyle| に \verb|jecon_tategaki.bst| を指定したもの。
+\vspace*{1em}
+
+クラスファイルに \texttt{tarticle} クラスを利用している．さらに，プリアンプルで
+\begin{verbatim}
+        \bibpunct{\hskip-0.5em（}{）\hskip-0.5em}{}{}{}{}
+\end{verbatim}
+と設定し，引用部分の括弧を全角に変更し，さらにスペースを調整している．こ
+うしないと引用部分で半角括弧が利用されるため，少し見た目がぶかっこうにな
+る．
+
+また、
+\begin{verbatim}
+        \AtBeginDvi{\special{landscape}}
+\end{verbatim}
+と設定し、用紙を landscape （横向き）にしている。
+\vspace*{2em}
+
+引用例を２つ．\citet{ishikawa03:_green_gas_emiss_contr_open_econom}，
+\citet{takeda06:_cge_analy_welfar_effec_trade} は英語の論文．
+\citet{oyama99:_mark_stru} と \citet{kuroda97jp:keo} は日本語の論文．
+
+\nocite{*}
+
+%% BibTeX スタイルファイルの指定。
+\bibliographystyle{jecon_tategaki}
+
+%% BibTeX データベースファイルの指定。
+\bibliography{jecon-sample}
+% \bibliography{sort_testj}
+
+\end{document}
+
+%#####################################################################
+%######################### Document Ends #############################
+%#####################################################################
+% </pre></body></html>
+% --------------------
+% Local Variables:
+% fill-column: 80
+% End:

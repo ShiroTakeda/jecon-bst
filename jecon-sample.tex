@@ -1,0 +1,1427 @@
+% Filename:            jecon-sample.tex
+% Author:              Shiro Takeda
+% e-mail               <shiro.takeda@gmail.com>
+% First-written:       <2002/11/02>
+% Time-stamp:          <2016-01-30 21:52:00 st>
+%
+% jecon.bst の使い方を説明するファイル
+%
+%############################## Main #################################
+\documentclass[a4j,10pt]{jarticle}
+
+%% natbib.sty を使う．
+\usepackage{natbib}
+%
+%% Fancybox
+\usepackage{fancybox}
+
+%% For screen command.
+\usepackage{ascmac}
+
+%% Font を変更．
+\usepackage{mathpazo}
+
+%% \url を利用できるようにする．
+\usepackage{url}
+
+%% 色を付ける．
+\usepackage{graphicx}
+\usepackage{color}
+\definecolor{MyBrown}{rgb}{0.3,0,0}
+\definecolor{MyBlue}{rgb}{0,0,0.3}
+\definecolor{MyRed}{rgb}{0.6,0,0.1}
+\definecolor{MyGreen}{rgb}{0,0.4,0}
+\usepackage[dvipdfm,
+bookmarks=true,%
+bookmarksnumbered=true,%
+colorlinks=true,%
+linkcolor=MyBlue,%
+citecolor=MyRed,%
+filecolor=MyBlue,%
+pagecolor=MyBlue,%
+urlcolor=MyGreen%
+]{hyperref}
+
+%% dvipdfmx で PDF に修正したときにしおりが文字化けしないようにするための設定．
+\AtBeginDvi{\special{pdf:tounicode 90ms-RKSJ-UCS2}}%SJIS
+
+%% \BibTeX command を定義．
+\makeatletter
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\makeatother
+
+%% footnote 環境を再定義 (jsclasses.dtx より）．footnote 環境で \verb 命
+%% 令を利用できるようにする．
+\makeatletter
+\long\def\@footnotetext{%
+  \insert\footins\bgroup
+    \normalfont\footnotesize
+    \interlinepenalty\interfootnotelinepenalty
+    \splittopskip\footnotesep
+    \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+       \csname p@footnote\endcsname\@thefnmark
+    }%
+    \color@begingroup
+      \@makefntext{%
+        \rule\z@\footnotesep\ignorespaces}%
+      \futurelet\next\fo@t}
+\def\fo@t{\ifcat\bgroup\noexpand\next \let\next\f@@t
+                                \else \let\next\f@t\fi \next}
+\def\f@@t{\bgroup\aftergroup\@foot\let\next}
+\def\f@t#1{#1\@foot}
+\def\@foot{\@finalstrut\strutbox\color@endgroup\egroup}
+\makeatother
+
+\makeatletter
+\ifx\undefined\bysame
+\newcommand{\bysameline}{\hskip.3em \leavevmode\rule[.5ex]{3em}{.3pt}\hskip0.5em}
+\fi
+\makeatother
+
+%%% title, author, acknowledgement, and date
+\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 3.3)
+\thanks{このファイルの配布場所: \url{http://shirotakeda.org/ja/tex-ja/jecon-ja.html}}
+}
+
+\author{武田史郎\thanks{Email: \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}}}}
+
+\date{\today}
+
+%#####################################################################
+%######################### Document Starts ###########################
+%#####################################################################
+\begin{document}
+
+%%% タイトル付ける．
+\maketitle
+
+%%% 目次を出力
+\tableofcontents
+
+%########################## Text Starts ##############################
+
+\section{導入}
+
+\begin{screen}
+\textbf{［注］} この \texttt{jecon.bst} を利用するには， 当然 \BibTeX 自体を使え
+るようになっていなければいけませんが，以下では \BibTeX の説明はしていません．
+\BibTeX については，\TeX 関連の書籍・ウェブサイト等で調べてください．
+\end{screen}
+\\
+
+\BibTeX の標準的なスタイルファイルの中には，\texttt{jplain.bst}，
+\texttt{jalpha.bst}，\texttt{jabbrev.bst} 等のように日本語の文献にも対応している
+ものがすでに幾つもあります．しかし，これらのスタイルファイルでは，経済学でよく用
+いられる author-year 形式、つまり「著者名（年）」という形式で引用することはできま
+せん\footnote{\verb|\cite| 命令を使ったときのはなしです．}．また，Reference に列
+挙する形式も経済学で通常使われている形式とは異なっています．
+
+一方，経済学で用いられる参照形式を実現する \BibTeX スタイルファイルとして，
+\texttt{aer.bst}，\texttt{ecta.bst}，\texttt{cje.bst} 等があります\footnote{それ
+ぞれ，Americal Economic Review 形式，Econometrica 形式，Canadian Journal of
+Economics 形式のスタイルファイルです．}．これらの \BibTeX スタイルファイルを，
+\texttt{natbib.sty}と同時に使うことで「著者名（年）」形式で引用することができます．
+また，Reference 形式も経済学でよく見られる形式のものにすることができます．しかし，
+これらのスタイルファイルは，英語の文献を前提として作られているため，日本語の文献
+を適切に扱うことができません\footnote{「英語」対象というより，正確には欧米の言語
+対象ですが．}．
+
+飯田修さんという方が\footnote{\url{http://www.bol.ucla.edu/~oiida/jpolisci/}（注：
+もうこのページは存在していないです）．}，英語・日本語の両方の文献を扱えて，しかも
+「（著者名，年）」という形式で引用することが可能な \texttt{jpolisci.bst} というス
+タイルファイルを作成してくれているのですが，これの引用形式は「（著者名，年）」で
+すので，ちょっと経済学の標準的な形式とはずれています．
+
+このように，経済学の標準的な形式で日本語・英語を両方扱える \BibTeX のスタイルファ
+イルがないようでしたので， \texttt{jpolisci.bst} を修正し\texttt{jecon.bst} とい
+うものを作成してみました．
+
+\texttt{jecon.bst} を使うと次のようなことができます．
+\\
+
+\begin{screen}
+ \begin{itemize}
+ \item \texttt{natbib.sty} と組み合わせることで「著者名（年）」形式で引用可能です．
+ \item 経済学でよく利用される reference 形式をつくることが可能です．
+ \item 英語の文献だけでなく，日本語の文献も適切に処理することが可能です．
+ \item 他の \BibTeX 用のスタイルファイルよりも表示形式のカスタマイズが簡
+       単にできます．
+ \end{itemize}
+\end{screen}
+\\
+
+日本語で経済学の論文を書き，日本語，英語の文献の両方を引用・参照するような人，ま
+た、author (year) 形式で日本語の文献も引用したい人にとっては役に立つのではないか
+と思います．
+
+\section{使用例}
+
+言葉で説明してもわかりにくいので \texttt{jecon.bst} の使用例を挙げます一緒に
+\texttt{natbib.sty} を使っています）．例えば，
+\begin{screen}
+\begin{verbatim}
+\citet{miyazawa02:_io_intr}，\citet{isikawa02jp:_env_trade}，
+\citet{oyama99:_mark_stru}，\citet{kuroda97jp:keo}，
+\citet{kiyono93:_regu_comp_1}，\citet{iwamoto91jp:haito-keika}，
+\citet{ito85:_inte_trad}，\citet{nishimura90:_micr_econ}，
+\citet*{imai72:_micr_2}，\citet*{imai71:_micr_1}，
+\citet{somusho04jp:2000io-kaisetsu}，
+\citet{barro97jp}，\citet*{markusen99jp:trade_vol_1}．\\
+省略形では，\citet{imai71:_micr_1}，\citet{markusen99jp:trade_vol_1}
+のようになる．
+\end{verbatim}
+\end{screen}
+というような命令を書くと，次のような出力になります\footnote{Backslash は Windows
+では円マークになります．}．\texttt{citet} 命令の \verb|{ }| の中は私が自分の文献
+データベースファイルの中で各文献に付けているキーワードです．
+
+\begin{screen}
+\citet{miyazawa02:_io_intr}，\citet{isikawa02jp:_env_trade}，
+\citet{oyama99:_mark_stru}，\citet{kuroda97jp:keo}，
+\citet{kiyono93:_regu_comp_1}，\citet{iwamoto91jp:haito-keika}，
+\citet{ito85:_inte_trad}，\citet{nishimura90:_micr_econ}，
+\citet*{imai72:_micr_2}，\citet*{imai71:_micr_1}，
+\citet{somusho04jp:2000io-kaisetsu}，
+\citet{barro97jp}，\citet*{markusen99jp:trade_vol_1}．\\
+省略形では，\citet{imai71:_micr_1}，\citet{markusen99jp:trade_vol_1}
+のようになる．
+\end{screen}
+\\
+
+Reference 部分の形式がどうなるかは，この文書の参考文献の部分を見て確認してくださ
+い．
+\\
+
+\texttt{natbib.sty} を一緒に使っている場合には，\texttt{cite} 命令を変え
+るだけで次のような引用も可能です．
+
+\begin{screen}
+\hspace*{1cm} \citet{ito85:_inte_trad}\\
+\hspace*{1cm} \citep{ito85:_inte_trad}\\
+\hspace*{1cm} \citet[p.100]{ito85:_inte_trad}\\
+\hspace*{1cm} \citet[p.200 参照]{ito85:_inte_trad}\\
+\hspace*{1cm} \citep[詳しくは][]{ito85:_inte_trad}
+\end{screen}
+
+こう出力するには次のように \texttt{tex} のファイルで書きます
+\footnote{\verb|\citet| や \verb|\citep| は \texttt{natbib.sty} に特有の命令です．}．
+
+\begin{screen}
+ \begin{verbatim}
+\citet{ito85:_inte_trad}
+\citep{ito85:_inte_trad}
+\citet[p.100]{ito85:_inte_trad}
+\citet[p.200 参照]{ito85:_inte_trad}
+\citep[詳しくは][]{ito85:_inte_trad}
+ \end{verbatim}
+\end{screen}
+\\
+
+同じ文書内で英語の文献も同時に扱うことができます．
+
+\begin{screen}
+ \citet{ishikawa03:_green_gas_emiss_contr_open_econom},
+ \citet{ishikawa94:_revis_stolp_samuel_rybcz_theor_produc_exter},
+ \citet{brooke03:_gams},
+ \citet{rutherford00:_gtapin_gtap_eg},
+ \citet{fujita99jp:_spatial_econom},
+ \citet{wong95:_inter_trade_goods_factor_mobil_},
+ \citet{brezis93:_leapf_inter_compet},
+ \citet{krugman91:_geogr_trade},
+ \citet{krugman91:_is_bilat_bad},
+ \citet{wang89:_model_therm_hydrod_aspec_molten},
+ \citet{lucas76:_econom_polic_evaluat},
+ \citet{milne-thomson68:_theor_hydrod},
+ \citet{2007yamasue482353}，
+ \citet{2009yamasue502165} 
+\end{screen}
+
+この場合の \texttt{tex} ファイルでの命令．
+
+\begin{screen}
+\begin{verbatim}
+ \citet{ishikawa03:_green_gas_emiss_contr_open_econom},
+ \citet{ishikawa94:_revis_stolp_samuel_rybcz_theor_produc_exter},
+ \citet{brooke03:_gams}, \citet{rutherford00:_gtapin_gtap_eg},
+ \citet{fujita99jp:_spatial_econom},
+ \citet{wong95:_inter_trade_goods_factor_mobil_},
+ \citet{brezis93:_leapf_inter_compet}, \citet{krugman91:_geogr_trade},
+ \citet{krugman91:_is_bilat_bad}, \citet{wang89:_model_therm_hydrod_aspec_molten},
+ \citet{lucas76:_econom_polic_evaluat}, \citet{milne-thomson68:_theor_hydrod}
+ \citet{2007yamasue482353}, \citet{2009yamasue502165} 
+\end{verbatim}
+\end{screen}
+
+
+\section{使用法}
+
+基本的に他の \BibTeX スタイルファイルを使う場合と同じですが，いくつか違う部分，
+気を付ける部分があります．
+
+\subsection{必要なもの}
+
+\texttt{jecon.bst} を利用するには，\texttt{natbib.sty}が必要になります．最近の
+\LaTeX を使っている人は標準で \texttt{natbib.sty} もインストールされていると思い
+ます\footnote{持ってない人は CTAN で入手してください．}．
+
+
+\subsection{\texttt{jecon.bst} のインストール}
+
+\texttt{jecon.bst} は \texttt{jplain.bst}，\texttt{jalpha.bst} 等と同じ場所に置
+いてください\footnote{\texttt{BSTINPUTS} という環境変数を設定することで自分の好
+きな場所にbstファイルを置けるようになります．}．\texttt{jplain.bst} を検索して見
+付かったディレクトリに入れておけばいいと思います．
+
+\subsection{\texttt{bib} ファイルの書き方}
+
+\texttt{bib}ファイルとは拡張子が \texttt{bib} である \BibTeX のデータベースファ
+イルのことです．この書き方も基本的には普通の場合と同じです．三つだけ例を挙げとき
+ます．
+
+\begin{screen}
+ \begin{verbatim}
+
+@InCollection{oyama99:_mark_stru,
+  author =       {大山 道広},
+  title =        {市場構造・経済厚生・国際貿易},
+  editor =       {岡田 章 and 神谷 和也 and 柴田 弘文 and 伴 金美},
+  booktitle =    {現代経済学の潮流 1999},
+  pages =        {3-34},
+  publisher =    {東洋経済新報社},
+  year =         1999,
+  yomi =         {おおやま みちひろ}
+}
+ \end{verbatim}
+\end{screen}
+
+注意点として，
+\begin{itemize}
+\item 名前は，日本語文献では「姓 名」の順で author を指定してください
+      （姓・名の間に半角か全角の空白を入れてください）．\\
+      \textbf{注：日本語文献での人名の指定方法については第\ref{sec:nihonjin}節も
+      読んでください．今後は日本語文献でも英語文献と同様の名前の指定方法（つまり，
+      「姓, 名」）とする方がよいかもしれません}．
+ \item \texttt{yomi} フィールドを付けると日本語文献を Reference で列挙するときに
+      並び順を考慮してくれます．\texttt{yomi}フィールドの記入方法には
+       \begin{itemize}
+        \item ローマ字で書く（e.g. \texttt{Michihiro Ohyama}）
+        \item ひらがなで書く（e.g. おおやま みちひろ）
+       \end{itemize}
+       の 2 種類の方法があります．
+
+       \paragraph{ローマ字で書くケース}
+       ローマ字で書くときには次の 3 つの形式のどれかで書いてください．
+       \begin{enumerate}
+        \item first name -- family name (e.g. \texttt{Michihiro Ohyama})
+        \item family name, first name (e.g. \texttt{Ohyama, Michihiro})
+        \item family name のみ (e.g. \texttt{Ohyama})
+       \end{enumerate}
+       このうち 2 は \texttt{jecon.bst} 以外の bst ファイルでは上手く処理できる
+       かわかりませんので，他の bst も利用するような人は 1（あるいは 3）の形式で
+       書いておいたほうがよいと思います\footnote{3 の形式で書いた場合，同じ姓を
+       持った違う著者同士が混ざって表示されることがあります．そのようなことを避
+       けたいときには 1 の形式で書くようにしてください．}．\texttt{yomi} をロー
+       マ字で書いた場合には，英語の文献と混ざった形で alphabet 順で並べられます．
+
+       \paragraph{ひらがなで書くケース}
+       ひらがなで書く場合には「姓\ 名」（間に空白），あるいは「姓」で書いてくださ
+       い．ひらがなで書いた場合，日本語の文献は著者名のあいうえお順で，英語文献
+       とは別に並べられます．日本語文献・英語文献を分けた形で列挙したい場合は，
+       \texttt{yomi} フィールドをひらがなで書くようにしてください．経済学では英
+       語文献と日本語文献は分けた形で列挙することが多いので，\texttt{yomi} フィー
+       ルドをひらがなで書いておくのがよいと思います．
+
+       \paragraph{その他}
+       日本語文献の \texttt{yomi} フィールドを省略してしまうと変な順番で列挙され
+       てしまいます．このサンプルファイルでは \citet{nishimura90:_micr_econ} と
+       \citet{katayama2001} いう文献だけローマ字指定，その他の文献はひらがな指定
+       をしています．このため，\citet{nishimura90:_micr_econ} と
+       \citet{katayama2001} は alphabet 順で英語文献と混ざったかたちで表示され，
+       その他の文献は英語文献とは別にあいうえお順で表示されます．
+ \item \texttt{pages} フィールドに関しては，\texttt{3--34} のようにハイフンを二
+       個続けて書いておかないときれいに表示されないのですが，\texttt{jecon.bst}
+       では，上の例のように \texttt{3-34} と書いていても自動的に \texttt{3--34}
+       と変換するので一個でもかまいません．ただ，他の \BibTeX スタイルファイルも
+       使うという人はハイフンを二個にしといたほうがいいかもしれません．
+\end{itemize}
+
+\subsubsection{邦訳書の情報も付ける場合} \label{sec:hoyakusho}
+
+また book に関しては，以下のように \texttt{jauthor}，\texttt{jkanyaku}，
+\texttt{jtitle}，\texttt{jpublisher}，\texttt{jyear} を指定することで邦訳書の情
+報を付け加えることができます（これは \texttt{jpolisci.bst} の機能をそのまま使わ
+せていただいています）．以下の指定が reference にどう反映されるかは，後の
+reference 部分を見て確認してください．\\
+
+\begin{screen}
+ \begin{verbatim}
+@Book{fujita99jp:_spatial_econom,
+  author =       {Masahisa Fujita and Paul R. Krugman and Anthony J. Venables},
+  title =        {The Spatial Economy},
+  publisher =    {MIT Press},
+  address =      {Cambridge, MA},
+  year =         1999,
+  jauthor =      {小出 博之},
+  jtitle =       {空間経済学},
+  jpublisher =   {東洋経済新報社},
+  jyear =        2000
+}
+ \end{verbatim}
+\end{screen}
+
+\subsubsection{邦訳書}
+\label{sec:hoyakusho}
+
+邦訳書を book として登録する場合には，著者が外国人であっても，名前は片仮名となる
+と思います．このようなときには次のように指定してください．\\
+
+\begin{screen}
+ \begin{verbatim}
+@Book{barro97jp,
+  author =       {R. J. バロー},
+  title =        {経済学の正しい使用法 -政府は経済に手を出すな-},
+  publisher =    {東洋経済新報社},
+  year =         1997,
+  jauthor =      {仁平 和夫},
+  yomi =         {ばろー}
+}
+ \end{verbatim}
+\end{screen}
+
+注意点
+\begin{itemize}
+\item 上のように登録して置けば，\verb|\citet{barro97jp}| と書くことで，
+  「\citet{barro97jp}」 という表示になります．
+\item 上の例のように first name (+ middle name) を頭文字で付け加えるなら，
+  英語文献の場合と同じように，「first name - last name」の順で指定してくだ
+  さい．
+\item 頭文字を表すアルファベットは半角で書いてください\footnote{first name，
+    last name の両方を全角で書くと，日本人の名前と認識してしまうので．}．
+\item \verb|{ロバート バロー}| のように first name，last name のどちらも片仮名で
+  書いてしまうと上手く処理されません（姓名の順序が逆になります）\footnote{どうし
+    てもどちらも片仮名で書きたい場合には，\verb|{ロバート・バロー}| と書いてくだ
+    さい．ただし，この場合には引用部分が，バロー (1997) ではなく，ロバート・バ
+    ロー (1997) という形式になってしまいます．}．
+\item この場合も \verb|yomi| フィールドを付けないと適切には並びかえられま
+  せん．
+\item もう一つ邦訳書の例として，\cite{markusen99jp:trade_vol_1} という文献
+  を挙げてありますので，そちらも参考にしてください．
+\end{itemize}
+
+\subsubsection{bibファイルにおける日本語での人名の書き方}
+\label{sec:nihonjin}
+
+ここまで \texttt{bib} ファイルの書き方を説明してきました．ここで人名の指定方法に
+ついて補足説明をしておきます．
+
+通常，\texttt{bib}ファイルにおいて英語文献の人名を指定するときには「名 姓」か
+「姓, 名」（区切は半角カンマ）という記述で指定します．例えば，著者が Barack
+Obama であるときには
+\begin{screen}
+ \begin{verbatim}
+  author =       {Barack Obama}
+  author =       {Obama, Barack}
+ \end{verbatim}
+\end{screen}
+のような指定をします．これは\texttt{author}フィールドだけではなく，
+\texttt{editor}についても同じです．
+
+一方，日本語文献での人名の指定方法では姓名の順番が逆になります．つまり，「姓 名」
+という記法，あるいは「名, 姓」（区切は半角カンマ）という記法になります．例えば，
+著者が「安倍晋三」なら，
+\begin{screen}
+ \begin{verbatim}
+  author =       {安倍 晋三}
+  author =       {晋三, 安倍}
+ \end{verbatim}
+\end{screen}
+という指定になります．これは\texttt{editor}フィールドでも同じように指定します．
+\vspace*{1em}
+
+以上のように\texttt{bib}ファイルでは英語文献の場合と日本語文献の場合で人名の指定
+方法（姓名の順序）を逆にするというルールになっています．このため，日本語文献に対
+応した\texttt{bst}ファイル（例えば，\texttt{jplain.bst}等）は，英語の場合と日本
+語の場合で人名を処理するときの動作を変更するように作成されています
+\footnote{\texttt{bst}ファイルのルールが先ではなく，\texttt{bib}ファイルで日本人
+名は普通の日本語の順番で書きたいため，そうできるように\texttt{bst}ファイルの処理
+を変更したということかもしれません．このような書き方になった経緯は私もよくわかり
+ません．}．\vspace*{1em}
+
+\texttt{jecon.bst}についても同様に作成されています．このため，前節まで説明してき
+たように，日本語文献の場合，「姓 名」（あるいは「名, 姓」）という形で人名を指定す
+ることになります．これは\texttt{author}フィールドだけの話ではなく，人名を指定する
+フィールド（\texttt{editor}，\texttt{yomi}，\texttt{jauthor}，\texttt{jkanyaku}等）全
+てについて同じようにします．
+
+\begin{screen}
+  \textbf{［注］} ただし，\texttt{jecon.bst}では一つ例外があります．
+  第\ref{sec:hoyakusho}節で説明したように，「R.J. バロー」というような外国人名を
+  片仮名で記述する場合だけ英語文献での順番と同じにします．
+\end{screen}
+\\
+
+普通\texttt{bib}ファイルはそういうルールで書くものということになっていますが，こ
+れでは少し困る場合があります．\vspace*{1em}
+
+
+まず第一にMendeley\footnote{\url{http://www.mendeley.com/}}のような文献管理ソフ
+トを利用して文献を管理し，そこから\texttt{bib}ファイルを生成するというような場合
+です．文献管理ソフトでは英語文献の人名であろうが，日本語文献の人名であろうが，普
+通は同じ扱いをすると思います．実際，私もMendeleyを利用していますが，英語文献でも
+日本語文献でも同じように人名を扱っています（日本語文献は姓名を逆に登録するという
+ようなことはしません）．そうしないと著者名（姓）をキーにして表示する文献にフィル
+ターをかけるときなどに困るからです．このように人名の扱いが同じため，Mendeleyから
+\texttt{bib}ファイルを生成させると日本語文献の人名も英語文献の人名と同じ形の出力
+になります．こうして生成した\texttt{bib}ファイルを通常の\texttt{bst}ファイルで処
+理してしまうと日本語文献の人名の扱いがおかしくなってしまいます（姓名の順序が逆に
+なってしまいます）．\vspace*{1em}
+
+もう一つは文献データベースで日本語文献も英語文献と同じように人名を扱っているケー
+スがあることです．例えば，CiNiiという日本語の論文，書籍，雑誌のデータベースを提供
+するウェブサイトがあります（\url{http://ci.nii.ac.jp/}）．CiNiiでは様々な形式で文
+献情報を出力することができ，\BibTeX 形式でも出力できます．しかし，そのCiNiiが提供
+する \BibTeX 形式では著者名の扱いが普通の \texttt{bib} ファイルのルールとは逆になっ
+ています．
+
+例えば，\url{http://ci.nii.ac.jp/naid/40019823794}という文献の情報を \BibTeX 形式
+で出力すると次のようになります．
+\begin{screen}
+\begin{verbatim}
+@article{白井大地:2013-09,
+author="白井, 大地 and 武田, 史郎 and 落合, 勝昭",
+title="温室効果ガス排出規制の地域間CGE分析",
+journal="環境経済・政策研究",
+ISSN="1882-3742",
+publisher="岩波書店",
+year="2013",
+month="sep",
+volume="6",
+number="2",
+pages="12-25",
+URL="http://ci.nii.ac.jp/naid/40019823794/",
+DOI="",
+}
+\end{verbatim}
+\end{screen}
+\texttt{author}フィールドが
+\begin{screen}
+\begin{verbatim}
+author="白井, 大地 and 武田, 史郎 and 落合, 勝昭",
+\end{verbatim}
+\end{screen}
+となっており，英語文献と同じ姓名の順序で指定されていることがわかります．このよう
+に指定されていたら普通の\texttt{bst}ファイルで処理すると姓名の順序が逆になってし
+まいます．
+
+この問題に対処するため，\texttt{jecon.bst}では，日本語文献での人名も英語文献の人
+名と同様に記述されている場合でも適切に処理する機能を加えています．それに
+は\texttt{jecon.bst}の
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.sei.mei.order}
+{ #0 }
+\end{verbatim}
+\end{screen}
+という部分を
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.sei.mei.order}
+{ #1 }
+\end{verbatim}
+\end{screen}
+に書き換えてください．
+
+\texttt{bst.sei.mei.order}に非ゼロを指定すると\texttt{bib}ファイルにおいて日本語
+文献の人名も英語文献の人名と同様の記法が使われているものとして処理をおこないます．
+これは\texttt{author}フィールドに限った話ではな
+く，\texttt{editor}，\texttt{yomi}，\texttt{jauthor}，\texttt{jkanyaku}等も全て英
+語表記の人名と同じ形式で記述されているとみなします．
+
+このファイルと一緒に配布されている\texttt{jecon-sample-reverse.bib}というファイル
+では日本語文献の人名が英語文献での人名と同じ方法で指定されています．上のよう
+に\texttt{bst.sei.mei.order}に非ゼロを設定すれば，そのように書かれ
+た\texttt{bib}ファイルでも適切に扱うことができます．
+
+昔は\texttt{bib}ファイルというのは自分で作成する（自分で書く）ものであったと思い
+ます．ですので，日本語文献の場合，姓名を逆にするというルールもおかしくはなかった
+のかもしれません．しかし，現在では，文献の情報を文献管理ソフトで管理したり，ネッ
+トのデータベースからとってくることが多くなっています．そういったソフトウェアやデー
+タベースにおいて英語文献，日本語文献とも同じように人名を扱っていることが多いよう
+ですので，今後は\texttt{bib}ファイルにおいてもそういうルールが普通になってくるか
+もしれません．私自身，Mendeley で文献管理をしており，今後は \texttt{bib} ファイ
+ルを書く際に日本語文献で姓名の順序を逆にするというようなことはしないと思います
+（この \texttt{jecon.bst} のサンプルとして用意する \texttt{bib} ファイルは別です
+が）．ただそうして日本語文献も英語文献と同じように扱うようになると，これまで作成
+された日本語文献に対応した\texttt{bst}ファイルは使えなくなってしまうという問題が
+出てきますが．
+
+\subsection{\texttt{tex} ファイルの書き方}
+
+\texttt{tex} ファイル（\TeX のファイル）の書き方も普通と同じです．まず，
+プリアンプルで \texttt{natbib.sty} を読み込みます．
+
+\begin{screen}
+ \begin{verbatim}
+
+ \usepackage{natbib}
+ \end{verbatim}
+\end{screen}
+
+さらに，\verb|\begin{document}| の後で，\BibTeX のスタイルファイルとして 
+\texttt{jecon.bst} を指定します．
+
+\begin{screen}
+ \begin{verbatim}
+
+ \bibliographystyle{jecon}
+ \end{verbatim}
+\end{screen}
+
+引用したい部分では，
+
+\begin{screen}
+ \begin{verbatim}
+        
+ \citet{ito85:_inte_trad} によれば．．．
+ \end{verbatim}
+\end{screen}
+
+というように書きます．
+
+最後に Reference を付けたい部分で，
+
+\begin{screen}
+ \begin{verbatim}
+        
+ \bibliography{jecon-sample}
+ \end{verbatim}
+\end{screen}
+
+というようにデータベースファイル（ここでは，\texttt{jecon-sample.bib} というファ
+イル）を指定します．
+
+\subsection{コンパイル}
+
+\texttt{tex} ファイルのコンパイルは，普通に \BibTeX を使う場合と同じよう
+にしてください．
+
+\begin{itemize}
+ \item 一回 \texttt{platex} を実行
+ \item 一回 \texttt{pbibtex} を実行
+ \item あと，二回 \texttt{platex} を実行
+\end{itemize}
+
+\BibTeX のコマンドとしては，\texttt{bibtex} ではなく \texttt{pbibtex} を使わなけ
+ればいけないです\footnote{昔は日本語文献用の \BibTeX のコマンドは \texttt{jbibtex} で
+したが，新しい \TeX のシステムでは \texttt{pbibtex} に変更されました．}．
+
+\subsection{文字コードについて}
+
+\texttt{jecon.bst}（一緒に配布している他の bst ファイルも），
+\texttt{jecon-sample.bib}，\texttt{jecon-sample.tex} は全て文字コードに
+UTF-8を利用しています．従って，そのまま利用するにはコンパイル時に UTF-8
+で処理する必要があります．
+
+現在，配布されている platexや pbibtexはUTF-8に対応していますので，単にコ
+ンパイルの際に以下のようなオプションを加えてやればよいだけです．
+\begin{screen}
+ \begin{verbatim}
+
+ platex --kanji=utf8 jecon-sample.tex
+ pbibtex --kanji=utf8 jecon-sample.aux
+ \end{verbatim}
+\end{screen}
+
+ただし，
+\begin{itemize}
+ \item UTF-8に対応していない古い \TeX のシステムを利用している．
+ \item UTF-8に対応している \TeX を利用しているが，普段他の文字コードを利
+       用している．
+\end{itemize}
+という場合には，他の文字コードで \texttt{jecon.bst} を利用したいというときがある
+と思います．そのような場合には \texttt{jecon.bst} ファイルの文字コードをそのコー
+ドに変換して利用してください（この\texttt{jecon-sample.tex} をコンパイルしたいと
+いうときには，\texttt{jecon-sample.tex}，\texttt{jecon-sample.bib} の文字コードも
+変換してください）．例えば，Windowsを利用しているので，これまで通り Shift JIS コー
+ドで利用したいというときには，\texttt{jecon.bst} をShift JIS コードに変換してくだ
+さい．
+
+Windows上でファイルの文字コードを変換するには，文字コードを指定して保存で
+きるエディタ等を利用すればよいです．例えば，Shift JIS コードに変換するに
+は，一度メモ帳で \texttt{jecon.bst} を開き，文字コードにShift JIS コード
+を指定して保存し直せばよいです．
+
+
+
+\section{カスタマイズ}
+
+ちょっとした形式の変更程度のカスタマイズは簡単にできます．
+\texttt{jecon.bst} 内の最初の部分で，\texttt{bst.xxx.yyy} というような名
+前の関数がたくさん定義されています．この関数の中身を変更することで出力の
+形式を変更することができます．
+
+\subsection{関数についての注}
+
+\begin{itemize}
+ \item ここでのカスタマイズとは，参考文献部分の書式のカスタマイズのことです．引
+       用部分の書式は，引用のために用いるスタイルファイル（\texttt{natbib.sty}）
+       に主に依存しています．
+ \item この方法では項目（著者，年，タイトル等）の表示の順番を変更するよう
+       なカスタマイズは（一部の例外を除いて）できません．そのようなカスタ
+       マイズをするには \texttt{jecon.bst} のプログラムを書き換える必要
+       があります（自分で簡単にできる場合もあると思います）．
+ \item \texttt{.pre} が付いている関数は前に付ける文字列，\texttt{.post} 
+       が付いている関数は後に付ける文字列を表します．
+ \item \texttt{.jp} が付いている関数は日本語文献用．
+ \item Reference における文献（エントリー）の並び順を変えることもできま
+       すが，それについては第 \ref{sec:sort_rule} 節で説明します．
+ \item 以下で幾つか例を挙げていますが，例で挙げるもの以外にもたくさんの
+       関数があります．自分で適当に中身を書き換えてみてください．
+\end{itemize}
+
+\subsection{カスタマイズ例}
+
+\subsubsection{author, editor 間の区切を ``and'' から ``\&'' に変更する}
+
+これには\texttt{bst.and} と \texttt{bst.ands} という関数の中身を変更しま
+す．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.and}
+{ " and " }
+FUNCTION {bst.ands}
+{ ", and " }
+\end{verbatim}
+\end{screen}
+
+これを以下のように書き換えます．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.and}
+{ " \& " }
+FUNCTION {bst.ands}
+{ " \& " }
+\end{verbatim}
+\end{screen}
+
+すると，参考文献の author 部分が
+\begin{center}
+Fujita, Masahisa, Paul~R. Krugman, and Anthony~J. Venables \\
+ $\downarrow$ \\
+Fujita, Masahisa, Paul~R. Krugman \& Anthony~J. Venables 
+\end{center}
+となります．
+
+\subsubsection{author を small caps 体にする}
+
+これには \texttt{bst.author.pre} と \texttt{bst.author.post} という関数
+の中身を変更します．
+
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.author.pre}
+{ "" }
+FUNCTION {bst.author.post}
+{ "" }
+\end{verbatim}
+\end{screen}
+を以下のように変更する．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.author.pre}
+{ "\textsc{" }
+FUNCTION {bst.author.post}
+{ "}" }
+\end{verbatim}
+\end{screen}
+
+参考文献の author 部分が
+\begin{center}
+Fujita, Masahisa, Paul~R. Krugman, and Anthony~J. Venables \\
+ $\downarrow$ \\
+\textsc{Fujita, Masahisa, Paul~R. Krugman, and Anthony~J. Venables}
+\end{center}
+となります．
+
+\subsubsection{volume と number の書式の変更}
+
+これには \texttt{bst.volume.pre}，\texttt{bst.volume.post}，
+\texttt{bst.number.pre}，\texttt{bst.number.post} という関数の中身を変更
+します．
+
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.volume.pre}
+{ ", Vol. " }
+FUNCTION {bst.volume.post}
+{ "" }
+FUNCTION {bst.number.pre}
+{ ", No. " }
+FUNCTION {bst.number.post}
+{ "" }
+\end{verbatim}
+\end{screen}
+を以下のように変更する．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.volume.pre}
+{ ", \textbf{" }
+FUNCTION {bst.volume.post}
+{ "}" }
+FUNCTION {bst.number.pre}
+{ " (" }
+FUNCTION {bst.number.post}
+{ ")" }
+\end{verbatim}
+\end{screen}
+
+これで参考文献の volume, number の書式が，``Vol. 5, No. 10'' から 
+``\textbf{5} (10)'' となります．
+
+
+\subsubsection{著者名の省略方法を変更する}
+
+デフォールトでは参考文献部分で同じ著者が続く場合に，\verb|\bysame|という命令
+（{}\bysameline{}という記号）によって省略するようになっています．
+
+例えば，次のような文献があるとします．
+\begin{screen}
+\begin{itemize}
+ \item Mazda, A., Subaru, B., and Honda, C., (2011) ``ABC''
+ \item Mazda, A., Subaru, B., and Honda, C., (2011) ``DEF''
+ \item Mazda, A., Subaru, B., and Toyota, D., (2011) ``GHI''
+\end{itemize}
+\end{screen}
+
+デフォールトの設定（\texttt{bst.use.bysame} に \texttt{\#1} が設定されているとき）
+ではこれらの文献は次のように表示されます．
+\begin{screen}
+\begin{itemize}
+ \item Mazda, A., Subaru, B., and Honda, C., (2011) ``ABC''
+ \item \bysameline, (2011) ``DEF''
+ \item Mazda, A., Subaru, B., and Toyota, D., (2011) ``GHI''
+\end{itemize}
+\end{screen}
+
+もし全ての著者の名前を省略せずに表示したいのなら，``\texttt{bst.use.bysame}'' の
+中身を次のようにします．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.use.bysame}
+{ #0 }  
+\end{verbatim}
+\end{screen}
+
+デフォールトの設定では，著者名の省略は著者名が完全に一致するときのみおこなわれま
+した．ここで \texttt{bst.use.bysame} に次のように \texttt{\#2} を設定すると
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.use.bysame}
+{ #2 }  
+\end{verbatim}
+\end{screen}
+
+以下のように異なったスタイルの省略方法を選択することができます．
+\begin{screen}
+\begin{itemize}
+ \item Mazda, A., Subaru, B., Honda, C., (2011) ``ABC''
+ \item \bysameline, \bysameline, and \bysameline, (2011) ``DEF''
+ \item \bysameline, \bysameline, and Toyota, D., (2011) ``GHI''
+\end{itemize}
+\end{screen}
+つまり，著者名の一部のみが同じ場合でも \verb|\bysame| による省略をおこなうような
+表示形式です．このスタイルは \verb|jecon_b.pdf| で使われています．
+
+
+
+\vspace*{1em}
+
+\subsubsection{author（editor）名における「姓」，「名」の順序を変更する}
+
+経済学の reference では，first author 名は「姓, 名」の順番で表記し，
+second author 以下は「名 姓」とするというケースが多いと思います． 
+\texttt{jecon.bst}でもデフォールトではこのような形式にしていますが，これも 
+\texttt{bst.author.name} という関数の中身を変えることで変更できます．
+
+\texttt{bst.author.name} はもともとは次のように定義されています．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.author.name}
+{ #0 }
+\end{verbatim}
+\end{screen}
+この \verb|#0| を \verb|#1| や \verb|#2| に変更することで姓名の順序が変
+わります．例えば，
+\begin{verbatim}
+  author =	 {Masahisa Fujita and Paul R. Krugman and Anthony J. Venables}
+\end{verbatim}
+という author が指定された文献があったとします．\texttt{bst.author.name} 
+の値によって，この author 名は以下のように表示が変わります．
+\begin{enumerate}
+ \item \verb|#0| のとき： これがデフォールト． First author のみ「姓, 
+       名」，残りは「名 姓」\\
+       $\rightarrow$ Fujita, Masahisa, Paul~R. Krugman, and
+       Anthony~J. Venables
+ \item \verb|#1| のとき： 全ての author で「姓, 名」という順序\\
+       $\rightarrow$ Fujita, Masahisa, Krugman, Paul~R., and Venables, Anthony~J.
+ \item \verb|#2| のとき： 全ての author で「名 姓」という順序\\
+       $\rightarrow$ Masahisa Fujita, Paul~R. Krugman, and Anthony~J. Venables
+\end{enumerate}
+
+\subsubsection{first name を頭文字のみにする}
+
+デフォールトでは，bib ファイル内で，first name を略さずに指定している場
+合，そのまま略さずに表示するようにしています．
+\texttt{bst.first.name.initial} という関数の中身を変えると，これを頭文字
+のみにすることができます．
+
+\texttt{bst.first.name.initial} はもともとは次のように定義されています．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.first.name.initial}
+{ #0 }
+\end{verbatim}
+\end{screen}
+この \verb|#0| を \verb|#0| 以外（例えば，\verb|#1|）に変更すると
+first name はイニシャルだけを表示するようになります．
+\begin{center}
+Fujita, Masahisa, Paul~R. Krugman, and Anthony~J. Venables \\
+ $\downarrow$ \\
+Fujita, M., P.~R. Krugman, and A.~J. Venables
+\end{center}
+
+\subsubsection{title 内の先頭文字以外を小文字に変換する}
+
+デフォールトでは，bib ファイルで title を
+\begin{center}
+  \verb| title =	{Econometric Policy Evaluation: A Critique}|
+\end{center}
+というように指定していた場合，reference ではそのまま
+\begin{center}
+ Econometric Policy Evaluation: A Critique
+\end{center}
+というような形で出力されます．
+
+\texttt{bst.title.lower.case} という関数の中身を以下のように \verb|#0| 
+以外に書き換えると，先頭文字（と : の後の文字）以外は全て小文字に変換す
+るようになります．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.title.lower.case}
+ { #1 }
+\end{verbatim}
+\end{screen}
+
+つまり，以下のような出力になります．
+\begin{center}
+ Econometric policy evaluation: A critique
+\end{center}
+
+ただし，Book の title 等には影響しません．また，元々小文字ならなにも変わ
+りません．
+
+\subsubsection{Reference の文献の前に番号を付ける}
+
+\texttt{jplain.bst} のように reference 部分の文献の前に番号（number index）を付け
+る方法\footnote{引用部分は，著者（年）で変わりません．}．これには，
+\texttt{bst.use.number.index} を以下のように変更します．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.use.number.index}
+ { #1 }
+\end{verbatim}
+\end{screen}
+
+他に幾つかある \texttt{bst.number.index.xxx.yyy} という関数の中身を調整することで，
+番号を表示するときの見た目（インデント幅等）を調整できます．Computer modern 以外
+のフォントを利用するときには，デフォールトの設定ではインデントがずれるので，調整
+をおこなったほうが見た目がよくなると思います．
+
+\subsubsection{年によるソートを逆にする（新しい文献を上にする）}
+
+デフォールトでは同じ著者の文献ならより古い文献ほど reference で上側に表
+示されます．これを逆に新しい文献ほど上側に表示するように変更できます．こ
+れには \texttt{bst.reverse.year} に 0 以外を指定します．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.reverse.year}
+{ #1 }
+\end{verbatim}
+\end{screen}
+
+このような設定は普通は意味はないと思いますが，自分の業績リスト等を \TeX 
+上で \BibTeX を使って作成するときには使えるかもしれません．
+
+\subsubsection{日本語 author（editor）の姓名の間に空白（文字列）を入れる}
+
+Reference での日本語 author（or editor）の姓名の間になんらかの文字列を入
+れることができます．これには\verb|bst.sei.mei.one.jp|，
+\verb|bst.sei.mei.two.jp| という二つの関数の中身を変更します．前者は姓名
+のどちらかが一文字の author 名に対する設定で，後者は姓名のどちらも二文字
+以上の author 名に対する設定です．例えば，次のように指定したとします．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.sei.mei.one.jp}
+{ "　" }        % <- 全角空白を指定している．
+FUNCTION {bst.sei.mei.two.jp}
+{ " " }         % <- 半角空白を指定している．
+\end{verbatim}
+\end{screen}
+
+この場合，Reference では根岸隆という author 名は「根岸　隆」のように間に
+全角空白が挿入されて表示され，小宮隆太郎は「小宮 隆太郎」のように半角空
+白が挿入されて表示されます．デフォールトでは何も挿入しないようになってい
+ます（空の文字列が指定してあります）．なお，これは incollection の editor 
+には適用されません．
+
+\subsubsection{年の表示される位置を後ろにもってくる}
+
+標準では「年」は著者名のすぐ後ろに表示されるようになっていますが，これを
+後ろにもっていくことができます．これには \texttt{bst.year.backward} とい
+う関数の中身を 0 以外にしてください．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.year.backward}
+{ #1 }
+\end{verbatim}
+\end{screen}
+
+後ろとは \texttt{note} フィールドがなければ最後の位置，\texttt{note} フィー
+ルドがあればその前です．例えば，以下のようになります．
+\begin{center}
+ Krugman, Paul R. (1991a) \textit{Geography and Trade}, Cambridge, MA:
+ MIT Press. \\
+ $\downarrow$ \\
+ Krugman, Paul R. \textit{Geography and Trade}, Cambridge, MA: MIT Press, 1991a.
+\end{center}
+この例では同時に年を囲む括弧をとるように設定を変更しています．
+
+\subsubsection{日本語文献に含まれる数字（年，月，号，巻等）を漢数字に変換する}
+
+経済学の論文は横書きで書くことが多いのでこんな機能にはあまり意味がないと
+思いますが，数字を漢数字に変換する機能も付いています．これには 
+\texttt{bst.kansuji.jp} という関数の中身を 0 以外に変更します\footnote
+{数字を漢数字にするには，\LaTeX の \texttt{plext} スタイルの 
+\verb|\kanji| 命令を利用する方法がありますが，ここでは bst ファイルの中
+で直接数字 $\rightarrow$ 漢数字の変換をおこなっています．}．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.kansuji.jp}
+{ #1 }
+\end{verbatim}
+\end{screen}
+
+縦書きで論文を書く人には役に立つかもしれません（？）．
+
+\subsubsection{区切り文字（ピリオド，カンマ） について}
+
+Journal article のケースでは論文名（title フィールド）のすぐ後に
+雑誌名（journal フィールド）がきます．ここで，例えば
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.title.post}
+{ ".''" }
+
+FUNCTION {bst.journal.pre}
+{ ", {\it " }
+\end{verbatim}
+\end{screen}
+というように指定していたとします．\texttt{jecon.bst} では
+\begin{center}
+\verb|bst.title.pre + title + bst.title.post| \\
+\verb|bst.journal.pre + journal + bst.journal.post|
+\end{center}
+という文字列を作成し，両者を繋げるという処理をおこないますので，
+上のように指定している場合には
+\begin{flushleft}
+ ..., ``The Double Dividend from Carbon Regulations in Japan\textbf{.'',} \textit{Journal of the Japanese and International Economies}, ...
+\end{flushleft}
+のように，ピリオドがあるにもかかわらずその後にカンマがくるという出力になってしま
+います．これは少しおかしいので，このようにピリオド，カンマが連続するような場合に
+は後側を省略するという処理をおこなっています．上の例では，「.'',」 ではなく「.''」
+にするということです．同じことは 「.,」，「..」，「.',」等にも適用されます．
+
+
+\subsection{特殊なフィールド}
+
+ここまでに既に普通のbibファイルでは指定しない特殊なフィールドがいくつかでてきま
+した．第~\ref{sec:hoyakusho} 節の \texttt{jauthor}，\texttt{jkanyaku} 等です．こ
+れに加えて，いくつか\texttt{jecon.bst} 独自のフィールドがあります
+\footnote{\texttt{bst} ファイルによっては同じフィールドに対応しているものもある
+と思います．}．
+\begin{itemize}
+ \item \texttt{url}
+ \item \texttt{access}
+ \item \texttt{doi}
+\end{itemize}
+
+\texttt{url} は URL（ウェブサイトのアドレス）を指定するフィールド．
+\texttt{access} はそのURLにアクセスした日付を指定しておくフィールド．最後の
+\texttt{doi}は名前の通りDOI（digital object identifier）を指定しておくフィールド
+です．
+
+\begin{screen}
+ \textbf{注意：}これらのフィールドを指定した文献を扱うときには \verb|\url| 命令が
+ 利用できるようになっていなければいけないです．\verb|\url|命令は例えば
+ \texttt{hyperref} パッケージで定義されていますので，次のようにプリアンプルで読み込んでおい
+ てください．
+ \begin{verbatim}
+\usepackage{hyperref}
+ \end{verbatim} 
+\end{screen}
+
+
+\subsubsection{urlとaccessフィールド}
+
+例えば，\texttt{jecon-sample.bib}に次のような文献があります．
+\begin{verbatim}
+@unpublished{rutherford00:_gtapin_gtap_eg,
+  author       = {Thomas F. Rutherford and Sergey V. Paltsev},
+  title        = {{GTAPinGAMS} and {GTAP-EG}: Global Datasets for Economic
+                  Research and Illustrative Models},
+  month        = sep,
+  year         = 2000,
+  url          = {http://www.mpsge.org/gtap5/index.html},
+  access       = {29th June, 2013},
+  note         = {Working Paper, University of Colorad, Department of Economics}
+}
+\end{verbatim}
+
+これは参考文献では次のような表示になります．
+\begin{screen}
+ \begin{itemize}
+  \item  Rutherford, Thomas~F. and Sergey~V. Paltsev (2000) ``{GTAPinGAMS} and
+ {GTAP-EG}: Global Datasets for Economic Research and Illustrative Models,''
+ September, URL: \url{http://www.mpsge.org/gtap5/index.html}, accessed on 29th
+ June, 2013, Working Paper, University of Colorad, Department of Economics.
+ \end{itemize}
+\end{screen}
+
+\begin{itemize}
+ \item URLの前後に付ける文字列は \texttt{bst.url.pre}，\texttt{bst.url.post} などで変更できます．
+ \item accessはURLにアクセスした日付けを指定するフィールドですので，URLフィールド
+       がないときには意味がありません．accessは指定しなければ何も表示されません．
+\end{itemize}
+
+\subsubsection{DOIフィールド}
+
+URLですと論文の置き場に変更が生じたときにリンク切れになりますが，DOIならそういう
+ことがありません．最近はDOIが指定された論文が多くなったので，DOIも指定できるよう
+にしました．
+
+例えば，次の文献はDOIを指定しています．
+\begin{verbatim}
+@article{Takeda2012a,
+  author       = {Takeda, Shiro and Tetsuya, Horie and Arimura, Toshi H.},
+  title        = {A CGE Analysis of Border Adjustments under the Cap-and-Trade
+                  System: A Case Study of the Japanese Economy},
+  journal      = {Climate Change Economics},
+  volume       = 3,
+  number       = 1,
+  doi          = {10.1142/S2010007812500030},
+  year         = 2012
+}
+\end{verbatim}
+
+これは参考文献では次のような表示になります．
+\begin{screen}
+ \begin{itemize}
+  \item Takeda, Shiro, Horie Tetsuya, and Toshi~H. Arimura (2012) ``A CGE Analysis of
+  Border Adjustments under the Cap-and-Trade System: A Case Study of the
+  Japanese Economy,'' {\it Climate Change Economics}, Vol. 3, No. 1, DOI:
+  \url{http://dx.doi.org/10.1142/S2010007812500030}.
+ \end{itemize}
+\end{screen}
+
+\section{文献ソートのルールについて}
+\label{sec:sort_rule}
+
+\noindent \textbf{［注］} 普通に参考文献つくるだけならこの節の説明は読ま
+ないでもいいと思います．参考文献で特殊な並び方をさせたいときのための説明
+です．
+
+\subsection{基本的なルール}
+
+ここでは reference における文献の並び順ルールについて説明します．文献の
+ソートは bib ファイルで指定されている各フィールドの値に従っておこなわれ
+ます．基本的には以下の優先順位に従ってソートがおこなわれます．
+\begin{enumerate}
+ \item 文献のタイプの種類（ただし，\texttt{bst.sort.entry.type} に非ゼロ
+       が設定されているときのみ）．
+ \item \texttt{year} の値（ただし，\texttt{bst.sort.year} に非ゼロが設定
+       されているときのみ）．
+ \item \texttt{absorder} の値
+ \item \texttt{author}，あるいは\texttt{editor}，日本語文献で
+       \texttt{yomi} が指定してあるときには \texttt{yomi} の値を優先
+ \item \texttt{year} の値
+ \item \texttt{order} の値
+ \item \texttt{month} の値
+ \item \texttt{title} の値
+\end{enumerate}
+
+上のルールは，まず，\texttt{bst.sort.entry.type} に非ゼロが設定されてい
+るならタイプ別（article，book，incollection 等）に分けられソート，次に 
+\texttt{bst.sort.year} に非ゼロが設定されているなら \texttt{year} の値 
+（年順）にソート，次に \texttt{absorder} の値を参照しソート，次に 
+\texttt{author}，\texttt{editor} の値（\texttt{yomi} が指定されていると
+きはそちらの値）を参照してソート，次に \texttt{year} の値でソートという
+ように並び順を決めていくということです．
+
+\texttt{bst.sort.entry.type} のデフォールト値 は 0 であるので，デフォールトではタ
+イプ別には分けず，全てのタイプの文献が混ざった形で列挙されます．
+\texttt{bst.sort.year} も同様にデフォールトではゼロが設定されているので関係ありま
+せん．また，\textbf{『\texttt{absorder} 』}と \textbf {『\texttt{order}』} は
+\texttt{jecon.bst} に独自のフィールドであり普通は指定されていないはずなのでやはり
+デフォールトでは関係ないです．従って，普通は \texttt{author}
+$\rightarrow$\texttt{year} $\rightarrow$\texttt{month}
+$\rightarrow$\texttt{title} の値に従ってソートされることになります．
+
+各フィールドの中での順位付けは文字コードが小さい順におこなわれます．例え
+ば，英語の \texttt{author} の中での順番は alphabet 順となります（a, b, c 
+という順に文字コードが大きくなるので）．また，日本語文献の著者で
+\texttt{yomi} にひらがなで指定してあるときには「あいうえお順」です．また，
+\texttt{year} の場合には数値が指定されていますが，このときは基本的に小さ
+いものが優先されます（小さい数のが文字コードが小さいので）\footnote{year 
+の並び順については逆にできます．前節参照．}．あと，日本語文献に関しては
+\begin{itemize}
+ \item \texttt{yomi} をひらがなで指定しているもの $\rightarrow$ 英語文献
+       とは分けて，後ろに並べられます．
+ \item \texttt{yomi} を alphabet で指定しているも $\rightarrow$ 英語文献
+       と混ぜた形で並べられます．
+\end{itemize}
+というルールがあります．
+
+普通の論文，レポート等を作成するときにはデフォールトのままの並び方で十分
+だと思いますが，特殊な参考文献を作成したい，参考文献での並び順をどうして
+も変更したいというような場合には，\texttt{absorder}，\texttt{order} といっ
+たフィールドを指定したり，その他のカスタマイズの機能を利用することで，あ
+る程度ソートの順番を変更することができます．以下ではその方法を説明します．
+
+\subsection{引用順でそのまま参考文献を並べる}
+
+特に並べ替えはせずに引用した順序のまま参考文献に並べるようにもできます．
+こうするには \texttt{bst.no.sort} に非ゼロを設定します．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.no.sort}
+{ #1 }
+\end{verbatim}
+\end{screen}
+
+なお，これと \verb|\bysame| を同時に利用すると問題が起こる場合があります 
+（表示がおかしくなる）ので注意してください．
+
+\subsection{文献のタイプによって分けて並べる}
+
+例えば，本（book），論文（article），本の中の論文（incollection）等をそれぞ
+れ分けて並べたいというようなときには，\texttt{bst.sort.entry.type} に非
+ゼロを設定します．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.sort.entry.type}
+{ #1 }
+\end{verbatim}
+\end{screen}
+
+タイプの並び順は \texttt{bst.sort.entry.type.order} という関数の中身によって設定
+されます．デフォールトでは alphabet 順，つまり，まず article の文献がまとまって列
+挙され，次に book が列挙，次に booklet $\rightarrow$ comment $\rightarrow$
+conference $\rightarrow$ inbook $\rightarrow$ incollection $\rightarrow$
+... $\rightarrow$ unpublished という形になります．この並び順を変更するには
+\texttt{bst.sort.entry.type.order} で各文献タイプに割当てられている数字を変更すれ
+ばよいです．数字が小さいほど先に列挙されることになります．デフォールトでは，
+article $\rightarrow$ 01，book $\rightarrow$ 02，booklet $\rightarrow$ 03，
+comment $\rightarrow$ 04 ... という割当になっています（\texttt{jecon.bst} 内の
+\texttt{bst.sort.entry.type.order} の定義を見て確認してください）．
+
+\subsection{\texttt{year}（年）に従って並べる}
+
+業績リスト，論文リストを作るというようなときは，年の順番で文献を並べるこ
+とが多いと思います．単著の論文だけであれば，自然に年の順番で並ぶことにな
+りますが，共著論文も入っている場合には年順にはならない場合がでてきてしま
+います（\texttt{author} がキーとして優先されるので）．共著論文があるとき
+でも，必ず年順にするには \texttt{bst.sort.year} に非ゼロを設定します．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.sort.year}
+{ #1 }
+\end{verbatim}
+\end{screen}
+\texttt{bst.sort.year} に非ゼロを設定すると，\texttt{year} フィールドの
+値を\texttt{author} よりも優先して並べかえをおこないます．よって，まず年
+順にソートされることなります．デフォールトでは古い文献ほど上に表示される
+ことになりますが，\texttt{bst.reverse.year} に非ゼロを設定すれば逆順にな
+ります．
+
+
+\subsection{\texttt{absorder} フィールドを利用した並べ替え}
+
+bib ファイルにおいて \texttt{absorder} フィールドを指定してある文献に関
+しては，その値を \texttt{author} よりも優先してソートします．
+\texttt{absorder} フィールドには 0から999の値を設定できます．
+\texttt{absorder} の値によって以下の優先順位で順番が決まります．
+
+\begin{screen}
+ \begin{center}
+ absorder 指定なし，absorder = 0  $\rightarrow$ absorder = 1 $\rightarrow$ absorder = 2
+ $\rightarrow$ $\cdots$ $\rightarrow$ absorder = 999
+ \end{center}
+\end{screen}
+
+つまり，\texttt{absorder} の値が小さほど前に表示されることになります．何
+も指定していないときは 0 と同じですので，優先順位は一番になります．この
+文書の bib ファイル（\texttt{jecon-sample.bib}）では，
+\citet{takeda06:_cge_analy_welfar_effec_trade} という文献の
+\texttt{absorder} に 999 を指定しています．そのためこの文献だけ一番後ろに
+表示されるようになっています．
+
+
+\subsubsection{\texttt{absorder} フィールドを無視したいとき}
+
+特殊な並べ替えをする場合があるので bib ファイルで \texttt{absorder} を指
+定しているが，それを無視したいときもあると思います．デフォールトでは 
+\texttt{absorder} が指定されていればそれを必ず参照するという設定になって
+いますが，これは \texttt{bst.notuse.absorder.field} という関数の値によっ
+て変更できます．値を無視したいときはこの関数を以下のように修正してくださ
+い．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.notuse.absorder.field}
+{ #1 }
+\end{verbatim}
+\end{screen}
+
+\subsection{\texttt{order} フィールドを利用した並べ替え}
+
+\texttt{order} フィールドも仕組みは \texttt{absorder} フィールドと同じで
+す．その値には 0-999 を指定でき，
+
+\begin{screen}
+ \begin{center}
+ order 指定なし，order = 0  $\rightarrow$ order = 1 $\rightarrow$ order = 2
+ $\rightarrow$ $\cdots$ $\rightarrow$ order = 999
+ \end{center}
+\end{screen}
+
+\noindent という順番でソートされます．ただし，全体の中での優先順位が 
+\texttt{year} の後にくることが\texttt{absorder} との違いです．
+\texttt{author}，\texttt{year} でソートした後の順番を指定するためのもの
+なので，同じ著者が書いた同じ年の文献が複数ある場合にその並び順を自分で指
+定したいというようなときに使います．
+
+\texttt{order} の値を無視したいときには，
+\texttt{bst.notuse.absorder.field} という関数の中身を次のように変更して
+ください．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.notuse.order.field}
+{ #1 }
+\end{verbatim}
+\end{screen}
+
+
+\subsubsection{利用例}
+
+例えば，以下の二つの文献（どちらも book）があったとします．
+\begin{screen}
+\begin{flushleft}
+ 山田太郎 (2000) 『日本の経済』，日本経済新聞社\\
+ 山田太郎 (2000) 『続・日本の経済』，日本経済新聞社
+\end{flushleft}
+\end{screen}
+
+この場合，著者，年が同じで，しかも book で month 指定はないため，title 
+の値で二つの文献の並び順を決定することになります．本来なら，上の表示のよ
+うに『続』のほうが後ろにくるのが自然ですが，「日」より「続」のほうが文字
+コードが小さいためデフォールトのままでは逆の並び順になってしまいます．こ
+のような場合，後者の \texttt{order} フィールドに前者よりも大きい値を指定
+しておくことで，前者のほうを上に表示することができます．
+
+\subsection{\texttt{month} フィールドを利用した並べ替え}
+
+\texttt{month} フィールドの値もソートに利用されます．この性質を利用して，
+本来は月の指定をしない文献に擬似的に月の指定をおこなっておくことで，ソー
+トの順番をコントロールできます．
+
+例えば，\texttt{order} フィールドのところに挙げた二つの文献はどちらも 
+book なので本来は \texttt{month} の指定はしないはずですが，『日本の経済』
+のほうの \texttt{month} に 20，『続・日本の経済』のほうの \texttt{month} 
+に 21 というように指定しておけば(\texttt{order} フィールドは指定していな
+くても）前者を前に表示することができます．数値は \texttt{absorder}，
+\texttt{order} と同様 0-999 を設定でき，指定なしのものは 0 と同じとみなし
+ます．ただし，このように \texttt{month} をソートに利用した場合，擬似的に
+指定された意味のない \texttt{month} の値が参考文献に表示されてしまうこと
+があると思います．このような場合には \texttt{bst.hide.month} に 0 以外を
+指定して月の表示を消してしまうことで対処することができます．
+\begin{screen}
+\begin{verbatim}
+FUNCTION {bst.hide.month}
+{ #1 }
+\end{verbatim}
+\end{screen}
+ただし，全部の文献から「月」の表示が消えちゃいますけど．
+
+
+\section{不具合}
+
+次のような不具合があります．
+
+\begin{itemize}
+ \item 私自身が，article, book, incollection, unpublished くらいしか使わ
+       ないので，それ以外のタイプはあまりチェックをしていません．このた
+       め上手く処理できない可能性が高いです（ある程度はチェックはしてい
+       ますが）．
+ \item \texttt{crossref} エントリーは全部無視するようにしてしまっていま
+       す（\texttt{crossref} エントリーの使い方がよくわからないので）．
+\end{itemize}
+
+\section{その他}
+
+\begin{itemize}
+ \item この \texttt{jecon.bst} の元になった \texttt{jpolisci.bst} を作成
+       してくださった飯田修さんに感謝します．そもそも \texttt{jecon.bst} 
+       なんて名前を付けてますが，プログラムの重要な部分のほとんどは
+       \texttt{jpolisci.bst} をそのまま利用させてもらっています．
+ \item 改変には \texttt{aer.bst}，萩平哲さんのウェブサイト
+       \footnote{
+       \url{http://www.med.osaka-u.ac.jp/pub/anes/www/latex/bibtex.html}}，樋
+       口耕一さんによる \texttt{nissya.bst}\footnote{
+       \url{http://koichi.nihon.to/psnl/} より入手可能です．} 等も参考にさせ
+       ていただきました．これらの有益なプログラム，ページを作成してくだ
+       さった方々に感謝します．
+ \item この PDF ファイルと一緒に，このファイルの元となる \TeX ファイル 
+      （\texttt{jecon-sample.tex}）と文献ファイル 
+      （\texttt{jecon-sample.bib}）も配布しているので，\TeX ファイルの書
+       き方，文献の登録の仕方はそちらも参考にしてください．
+ \item ここをこうして欲しい，こうしたいという要望がありましたらおっしゃってくださ
+       い．私に直せるようなものだったら直しますので．不具合があるときには，不具合
+       の出る文献のサンプル（bib ファイル），bibtex のログ（blg ファイル）等を送っ
+       てくださると助かります．要望の際も同じようにサンプルがあると助かります（ど
+       ういう文献をどう表示したいのかがわかるもの）．
+ \item 連絡は \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}} まで．
+ \item \texttt{jecon.bst} は 
+       \url{http://shirotakeda.org/ja/tex-ja/jecon-ja.html} で配布しています．
+\end{itemize}
+
+\nocite{*}
+
+%%% BibTeX スタイルファイルの指定．jecon.bst を指定．
+% \bibliographystyle{./jecon}
+\bibliographystyle{jecon}
+
+%% BibTeX データベースファイルの指定．
+%
+\bibliography{jecon-sample}
+% \bibliography{./jecon-sample}
+
+\end{document}
+%#####################################################################
+%######################### Document Ends #############################
+%#####################################################################
+% --------------------
+% Local Variables:
+% fill-column: 80
+% End:

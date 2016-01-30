@@ -1,0 +1,59 @@
+% Author:	       Shiro Takeda
+% First-written:       <2002/11/02>
+% Time-stamp:	       <2016-01-29 23:49:41 st>
+%
+%############################## Main #################################
+\documentclass[10pt]{jarticle}
+
+%% natbib.sty を使う。
+\usepackage[longnamesfirst]{natbib}
+\usepackage{mathpazo}
+\usepackage{color}
+\definecolor{MyBrown}{rgb}{0.3,0,0}
+\definecolor{MyBlue}{rgb}{0,0,0.3}
+\definecolor{MyRed}{rgb}{0.6,0,0.1}
+\definecolor{MyGreen}{rgb}{0,0.4,0}
+\usepackage[dvipdfm,
+bookmarks=true,%
+bookmarksnumbered=true,%
+colorlinks=true,%
+linkcolor=MyBlue,%
+citecolor=MyRed,%
+filecolor=MyBlue,%
+pagecolor=MyBlue,%
+urlcolor=MyGreen%
+]{hyperref}
+
+\setlength{\topmargin}{-20pt} 
+\setlength{\textheight}{648pt}
+\setlength{\oddsidemargin}{15pt}
+\setlength{\textwidth}{440pt}
+
+%#####################################################################
+%######################### Document Starts ###########################
+%#####################################################################
+\begin{document}
+
+\verb|\bibliographystyle| に \verb|jecon_b.bst| を指定したもの。
+\vspace{1em}\\
+引用部分：\citet{brezis93:_leapf_inter_compet},
+\citet{ito85:_inte_trad}, \citet{brezis93:_leapf_inter_compet}.
+
+\nocite{*}
+
+%% BibTeX スタイルファイルの指定。
+\bibliographystyle{jecon_b}
+
+%% BibTeX データベースファイルの指定。
+\bibliography{jecon-sample}
+
+\end{document}
+
+%#####################################################################
+%######################### Document Ends #############################
+%#####################################################################
+% </pre></body></html>
+% --------------------
+% Local Variables:
+% fill-column: 80
+% End:
