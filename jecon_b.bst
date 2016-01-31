@@ -1,7 +1,7 @@
 % jecon.bst: 経済学用 BibTeX style file.
 %
 % First-written:       <2002/11/03>
-% Time-stamp:	       <2016-01-30 23:23:38 st>
+% Time-stamp:	       <2016-01-31 12:36:44 st>
 % Version 3.3
 %
 % これは，飯田修さんによって作成された jpolisci.bst を経済学用に
@@ -484,7 +484,7 @@ FUNCTION {bst.author.pre.jp}
 % author の後に付ける文字列 (日本語文献用)
 %
 FUNCTION {bst.author.post.jp}
-{ "，" }
+{ "" }
 % { "" }    % (default)
 
 %%% 日本語文献の author, editor の姓・名の間に入れる文字列 
@@ -547,7 +547,7 @@ FUNCTION {bst.title.post}
 % title の前に付ける文字列 (日本語文献用)
 %
 FUNCTION {bst.title.pre.jp}
-{ "「" }    % (default)
+{ "，「" }    % (default)
 
 % title の後に付ける文字列 (日本語文献用)
 %
@@ -572,7 +572,7 @@ FUNCTION {bst.book.post}
 % book の title 前に付ける文字列 (日本語文献用)
 %
 FUNCTION {bst.book.pre.jp}
-{ "『" }    % (default)
+{ "，『" }    % (default)
 
 % book の title 後に付ける文字列 (日本語文献用)
 %
@@ -596,7 +596,7 @@ FUNCTION {bst.btitle.post}
 % booktitle の前に付ける文字列 (日本語文献用)
 %
 FUNCTION {bst.btitle.pre.jp}
-{ "『" }    % (default)
+{ "，『" }    % (default)
 
 % booktitle の後に付ける文字列 (日本語文献用)
 %
@@ -632,20 +632,20 @@ FUNCTION {bst.journal.post.jp}
 % 複数 editor を表す文字列 (英語文献用)
 %
 FUNCTION {bst.editors}
-{ " (eds.) " }
+{ " (eds.)" }
 % { " eds. " }    % (default)
 
 % 一人の editor を表す文字列 (英語文献用)
 %
 FUNCTION {bst.editor}
-{ " (ed.) " }
+{ " (ed.)" }
 % { " ed. " }    % (default)
 
 % editor を表す文字列 (日本語文献用)
 %
 FUNCTION {bst.editor.jp}
-{ "編" }
-% { "（編）" }    % (default)
+% { "編" }
+{ "（編）" }    % (default)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	edition
