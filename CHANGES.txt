@@ -2,7 +2,7 @@ Filename:            CHANGES.txt
 Author:		     Shiro Takeda
 e-mail               <shiro.takeda@gmail.com>
 First-written:       <2006/12/04>
-Time-stamp:	     <2016-01-30 22:20:20 st>
+Time-stamp:	     <2016-02-01 13:41:38 st>
 
 jecon.bst の変更履歴．
 
@@ -62,6 +62,9 @@ Ver. 4.0 (2016-01-30)
   #2: スタイル2のような省略方法
 
   詳しくは jecon-sample.pdf の「著者名の省略方法の変更」の部分を見てください。
+
+* サンプルのファイルに "jecon_jet.bst" を追加。これは JET (Journal of Ecnomic
+  Theory) のようなスタイル。
 
 
 Ver. 3.2 (2015-01-24)
