@@ -55,8 +55,8 @@
 <span class="comment">% jecon.bst: &#32076;&#28168;&#23398;&#29992; BibTeX style file.</span>
 <span class="comment">%</span>
 <span class="comment">% First-written:       &lt;2002/11/03&gt;</span>
-<span class="comment">% Time-stamp:          &lt;2016-01-30 23:24:50 st&gt;</span>
-<span class="comment">% Version 3.3</span>
+<span class="comment">% Time-stamp:          &lt;2016-02-03 19:00:43 st&gt;</span>
+<span class="comment">% Version 4.0</span>
 <span class="comment">%</span>
 <span class="comment">% &#12371;&#12428;&#12399;&#65292;&#39151;&#30000;&#20462;&#12373;&#12435;&#12395;&#12424;&#12387;&#12390;&#20316;&#25104;&#12373;&#12428;&#12383; jpolisci.bst &#12434;&#32076;&#28168;&#23398;&#29992;&#12395;</span>
 <span class="comment">% &#27494;&#30000;&#21490;&#37070;&#12364;&#25913;&#22793;&#12375;&#12383;&#12418;&#12398;&#12391;&#12377;&#65294;</span>
@@ -81,7 +81,7 @@
 <span class="comment">% &#22793;&#26356;&#23653;&#27508; (Changelog) &#12399; CHANGES.txt &#12501;&#12449;&#12452;&#12523;&#12434;&#35211;&#12390;&#12367;&#12384;&#12373;&#12356;&#65294;</span>
 
 <span class="comment">% version &#25351;&#23450;</span>
-<span class="keyword">FUNCTION</span> {<span class="function-name">jecon.version</span>} { <span class="string">"3.3"</span> }
+<span class="keyword">FUNCTION</span> {<span class="function-name">jecon.version</span>} { <span class="string">"4.0"</span> }
 
 <span class="comment">% Debug mode&#65294;0 &#20197;&#22806;&#12434;&#25351;&#23450;&#12377;&#12427;&#12392;&#27096;&#12293;&#12394;&#24773;&#22577;&#12434;&#34920;&#31034;&#12373;&#12379;&#12427;&#12371;&#12392;&#12364;&#21487;&#33021;&#65294;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">jecon.debug</span>}
@@ -2972,8 +2972,7 @@
   <span class="variable-name">jyear</span> <span class="builtin">empty$</span>
   and and and and
     { <span class="string">""</span> }
-    { 
-      is.kanji.entry
+    { is.kanji.entry
         { bst.touten.jp *  }
         { <span class="string">", "</span> *  }
       <span class="builtin">if$</span>

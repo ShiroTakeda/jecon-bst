@@ -2,13 +2,13 @@ Filename:            CHANGES.txt
 Author:		     Shiro Takeda
 e-mail               <shiro.takeda@gmail.com>
 First-written:       <2006/12/04>
-Time-stamp:	     <2016-02-01 13:45:01 st>
+Time-stamp:	     <2016-02-03 18:59:55 st>
 
 jecon.bst の変更履歴．
 
 --------------------------------------------------------------------------
 
-Ver. 4.0 (2016-01-30)
+Ver. 4.0 (2016-02-3)
 ----------------------------------
 
 * `bst.year.backward' という関数を廃止し、`bst.year.position' を新たに追加。

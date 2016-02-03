@@ -14,6 +14,8 @@ call platex --kanji=utf8 %1.tex
 @title dvipdfmx on %1
 call dvipdfmx -d 5 %1
 
+cp ./%1.pdf ./pdf
+
 : rm %1.log
 : rm %1.aux
 : rm %1.blg
