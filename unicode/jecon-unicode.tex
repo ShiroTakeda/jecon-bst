@@ -1,0 +1,225 @@
+% 
+% このファイルは xelatex でコンパイルすることを前提で作成しています。
+% uplatex や lualatex でコンパイルするにはプリアンプルの設定等を変更する必要があ
+% ります。
+%
+%############################## Main #################################
+
+%% 以下は xelatex 用の設定。
+\documentclass[10pt]{bxjsarticle}
+
+%% 以下は xelatex 用の設定。
+\usepackage{fontspec}
+\usepackage{xltxtra}
+\usepackage{zxjatype}
+\usepackage[ipa]{zxjafont}
+\usepackage{zxotf}
+
+%% natbib.sty を使う．
+\usepackage{natbib}
+%% For screen command.
+% \usepackage{ascmac}
+%% Font を変更．
+% \usepackage{mathpazo}
+%% \url を利用できるようにする．
+\usepackage{url}
+%% amsmath
+\usepackage{amsmath,amssymb,amsthm}
+
+%% 色を付ける．
+\usepackage{graphicx}
+\usepackage{color}
+\definecolor{MyBrown}{rgb}{0.3,0,0}
+\definecolor{MyBlue}{rgb}{0,0,0.3}
+\definecolor{MyRed}{rgb}{0.6,0,0.1}
+\definecolor{MyGreen}{rgb}{0,0.4,0}
+\usepackage[bookmarks=true,%
+bookmarksnumbered=true,%
+colorlinks=true,%
+linkcolor=MyBlue,%
+citecolor=MyRed,%
+filecolor=MyBlue,%
+pagecolor=MyBlue,%
+urlcolor=MyGreen%
+]{hyperref}
+
+%% \BibTeX command を定義．
+\makeatletter
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\makeatother
+
+%%% title, author, acknowledgement, and date
+\title{\textbf{\texttt{jecon.bst} とユニコード文字}}
+
+\author{武田史郎\thanks{Email: \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}}}}
+
+% \date{平成28年2月3日}
+\date{平成\today}
+
+%#####################################################################
+%######################### Document Starts ###########################
+%#####################################################################
+\begin{document}
+
+%%% タイトル付ける．
+\maketitle
+
+%%% 目次を出力
+\tableofcontents
+
+%########################## Text Starts ##############################
+
+\section{はじめに}
+
+\begin{itemize}
+ \item この文書はユニコード文字を利用している文献を \texttt{jecon.bst}  で利用するための解説です。
+ \item 具体的には次のような場合に\texttt{jecon.bst}  を利用して参考文献を作成するための解説です。
+       \begin{itemize}
+	\item \texttt{bib}  ファイルに登録されている文献で、「草彅剛」の「彅」や
+	      「宮﨑あおい」の「﨑」のようにJISの第二水準を越える文字を直接利用
+	      （記述）しているとき
+	      \footnote{\url{https://texwiki.texjp.org/?upTeX\%2CupLaTeX}}。
+	\item \texttt{bib}  ファイルに登録されている文献で、「ò」、「ö」、「ç」、「è」、「é」、「ê」のような文字を利用しているとき。 
+       \end{itemize}
+ \item 上記のようなケースでは通常の \LaTeX （\texttt{platex} ）や \BibTeX
+       （\texttt{pbibtex} ）を使っても適切に文字が表示されません。
+ \item 注
+       \begin{itemize}
+	\item 私はあまり文字コードや \TeX の仕組みに詳しくありません。文字コード
+	      や不正確な記述が多いかもしれませんので注意してください。
+       \end{itemize}
+       
+\end{itemize}
+
+\section{\texttt{jecon.bst}の設定}
+
+これまでの \texttt{jecon.bst} の問題点
+\begin{itemize}
+ \item JISの第二水準を越える文字が入った文献を \texttt{jecon.bst} +
+       \texttt{pbibtex} で扱うことはできませんが、\texttt{upbibtex} を組み合わせ
+       れば適切に扱えます。ですので、日本語のみを利用するのならこれまでの
+       \texttt{jecon.bst} に \texttt{upbibtex} を組み合せるだけで問題ないと思い
+       ます。
+ \item しかし、これまでの \texttt{jecon.bst}  では欧文の文献内で「ò」、「ö」、「ç」、
+       「è」、「é」、「ê」のような文字が利用されている場合に日本語の文献と認識し
+       てしまうという問題があります。
+ \item 新しい \texttt{jecon.bst} では「ò」、「ö」、「ç」、「è」、「é」、「ê」等
+       が利用されていても日本語文献と認識しないように修正がされています（完璧に
+       ではありませんが）。
+\end{itemize}
+
+\subsection{\texttt{bst.type.language}関数}
+
+新しい \texttt{jecon.bst} には \texttt{bst.type.language} という関数が追加されて
+います。この関数には \texttt{\#0}、\texttt{\#1}、\texttt{\#2} のどれかを設定しま
+す。
+\begin{verbatim}
+FUNCTION {bst.type.language}
+{ #0 } % (default)
+% { #1 } % 自動判別
+% { #2 } % languageフィールドに ja が指定されているかで判別
+\end{verbatim}
+\vspace*{1em}
+
+
+\texttt{bst.type.language}関数の説明
+\begin{itemize}
+ \item この文書は \texttt{bst.type.language} に \texttt{\#1} を指定して作成しています。
+ \item \texttt{\#0} のケース
+       \begin{itemize}
+	\item これまでの \texttt{jecon.bst} で利用していたケース。
+	\item \texttt{author}, \texttt{title}, \texttt{editor},
+	      \texttt{journal}, \texttt{booktitle}, \texttt{series} に日本語（非
+	      ascii文字）が含まれているとき日本語文献と判断します。
+	\item ただし、欧文の ò、ó、ô、õ、ö のような非ascii 文字が含まれていても
+	      日本語文献と判断してしまいますので、日本語文献ではないのに日本語文
+	      献と間違えるという問題があります。
+	\item 欧文のユニコード文字をそのまま利用したいときにはこれではなく、次の
+	      \texttt{\#1} を指定するケースを選択してください。
+       \end{itemize}
+ \item \texttt{\#1} のケース
+       \begin{itemize}
+	\item これは単純に非 ascii が含まれているかではなく、もう少し複雑な条件で自動判定します。
+	\item 主に author (or editor) の一文字目と title の一文字目から日本語文献かどうかを判断します。
+	\item 欧文の非 ascii 文字があっても日本語文献とはみなしません。私が試し
+	      た限りではほとんどのケースで上手く判定できていますが、たまに間違え
+	      ると思います。
+       \end{itemize}
+ \item \texttt{\#2} のケース
+       \begin{itemize}
+	\item ほとんどのケースで \texttt{\#1} の指定で上手くいくと思いますが、一番確実なのは文献のエン
+	      トリー毎にそれが何語の文献かを指定しておく方法です。
+	\item \texttt{\#2} を指定すると、エントリーの「\texttt{language}」フィー
+	      ルドに「\texttt{ja}」と指定されている文献のみ日本語文献とみなしま
+	      す。
+	\item 「\texttt{language}」フィールドを指定できるのなら、これを使えば確
+	      実に間違わずに処理することができます。
+       \end{itemize}
+\end{itemize}
+
+\section{コンパイルについて}
+
+\BibTeX のデータとスタイル
+\begin{itemize}
+ \item このファイル（\texttt{jecon-unicode.tex}）では以下の設定にしています。
+\begin{verbatim}
+\bibliographystyle{jecon_new}	
+\bibliographystyle{unicode-sample}	
+\end{verbatim}       
+\end{itemize}
+
+コンパイル
+\begin{itemize}
+ \item コンパイルは次のコマンドでおこないます。
+\begin{verbatim}
+xelatex xelatex-sample.tex
+upbibtex xelatex-sample
+xelatex xelatex-sample.tex		
+xelatex xelatex-sample.tex
+\end{verbatim}
+ \item この文書は \LaTeX のコマンドとしては \texttt{xelatex} を利用する前提で作
+       成されていますが、適切に修正すれば \texttt{uplatex} や \texttt{lualatex}
+       でもコンパイルできると思います。
+ \item \BibTeX のコマンドとしては \texttt{upbibtex} を利用します。
+ \item 注: 理由はよくわかりませんが、このファイルを \texttt{xelatex} でコンパイ
+       ルする際には\texttt{zxotf.sty} と \texttt{zxotc2u.tfm} が必要になります。
+\end{itemize}
+
+
+\section{引用の例}
+
+\citet{oo99:_no_title}, \citet{oo100:_no_title}, \citet{120005678435}, 
+\citet{120005614155}, \citet{Krey2014}, \citet{有村-蓬田2012}, 
+\citet{Jaeger2011}, \citet{Ades-2010-EnergyUseand}, \citet{kuroda97jp:keo}, 
+\citet{bohringer2007measuring}, \citet{Ahman2007}, \citet{横溝2007}, 
+\citet{Bohringer2006}, \citet{chuokankyo06jp:ccs}, \citet{Mcconnell2005}, 
+\citet{Stokey2004}, \citet{Loschel2002}, \citet{ihori02:_japa_tax}, 
+\citet{Iregui-1999-EFFICIENCYGAINSFROM}, \citet{markusen99jp:trade_vol_1}, 
+\citet{MaggiRodr'iguez-Clare-1998-ValueofTrade}, \citet{shigen97:_energ_balan}, 
+\citet{barro97jp}, \citet{okura96jp:nihon-no-zeisei}, \citet{内田90}, 
+\citet{samuelson67:_econo_found}, \citet{森201206}, \citet{nakamura00:_excel_io}, 
+\citet{松浦2010a}, \citet{瀧川2006a}, 
+\citet{bouet06:_is_erosion_of_tarif_prefer_serious_concer}, \citet{allais1953}
+\citet{sample-test}, \citet{sample-test2}
+
+\nocite{*}
+
+%%% BibTeX スタイルファイルの指定．jecon.bst を指定．
+\bibliographystyle{jecon_new}
+% \bibliographystyle{jecon}
+
+%% BibTeX データベースファイルの指定．
+%
+\bibliography{utf-sample}
+
+\end{document}
+%#####################################################################
+%######################### Document Ends #############################
+%#####################################################################
+
+% --------------------
+% Local Variables:
+% fill-column: 80
+% coding: utf-8-dos
+% End:
