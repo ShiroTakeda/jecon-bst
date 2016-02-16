@@ -1,8 +1,8 @@
 % jecon.bst: 経済学用 BibTeX style file.
 %
 % First-written:       <2002/11/03>
-% Time-stamp:	       <2016-02-03 19:00:43 st>
-% Version 4.0
+% Time-stamp:	       <2016-02-15 10:15:09 st>
+% Version 4.0.1
 %
 % これは，飯田修さんによって作成された jpolisci.bst を経済学用に
 % 武田史郎が改変したものです．
@@ -27,7 +27,7 @@
 % 変更履歴 (Changelog) は CHANGES.txt ファイルを見てください．
 
 % version 指定
-FUNCTION {jecon.version} { "4.0" }
+FUNCTION {jecon.version} { "4.0.1" }
 
 % Debug mode．0 以外を指定すると様々な情報を表示させることが可能．
 FUNCTION {jecon.debug}
@@ -1722,8 +1722,8 @@ FUNCTION {format.names}
       nameptr #1 >
         % 二番目以降の author のケースでの処理
 	{ namesleft #1 >
-%  	    { s is.kanji.str$
- 	    { is.kanji.entry
+%  	    { is.kanji.entry
+  	    { s is.kanji.str$
  		{ bst.and.jp  * t * }
  		{ ", " * t * }
 	      if$
@@ -1734,8 +1734,8 @@ FUNCTION {format.names}
                     { bst.and.others * }
  		  if$
  		}
-%   		{ s is.kanji.str$
-    		{ is.kanji.entry
+%     		{ is.kanji.entry
+   		{ s is.kanji.str$
  		    { bst.and.jp * t * }
 		    { numnames #2 =
   			{ bst.and * t * }
