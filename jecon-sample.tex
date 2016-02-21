@@ -2,7 +2,7 @@
 % Author:              Shiro Takeda
 % e-mail               <shiro.takeda@gmail.com>
 % First-written:       <2002/11/02>
-% Time-stamp:          <2016-02-16 15:38:27 st>
+% Time-stamp:          <2016-02-18 15:09:30 st>
 %
 % jecon.bst の使い方を説明するファイル
 %
@@ -82,7 +82,7 @@ urlcolor=MyGreen%
 \makeatother
 
 %%% title, author, acknowledgement, and date
-\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 4.0.1)
+\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 4.1)
 \thanks{このファイルの配布場所: \url{http://shirotakeda.org/ja/tex-ja/jecon-ja.html}}
 }
 
@@ -107,16 +107,18 @@ urlcolor=MyGreen%
 \section{導入}
 
 \begin{screen}
-\textbf{［注］} この \texttt{jecon.bst} を利用するには， 当然 \BibTeX 自体を使え
-るようになっていなければいけませんが，以下では \BibTeX の説明はしていません．
-\BibTeX については，\TeX 関連の書籍・ウェブサイト等で調べてください．
+ \textbf{［注］} この \texttt{jecon.bst} を利用するには， 当然 \BibTeX 自体を使
+ えるようになっていなければいけませんが，以下では \BibTeX の説明はしていません．
+ \BibTeX については，\TeX 関連の書籍・ウェブサイト等で調べてください．\\経済学で
+ の \BibTeX の利用については，例えば，\citet{120005678435} 等で解説されています．
+ \texttt{jecon.bst} のことも説明されています．
 \end{screen}
 \\
 
 \BibTeX の標準的なスタイルファイルの中には，\texttt{jplain.bst}，
 \texttt{jalpha.bst}，\texttt{jabbrev.bst} 等のように日本語の文献にも対応している
 ものがすでに幾つもあります．しかし，これらのスタイルファイルでは，経済学でよく用
-いられる author-year 形式、つまり「著者名（年）」という形式で引用することはできま
+いられる author-year 形式，つまり「著者名（年）」という形式で引用することはできま
 せん\footnote{\verb|\cite| 命令を使ったときのはなしです．}．また，Reference に列
 挙する形式も経済学で通常使われている形式とは異なっています．
 
@@ -155,7 +157,7 @@ Economics 形式のスタイルファイルです．}．これらの \BibTeX ス
 \\
 
 日本語で経済学の論文を書き，日本語，英語の文献の両方を引用・参照するような人，ま
-た、author (year) 形式で日本語の文献も引用したい人にとっては役に立つのではないか
+た，author (year) 形式で日本語の文献も引用したい人にとっては役に立つのではないか
 と思います．
 
 \section{使用例}
@@ -273,14 +275,16 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 
 \texttt{jecon.bst} は \texttt{jplain.bst}，\texttt{jalpha.bst} 等と同じ場所に置
 いてください\footnote{\texttt{BSTINPUTS} という環境変数を設定することで自分の好
-きな場所にbstファイルを置けるようになります．}．\texttt{jplain.bst} を検索して見
-付かったディレクトリに入れておけばいいと思います．
+きな場所に \texttt{bst} ファイルを置けるようになります．編集している
+\texttt{tex} ファイルと同じフォルダに置いてもよいです．ただ，その場合には
+\texttt{tex} ファイル毎に置かなければいけませんが．}．\texttt{jplain.bst} を検索
+して見付かったディレクトリに入れておけばいいと思います．
 
 \subsection{\texttt{bib} ファイルの書き方}
 
 \texttt{bib}ファイルとは拡張子が \texttt{bib} である \BibTeX のデータベースファ
-イルのことです．この書き方も基本的には普通の場合と同じです．三つだけ例を挙げとき
-ます．
+イルのことです．この書き方も基本的には普通の場合と同じですが，\texttt{jecon.bst}
+独自の部分もあります．いくつか例を挙げときます．
 
 \begin{screen}
  \begin{verbatim}
@@ -320,12 +324,10 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
         \item family name, first name (e.g. \texttt{Ohyama, Michihiro})
         \item family name のみ (e.g. \texttt{Ohyama})
        \end{enumerate}
-       このうち 2 は \texttt{jecon.bst} 以外の bst ファイルでは上手く処理できる
-       かわかりませんので，他の bst も利用するような人は 1（あるいは 3）の形式で
-       書いておいたほうがよいと思います\footnote{3 の形式で書いた場合，同じ姓を
-       持った違う著者同士が混ざって表示されることがあります．そのようなことを避
-       けたいときには 1 の形式で書くようにしてください．}．\texttt{yomi} をロー
-       マ字で書いた場合には，英語の文献と混ざった形で alphabet 順で並べられます．
+       1 と 2 は基本的に同じです．3 の形式で書いた場合，同じ姓を持った違う著者同
+       士が混ざって表示されることがあります．そのようなことを避けたいときには 1
+       か 2 の形式で書くようにしてください．\texttt{yomi} をローマ字で書いた場合
+       には，英語の文献と混ざった形で alphabet 順で並べられます．
 
        \paragraph{ひらがなで書くケース}
        ひらがなで書く場合には「姓\ 名」（間に空白），あるいは「姓」で書いてくださ
@@ -336,12 +338,12 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
        ルドをひらがなで書いておくのがよいと思います．
 
        \paragraph{その他}
-       日本語文献の \texttt{yomi} フィールドを省略してしまうと変な順番で列挙され
-       てしまいます．このサンプルファイルでは \citet{nishimura90:_micr_econ} と
-       \citet{katayama2001} いう文献だけローマ字指定，その他の文献はひらがな指定
-       をしています．このため，\citet{nishimura90:_micr_econ} と
-       \citet{katayama2001} は alphabet 順で英語文献と混ざったかたちで表示され，
-       その他の文献は英語文献とは別にあいうえお順で表示されます．
+       日本語文献の \texttt{yomi} フィールドを省略してしまうとおかしな順番で列挙
+       されてしまいます（漢字の文字コードの順番だと思いますが，よくわかりません）．
+       \\このサンプルファイルではいくつかの日本語文献は \texttt{yomi} をアルファ
+       ベットで指定しており，それは英語文献に混ざって表示されています（日本語文
+       献でも邦訳書で著者名がアルファベットで記載されている文献も英語文献に混ざっ
+       て表示されています）．
  \item \texttt{pages} フィールドに関しては，\texttt{3--34} のようにハイフンを二
        個続けて書いておかないときれいに表示されないのですが，\texttt{jecon.bst}
        では，上の例のように \texttt{3-34} と書いていても自動的に \texttt{3--34}
@@ -372,44 +374,92 @@ reference 部分を見て確認してください．\\
 }
  \end{verbatim}
 \end{screen}
+\vspace*{1em}
 
-\subsubsection{邦訳書}
+\noindent \textbf{［注］} ここでの「邦訳書の情報を付ける」とは英語の文献に邦訳書
+の情報を付けるような場合のことです．邦訳書自体を文献として登録したい場合には，普
+通に book として登録し，さらに次の節で紹介する \texttt{translator}フィールド，
+\texttt{kanyaku}フィールドに訳者，監訳者を指定してください．\\ \texttt{jauthor}，
+\texttt{jkanyaku}，\texttt{jtitle}，\texttt{jpublisher}，\texttt{jyear} は
+\texttt{jpolisci.bst} の機能をそのまま残したものですが，個人的には邦訳書は別の文
+献として独立して登録しておくのがいいような気がします．
+
+\subsubsection{邦訳書の書き方}
 \label{sec:hoyakusho}
 
 邦訳書を book として登録する場合には，著者が外国人であっても，名前は片仮名となる
-と思います．このようなときには次のように指定してください．\\
+場合が思います．このようなときには次のように指定してください．\\
 
 \begin{screen}
  \begin{verbatim}
 @Book{barro97jp,
-  author =       {R. J. バロー},
-  title =        {経済学の正しい使用法 -政府は経済に手を出すな-},
-  publisher =    {東洋経済新報社},
-  year =         1997,
-  jauthor =      {仁平 和夫},
-  yomi =         {ばろー}
+  author       = {R. J. バロー},
+  title        = {経済学の正しい使用法 −政府は経済に手を出すな−},
+  publisher    = {東洋経済新報社},
+  year         = 1997,
+  translator   = {仁平 和夫},
+  yomi         = {ばろー}
 }
  \end{verbatim}
 \end{screen}
 
 注意点
 \begin{itemize}
-\item 上のように登録して置けば，\verb|\citet{barro97jp}| と書くことで，
-  「\citet{barro97jp}」 という表示になります．
-\item 上の例のように first name (+ middle name) を頭文字で付け加えるなら，
-  英語文献の場合と同じように，「first name - last name」の順で指定してくだ
-  さい．
-\item 頭文字を表すアルファベットは半角で書いてください\footnote{first name，
-    last name の両方を全角で書くと，日本人の名前と認識してしまうので．}．
-\item \verb|{ロバート バロー}| のように first name，last name のどちらも片仮名で
-  書いてしまうと上手く処理されません（姓名の順序が逆になります）\footnote{どうし
-    てもどちらも片仮名で書きたい場合には，\verb|{ロバート・バロー}| と書いてくだ
-    さい．ただし，この場合には引用部分が，バロー (1997) ではなく，ロバート・バ
-    ロー (1997) という形式になってしまいます．}．
-\item この場合も \verb|yomi| フィールドを付けないと適切には並びかえられま
-  せん．
-\item もう一つ邦訳書の例として，\cite{markusen99jp:trade_vol_1} という文献
-  を挙げてありますので，そちらも参考にしてください．
+ \item 上のように登録して置けば，\verb|\citet{barro97jp}| と書くことで，
+       「\citet{barro97jp}」 という表示になります．
+ \item 上の例のように first name (+ middle name) を頭文字で付け加えるなら，
+       英語文献の場合と同じように，「first name - last name」の順で指定してくだ
+       さい．
+ \item 頭文字を表すアルファベットは半角で書いてください\footnote{first name，
+       last name の両方を全角で書くと，日本人の名前と認識してしまうので．}．
+ \item \verb|{ロバート バロー}| のように first name，last name のどちらも片仮名で
+       書いてしまうと上手く処理されません（姓名の順序が逆になります）\footnote{どうし
+       てもどちらも片仮名で書きたい場合には，\verb|{ロバート・バロー}| と書いてくだ
+       さい．ただし，この場合には引用部分が，バロー (1997) ではなく，ロバート・バ
+       ロー (1997) という形式になってしまいます．}．
+ \item この場合も \texttt{yomi} フィールドを付けないと適切には並びかえられま
+       せん．
+ \item 訳者は \texttt{translator} フィールドに指定します．もし監訳者もいれば
+       \texttt{kanyaku} フィールドに指定します．
+ \item 同じような邦訳書の例として，\cite{markusen99jp:trade_vol_1} という文献
+       を挙げてありますので，そちらも参考にしてください．
+\end{itemize}
+
+\vspace*{1em}
+
+\noindent \textbf{邦訳書であるが，著者名がアルファベットであるケース}
+
+邦訳書であっても著者名を全てアルファベット表記にしている書籍もあります．例えば，
+次の文献です．
+\begin{screen}
+\begin{verbatim}
+@book{matloff__2012,
+  address      = {東京},
+  title        = {アート・オブ・ {R} プログラミング},
+  isbn         = {978-4-87311-579-5},
+  language     = {ja},
+  publisher    = {オライリージャパン},
+  author       = {Matloff, Norman},
+  kanyaku      = {大橋 真也},
+  translator   = {木下 哲也},
+  month        = sep,
+  year         = {2012},
+  yomi         = {まっとろふ}
+}
+\end{verbatim}
+\end{screen}
+\begin{itemize}
+ \item 名前が全てアルファベットであれば，英語文献と同様に指定してください．
+ \item 引用部分では \citet{matloff__2012} のようになります．
+ \item 訳者，監訳者をそれぞれ \texttt{translator} フィールド，\texttt{kanyaku}
+       フィールドに指定しています．訳者，監訳者を表記する必要がなければ指定しな
+       くてもいいです．
+ \item 上の文献では \texttt{yomi} フィールドをひらがなで指定しています．こうする
+       と日本語文献に普通の日本語文献に混ざって列挙されます．
+ \item \texttt{yomi} フィールドを付けないと列挙の際のキーとして著者名が利用され
+       るので，邦訳書であっても英語文献に混ざって列挙されます．
+ \item 同じような文献の例として，\citet{Ryza2016}，\citet{Boswell-2012} がありま
+       すので，そちらも参考にしてください．
 \end{itemize}
 
 \subsubsection{bibファイルにおける日本語での人名の書き方}
@@ -452,15 +502,16 @@ Obama であるときには
 ません．}．\vspace*{1em}
 
 \texttt{jecon.bst}についても同様に作成されています．このため，前節まで説明してき
-たように，日本語文献の場合，「姓 名」（あるいは「名, 姓」）という形で人名を指定す
-ることになります．これは\texttt{author}フィールドだけの話ではなく，人名を指定する
-フィールド（\texttt{editor}，\texttt{yomi}，\texttt{jauthor}，\texttt{jkanyaku}等）全
-てについて同じようにします．
+たように，日本語文献の場合，「姓 名」（あるいは「名, 姓」）という形で人名を指定
+することになります．これは\texttt{author}フィールドだけの話ではなく，人名を指定
+するフィールド（\texttt{editor}，\texttt{yomi}，\texttt{translator}，
+\texttt{kanyaku}等）全てについて同じようにします．
 
 \begin{screen}
-  \textbf{［注］} ただし，\texttt{jecon.bst}では一つ例外があります．
-  第\ref{sec:hoyakusho}節で説明したように，「R.J. バロー」というような外国人名を
-  片仮名で記述する場合だけ英語文献での順番と同じにします．
+ \textbf{［注］} ただし，\texttt{jecon.bst}では例外があります．第
+ \ref{sec:hoyakusho}節で説明したように，「R.J. バロー」というような外国人名を片
+ 仮名で記述する場合だけ英語文献での順番と同じにします．\\また日本語文献でも著者
+ 名が全てアルファベット表記なら英語文献と同様にします．
 \end{screen}
 \\
 
@@ -537,9 +588,9 @@ FUNCTION {bst.sei.mei.order}
 
 \texttt{bst.sei.mei.order}に非ゼロを指定すると\texttt{bib}ファイルにおいて日本語
 文献の人名も英語文献の人名と同様の記法が使われているものとして処理をおこないます．
-これは\texttt{author}フィールドに限った話ではな
-く，\texttt{editor}，\texttt{yomi}，\texttt{jauthor}，\texttt{jkanyaku}等も全て英
-語表記の人名と同じ形式で記述されているとみなします．
+これは\texttt{author}フィールドに限った話ではなく，\texttt{editor}，
+\texttt{yomi}，\texttt{translator}，\texttt{kanyaku}等も全て英語表記の人名と同じ
+形式で記述されているとみなします．
 
 このファイルと一緒に配布されている\texttt{jecon-sample-reverse.bib}というファイル
 では日本語文献の人名が英語文献での人名と同じ方法で指定されています．上のよう
@@ -604,7 +655,14 @@ FUNCTION {bst.sei.mei.order}
 というようにデータベースファイル（ここでは，\texttt{jecon-sample.bib} というファ
 イル）を指定します．
 
-\subsection{コンパイル}
+\subsection{コンパイルの方法}
+
+\begin{screen}
+\textbf{［注］}以下では p\LaTeX を利用することを前提としています（このサンプルの
+ファイルもそうです）．最近利用が増えている upLaTeX，LuaLaTeX，XeLaTeX 等を用いる
+ときにはコマンドも変わりますし，\texttt{tex} ファイルの書き方も変わります．
+\end{screen}
+\vspace*{1em}
 
 \texttt{tex} ファイルのコンパイルは，普通に \BibTeX を使う場合と同じよう
 にしてください．
@@ -619,7 +677,7 @@ FUNCTION {bst.sei.mei.order}
 ればいけないです\footnote{昔は日本語文献用の \BibTeX のコマンドは \texttt{jbibtex} で
 したが，新しい \TeX のシステムでは \texttt{pbibtex} に変更されました．}．
 
-\subsection{文字コードについて}
+\subsection{ファイルの文字コードについて}
 
 \texttt{jecon.bst}（一緒に配布している他の bst ファイルも），
 \texttt{jecon-sample.bib}，\texttt{jecon-sample.tex} は全て文字コードに
@@ -645,15 +703,13 @@ UTF-8を利用しています．従って，そのまま利用するにはコン
 という場合には，他の文字コードで \texttt{jecon.bst} を利用したいというときがある
 と思います．そのような場合には \texttt{jecon.bst} ファイルの文字コードをそのコー
 ドに変換して利用してください（この\texttt{jecon-sample.tex} をコンパイルしたいと
-いうときには，\texttt{jecon-sample.tex}，\texttt{jecon-sample.bib} の文字コードも
-変換してください）．例えば，Windowsを利用しているので，これまで通り Shift JIS コー
-ドで利用したいというときには，\texttt{jecon.bst} をShift JIS コードに変換してくだ
-さい．
-
-Windows上でファイルの文字コードを変換するには，文字コードを指定して保存で
-きるエディタ等を利用すればよいです．例えば，Shift JIS コードに変換するに
-は，一度メモ帳で \texttt{jecon.bst} を開き，文字コードにShift JIS コード
-を指定して保存し直せばよいです．
+いうときには，\texttt{jecon-sample.tex}，\texttt{jecon-sample.bib} の文字コード
+も変換してください）．例えば，Windowsを利用しているので，これまで通り Shift JIS
+コードで利用したいというときには，\texttt{jecon.bst} をShift JIS コードに変換し
+てください\footnote{Windows上でファイルの文字コードを変換するには，文字コードを
+指定して保存できるエディタ等を利用すればよいです．例えば，Shift JIS コードに変換
+するには，一度メモ帳で \texttt{jecon.bst} を開き，文字コードにShift JIS コードを
+指定して保存し直せばよいです．}．
 
 
 
@@ -857,7 +913,7 @@ FUNCTION {bst.author.name}
 この \verb|#0| を \verb|#1| や \verb|#2| に変更することで姓名の順序が変
 わります．例えば，
 \begin{verbatim}
-  author =	 {Masahisa Fujita and Paul R. Krugman and Anthony J. Venables}
+  author =       {Masahisa Fujita and Paul R. Krugman and Anthony J. Venables}
 \end{verbatim}
 という author が指定された文献があったとします．\texttt{bst.author.name} 
 の値によって，この author 名は以下のように表示が変わります．
@@ -898,7 +954,7 @@ Fujita, M., P.~R. Krugman, and A.~J. Venables
 
 デフォールトでは，bib ファイルで title を
 \begin{center}
-  \verb| title =	{Econometric Policy Evaluation: A Critique}|
+  \verb| title =        {Econometric Policy Evaluation: A Critique}|
 \end{center}
 というように指定していた場合，reference ではそのまま
 \begin{center}
@@ -1049,8 +1105,8 @@ FUNCTION {bst.journal.pre}
 \subsection{特殊なフィールド}
 
 ここまでに既に普通のbibファイルでは指定しない特殊なフィールドがいくつかでてきま
-した．第~\ref{sec:hoyakusho} 節の \texttt{jauthor}，\texttt{jkanyaku} 等です．こ
-れに加えて，いくつか\texttt{jecon.bst} 独自のフィールドがあります
+した．第~\ref{sec:hoyakusho} 節の \texttt{translator}，\texttt{kanyaku} 等です．
+これに加えて，いくつか\texttt{jecon.bst} 独自のフィールドがあります
 \footnote{\texttt{bst} ファイルによっては同じフィールドに対応しているものもある
 と思います．}．
 \begin{itemize}
@@ -1073,7 +1129,6 @@ FUNCTION {bst.journal.pre}
 \usepackage{hyperref}
  \end{verbatim} 
 \end{screen}
-
 
 \subsubsection{urlとaccessフィールド}
 
@@ -1180,18 +1235,21 @@ URLですと論文の置き場に変更が生じたときにリンク切れに�
 $\rightarrow$\texttt{year} $\rightarrow$\texttt{month}
 $\rightarrow$\texttt{title} の値に従ってソートされることになります．
 
-各フィールドの中での順位付けは文字コードが小さい順におこなわれます．例え
-ば，英語の \texttt{author} の中での順番は alphabet 順となります（a, b, c 
-という順に文字コードが大きくなるので）．また，日本語文献の著者で
-\texttt{yomi} にひらがなで指定してあるときには「あいうえお順」です．また，
-\texttt{year} の場合には数値が指定されていますが，このときは基本的に小さ
-いものが優先されます（小さい数のが文字コードが小さいので）\footnote{year 
-の並び順については逆にできます．前節参照．}．あと，日本語文献に関しては
+各フィールドの中での順位付けは文字コードが小さい順におこなわれます．例えば，英語
+の \texttt{author} の中での順番は alphabet 順となります（a, b, c という順に文字
+コードが大きくなるので）．また，日本語文献の著者で\texttt{yomi} にひらがなで指定
+してあるときには「あいうえお順」です．また，\texttt{year} の場合には数値が指定さ
+れていますが，このときは基本的に小さいものが優先されます（小さい数のが文字コード
+が小さいので）\footnote{year の並び順については逆にできます．前節参照．}．それと，
+日本語文献に関しては
 \begin{itemize}
- \item \texttt{yomi} をひらがなで指定しているもの $\rightarrow$ 英語文献
-       とは分けて，後ろに並べられます．
- \item \texttt{yomi} を alphabet で指定しているも $\rightarrow$ 英語文献
-       と混ぜた形で並べられます．
+ \item \texttt{yomi} をひらがなで指定しているもの $\rightarrow$ 英語文献とは分け
+       て，後ろに並べられます．
+ \item \texttt{yomi} を alphabet で指定しているも $\rightarrow$ 英語文献と混ぜた
+       形で並べられます．
+ \item 日本語文献でも著者名がアルファベットであるときには，\texttt{yomi} を日本
+       語で指定していなければ英語文献と混ぜて表示され，\texttt{yomi} を日本語で
+       指定していれば日本語文献と混ぜて表示されまます．
 \end{itemize}
 というルールがあります．
 
@@ -1212,8 +1270,8 @@ FUNCTION {bst.no.sort}
 \end{verbatim}
 \end{screen}
 
-なお，これと \verb|\bysame| を同時に利用すると問題が起こる場合があります 
-（表示がおかしくなる）ので注意してください．
+なお，これと \verb|\bysame| を同時に利用すると問題が起こる場合がありますので，こ
+れを利用するときには \texttt{bst.use.bysame} に0を設定してください．
 
 \subsection{文献のタイプによって分けて並べる}
 
@@ -1371,10 +1429,10 @@ FUNCTION {bst.hide.month}
 次のような不具合があります．
 
 \begin{itemize}
- \item 私自身が，article, book, incollection, unpublished くらいしか使わ
-       ないので，それ以外のタイプはあまりチェックをしていません．このた
-       め上手く処理できない可能性が高いです（ある程度はチェックはしてい
-       ますが）．
+ \item 私自身が，\texttt{article}, \texttt{book}, \texttt{incollection},
+       \texttt{unpublished} くらいしか使わないので，それ以外のタイプはあまりチェッ
+       クをしていません．このため上手く処理できない可能性が高いです（ある程度は
+       チェックはしていますが）．
  \item \texttt{crossref} エントリーは全部無視するようにしてしまっていま
        す（\texttt{crossref} エントリーの使い方がよくわからないので）．
 \end{itemize}
@@ -1410,8 +1468,9 @@ FUNCTION {bst.hide.month}
 \nocite{*}
 
 %%% BibTeX スタイルファイルの指定．jecon.bst を指定．
-% \bibliographystyle{./jecon}
 \bibliographystyle{jecon}
+% \bibliographystyle{./jecon}
+% \bibliographystyle{jecon_new}
 
 %% BibTeX データベースファイルの指定．
 %
