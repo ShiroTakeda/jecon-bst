@@ -1,12 +1,12 @@
 % Author:	       Shiro Takeda
 % First-written:       <2002/11/02>
-% Time-stamp:	       <2016-02-16 14:27:23 st>
+% Time-stamp:	       <2016-02-23 10:05:27 st>
 %
 %############################## Main #################################
 \documentclass[10pt]{jarticle}
 
 %% natbib.sty を使う。
-\usepackage{natbib}
+\usepackage[numbers]{natbib}
 \usepackage{mathpazo}
 \usepackage{color}
 \definecolor{MyBrown}{rgb}{0.3,0,0}
@@ -34,63 +34,22 @@ urlcolor=MyGreen%
 %#####################################################################
 \begin{document}
 
-\verb|\bibliographystyle| にデフォールトの \verb|jecon_jet.bst| を指定したもの。
-JET (\textit{Journal of Economic Theory})風のスタイル。
+\verb|\bibliographystyle| にデフォールトの \verb|jecon_jet.bst| を指定し、さらに
+\verb|natbib|のオプションに\verb|numbers|を指定している。JET (\textit{Journal of
+Economic Theory})風のスタイル。
 \vspace{1em}\\
-引用部分：
-\citet{40020418914},
-\citet{yamazaki13:_japan},
-\citet{takeda2013jecon},
-\citet{Takeda2012a},
-\citet{arimura-takeda2012},
-\citet{matloff__2012},
-\citet{Boswell-2012},
-\citet{takeda2012_cge},
-\citet{Takeda2011b},
-\citet{takeda2011c},
-\citet{40018847518},
-\citet{takeda10:_cge_analy_welfar_effec_trade},
-\citet{40017004376},
-\citet{2009yamasue502165},
-\citet{Biker-2007-unemployment},
-\citet{takeda06:_cge_analy_welfar_effec_trade},
-\citet{2007yamasue482353},
-\citet{BabikerRutherford-2005-EconomicEffectsof},
-\citet{somusho04jp:2000io-kaisetsu},
-\citet{ishikawa03:_green_gas_emiss_contr_open_econom},
-\citet{brooke03:_gams},
-\citet{Hattori02},
-\citet{miyazawa02:_io_intr},
-\citet{isikawa02jp:_env_trade},
-\citet{Hattori01},
-\citet{katayama2001},
-\citet{Babiker2000525},
-\citet{rutherford00:_gtapin_gtap_eg},
-\citet{Hattori00},
-\citet{a.___2000},
-\citet{fujita99jp:_spatial_econom},
-\citet{Babiker-1999-KyotoProtocoland},
-\citet{markusen99jp:trade_vol_1},
-\citet{oyama99:_mark_stru},
-\citet{kuroda97jp:keo},
-\citet{barro97jp},
-\citet{wong95:_inter_trade_goods_factor_mobil_},
-\citet{ishikawa94:_revis_stolp_samuel_rybcz_theor_produc_exter},
-\citet{brezis93:_leapf_inter_compet},
-\citet{kiyono93:_regu_comp_1},
-\citet{krugman91:_geogr_trade},
-\citet{helpman91:_inter_trade_trade_polic},
-\citet{krugman91:_is_bilat_bad},
-\citet{iwamoto91jp:haito-keika},
-\citet{nishimura90:_micr_econ},
-\citet{wang89:_model_therm_hydrod_aspec_molten},
-\citet{ito85:_inte_trad},
-\citet{lucas76:_econom_polic_evaluat},
-\citet{imai72:_micr_2},
-\citet{imai71:_micr_1},
-\citet{milne-thomson68:_theor_hydrod}
-\citet{Ryza2016},
-\citet{ThoughtWorksinc.08}
+
+\input{cited_part}
+
+\vspace{1em}
+
+上の引用部分では \verb|\citet| 命令を利用している。\verb|\citet| 命令では引用部分
+は「著者名 + 番号」という形式になる。\verb|\cite| 命令を利用すれば以下のように番
+号だけの形式になる：\\
+\cite{40020418914}, \cite{yamazaki13:_japan},
+\cite{takeda2013jecon}, \cite{Takeda2012a}, \cite{arimura-takeda2012},
+\cite{matloff__2012}, \cite{Boswell-2012}, \cite{takeda2012_cge},
+\cite{Takeda2011b}, \cite{takeda2011c}, \cite{40018847518}.
 
 \nocite{*}
 

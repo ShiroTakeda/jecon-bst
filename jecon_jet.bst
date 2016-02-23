@@ -1,7 +1,7 @@
 % jecon.bst: 経済学用 BibTeX style file.
 %
 % First-written:       <2002/11/03>
-% Time-stamp:	       <2016-02-21 10:31:35 st>
+% Time-stamp:	       <2016-02-23 09:55:31 st>
 % Version 4.1
 %
 % これは，飯田修さんによって作成された jpolisci.bst を経済学用に
@@ -235,8 +235,8 @@ FUNCTION {bst.hide.number}
 % author-yearで変わらない)。
 %
 FUNCTION {bst.use.number.index}
-% { #0 }    % Not use number index  (default)
-{ #1 }    % #0 以外 -> Use number index
+{ #0 }    % Not use number index  (default)
+% { #1 }    % #0 以外 -> Use number index
 
 % number index の前に付ける文字列 (bst.use.number.indexに0以外を指定していると
 % きのみ有効)．
@@ -1446,6 +1446,8 @@ FUNCTION {period.comma.b.p}
   if$
 }
 
+% 直近の field が period or comma で終っているか判断。終っていたら
+% last.period.comma に #1 を代入。
 FUNCTION {period.comma.p}
 { duplicate$ 't :=
   t period.comma.a.p
@@ -1480,7 +1482,6 @@ FUNCTION {remove.pre.comma.period}
   if$
 }
 
-%%%
 %
 % 
 %
@@ -1491,15 +1492,15 @@ FUNCTION {output.nonnull.nocomma}
     { % ついでに直近の field が period or comma で終っているか判断。
       period.comma.p
       % pop して書き込み。
-      write$ }
- 
+      write$
+    }
     % mid.sentence ではないとき
     { output.state after.block =
 
         % after.block のとき。 period を付加して write。
 	{ is.kanji.entry
             { add.kanji.period.x write$}
-	    { add.period.x " " * write$ }
+ 	    { add.period.x " " * write$ }
 	  if$
 	}
 	% after.block じゃないとき。
@@ -1508,8 +1509,8 @@ FUNCTION {output.nonnull.nocomma}
   	    'write$
             % before.all じゃないとき。 period を付加して write。
 	    { is.kanji.entry
- 		{ add.kanji.period.x write$ }
-		{ add.period$ " " * write$ }
+  		{ add.kanji.period.x write$ }
+ 		{ add.period$ " " * write$ }
 	      if$
 	    }
 	  if$
@@ -3186,17 +3187,19 @@ FUNCTION {format.hoyakusho}
   jyear empty$
   and and and and
     { "" }
-    { is.kanji.entry
-        { bst.touten.jp *  }
-        { ", " *  }
+    {
+      is.kanji.entry
+        { bst.touten.jp }
+        { ", " }
       if$
+      bst.hoyakusho.pre.jp * 
       jauthor empty$
         { jkanyaku empty$
-            { "" }
-            { jkanyaku format.names "監訳" * }
+            { "" * }
+            { jkanyaku format.names * "監訳" * }
           if$
         }
-        { jauthor format.names "訳" *
+        { jauthor format.names * "訳" *
           jkanyaku empty$
             { "" * }
             { bst.touten.jp * jkanyaku format.names * "監訳" * }
@@ -3215,8 +3218,7 @@ FUNCTION {format.hoyakusho}
         { "" * }
         { "" * jyear convert.year.kanji * "年" * }
       if$
-      remove.irrelevant.kutoten
-      bst.hoyakusho.pre.jp swap$ * bst.hoyakusho.post.jp *
+      remove.irrelevant.kutoten bst.hoyakusho.post.jp *
     }
  if$
 }
