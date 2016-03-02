@@ -1,8 +1,8 @@
 % jecon.bst: 経済学用 BibTeX style file.
 %
 % First-written:       <2002/11/03>
-% Time-stamp:	       <2016-02-20 23:16:28 st>
-% Version 4.1
+% Time-stamp:	       <2016-02-26 22:15:25 st>
+% Version 5.0
 %
 % これは，飯田修さんによって作成された jpolisci.bst を経済学用に
 % 武田史郎が改変したものです．
@@ -27,7 +27,7 @@
 % 変更履歴 (Changelog) は CHANGES.txt ファイルを見てください．
 
 % version 指定
-FUNCTION {jecon.version} { "4.1" }
+FUNCTION {jecon.version} { "5.0" }
 
 % Debug mode．0 以外を指定すると様々な情報を表示させることが可能．
 FUNCTION {jecon.debug}
@@ -131,7 +131,7 @@ FUNCTION {bst.use.bysame}
 % する。
 %
 FUNCTION {bst.bysame.definition}
-{ "\hskip.3em \leavevmode\rule[.5ex]{3em}{.3pt}\hskip0.5em" } 
+{ "\hskip.3em \leavevmode\rule[.5ex]{2.5em}{.3pt}\hskip0.5em" } 
 
 % 日本語文献用の \bysame （\bysamejp）の定義
 % とりあえず英語文献用と同じ定義にしておく。
@@ -274,6 +274,15 @@ FUNCTION {bst.number.index.bibhang.ten}
 % bst.number.index.digit = 3 のときの設定
 FUNCTION {bst.number.index.bibhang.hund}
 { "3.05em" }    % (default)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ユニコード文字を利用するときには非ゼロにする。
+% 使い方については「jecon_unicode_xelatex.pdf」を見てください。
+% 
+FUNCTION {bst.use.unicode}
+{ #0 }    % Not use unicode font (default)
+% { #1 }    % Use unicode font
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1216,7 +1225,7 @@ ENTRY
   %%% 文献フィールドの宣言
   { access address author booktitle chapter doi edition editor howpublished
     institution journal key month note number organization pages publisher
-    school series title type url volume year yomi
+    school series title type url volume year yomi language
 
     % 以下は普通の bst ファイルでは利用されないフィールド
     jauthor jkanyaku jtitle jpublisher jyear
@@ -1428,6 +1437,8 @@ FUNCTION {period.comma.b.p}
   if$
 }
 
+% 直近の field が period or comma で終っているか判断。終っていたら
+% last.period.comma に #1 を代入。
 FUNCTION {period.comma.p}
 { duplicate$ 't :=
   t period.comma.a.p
@@ -1462,7 +1473,6 @@ FUNCTION {remove.pre.comma.period}
   if$
 }
 
-%%%
 %
 % 
 %
@@ -1473,15 +1483,15 @@ FUNCTION {output.nonnull.nocomma}
     { % ついでに直近の field が period or comma で終っているか判断。
       period.comma.p
       % pop して書き込み。
-      write$ }
- 
+      write$
+    }
     % mid.sentence ではないとき
     { output.state after.block =
 
         % after.block のとき。 period を付加して write。
 	{ is.kanji.entry
             { add.kanji.period.x write$}
-	    { add.period.x " " * write$ }
+ 	    { add.period.x " " * write$ }
 	  if$
 	}
 	% after.block じゃないとき。
@@ -1490,8 +1500,8 @@ FUNCTION {output.nonnull.nocomma}
   	    'write$
             % before.all じゃないとき。 period を付加して write。
 	    { is.kanji.entry
- 		{ add.kanji.period.x write$ }
-		{ add.period$ " " * write$ }
+  		{ add.kanji.period.x write$ }
+ 		{ add.period$ " " * write$ }
 	      if$
 	    }
 	  if$
@@ -1581,11 +1591,54 @@ FUNCTION {field.or.null}
   if$
 }
 
+INTEGERS {l1 l2 f1 f2 kan.p}
+STRINGS {kan.fn kan.ln zzz zz}
+FUNCTION {check.kanji.str.sub}
+{ 'zzz :=
+  zzz #1 "{ll}" format.name$ 'kan.ln := 	% kan.ln	<- 1st author の Last name
+  zzz #1 "{ff}" format.name$ 'kan.fn := 	% kan.fn	<- 1st author の first name
+  kan.ln #1 #1 substring$ is.kanji.str$ 'l1 :=  % l1 		<- Last name の1文字目
+  kan.fn #1 #1 substring$ is.kanji.str$ 'f1 :=  % f1 		<- First name の1文字目
+  kan.ln #-1 #1 substring$ is.kanji.str$ 'l2 := % l2 		<- Last name の最後の1文字目
+  kan.fn #-1 #1 substring$ is.kanji.str$ 'f2 := % f2 		<- First name の最後の1文字目
+
+  is.kanji.entry #0 =
+     % そもそも is.kanji.entry が 0 なら 0 を返す。
+     { #0 'kan.p := }
+     { l1 #0 = f1 #0 = and l2 #0 = and f2 #0 = and
+        % 最初の1文字目、最後の1文字目がどれもアスキーなら 0 
+        { #0 'kan.p := }
+        { l1 #0 = l2 #0 = and
+          f1 #0 = f2 #0 = or and
+            % 
+            { #0 'kan.p := }
+            { #1 'kan.p := }
+          if$
+        }
+      if$
+     }
+  if$
+  kan.p
+}
+
+FUNCTION {check.kanji.str}
+{ 'zzz :=
+  zzz empty$
+    { #1 }
+    { bst.use.unicode #0 =
+       { zzz is.kanji.str$ }
+       { zzz check.kanji.str.sub }
+      if$
+    }
+  if$
+}
+
 %%% booktitle の整形。
 FUNCTION {format.btitle}
 { booktitle empty$
     { "" }
-    { booktitle is.kanji.str$
+%     { booktitle is.kanji.str$
+    { is.kanji.entry
 	{ bst.btitle.pre.jp booktitle * bst.btitle.post.jp * }
 	{ bst.btitle.pre booktitle * bst.btitle.post * }
       if$
@@ -1597,7 +1650,8 @@ FUNCTION {format.btitle}
 FUNCTION {format.journal}
 { journal empty$
     { "" }
-    { journal is.kanji.str$
+%     { journal is.kanji.str$
+    { is.kanji.entry
 	{ bst.journal.pre.jp journal * bst.journal.post.jp * }
  	{ bst.journal.pre journal * bst.journal.post * }
       if$
@@ -1609,7 +1663,8 @@ FUNCTION {format.journal}
 FUNCTION {format.book}
 { title empty$
     { "" }
-    { title is.kanji.str$
+%     { title is.kanji.str$
+    { is.kanji.entry
 	{ bst.book.pre.jp title * bst.book.post.jp * }
  	{ bst.book.pre title * bst.book.post * }
       if$
@@ -1667,7 +1722,8 @@ FUNCTION {format.names}
   % namesleft が 0 より大なら繰り返し (while)
   { namesleft #0 > }
     % s に日本語含むか？
-    { s is.kanji.str$
+%     { s is.kanji.str$
+    { s check.kanji.str
         % 日本語含むケースの処理
         { nameptr 'name.num :=
           s set.alphabet.in.author
@@ -1763,18 +1819,21 @@ FUNCTION {format.names}
       nameptr #1 >
         % 二番目以降の author のケースでの処理
 	{ namesleft #1 >
-   	    { s is.kanji.str$
+%    	    { s is.kanji.str$
+   	    { s check.kanji.str
  		{ bst.and.jp  * t * }
  		{ ", " * t * }
 	      if$
 	    }
 	    { t "others" =
-  		{ s is.kanji.str$
+%   		{ s is.kanji.str$
+  		{ s check.kanji.str
   		    { bst.and.others.jp * }
                     { bst.and.others * }
  		  if$
  		}
-    		{ s is.kanji.str$
+%     		{ s is.kanji.str$
+    		{ s check.kanji.str
  		    { bst.and.jp * t * }
 		    { numnames #2 =
   			{ bst.and * t * }
@@ -1798,7 +1857,14 @@ FUNCTION {format.names}
 %%% name を処理する関数
 FUNCTION {format.names.alt}
 { 'sss :=  % 省略されていない名前
-  's :=   % 省略された名前
+  's :=  % 省略された名前
+%   "abbreviated (s) = \texttt{" s * "}\\" * write$ 
+%   "full (sss) = \texttt{" sss * "}\\" * write$ 
+  jecon.debug #0 = not % for debug
+     { "abbreviated (s) = \texttt{" s * "}\\" * write$ 
+       "full (sss) = \texttt{" sss * "}\\" * write$ }
+     'skip$
+  if$
   % nameptr に 1 を代入
   #1 'nameptr :=
   % numnames に author (editor) の数を代入
@@ -1807,7 +1873,7 @@ FUNCTION {format.names.alt}
   % namesleft が 0 より大なら繰り返し (while)
   { namesleft #0 > }
     % s に日本語含むか？
-    { s is.kanji.str$
+    { sss check.kanji.str
         % 日本語含むケースの処理
         { nameptr 'name.num :=
           s set.alphabet.in.author
@@ -1903,18 +1969,21 @@ FUNCTION {format.names.alt}
       nameptr #1 >
         % 二番目以降の author のケースでの処理
 	{ namesleft #1 >
-   	    { sss is.kanji.str$
+%    	    { sss is.kanji.str$
+   	    { sss check.kanji.str
  		{ bst.and.jp  * t * }
  		{ ", " * t * }
 	      if$
 	    }
 	    { t "others" =
-  		{ s is.kanji.str$
+%   		{ s is.kanji.str$
+      	        { s check.kanji.str
   		    { bst.and.others.jp * }
                     { bst.and.others * }
  		  if$
  		}
-    		{ sss is.kanji.str$
+%     		{ sss is.kanji.str$
+      	        { sss check.kanji.str
  		    { bst.and.jp * t * }
 		    { numnames #2 =
   			{ bst.and * t * }
@@ -1940,13 +2009,20 @@ FUNCTION {remove.ss.period.auth}
 { 's := % こちらは bysame で省略された名前
   'tempc :=  % こちらは元の author (or editor) 名
   s tempc format.names.alt 'tempa :=
+  % For debug
+  jecon.debug #0 = not % for debug
+     { "tempa = \texttt{" tempa * "}\\" * write$ }
+     'skip$
+  if$
 
-  tempc is.kanji.str$
+%   tempc is.kanji.str$
+  tempc check.kanji.str
     { bst.author.pre.jp tempa * 'tempa := }
     { bst.author.pre tempa * 'tempa := }
   if$
 
-  tempc is.kanji.str$
+%   tempc is.kanji.str$
+  tempc check.kanji.str
     { bst.author.post.jp 'tempb := }
     { bst.author.post 'tempb := }
   if$
@@ -1966,9 +2042,18 @@ FUNCTION {remove.ss.period.auth}
 }
 
 FUNCTION {insert.bysame}
-{ is.kanji.entry.author
-     { " \bysamejp{} " }
-     { " \bysame{} " }
+{ 'zz := 
+  bst.use.unicode #0 = 
+    { is.kanji.entry.author
+       { " \bysamejp{} " }
+       { " \bysame{} " }
+      if$
+    }
+    { zz check.kanji.str.sub
+       { " \bysamejp{} " }
+       { " \bysame{} " }
+      if$
+    }
   if$
 }
 
@@ -2007,7 +2092,7 @@ FUNCTION {compare.names.jecon}
             { " and " * }       % bysame で省略する著者の前につく and 
             { }
           if$
-          insert.bysame *
+          s insert.bysame *
           i.jecon #1 + 'i.jecon := }
         % 等しくないときは len1.jecon にマイナス1を代入 → loop を抜ける。
         { #-1 'len1.jecon := }
@@ -2059,7 +2144,7 @@ FUNCTION {format.authors}
       % extra.label.bysame に bysame という値が入っているか？
       extra.label.bysame "bysame" =
         % Yes なら bysame を挿入。
-	{ insert.bysame }
+	{ author insert.bysame }
         % No なら ? を返す。
  	{ author s remove.ss.period.auth }
       if$
@@ -2087,18 +2172,20 @@ FUNCTION {format.editors}
       extra.label.bysame "bysame" =
         % Yes なら bysame.check に 1 を代入し、bysame を挿入
 	{ #1 'bysame.check :=
-	  insert.bysame }
+	  editor insert.bysame }
  	{ editor s remove.ss.period.auth }
       if$
       #1 bysame.check =
         { "" * }
         { editor num.names$ #1 >
- 	  { editor is.kanji.str$
+%  	  { editor is.kanji.str$
+ 	  { editor check.kanji.str
               { bst.editor.jp * }
 	      { bst.editors * }
 	    if$
  	  }
-  	  { editor is.kanji.str$
+%   	  { editor is.kanji.str$
+  	  { editor check.kanji.str
  	      { bst.editor.jp * }
 	      { bst.editor * }
 	    if$
@@ -2117,8 +2204,9 @@ FUNCTION {format.authors.alt}
     % extra.label.bysame に bysame という値が入っているか？
     { extra.label.bysame "bysame" =
         % Yes なら bysame を挿入
-	{ insert.bysame }
- 	{ author is.kanji.str$
+	{ author insert.bysame }
+%  	{ author is.kanji.str$
+ 	{ author check.kanji.str
  	    { bst.author.pre.jp author format.names * bst.author.post.jp * }
    	    { bst.author.pre author format.names * bst.author.post * }
 	  if$
@@ -2136,8 +2224,9 @@ FUNCTION {format.editors.alt}
     { extra.label.bysame "bysame" =
         % Yes なら bysame.check に 1 を代入し、bysame を挿入
 	{ #1 'bysame.check :=
-	  insert.bysame }
-	{ editor is.kanji.str$
+	  editor insert.bysame }
+% 	{ editor is.kanji.str$
+	{ editor check.kanji.str
 	    { bst.author.pre.jp editor format.names * }
  	    { bst.author.pre editor format.names * bst.author.post * }
 	  if$
@@ -2146,12 +2235,14 @@ FUNCTION {format.editors.alt}
       #1 bysame.check =
         { "" * }
         { editor num.names$ #1 >
- 	  { editor is.kanji.str$
+%  	  { editor is.kanji.str$
+ 	  { editor check.kanji.str
               { bst.editor.jp * }
 	      { bst.editors * }
 	    if$
  	  }
-  	  { editor is.kanji.str$
+%   	  { editor is.kanji.str$
+  	  { editor check.kanji.str
  	      { bst.editor.jp * }
 	      { bst.editor * }
 	    if$
@@ -2169,12 +2260,14 @@ FUNCTION {format.editors.x}
     { "" }
     { editor format.names 
       editor num.names$ #1 >
- 	{ editor is.kanji.str$
+%  	{ editor is.kanji.str$
+ 	{ editor check.kanji.str
  	    { bst.editor.jp * }
 	    { bst.editors * }
 	  if$
  	}
-  	{ editor is.kanji.str$
+%   	{ editor is.kanji.str$
+ 	{ editor check.kanji.str
  	    { bst.editor.jp * }
 	    { bst.editor * }
 	  if$
@@ -2220,7 +2313,7 @@ FUNCTION {remove.irrelevant.period.comma}
   if$
 }
 
-%%% 最後についているの「，」、「、」、「．」、「．」を除去する関数 (邦訳書用)
+%%% 最後についている「，」、「、」、「．」、「．」を除去する関数 (邦訳書用)
 FUNCTION {remove.irrelevant.kutoten}
 { 's :=
   s empty$
@@ -2230,6 +2323,23 @@ FUNCTION {remove.irrelevant.kutoten}
       s #-1 #1 substring$ "。" = or
       s #-1 #1 substring$ "．" = or
         { s #-2 global.max$ substring$ "" * }
+        { s }
+      if$
+    }
+  if$
+}
+
+%%% 最初に「，，」、「、、」、「，、」、「、，」等が付いていたら一個目を除去した
+%%% 文字列を返す。
+FUNCTION {remove.irrelevant.pre.kutoten}
+{ 's :=
+  s empty$
+    { "" }
+    { s #1 #4 substring$ "、、" =
+      s #1 #4 substring$ "，，" = or
+      s #1 #4 substring$ "，、" = or
+      s #1 #4 substring$ "、，" = or
+        { s #3 global.max$ substring$ }
         { s }
       if$
     }
@@ -2248,7 +2358,8 @@ FUNCTION {format.title}
 { title empty$
   bst.hide.title #0 = not or
     { "" }
-    { title is.kanji.str$
+%     { title is.kanji.str$
+    { is.kanji.entry
       { bst.title.pre.jp title * bst.title.post.jp * }
       { format.title.sub remove.irrelevant.period.comma }
      if$
@@ -2268,7 +2379,8 @@ FUNCTION {format.jtitle}
 FUNCTION {format.misc.title}
 { title empty$
     { "" }
-    { title is.kanji.str$
+%     { title is.kanji.str$
+    { is.kanji.entry
       { bst.title.pre.jp title * bst.title.post.jp * }
       { bst.title.pre title * bst.title.post * }
      if$
@@ -2968,7 +3080,8 @@ FUNCTION {format.howpublished}
 FUNCTION {format.address}
 { address empty$
     { "" }
-    { address is.kanji.str$
+%     { address is.kanji.str$
+    { is.kanji.entry
         { bst.address.pre.jp address * bst.address.post.jp * }
         { bst.address.pre address * bst.address.post * }
       if$
@@ -3151,17 +3264,19 @@ FUNCTION {format.hoyakusho}
   jyear empty$
   and and and and
     { "" }
-    { is.kanji.entry
-        { bst.touten.jp *  }
-        { ", " *  }
+    {
+      is.kanji.entry
+        { bst.touten.jp }
+        { ", " }
       if$
+      bst.hoyakusho.pre.jp * 
       jauthor empty$
         { jkanyaku empty$
-            { "" }
-            { jkanyaku format.names "監訳" * }
+            { "" * }
+            { jkanyaku format.names * "監訳" * }
           if$
         }
-        { jauthor format.names "訳" *
+        { jauthor format.names * "訳" *
           jkanyaku empty$
             { "" * }
             { bst.touten.jp * jkanyaku format.names * "監訳" * }
@@ -3170,7 +3285,7 @@ FUNCTION {format.hoyakusho}
       if$
       jtitle empty$
         { "" * }
-        { bst.touten.jp * format.jtitle * bst.touten.jp * }
+        { bst.touten.jp format.jtitle * bst.touten.jp * remove.irrelevant.pre.kutoten * }
       if$
       jpublisher empty$
         { "" * }
@@ -3180,8 +3295,7 @@ FUNCTION {format.hoyakusho}
         { "" * }
         { "" * jyear convert.year.kanji * "年" * }
       if$
-      remove.irrelevant.kutoten
-      bst.hoyakusho.pre.jp swap$ * bst.hoyakusho.post.jp *
+      remove.irrelevant.kutoten bst.hoyakusho.post.jp *
     }
  if$
 }
@@ -3760,7 +3874,7 @@ FUNCTION {set.is.kanji.entry.author}
 }
 
 %%% エントリーが日本語文献か判断するための関数 (yomi は除く)
-FUNCTION {set.is.kanji.entry}
+FUNCTION {set.is.kanji.entry.auto}
 {
   author    field.or.null is.kanji.str$
   title     field.or.null is.kanji.str$ or
@@ -3769,6 +3883,27 @@ FUNCTION {set.is.kanji.entry}
   booktitle field.or.null is.kanji.str$ or
   series    field.or.null is.kanji.str$ or
   'is.kanji.entry :=
+}
+
+%%% エントリーが日本語文献か判断するための関数。language フィールドに「ja」が入っ
+%%% ていれば日本語文献。
+FUNCTION {set.is.kanji.entry.manual}
+{ language empty$
+    { #0 'is.kanji.entry := }
+    { language "ja" =
+       { #1 'is.kanji.entry := }
+       { #0 'is.kanji.entry := }
+      if$
+    }
+  if$
+}
+
+FUNCTION {set.is.kanji.entry}
+{ set.is.kanji.entry.auto
+  bst.use.unicode #0 =
+    'skip$
+    { set.is.kanji.entry.manual }
+  if$
 }
 
 %%% エントリーが日本語文献か判断するための関数 (yomi も含めて)
@@ -3838,7 +3973,8 @@ FUNCTION {sort.format.names}
         { ", " * }
 	'skip$
       if$
-      s is.kanji.str$
+%       s is.kanji.str$
+      s check.kanji.str
          { bst.sei.mei.order #0 =
              { s nameptr "{ff }{ll}" format.name$ 't := }
              { s nameptr "{ll }{ff}" format.name$ 't := }
@@ -3851,7 +3987,8 @@ FUNCTION {sort.format.names}
          'skip$
       if$
       nameptr numnames = t "others" = and
- 	{ s is.kanji.str$
+%  	{ s is.kanji.str$
+ 	{ s check.kanji.str
   		{ bst.and.others.jp * }
  		{ bst.and.others * }
 	  if$
@@ -3874,7 +4011,8 @@ FUNCTION {sort.format.names.abb}
   s num.names$ 'numnames :=
   numnames bst.and.others.num <
      { s sort.format.names }
-     { s is.kanji.str$
+%      { s is.kanji.str$
+     { s check.kanji.str
          % author 名が日本語を含むケース
          { bst.sei.mei.order #0 =
              { s #1 "{ff }{ll}" format.name$ " et al. " * }
@@ -3894,7 +4032,8 @@ FUNCTION {format.lab.names.full}
   s num.names$ 'numnames :=
   numnames 'namesleft :=
     { namesleft #0 > }
-      { s is.kanji.str$
+%       { s is.kanji.str$
+      { s check.kanji.str
           % author 名に日本語含むケース
           { nameptr 'name.num :=
             s set.alphabet.in.author
@@ -3969,7 +4108,8 @@ FUNCTION {format.lab.names.abb}
      % author 数が bst.and.others.num より小さいなら full で表示。
      { s format.lab.names.full }
      % author 数が bst.and.others.num 以上なら 1st author のみ表示。あとは略。
-     { s is.kanji.str$
+%      { s is.kanji.str$
+     { s check.kanji.str
          % author 名が日本語を含むケース
          { #1 'name.num :=
            s set.alphabet.in.author
@@ -4477,7 +4617,8 @@ FUNCTION {presort.one}
     { * order.cited int.to.str$ add.zero.to.number * " " * }
     { * " " * }
   if$
-  title is.kanji.str$ 
+%   title is.kanji.str$ 
+  is.kanji.entry
     { bst.mixed.order #0 =
        { "" }
        { " " }
@@ -4609,7 +4750,8 @@ FUNCTION {presort.two}
   " " *
   sort.label.abb *
   " " *  
-  title is.kanji.str$
+%   title is.kanji.str$
+  is.kanji.entry
     { bst.mixed.order #0 =
        { "" }
        { " " }
