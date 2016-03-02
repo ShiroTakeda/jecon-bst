@@ -2,13 +2,13 @@ Filename:            CHANGES.txt
 Author:		     Shiro Takeda
 e-mail               <shiro.takeda@gmail.com>
 First-written:       <2006/12/04>
-Time-stamp:	     <2016-03-01 22:56:20 st>
+Time-stamp:	     <2016-03-02 17:35:45 st>
 
 jecon.bst の変更履歴．
 
 --------------------------------------------------------------------------
 
-Ver. 5.0 ()
+Ver. 5.0 (2016-03-02)
 ----------------------------------
 
 * 翻訳者を指定する translator フィールドと監訳者を指定する kanyaku フィールド
