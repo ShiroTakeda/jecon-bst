@@ -1,7 +1,7 @@
 % jecon.bst: 経済学用 BibTeX style file.
 %
 % First-written:       <2002/11/03>
-% Time-stamp:	       <2016-02-26 22:17:03 st>
+% Time-stamp:	       <2016-03-02 21:43:16 st>
 % Version 5.0
 %
 % これは，飯田修さんによって作成された jpolisci.bst を経済学用に
@@ -512,7 +512,7 @@ FUNCTION {bst.year.pre}
 % year の後に付ける文字列 (英語文献用)
 %
 FUNCTION {bst.year.post}
-{ "" }
+{ " " }
 % { ") " }    % (default)
 
 % year の前に付ける文字列 (日本語文献用)
@@ -524,7 +524,7 @@ FUNCTION {bst.year.pre.jp}
 % year の後に付ける文字列 (日本語文献用)
 %
 FUNCTION {bst.year.post.jp}
-{ "年" }
+{ "年，" }
 % { ") " }    % (default)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
