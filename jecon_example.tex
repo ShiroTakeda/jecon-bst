@@ -1,8 +1,11 @@
-% Filename:            jecon-sample.tex
+%#!platex -kanji=uft-8
+%#BIBTEX pbibtex -kanji=utf-8 
+
+% Filename:            jecon_example.tex
 % Author:              Shiro Takeda
 % e-mail               <shiro.takeda@gmail.com>
 % First-written:       <2002/11/02>
-% Time-stamp:          <2016-02-18 15:09:30 st>
+% Time-stamp:          <2016-02-26 22:41:53 st>
 %
 % jecon.bst の使い方を説明するファイル
 %
@@ -82,7 +85,7 @@ urlcolor=MyGreen%
 \makeatother
 
 %%% title, author, acknowledgement, and date
-\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 4.1)
+\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 5.0)
 \thanks{このファイルの配布場所: \url{http://shirotakeda.org/ja/tex-ja/jecon-ja.html}}
 }
 
@@ -109,9 +112,7 @@ urlcolor=MyGreen%
 \begin{screen}
  \textbf{［注］} この \texttt{jecon.bst} を利用するには， 当然 \BibTeX 自体を使
  えるようになっていなければいけませんが，以下では \BibTeX の説明はしていません．
- \BibTeX については，\TeX 関連の書籍・ウェブサイト等で調べてください．\\経済学で
- の \BibTeX の利用については，例えば，\citet{120005678435} 等で解説されています．
- \texttt{jecon.bst} のことも説明されています．
+ \BibTeX については，\TeX 関連の書籍・ウェブサイト等で調べてください．
 \end{screen}
 \\
 
@@ -592,7 +593,7 @@ FUNCTION {bst.sei.mei.order}
 \texttt{yomi}，\texttt{translator}，\texttt{kanyaku}等も全て英語表記の人名と同じ
 形式で記述されているとみなします．
 
-このファイルと一緒に配布されている\texttt{jecon-sample-reverse.bib}というファイル
+このファイルと一緒に配布されている\texttt{jecon\_example-reverse.bib}というファイル
 では日本語文献の人名が英語文献での人名と同じ方法で指定されています．上のよう
 に\texttt{bst.sei.mei.order}に非ゼロを設定すれば，そのように書かれ
 た\texttt{bib}ファイルでも適切に扱うことができます．
@@ -604,9 +605,11 @@ FUNCTION {bst.sei.mei.order}
 タベースにおいて英語文献，日本語文献とも同じように人名を扱っていることが多いよう
 ですので，今後は\texttt{bib}ファイルにおいてもそういうルールが普通になってくるか
 もしれません．私自身，Mendeley で文献管理をしており，今後は \texttt{bib} ファイ
-ルを書く際に日本語文献で姓名の順序を逆にするというようなことはしないと思います
-（この \texttt{jecon.bst} のサンプルとして用意する \texttt{bib} ファイルは別です
-が）．ただそうして日本語文献も英語文献と同じように扱うようになると，これまで作成
+ルを書く際に日本語文献で姓名の順序を逆にするというようなことはもうしないと思いま
+すし，むしろそちらが標準になればよいと思っています．（この \texttt{jecon.bst} で
+利用する \texttt{bib} ファイルについては別ですが）．
+
+ただそうして日本語文献も英語文献と同じように扱うようになると，これまで作成
 された日本語文献に対応した\texttt{bst}ファイルは使えなくなってしまうという問題が
 出てきますが．
 
@@ -648,11 +651,11 @@ FUNCTION {bst.sei.mei.order}
 \begin{screen}
  \begin{verbatim}
         
- \bibliography{jecon-sample}
+ \bibliography{jecon_example}
  \end{verbatim}
 \end{screen}
 
-というようにデータベースファイル（ここでは，\texttt{jecon-sample.bib} というファ
+というようにデータベースファイル（ここでは，\texttt{jecon\_example.bib} というファ
 イル）を指定します．
 
 \subsection{コンパイルの方法}
@@ -674,13 +677,14 @@ FUNCTION {bst.sei.mei.order}
 \end{itemize}
 
 \BibTeX のコマンドとしては，\texttt{bibtex} ではなく \texttt{pbibtex} を使わなけ
-ればいけないです\footnote{昔は日本語文献用の \BibTeX のコマンドは \texttt{jbibtex} で
-したが，新しい \TeX のシステムでは \texttt{pbibtex} に変更されました．}．
+ればいけないです\footnote{昔は日本語文献用の \BibTeX のコマンドは
+\texttt{jbibtex} でしたが，現在 \TeX のシステムでは \texttt{pbibtex} という名前
+に変更されました．}．
 
 \subsection{ファイルの文字コードについて}
 
 \texttt{jecon.bst}（一緒に配布している他の bst ファイルも），
-\texttt{jecon-sample.bib}，\texttt{jecon-sample.tex} は全て文字コードに
+\texttt{jecon\_example.bib}，\texttt{jecon\_example.tex} は全て文字コードに
 UTF-8を利用しています．従って，そのまま利用するにはコンパイル時に UTF-8
 で処理する必要があります．
 
@@ -689,8 +693,8 @@ UTF-8を利用しています．従って，そのまま利用するにはコン
 \begin{screen}
  \begin{verbatim}
 
- platex --kanji=utf8 jecon-sample.tex
- pbibtex --kanji=utf8 jecon-sample.aux
+ platex --kanji=utf8 jecon_example.tex
+ pbibtex --kanji=utf8 jecon_example.aux
  \end{verbatim}
 \end{screen}
 
@@ -702,14 +706,25 @@ UTF-8を利用しています．従って，そのまま利用するにはコン
 \end{itemize}
 という場合には，他の文字コードで \texttt{jecon.bst} を利用したいというときがある
 と思います．そのような場合には \texttt{jecon.bst} ファイルの文字コードをそのコー
-ドに変換して利用してください（この\texttt{jecon-sample.tex} をコンパイルしたいと
-いうときには，\texttt{jecon-sample.tex}，\texttt{jecon-sample.bib} の文字コード
-も変換してください）．例えば，Windowsを利用しているので，これまで通り Shift JIS
-コードで利用したいというときには，\texttt{jecon.bst} をShift JIS コードに変換し
-てください\footnote{Windows上でファイルの文字コードを変換するには，文字コードを
-指定して保存できるエディタ等を利用すればよいです．例えば，Shift JIS コードに変換
-するには，一度メモ帳で \texttt{jecon.bst} を開き，文字コードにShift JIS コードを
-指定して保存し直せばよいです．}．
+ドに変換して利用してください（この\texttt{jecon\_example.tex} をコンパイルしたい
+というときには，\texttt{jecon\_example.tex}，\texttt{jecon\_example.bib} の文字
+コードも変換してください）．例えば，Windowsを利用しているので，これまで通り
+Shift JISコードで利用したいというときには，\texttt{jecon.bst} をShift JIS コード
+に変換してください\footnote{Windows上でファイルの文字コードを変換するには，文字
+コードを指定して保存できるエディタ等を利用すればよいです．例えば，Shift JIS コー
+ドに変換するには，一度メモ帳で \texttt{jecon.bst} を開き，文字コードにShift JIS
+コードを指定して保存し直せばよいです．}．
+
+
+\subsection{ユニコード文字の利用について}
+
+前節で説明したように p\LaTeX{} (platex) はファイルの文字コードがユニコードでも扱
+えます．しかし，ユニコード文字を扱えるわけではありません．ユニコード文字を扱うに
+は upLaTeX，LuaLaTeX，XeLaTeX 等を利用する必要があります．
+
+Version 5.0 以降の \texttt{jecon.bst} ではユニコード文字を適切に扱うような機能を
+加えています．もし利用したい人は \texttt{jecon\_unicode\_xelatex.pdf} で説明して
+いますので，それを読んでください．
 
 
 
@@ -1132,7 +1147,7 @@ FUNCTION {bst.journal.pre}
 
 \subsubsection{urlとaccessフィールド}
 
-例えば，\texttt{jecon-sample.bib}に次のような文献があります．
+例えば，\texttt{jecon\_example.bib}に次のような文献があります．
 \begin{verbatim}
 @unpublished{rutherford00:_gtapin_gtap_eg,
   author       = {Thomas F. Rutherford and Sergey V. Paltsev},
@@ -1332,7 +1347,7 @@ bib ファイルにおいて \texttt{absorder} フィールドを指定してあ
 
 つまり，\texttt{absorder} の値が小さほど前に表示されることになります．何
 も指定していないときは 0 と同じですので，優先順位は一番になります．この
-文書の bib ファイル（\texttt{jecon-sample.bib}）では，
+文書の bib ファイル（\texttt{jecon\_example.bib}）では，
 \citet{takeda06:_cge_analy_welfar_effec_trade} という文献の
 \texttt{absorder} に 999 を指定しています．そのためこの文献だけ一番後ろに
 表示されるようになっています．
@@ -1452,8 +1467,8 @@ FUNCTION {bst.hide.month}
        ていただきました．これらの有益なプログラム，ページを作成してくだ
        さった方々に感謝します．
  \item この PDF ファイルと一緒に，このファイルの元となる \TeX ファイル 
-      （\texttt{jecon-sample.tex}）と文献ファイル 
-      （\texttt{jecon-sample.bib}）も配布しているので，\TeX ファイルの書
+      （\texttt{jecon\_example.tex}）と文献ファイル 
+      （\texttt{jecon\_example.bib}）も配布しているので，\TeX ファイルの書
        き方，文献の登録の仕方はそちらも参考にしてください．
  \item ここをこうして欲しい，こうしたいという要望がありましたらおっしゃってくださ
        い．私に直せるようなものだったら直しますので．不具合があるときには，不具合
@@ -1474,8 +1489,8 @@ FUNCTION {bst.hide.month}
 
 %% BibTeX データベースファイルの指定．
 %
-\bibliography{jecon-sample}
-% \bibliography{./jecon-sample}
+\bibliography{jecon_example}
+% \bibliography{./jecon_example}
 
 \end{document}
 %#####################################################################

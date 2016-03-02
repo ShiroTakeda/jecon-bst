@@ -1,0 +1,110 @@
+%#!lualatex
+%#BIBTEX upbibtex jecon_unicode_lualatex.aux
+% 
+% このファイルは lualatex でコンパイルすることを前提で作成しています。
+%
+%############################## Main #################################
+
+%% 以下は lualatex 用の設定。
+\documentclass{ltjsarticle}
+
+%% 以下は lualatex 用の設定。
+\usepackage{fontspec}
+\usepackage{luatexja-fontspec}
+
+%% 以下は共通の設定
+\usepackage{natbib}
+\usepackage{url}
+\usepackage{amsmath,amssymb,amsthm}
+
+%% 色を付ける．
+\usepackage{graphicx}
+\usepackage{color}
+\definecolor{MyBrown}{rgb}{0.3,0,0}
+\definecolor{MyBlue}{rgb}{0,0,0.3}
+\definecolor{MyRed}{rgb}{0.6,0,0.1}
+\definecolor{MyGreen}{rgb}{0,0.4,0}
+\usepackage[bookmarks=true,%
+bookmarksnumbered=true,%
+colorlinks=true,%
+linkcolor=MyBlue,%
+citecolor=MyRed,%
+filecolor=MyBlue,%
+pagecolor=MyBlue,%
+urlcolor=MyGreen%
+]{hyperref}
+
+%% \BibTeX command を定義．
+\makeatletter
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\makeatother
+
+%%% title, author, acknowledgement, and date
+\title{\textbf{\texttt{jecon.bst} とユニコード文字}}
+
+\author{武田史郎\thanks{Email: \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}}}}
+
+% \date{平成28年2月3日}
+\date{\today}
+
+%#####################################################################
+%######################### Document Starts ###########################
+%#####################################################################
+\begin{document}
+
+\begin{flushleft}
+ {\Large \textbf{LuaLaTeX (\texttt{lualatex}) を利用するケース}}
+\end{flushleft}
+
+\vspace{1em}
+
+\section{使い方}
+
+\subsection{TeX ファイルの書き方}
+
+\begin{itemize}
+ \item このファイル (\texttt{jecon\_unicode\_lualatex.tex}) を参考にしてください。
+ \item \texttt{bib} ファイルの書き方、\texttt{jecon.bst} の使い方は
+       \texttt{jecon\_unicode\_xelatex.pdf} を見てください。
+\end{itemize}
+
+\subsection{コンパイル}
+
+\begin{itemize}
+ \item LuaLaTeX でのコンパイル。
+\begin{verbatim}
+lualatex jecon_unicode_lualatex.tex
+upbibtex jecon_unicode_lualatex
+lualatex jecon_unicode_lualatex.tex               
+lualatex jecon_unicode_lualatex.tex
+\end{verbatim}
+ \item つまり、\TeX のコマンドとしては \texttt{lualatex} を、BibTeX のコマンドと
+       しては \texttt{upbibtex} を利用します。
+\end{itemize}
+
+\section{例}
+
+\input{unicode_example.tex}
+
+\nocite{*}
+
+%%% BibTeX スタイルファイルの指定．jecon_unicode.bst を指定．
+\bibliographystyle{jecon_unicode}
+
+%% BibTeX データベースファイルの指定．
+%
+\bibliography{jecon_example_reverse,unicode_example}
+
+\end{document}
+%#####################################################################
+%######################### Document Ends #############################
+%#####################################################################
+
+% --------------------
+% Local Variables:
+% fill-column: 80
+% coding: utf-8-dos
+% End:
+
+
