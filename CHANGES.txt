@@ -2,13 +2,13 @@ Filename:            CHANGES.txt
 Author:		     Shiro Takeda
 e-mail               <shiro.takeda@gmail.com>
 First-written:       <2006/12/04>
-Time-stamp:	     <2016-02-23 10:08:11 st>
+Time-stamp:	     <2016-03-01 22:56:20 st>
 
 jecon.bst の変更履歴．
 
 --------------------------------------------------------------------------
 
-Ver. 4.1 ()
+Ver. 5.0 ()
 ----------------------------------
 
 * 翻訳者を指定する translator フィールドと監訳者を指定する kanyaku フィールド
@@ -22,6 +22,20 @@ Ver. 4.1 ()
   kanyaku は邦訳書の場合に翻訳者、監訳者を入れることを念頭に置いてます。原著とは
   別に邦訳書を独立した文献として登録する場合です。jauthor や jkanyaku は英語の文
   献の情報に邦訳書の情報もおまけでつけるときに使います。
+
+* ユニコード文字の利用に対応しました。利用方法は jecon_unicode_xelatex.pdf とい
+  うファイルで説明しています。
+
+* 文献ファイルでユニコード文字を利用しても適切に処理できるように修正。詳しい方法
+  については「jecon_unicode_xelatex.pdf」を読んでください。
+
+* カスタマイズ例の jecon_number.pdf を削除。番号での引用は代わりに jecon_jet.pdf
+  で使うようにしました。
+
+* これまでファイルの文字コードを Shift JIS にしているファイルも含めていましたが、
+  もう止めました。UTF-8 の文字コードのものだけ配布します。
+
+* 例として付けているファイルの名前を変更。
 
 
 Ver. 4.0.1 (2016-02-16)
@@ -85,7 +99,7 @@ Ver. 4.0 (2016-02-3)
   #1: スタイル1のような省略方法 (これがデフォールト)
   #2: スタイル2のような省略方法
 
-  詳しくは jecon-sample.pdf の「著者名の省略方法の変更」の部分を見てください。
+  詳しくは jecon_example.pdf の「著者名の省略方法の変更」の部分を見てください。
 
 * サンプルのファイルに "jecon_jet.bst" を追加。これは JET (Journal of Ecnomic
   Theory) のようなスタイル。
@@ -127,7 +141,7 @@ Ver. 3.1 (2014-01-27)
   名も外国人名と同様に扱われる場合が多い。そのようなときには`bst.sei.mei.order'に
   非ゼロを指定することで正常に処理をする。これはauthor, editor, yomi, jauthor,
   jkanyakuフィールドにおける日本人名の指定に適用されます。詳しいことは
-  jecon-sample.pdfの「bibファイルにおける日本語での人名の書き方」の節を参照してく
+  jecon_example.pdfの「bibファイルにおける日本語での人名の書き方」の節を参照してく
   ださい。
 
 
@@ -267,7 +281,7 @@ Ver. 2.6 (2008-12-22)
   ド、カンマを表示しないように修正。これまでの jecon.bst では区切文字にピ
   リオドとカンマを併用することで問題が生じる場合 (ピリオド、カンマがかぶる
   等) があったが、この修正により併用しても上手く表示されるようになっていま
-  す (詳しくは jecon-sample.pdf の「区切り文字 (ピリオド、カンマ) について」
+  す (詳しくは jecon_example.pdf の「区切り文字 (ピリオド、カンマ) について」
   の項を参照してください)。
 
 * bst.and.others.num という関数を追加。何人以上の著者がいるときに引用部分
@@ -286,13 +300,13 @@ Ver. 2.4 (2008-08-03)
 ----------------------------------
 
 * bst.sort.year を追加。非ゼロを指定しておくと、まず year をキーにソートす
-  るようになる。詳しくは jecon-sample.pdf を参照。
+  るようになる。詳しくは jecon_example.pdf を参照。
 
 * ファイルの文字コードを全てutf-8に変更した。コンパイルするには platex も
   jbibtex も "--kanji=utf8" オプション付きで実行する必要がある。
 
-  platex --kanji=utf8 jecon-sample.tex
-  jbibtex --kanji=utf8 jecon-sample.aux
+  platex --kanji=utf8 jecon_example.tex
+  jbibtex --kanji=utf8 jecon_example.aux
 
   Winshellを使っている人はコマンドラインのオプションに --kanji=utf8 に加え
   れば、utf-8モードになります。
@@ -372,7 +386,7 @@ Ver. 2.0 (Sun Oct  1, 2006)
   の順番で判断。
 
   absorder と order は jecon.bst 独自のフィールド。0-99 の値を指定できる。詳しい
-  ことは jecon-sample.pdf を参照。
+  ことは jecon_example.pdf を参照。
 
 * bst.notuse.absorder.field という関数を加える。これにゼロ以外の値を設定して置け
   ば、並べ替えの際に absorder field の値を利用しない。
