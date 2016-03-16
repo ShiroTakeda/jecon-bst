@@ -49,7 +49,8 @@ urlcolor=MyGreen%
 \thanks{このファイルの配布場所: \url{http://shirotakeda.org/ja/tex-ja/jecon-ja.html}}
 }
 
-\author{武田史郎\thanks{Email: \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}}}}
+\author{武田史郎\thanks{Email:
+\texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}}}}
 
 \date{\today}
 
@@ -113,10 +114,15 @@ urlcolor=MyGreen%
 \begin{itemize}
  \item BibTeX でユニコード文字を扱うにはそもそも TeX (LaTeX) がユニコード文字を
        扱うことができる必要があります。現在、ユニコード文字を利用できる TeX とし
-       てはXeLaTeX、LuaLaTeX、pLaTeX を拡張したupLaTeX 等があります。
+       ては XeLaTeX、LuaLaTeX、そして pLaTeX を拡張したupLaTeX 等があります。
  \item このファイルでは \texttt{tex} ファイルのコンパイルには XeLaTeX
-       (\texttt{xelatex}) を、BibTeX のコマンドとしては upLaTeX に付属の
-       \texttt{upbibtex} を利用します。
+       (\texttt{xelatex}) を利用します。\texttt{xelatex} を選んだのはなんとなく
+       で特に理由があるわけではないです。そもそも 3 つの違いがよくわかっていませ
+       ん。
+ \item BibTeX のコマンドとしては upLaTeX に付属の \texttt{upbibtex} を利用します。
+       ユニコード対応の BibTeX としては \texttt{bibtexu} もありますが、ここでは
+       \texttt{is.kanji.str\$} 命令がないといけないので、\texttt{upbibtex} でな
+       いとだめです。
  \item \textbf{［注意］} pLaTeX でも \verb|-kanji=utf-8| といオプションを付けて
        実行することで、ユニコード（UTF-8）を扱えるという説明がされることがありま
        すが、これはファイルの文字コードとしてのユニコード（UTF-8等）を扱えるとい
