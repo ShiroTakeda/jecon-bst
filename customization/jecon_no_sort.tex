@@ -1,6 +1,6 @@
 % Author:	       Shiro Takeda
 % First-written:       <2002/11/02>
-% Time-stamp:	       <2016-02-26 12:27:22 st>
+% Time-stamp:	       <2016-03-25 08:07:29 st>
 %
 %############################## Main #################################
 \documentclass[10pt]{jarticle}
@@ -34,21 +34,24 @@ urlcolor=MyGreen%
 %#####################################################################
 \begin{document}
 
-\verb|\bibliographystyle| にデフォールトの \verb|jecon.bst| を指定したもの。
-\vspace{1em}\\
+\verb|\bibliographystyle| に \verb|jecon_no_sort.bst| を指定したもの。
+引用された順番で参考文献が作成される．
+\vspace*{1em}\\
 
 \input{cited_part}
 
 \nocite{*}
 
 %% BibTeX スタイルファイルの指定。
-\bibliographystyle{jecon}
-% \bibliographystyle{jecon_new}
+\bibliographystyle{jecon_no_sort}
 
 %% BibTeX データベースファイルの指定。
-\bibliography{jecon_example}
+%
+% 一個上のフォルダにある jecon_example.bib を指定。
+\bibliography{../jecon_example}
 
 \end{document}
+
 
 %#####################################################################
 %######################### Document Ends #############################

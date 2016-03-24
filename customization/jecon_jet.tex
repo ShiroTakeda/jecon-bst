@@ -1,12 +1,12 @@
 % Author:	       Shiro Takeda
-% First-written:       <2014/01/23>
-% Time-stamp:	       <2016-02-26 12:28:19 st>
+% First-written:       <2002/11/02>
+% Time-stamp:	       <2016-03-25 08:07:22 st>
 %
 %############################## Main #################################
 \documentclass[10pt]{jarticle}
 
 %% natbib.sty を使う。
-\usepackage{natbib}
+\usepackage[numbers]{natbib}
 \usepackage{mathpazo}
 \usepackage{color}
 \definecolor{MyBrown}{rgb}{0.3,0,0}
@@ -34,24 +34,33 @@ urlcolor=MyGreen%
 %#####################################################################
 \begin{document}
 
-\verb|\bibliographystyle|に\verb|jecon_reverse.bst|を指定し、
-\verb|\bibliography|に\verb|jecon_example_reverse.bib|を指定。
-\vspace{1em}\\
-普通、\verb|bib|ファイルでは日本人名は「姓 名」という形で名前を指定する。
-\verb|jecon_example_reverse.bib|では日本人名についても外国人名と同じように「姓,
-名」という形式で指定している。そのような\verb|bib|ファイルでも適切扱う設定にしているのが、\verb|jecon_reverse.bst|。
+\verb|\bibliographystyle| にデフォールトの \verb|jecon_jet.bst| を指定し、さらに
+\verb|natbib|のオプションに\verb|numbers|を指定して、番号での引用をおこなってい
+る。JET (\textit{Journal of Economic Theory})風のスタイル。
 \vspace{1em}\\
 
 \input{cited_part}
 
+\vspace{1em}
+
+上の引用部分では \verb|\citet| 命令を利用している。\verb|\citet| 命令では引用部分
+は「著者名 + 番号」という形式になる。\verb|\cite| 命令を利用すれば以下のように番
+号だけの形式になる：\\
+\cite{40020418914}, \cite{yamazaki13:_japan},
+\cite{takeda2013jecon}, \cite{Takeda2012a}, \cite{arimura-takeda2012},
+\cite{matloff__2012}, \cite{Boswell-2012}, \cite{takeda2012_cge},
+\cite{Takeda2011b}, \cite{takeda2011c}, \cite{40018847518}.
+
 \nocite{*}
 
 %% BibTeX スタイルファイルの指定。
-\bibliographystyle{jecon_reverse}
+\bibliographystyle{jecon_jet}
 % \bibliographystyle{jecon_new}
 
 %% BibTeX データベースファイルの指定。
-\bibliography{jecon_example_reverse}
+%
+% 一個上のフォルダにある jecon_example.bib を指定。
+\bibliography{../jecon_example}
 
 \end{document}
 
@@ -63,4 +72,3 @@ urlcolor=MyGreen%
 % Local Variables:
 % fill-column: 80
 % End:
-

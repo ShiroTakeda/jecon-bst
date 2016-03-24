@@ -293,11 +293,18 @@ urlcolor=MyGreen%
 	\item このファイルでは以下の設定にしています。
 \begin{verbatim}
     \bibliographystyle{jecon_unicode}       
-    \bibliographystyle{unicode_example,jecon_example_reverse}        
+    \bibliographystyle{../jecon_example_reverse,unicode_example}        
 \end{verbatim}
        つまり、\texttt{bst} ファイルには \texttt{jecon\_unicode.bst} を、
 	      \texttt{bib} ファイルには \texttt{unicode\_example.bib} と
-	      \texttt{jecon\_example\_reverse.bib} の二つを指定しています。
+	      \texttt{jecon\_example\_reverse.bib} の二つを指定しています。後者
+	      のファイルは一個上のフォルダに置いてあるものを利用するので、
+	      「\texttt{../}」を付けています\footnote{「\texttt{../}」は一個上の
+	      フォルダを表す記号です。}。このファイルも同じフォルダに置くなら単
+	      純に以下のように書けばよいです。
+\begin{verbatim}
+    \bibliographystyle{jecon_example_reverse,unicode_example}        
+\end{verbatim}
        \end{itemize}
 \end{itemize}
 
@@ -315,13 +322,14 @@ urlcolor=MyGreen%
 \subsection{コンパイルの方法}
 
 \begin{itemize}
- \item このファイルをコンパイルするときには以下の3つのファ
+ \item このファイルをコンパイルするときには以下の2つのファ
        イルを同じフォルダに置いてください。
        \begin{itemize}
 	\item \texttt{jecon\_unicode.bst}
 	\item \texttt{unicode\_example.bib}
-	\item \texttt{jecon\_example\_reverse.bib}
        \end{itemize}
+ \item また、\texttt{jecon\_example\_reverse.bib} というファイルを一個上の階層の
+       フォルダに置いてください。
  \item コンパイルはコマンドラインであれば次のようにおこないます。
 \begin{verbatim}
     xelatex jecon_unicode_xelatex.tex
@@ -425,7 +433,8 @@ urlcolor=MyGreen%
 
 %% BibTeX データベースファイルの指定．
 %
-\bibliography{jecon_example_reverse,unicode_example}
+% jecon_example_reverse.bib は一個上のフォルダにあるものを利用する。
+\bibliography{../jecon_example_reverse,unicode_example}
 
 \end{document}
 %#####################################################################

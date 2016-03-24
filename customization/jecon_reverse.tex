@@ -1,6 +1,6 @@
 % Author:	       Shiro Takeda
-% First-written:       <2002/11/02>
-% Time-stamp:	       <2016-02-26 12:27:42 st>
+% First-written:       <2014/01/23>
+% Time-stamp:	       <2016-03-25 08:07:39 st>
 %
 %############################## Main #################################
 \documentclass[10pt]{jarticle}
@@ -34,22 +34,28 @@ urlcolor=MyGreen%
 %#####################################################################
 \begin{document}
 
-\verb|\bibliographystyle| に \verb|jecon_no_sort.bst| を指定したもの。
-引用された順番で参考文献が作成される．
-\vspace*{1em}\\
+\verb|\bibliographystyle|に\verb|jecon_reverse.bst|を指定し、
+\verb|\bibliography|に\verb|jecon_example_reverse.bib|を指定。
+\vspace{1em}\\
+普通、\verb|bib|ファイルでは日本人名は「姓 名」という形で名前を指定する。
+\verb|jecon_example_reverse.bib|では日本人名についても外国人名と同じように「姓,
+名」という形式で指定している。そのような\verb|bib|ファイルでも適切扱う設定にしているのが、\verb|jecon_reverse.bst|。
+\vspace{1em}\\
 
 \input{cited_part}
 
 \nocite{*}
 
 %% BibTeX スタイルファイルの指定。
-\bibliographystyle{jecon_no_sort}
+\bibliographystyle{jecon_reverse}
+% \bibliographystyle{jecon_new}
 
 %% BibTeX データベースファイルの指定。
-\bibliography{jecon_example}
+%
+% 一個上のフォルダにある jecon_example_reverse.bib を指定。
+\bibliography{../jecon_example_reverse}
 
 \end{document}
-
 
 %#####################################################################
 %######################### Document Ends #############################
@@ -59,3 +65,4 @@ urlcolor=MyGreen%
 % Local Variables:
 % fill-column: 80
 % End:
+
