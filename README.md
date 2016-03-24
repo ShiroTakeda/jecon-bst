@@ -1,9 +1,9 @@
 <!--
-Filename:		README.md
+Filename:       README.md
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2016-03-25 08:36:42 st>
+Time-stamp:     <2016-03-25 08:39:34 st>
 -->
 
 jecon.bst
@@ -15,13 +15,15 @@ jecon.bst (経済学用のBibTeX style file) です。
 
 ## ファイル
 
-| bst ファイル                 | 説明                                          |
-|:-----------------------------|:----------------------------------------------|
-| `jecon.bst`                  | これが bst ファイルです                       |
-| `jecon_example.tex`          | 使い方等の説明をしたファイルです。            |
-| `jecon_example.pdf`          | `jecon_example.tex` をPDFにしたものです。     |
-| `jecon_example.bib`          | 文献のファイルです。                          |
-| `jecon_example_reverse.bib`  | 文献のファイルです。                          |
+| bst ファイル                 | 説明                                                         |
+|:-----------------------------|:-------------------------------------------------------------|
+| `jecon.bst`                  | これが bst ファイルです                                      |
+| `jecon_example.tex`          | 使い方等の説明をしたファイルです。                           |
+| `jecon_example.pdf`          | `jecon_example.tex` をPDFにしたものです。                    |
+| `jecon_example.bib`          | 文献のファイルです。                                         |
+| `jecon_example_reverse.bib`  | 文献のファイルです。                                         |
+| `unicode`                    | ユニコード文字の利用について説明したファイルがあるフォルダ   |
+| `customization`              | カスタマイズの例を置いてあるフォルダ                         |
 
 
 
