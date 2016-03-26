@@ -5,7 +5,7 @@
 % Author:              Shiro Takeda
 % e-mail               <shiro.takeda@gmail.com>
 % First-written:       <2002/11/02>
-% Time-stamp:          <2016-03-02 17:36:30 st>
+% Time-stamp:          <2016-03-26 23:18:48 st>
 %
 % jecon.bst の使い方を説明するファイル
 %
@@ -85,13 +85,13 @@ urlcolor=MyGreen%
 \makeatother
 
 %%% title, author, acknowledgement, and date
-\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 5.0)
+\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 5.1)
 \thanks{このファイルの配布場所: \url{http://shirotakeda.org/ja/tex-ja/jecon-ja.html}}
 }
 
 \author{武田史郎\thanks{Email: \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}}}}
 
-\date{平成28年3月2日}
+\date{平成28年3月26日}
 % \date{平成\today}
 
 %#####################################################################
@@ -305,11 +305,11 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 
 注意点として，
 \begin{itemize}
-\item 名前は，日本語文献では「姓 名」の順で author を指定してください
-      （姓・名の間に半角か全角の空白を入れてください）．\\
-      \textbf{注：日本語文献での人名の指定方法については第\ref{sec:nihonjin}節も
-      読んでください．今後は日本語文献でも英語文献と同様の名前の指定方法（つまり，
-      「姓, 名」）とする方がよいかもしれません}．
+\item author の名前は日本語文献では「姓 名」の順で指定してください（姓・名の間に
+      半角か全角の空白を入れてください）．\\ \textbf{注：日本語文献での人名の指
+      定方法については第\ref{sec:nihonjin}節も読んでください．普通の流儀に従って
+      上では「姓 名」の順でと説明しましたが、今後は日本語文献でも英語文献と同様
+      の名前の指定方法（つまり，「姓, 名」）とする方がよいと思います。}．
  \item \texttt{yomi} フィールドを付けると日本語文献を Reference で列挙するときに
       並び順を考慮してくれます．\texttt{yomi}フィールドの記入方法には
        \begin{itemize}
@@ -693,28 +693,10 @@ UTF-8を利用しています．従って，そのまま利用するにはコン
 \begin{screen}
  \begin{verbatim}
 
- platex --kanji=utf8 jecon_example.tex
- pbibtex --kanji=utf8 jecon_example.aux
+ platex -kanji=utf8 jecon_example.tex
+ pbibtex -kanji=utf8 jecon_example.aux
  \end{verbatim}
 \end{screen}
-
-ただし，
-\begin{itemize}
- \item UTF-8に対応していない古い \TeX のシステムを利用している．
- \item UTF-8に対応している \TeX を利用しているが，普段他の文字コードを利
-       用している．
-\end{itemize}
-という場合には，他の文字コードで \texttt{jecon.bst} を利用したいというときがある
-と思います．そのような場合には \texttt{jecon.bst} ファイルの文字コードをそのコー
-ドに変換して利用してください（この\texttt{jecon\_example.tex} をコンパイルしたい
-というときには，\texttt{jecon\_example.tex}，\texttt{jecon\_example.bib} の文字
-コードも変換してください）．例えば，Windowsを利用しているので，これまで通り
-Shift JISコードで利用したいというときには，\texttt{jecon.bst} をShift JIS コード
-に変換してください\footnote{Windows上でファイルの文字コードを変換するには，文字
-コードを指定して保存できるエディタ等を利用すればよいです．例えば，Shift JIS コー
-ドに変換するには，一度メモ帳で \texttt{jecon.bst} を開き，文字コードにShift JIS
-コードを指定して保存し直せばよいです．}．
-
 
 \subsection{ユニコード文字の利用について}
 
@@ -1478,6 +1460,8 @@ FUNCTION {bst.hide.month}
  \item 連絡は \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}} まで．
  \item \texttt{jecon.bst} は 
        \url{http://shirotakeda.org/ja/tex-ja/jecon-ja.html} で配布しています．
+ \item \texttt{jecon.bst} は GitHub
+       \url{https://github.com/ShiroTakeda/jecon-bst} で開発しています。
 \end{itemize}
 
 \nocite{*}

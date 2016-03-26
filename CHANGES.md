@@ -3,11 +3,17 @@ Filename:		CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2016-03-16 14:00:47 st>
+Time-stamp:     <2016-03-26 23:18:18 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
+
+## Ver. 5.1 (2016-03-26)
+
+* コードの整形・整理と [jecon_example.pdf](jecon_example.pdf) の修正だけです。機
+  能の変更はないです。
+
 
 ## Ver. 5.0 (2016-03-02)
 

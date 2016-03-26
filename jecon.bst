@@ -1,8 +1,8 @@
 % jecon.bst: 経済学用 BibTeX style file.
 %
 % First-written:       <2002/11/03>
-% Time-stamp:	       <2016-02-26 22:11:01 st>
-% Version 5.0
+% Time-stamp:	       <2016-03-26 22:52:22 st>
+% Version 5.1
 %
 % これは，飯田修さんによって作成された jpolisci.bst を経済学用に
 % 武田史郎が改変したものです．
@@ -27,7 +27,7 @@
 % 変更履歴 (Changelog) は CHANGES.txt ファイルを見てください．
 
 % version 指定
-FUNCTION {jecon.version} { "5.0" }
+FUNCTION {jecon.version} { "5.1" }
 
 % Debug mode．0 以外を指定すると様々な情報を表示させることが可能．
 FUNCTION {jecon.debug}
@@ -1637,7 +1637,6 @@ FUNCTION {check.kanji.str}
 FUNCTION {format.btitle}
 { booktitle empty$
     { "" }
-%     { booktitle is.kanji.str$
     { is.kanji.entry
 	{ bst.btitle.pre.jp booktitle * bst.btitle.post.jp * }
 	{ bst.btitle.pre booktitle * bst.btitle.post * }
@@ -1650,7 +1649,6 @@ FUNCTION {format.btitle}
 FUNCTION {format.journal}
 { journal empty$
     { "" }
-%     { journal is.kanji.str$
     { is.kanji.entry
 	{ bst.journal.pre.jp journal * bst.journal.post.jp * }
  	{ bst.journal.pre journal * bst.journal.post * }
@@ -1663,7 +1661,6 @@ FUNCTION {format.journal}
 FUNCTION {format.book}
 { title empty$
     { "" }
-%     { title is.kanji.str$
     { is.kanji.entry
 	{ bst.book.pre.jp title * bst.book.post.jp * }
  	{ bst.book.pre title * bst.book.post * }
@@ -1722,7 +1719,6 @@ FUNCTION {format.names}
   % namesleft が 0 より大なら繰り返し (while)
   { namesleft #0 > }
     % s に日本語含むか？
-%     { s is.kanji.str$
     { s check.kanji.str
         % 日本語含むケースの処理
         { nameptr 'name.num :=
@@ -1819,20 +1815,17 @@ FUNCTION {format.names}
       nameptr #1 >
         % 二番目以降の author のケースでの処理
 	{ namesleft #1 >
-%    	    { s is.kanji.str$
    	    { s check.kanji.str
  		{ bst.and.jp  * t * }
  		{ ", " * t * }
 	      if$
 	    }
 	    { t "others" =
-%   		{ s is.kanji.str$
   		{ s check.kanji.str
   		    { bst.and.others.jp * }
                     { bst.and.others * }
  		  if$
  		}
-%     		{ s is.kanji.str$
     		{ s check.kanji.str
  		    { bst.and.jp * t * }
 		    { numnames #2 =
@@ -1969,20 +1962,17 @@ FUNCTION {format.names.alt}
       nameptr #1 >
         % 二番目以降の author のケースでの処理
 	{ namesleft #1 >
-%    	    { sss is.kanji.str$
    	    { sss check.kanji.str
  		{ bst.and.jp  * t * }
  		{ ", " * t * }
 	      if$
 	    }
 	    { t "others" =
-%   		{ s is.kanji.str$
       	        { s check.kanji.str
   		    { bst.and.others.jp * }
                     { bst.and.others * }
  		  if$
  		}
-%     		{ sss is.kanji.str$
       	        { sss check.kanji.str
  		    { bst.and.jp * t * }
 		    { numnames #2 =
@@ -2015,13 +2005,11 @@ FUNCTION {remove.ss.period.auth}
      'skip$
   if$
 
-%   tempc is.kanji.str$
   tempc check.kanji.str
     { bst.author.pre.jp tempa * 'tempa := }
     { bst.author.pre tempa * 'tempa := }
   if$
 
-%   tempc is.kanji.str$
   tempc check.kanji.str
     { bst.author.post.jp 'tempb := }
     { bst.author.post 'tempb := }
@@ -2178,13 +2166,11 @@ FUNCTION {format.editors}
       #1 bysame.check =
         { "" * }
         { editor num.names$ #1 >
-%  	  { editor is.kanji.str$
  	  { editor check.kanji.str
               { bst.editor.jp * }
 	      { bst.editors * }
 	    if$
  	  }
-%   	  { editor is.kanji.str$
   	  { editor check.kanji.str
  	      { bst.editor.jp * }
 	      { bst.editor * }
@@ -2205,7 +2191,6 @@ FUNCTION {format.authors.alt}
     { extra.label.bysame "bysame" =
         % Yes なら bysame を挿入
 	{ author insert.bysame }
-%  	{ author is.kanji.str$
  	{ author check.kanji.str
  	    { bst.author.pre.jp author format.names * bst.author.post.jp * }
    	    { bst.author.pre author format.names * bst.author.post * }
@@ -2225,7 +2210,6 @@ FUNCTION {format.editors.alt}
         % Yes なら bysame.check に 1 を代入し、bysame を挿入
 	{ #1 'bysame.check :=
 	  editor insert.bysame }
-% 	{ editor is.kanji.str$
 	{ editor check.kanji.str
 	    { bst.author.pre.jp editor format.names * }
  	    { bst.author.pre editor format.names * bst.author.post * }
@@ -2235,13 +2219,11 @@ FUNCTION {format.editors.alt}
       #1 bysame.check =
         { "" * }
         { editor num.names$ #1 >
-%  	  { editor is.kanji.str$
  	  { editor check.kanji.str
               { bst.editor.jp * }
 	      { bst.editors * }
 	    if$
  	  }
-%   	  { editor is.kanji.str$
   	  { editor check.kanji.str
  	      { bst.editor.jp * }
 	      { bst.editor * }
@@ -2260,13 +2242,11 @@ FUNCTION {format.editors.x}
     { "" }
     { editor format.names 
       editor num.names$ #1 >
-%  	{ editor is.kanji.str$
  	{ editor check.kanji.str
  	    { bst.editor.jp * }
 	    { bst.editors * }
 	  if$
  	}
-%   	{ editor is.kanji.str$
  	{ editor check.kanji.str
  	    { bst.editor.jp * }
 	    { bst.editor * }
@@ -2358,7 +2338,6 @@ FUNCTION {format.title}
 { title empty$
   bst.hide.title #0 = not or
     { "" }
-%     { title is.kanji.str$
     { is.kanji.entry
       { bst.title.pre.jp title * bst.title.post.jp * }
       { format.title.sub remove.irrelevant.period.comma }
@@ -2379,7 +2358,6 @@ FUNCTION {format.jtitle}
 FUNCTION {format.misc.title}
 { title empty$
     { "" }
-%     { title is.kanji.str$
     { is.kanji.entry
       { bst.title.pre.jp title * bst.title.post.jp * }
       { bst.title.pre title * bst.title.post * }
@@ -2655,7 +2633,6 @@ FUNCTION {format.bvolume}
 	  if$
 	}
       if$
-%       "volume and number" number either.or.check
     }
   if$
 }
@@ -3080,7 +3057,6 @@ FUNCTION {format.howpublished}
 FUNCTION {format.address}
 { address empty$
     { "" }
-%     { address is.kanji.str$
     { is.kanji.entry
         { bst.address.pre.jp address * bst.address.post.jp * }
         { bst.address.pre address * bst.address.post * }
@@ -3523,7 +3499,6 @@ FUNCTION {inbook}
     { format.year "year" output.check.nocomma }
     'skip$
   if$
-%   format.book remove.pre.comma.period "title" output.check.nocomma
   format.book "title" output.check.nocomma
   format.edition output.nocomma
 
@@ -3973,7 +3948,6 @@ FUNCTION {sort.format.names}
         { ", " * }
 	'skip$
       if$
-%       s is.kanji.str$
       s check.kanji.str
          { bst.sei.mei.order #0 =
              { s nameptr "{ff }{ll}" format.name$ 't := }
@@ -3987,7 +3961,6 @@ FUNCTION {sort.format.names}
          'skip$
       if$
       nameptr numnames = t "others" = and
-%  	{ s is.kanji.str$
  	{ s check.kanji.str
   		{ bst.and.others.jp * }
  		{ bst.and.others * }
@@ -4011,7 +3984,6 @@ FUNCTION {sort.format.names.abb}
   s num.names$ 'numnames :=
   numnames bst.and.others.num <
      { s sort.format.names }
-%      { s is.kanji.str$
      { s check.kanji.str
          % author 名が日本語を含むケース
          { bst.sei.mei.order #0 =
@@ -4032,7 +4004,6 @@ FUNCTION {format.lab.names.full}
   s num.names$ 'numnames :=
   numnames 'namesleft :=
     { namesleft #0 > }
-%       { s is.kanji.str$
       { s check.kanji.str
           % author 名に日本語含むケース
           { nameptr 'name.num :=
@@ -4108,7 +4079,6 @@ FUNCTION {format.lab.names.abb}
      % author 数が bst.and.others.num より小さいなら full で表示。
      { s format.lab.names.full }
      % author 数が bst.and.others.num 以上なら 1st author のみ表示。あとは略。
-%      { s is.kanji.str$
      { s check.kanji.str
          % author 名が日本語を含むケース
          { #1 'name.num :=
@@ -4544,64 +4514,64 @@ FUNCTION {add.zero.to.number}
 FUNCTION {bst.sort.entry.type.order}
 { 'item.type :=
   item.type "article" =
-    { "01" }
-    { item.type "book" =
-        { "02" }
-        { item.type "booklet" =
-            { "03" }
-            { item.type "comment" =
-                { "04" }
-                { item.type "conference" =
-                    { "05" }
-                    { item.type "inbook" =
-                        { "06" }
-                        { item.type "incollection" =
-                            { "07" }
-                            { item.type "inproceedings" =
-                                { "08" }
-                                { item.type "manual" =
-                                    { "09" }
-                                    { item.type "masterthesis" =
-                                        { "10" }
-                                        { item.type "misc" =
-                                           { "11" }
-                                           { item.type "phdthesis" =
-                                              { "12" }
-                                              { item.type "proceedings" =
-                                                 { "13" }
-                                                 { item.type "techreport" =
-                                                    { "14" }
-                                                    { item.type "unpublished" =
-                                                       { "15" }
-                                                       { "16" }
-                                                      if$
-                                                    }
+     { "01" }
+     { item.type "book" =
+         { "02" }
+         { item.type "booklet" =
+             { "03" }
+             { item.type "comment" =
+                 { "04" }
+                 { item.type "conference" =
+                     { "05" }
+                     { item.type "inbook" =
+                         { "06" }
+                         { item.type "incollection" =
+                             { "07" }
+                             { item.type "inproceedings" =
+                                 { "08" }
+                                 { item.type "manual" =
+                                     { "09" }
+                                     { item.type "masterthesis" =
+                                         { "10" }
+                                         { item.type "misc" =
+                                             { "11" }
+                                             { item.type "phdthesis" =
+                                                 { "12" }
+                                                 { item.type "proceedings" =
+                                                     { "13" }
+                                                     { item.type "techreport" =
+                                                         { "14" }
+                                                         { item.type "unpublished" =
+                                                             { "15" }
+                                                             { "16" }
+                                                           if$
+                                                         }
+                                                       if$
+                                                     }
                                                    if$
                                                  }
-                                                if$
-                                              }
-                                             if$
-                                           }
-                                          if$
-                                        }
-                                      if$
-                                    }
-                                if$
-                                }
-                            if$
-                            }
-                        if$
-                        }
-                    if$
-                    }
-                if$
-                }
-            if$
-            }
-        if$
-        }
-    if$
-    }
+                                               if$
+                                             }
+                                           if$
+                                         }
+                                       if$
+                                     }
+                                 if$
+                                 }
+                             if$
+                             }
+                         if$
+                         }
+                     if$
+                     }
+                 if$
+                 }
+             if$
+             }
+         if$
+         }
+     if$
+     }
   if$
 }
 
@@ -4617,7 +4587,6 @@ FUNCTION {presort.one}
     { * order.cited int.to.str$ add.zero.to.number * " " * }
     { * " " * }
   if$
-%   title is.kanji.str$ 
   is.kanji.entry
     { bst.mixed.order #0 =
        { "" }
@@ -4750,7 +4719,6 @@ FUNCTION {presort.two}
   " " *
   sort.label.abb *
   " " *  
-%   title is.kanji.str$
   is.kanji.entry
     { bst.mixed.order #0 =
        { "" }
