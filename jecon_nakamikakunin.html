@@ -21,6 +21,20 @@
         /* font-lock-constant-face */
         color: #22ffff;
       }
+      .ediff-current-diff-a {
+        /* ediff-current-diff-A */
+        background-color: #553333;
+      }
+      .ediff-even-diff-a {
+        /* ediff-even-diff-A */
+        color: #000000;
+        background-color: #d3d3d3;
+      }
+      .ediff-odd-diff-a {
+        /* ediff-odd-diff-A */
+        color: #ffffff;
+        background-color: #bebebe;
+      }
       .function-name {
         /* font-lock-function-name-face */
         color: #ffff60;
@@ -55,15 +69,15 @@
 <span class="comment">% jecon.bst: &#32076;&#28168;&#23398;&#29992; BibTeX style file.</span>
 <span class="comment">%</span>
 <span class="comment">% First-written:       &lt;2002/11/03&gt;</span>
-<span class="comment">% Time-stamp:          &lt;2016-02-15 10:15:09 st&gt;</span>
-<span class="comment">% Version 4.0.1</span>
-<span class="comment">%</span>
+<span class="comment"><span class="ediff-odd-diff-a">% Time-stamp:          &lt;2016-03-26 22:52:22 st&gt;
+% Version 5.1
+</span></span><span class="comment">%</span>
 <span class="comment">% &#12371;&#12428;&#12399;&#65292;&#39151;&#30000;&#20462;&#12373;&#12435;&#12395;&#12424;&#12387;&#12390;&#20316;&#25104;&#12373;&#12428;&#12383; jpolisci.bst &#12434;&#32076;&#28168;&#23398;&#29992;&#12395;</span>
 <span class="comment">% &#27494;&#30000;&#21490;&#37070;&#12364;&#25913;&#22793;&#12375;&#12383;&#12418;&#12398;&#12391;&#12377;&#65294;</span>
 <span class="comment">% &#25913;&#22793;&#12395;&#12399;</span>
 <span class="comment">%</span>
 <span class="comment">% aer.bst, jfm.bst, jplain.bst</span>
-<span class="comment">% &#33833;&#24179;&#21746;&#12373;&#12435;&#12395;&#12424;&#12427; &lt;<a href="http://www.med.osaka-u.ac.jp/pub/anes/www/latex/bibtex.html">http://www.med.osaka-u.ac.jp/pub/anes/www/latex/bibtex.html</a>&gt;</span>
+<span class="comment">% &#33833;&#24179;&#21746;&#12373;&#12435;&#12395;&#12424;&#12427; &lt;<a href="http://www.med.osaka-u.ac.jp/pub/anes/www/html/manual/bibtex.html">http://www.med.osaka-u.ac.jp/pub/anes/www/html/manual/bibtex.html</a>&gt;</span>
 <span class="comment">% &#27147;&#21475;&#32789;&#19968;&#12373;&#12435;&#12395;&#12424;&#12427; nissya.bst &lt;<a href="http://koichi.nihon.to/psnl/">http://koichi.nihon.to/psnl/</a>&gt;</span>
 <span class="comment">%</span>
 <span class="comment">% &#31561;&#12434;&#21442;&#32771;&#12395;&#12373;&#12379;&#12390;&#12356;&#12383;&#12384;&#12365;&#12414;&#12375;&#12383;&#12290;&#12371;&#12428;&#12425;&#12398;&#26377;&#30410;&#12394;&#12503;&#12525;&#12464;&#12521;&#12512;&#12289;&#12506;&#12540;&#12472;&#12434;&#20316;&#25104;&#12375;&#12390;&#12367;&#12384;</span>
@@ -81,8 +95,8 @@
 <span class="comment">% &#22793;&#26356;&#23653;&#27508; (Changelog) &#12399; CHANGES.txt &#12501;&#12449;&#12452;&#12523;&#12434;&#35211;&#12390;&#12367;&#12384;&#12373;&#12356;&#65294;</span>
 
 <span class="comment">% version &#25351;&#23450;</span>
-<span class="keyword">FUNCTION</span> {<span class="function-name">jecon.version</span>} { <span class="string">"4.0.1"</span> }
-
+<span class="keyword"><span class="ediff-even-diff-a">FUNCTION {jecon.version} { "5.1" }
+</span></span>
 <span class="comment">% Debug mode&#65294;0 &#20197;&#22806;&#12434;&#25351;&#23450;&#12377;&#12427;&#12392;&#27096;&#12293;&#12394;&#24773;&#22577;&#12434;&#34920;&#31034;&#12373;&#12379;&#12427;&#12371;&#12392;&#12364;&#21487;&#33021;&#65294;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">jecon.debug</span>}
 { #0 }    <span class="comment">% Debug mode off.</span>
@@ -178,15 +192,15 @@
 <span class="comment">% \bysame &#12392;&#12399;&#12289;&#21442;&#32771;&#25991;&#29486;&#37096;&#20998;&#21516;&#12376;&#33879;&#32773;&#21517;&#12364;&#36899;&#32154;&#12377;&#12427;&#12392;&#12365;&#12395; --- &#12391;&#30465;&#30053;&#12377;&#12427;&#12418;&#12398;&#12290;</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.use.bysame</span>}
-<span class="comment">% { #0 }    % Not use \bysame</span>
-{ #1 }    <span class="comment">% -&gt; Use \bysame (default)</span>
-<span class="comment">% { #2 }    % -&gt; Use \bysame of alternative style.</span>
+<span class="comment"><span class="ediff-odd-diff-a">% { #0 }    % Not use \bysame
+{ #1 }    % -&gt; Use \bysame (default)
+</span></span><span class="comment">% { #2 }    % -&gt; Use \bysame of alternative style.</span>
 
 <span class="comment">% \bysame &#12398;&#23450;&#32681;&#12290;\bysame &#12434;&#20351;&#12387;&#12383;&#12392;&#12365;&#12398;&#27178;&#26834;&#12398;&#24418;&#24335;&#12434;&#22793;&#12360;&#12427;&#12395;&#12399;&#20197;&#19979;&#12398;&#23450;&#32681;&#12434;&#20462;&#27491;</span>
 <span class="comment">% &#12377;&#12427;&#12290;</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.bysame.definition</span>}
-{ <span class="string">"\hskip.3em \leavevmode\rule[.5ex]{3em}{.3pt}\hskip0.5em"</span> } 
+{ <span class="string">"\hskip.3em \leavevmode\rule[.5ex]{2.5em}{.3pt}\hskip0.5em"</span> } 
 
 <span class="comment">% &#26085;&#26412;&#35486;&#25991;&#29486;&#29992;&#12398; \bysame &#65288;\bysamejp&#65289;&#12398;&#23450;&#32681;</span>
 <span class="comment">% &#12392;&#12426;&#12354;&#12360;&#12378;&#33521;&#35486;&#25991;&#29486;&#29992;&#12392;&#21516;&#12376;&#23450;&#32681;&#12395;&#12375;&#12390;&#12362;&#12367;&#12290;</span>
@@ -200,10 +214,10 @@
 <span class="comment">% Editor &#12395;&#12418;&#36969;&#29992;&#12290;&#26085;&#26412;&#35486;&#25991;&#29486;&#12399;&#38306;&#20418;&#12394;&#12375;&#12290;#0 &#12363; #1 &#12363; #2 &#12434;&#36984;&#25246;&#21487;&#12290;</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.author.name</span>}
-{ #0 }    <span class="comment">% (default)</span>
-<span class="comment">% { #1 }</span>
-<span class="comment">% { #2 }</span>
-
+<span class="ediff-even-diff-a">{ #0 }    % (default)
+</span><span class="comment">% { #1 }</span>
+<span class="comment"><span class="ediff-odd-diff-a">% { #2 }
+</span></span>
 <span class="comment">% [#0 &#12398;&#12465;&#12540;&#12473;] &#12371;&#12428;&#26222;&#36890;&#12398;&#32076;&#28168;&#23398;&#39080;&#12290;</span>
 <span class="comment">% Fujita, Masahisa, Paul R. Krugman, and Anthony J. Venables. </span>
 
@@ -236,18 +250,18 @@
 <span class="comment">% Author (editor) &#21517;&#12398; first name &#12434;&#38957;&#25991;&#23383;&#12384;&#12369;&#12395;&#30053;&#12377;&#12290;</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.first.name.initial</span>}
-{ #0 }    <span class="comment">% #0 -&gt; &#30053;&#12373;&#12394;&#12356;&#12290; (default)</span>
-<span class="comment">% { #1 }    % #0 &#20197;&#22806; -&gt; first name &#12434;&#38957;&#25991;&#23383;&#12395;&#30053;&#12377;&#12290;</span>
-
+<span class="ediff-even-diff-a">{ #0 }    % #0 -&gt; &#30053;&#12373;&#12394;&#12356;&#12290; (default)
+% { #1 }    % #0 &#20197;&#22806; -&gt; first name &#12434;&#38957;&#25991;&#23383;&#12395;&#30053;&#12377;&#12290;
+</span>
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 
 <span class="comment">% Title &#12398;&#20808;&#38957;&#25991;&#23383;&#20197;&#22806;&#12434;&#23567;&#25991;&#23383;&#12395;&#22793;&#25563;&#12377;&#12427; (book &#12398; tile &#12399;&#38500;&#12367;&#12290;&#20803;&#12293;&#23567;&#25991;</span>
 <span class="comment">% &#23383;&#12394;&#12425;&#12394;&#12395;&#12418;&#22793;&#12431;&#12425;&#12394;&#12356;)&#12290;</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.title.lower.case</span>}
-{ #0 }    <span class="comment">% #0 &#12394;&#12425;&#23567;&#25991;&#23383;&#12395;&#22793;&#25563;&#12375;&#12394;&#12356; (&#12381;&#12398;&#12414;&#12414;)  (default)</span>
-<span class="comment">% { #1 }    % #0 &#20197;&#22806;&#12394;&#12425;&#12289;&#23567;&#25991;&#23383;&#12395;&#22793;&#25563;&#12377;&#12427;&#12290;</span>
-
+<span class="ediff-odd-diff-a">{ #0 }    % #0 &#12394;&#12425;&#23567;&#25991;&#23383;&#12395;&#22793;&#25563;&#12375;&#12394;&#12356; (&#12381;&#12398;&#12414;&#12414;)  (default)
+% { #1 }    % #0 &#20197;&#22806;&#12394;&#12425;&#12289;&#23567;&#25991;&#23383;&#12395;&#22793;&#25563;&#12377;&#12427;&#12290;
+</span>
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 
 <span class="comment">% Title &#12434;&#34920;&#31034;&#12377;&#12427;&#12363;&#12375;&#12394;&#12356;&#12363;&#65294;</span>
@@ -280,9 +294,9 @@
 <span class="comment">% number filed &#12434;&#34920;&#31034;&#12377;&#12427;&#12363;&#21542;&#12363;&#12290;&#38560;&#12377;(&#34920;&#31034;&#12375;&#12394;&#12356;)&#12394;&#12425; 0 &#20197;&#22806;&#12289;&#38560;&#12373;&#12394;&#12356;(&#34920;&#31034;&#12377;</span>
 <span class="comment">% &#12427;)&#12394;&#12425; 0 &#12434;&#25351;&#23450;&#12290;&#12371;&#12428;&#12418;&#26222;&#36890;&#12399;&#22793;&#26356;&#12375;&#12394;&#12356;&#65294;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.hide.number</span>}
-{ #0 }    <span class="comment">% #0 -&gt; &#34920;&#31034;&#12377;&#12427;&#65294;&#26222;&#36890;&#12399;&#12371;&#12385;&#12425;&#65294; (default)</span>
-<span class="comment">% { #1 }    % #0 &#20197;&#22806; -&gt; &#38560;&#12377; (&#34920;&#31034;&#12375;&#12394;&#12356;)</span>
-
+<span class="ediff-even-diff-a">{ #0 }    % #0 -&gt; &#34920;&#31034;&#12377;&#12427;&#65294;&#26222;&#36890;&#12399;&#12371;&#12385;&#12425;&#65294; (default)
+% { #1 }    % #0 &#20197;&#22806; -&gt; &#38560;&#12377; (&#34920;&#31034;&#12375;&#12394;&#12356;)
+</span>
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 
 <span class="comment">% &#12371;&#12428;&#12398;&#20516;&#12395; 0 &#20197;&#22806;&#12434;&#25351;&#23450;&#12377;&#12427;&#12392;&#12289;reference &#37096;&#20998;&#12391; plain.bst &#12398;&#12424;&#12358;&#12395;&#25991;&#29486;</span>
@@ -310,8 +324,8 @@
 <span class="comment">% &#12488;&#12364;&#22823;&#12365;&#30446;&#12395;&#12394;&#12427;&#12290;&#20516;&#12399; 1, 2, 3 &#12398;&#12393;&#12428;&#12363;&#12434;&#25351;&#23450;&#65294;</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.number.index.digit</span>}
-{ <span class="string">"3"</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-odd-diff-a">{ "3" }    % (default)
+</span>
 <span class="comment">% &#20197;&#19979;&#12399;&#12289;number index &#12434;&#34920;&#31034;&#12377;&#12427;&#12392;&#12365;&#12395;&#35211;&#12383;&#30446;&#12434;&#35519;&#25972;&#12377;&#12427;&#12383;&#12417;&#12398;&#38306;&#25968;&#12290;computer</span>
 <span class="comment">% modern &#20197;&#22806;&#12398;&#12501;&#12457;&#12531;&#12488;&#12434;&#20351;&#29992;&#12377;&#12427;&#12424;&#12358;&#12394;&#12392;&#12365;&#12399;&#35201;&#35519;&#25972;&#12290;</span>
 <span class="comment">%</span>
@@ -329,6 +343,15 @@
 <span class="comment">% bst.number.index.digit = 3 &#12398;&#12392;&#12365;&#12398;&#35373;&#23450;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.number.index.bibhang.hund</span>}
 { <span class="string">"3.05em"</span> }    <span class="comment">% (default)</span>
+
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+<span class="comment">% &#12518;&#12491;&#12467;&#12540;&#12489;&#25991;&#23383;&#12434;&#21033;&#29992;&#12377;&#12427;&#12392;&#12365;&#12395;&#12399;&#38750;&#12476;&#12525;&#12395;&#12377;&#12427;&#12290;</span>
+<span class="comment">% &#20351;&#12356;&#26041;&#12395;&#12388;&#12356;&#12390;&#12399;&#12300;jecon_unicode_xelatex.pdf&#12301;&#12434;&#35211;&#12390;&#12367;&#12384;&#12373;&#12356;&#12290;</span>
+<span class="comment">% </span>
+<span class="keyword">FUNCTION</span> {<span class="function-name">bst.use.unicode</span>}
+{ #0 }    <span class="comment">% Not use unicode font (default)</span>
+<span class="comment">% { #1 }    % Use unicode font</span>
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 
@@ -366,11 +389,11 @@
 <span class="comment">% #3 -&gt; year &#12399; volume &#12398;&#24460;&#12395;&#34920;&#31034;&#12373;&#12428;&#12414;&#12377;&#12290;</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.year.position</span>}
-{ #0 }    <span class="comment">% autho &#12398;&#12377;&#12368;&#24460; (default).</span>
-<span class="comment">% { #1 }    % &#26368;&#24460;&#65288;note &#12398;&#21069;&#65289;</span>
+<span class="ediff-even-diff-a">{ #0 }    % autho &#12398;&#12377;&#12368;&#24460; (default).
+</span><span class="comment">% { #1 }    % &#26368;&#24460;&#65288;note &#12398;&#21069;&#65289;</span>
 <span class="comment">% { #2 }    % journal name &#12398;&#24460;&#65288;article entry&#12398;&#12415;&#65289;</span>
-<span class="comment">% { #3 }    % volume &#12398;&#24460;&#65288;article entry&#12398;&#12415;&#65289;</span>
-
+<span class="comment"><span class="ediff-odd-diff-a">% { #3 }    % volume &#12398;&#24460;&#65288;article entry&#12398;&#12415;&#65289;
+</span></span>
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 
 <span class="comment">% 0 &#20197;&#22806;&#12434;&#25351;&#23450;&#12377;&#12427;&#12392;&#26032;&#12375;&#12356;&#24180;&#12398;&#25991;&#29486;&#12434;&#21069;&#12395;&#12418;&#12387;&#12390;&#12367;&#12427;&#12290;</span>
@@ -519,8 +542,8 @@
 <span class="comment">% author &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.author.post</span>}
-{ <span class="string">""</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-even-diff-a">{ "" }    % (default)
+</span>
 <span class="comment">% author &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.author.pre.jp</span>}
@@ -552,36 +575,36 @@
 <span class="comment">% year &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.year.pre</span>}
-{ <span class="string">" ("</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-odd-diff-a">{ " (" }    % (default)
+</span>
 <span class="comment">% year &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.year.post</span>}
-{ <span class="string">") "</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-even-diff-a">{ ") " }    % (default)
+</span>
 <span class="comment">% year &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.year.pre.jp</span>}
-{ <span class="string">" ("</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-odd-diff-a">{ " (" }    % (default)
+</span>
 <span class="comment">% year &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.year.post.jp</span>}
-{ <span class="string">") "</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-even-diff-a">{ ") " }    % (default)
+</span>
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       title (book &#20197;&#22806;)</span>
 
 <span class="comment">% title &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.title.pre</span>}
-{ <span class="string">"``"</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-odd-diff-a">{ "``" }    % (default)
+</span>
 <span class="comment">% title &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.title.post</span>}
-{ <span class="string">",''"</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-even-diff-a">{ ",''" }    % (default)
+</span>
 <span class="comment">% title &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.title.pre.jp</span>}
@@ -598,13 +621,13 @@
 <span class="comment">% book &#12398; title &#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.book.pre</span>}
-{ <span class="string">" {\it "</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-odd-diff-a">{ " {\it " }    % (default)
+</span>
 <span class="comment">% book &#12398; title &#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.book.post</span>}
-{ <span class="string">"}"</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-even-diff-a">{ "}" }    % (default)
+</span>
 <span class="comment">% book &#12398; title &#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.book.pre.jp</span>}
@@ -621,13 +644,13 @@
 <span class="comment">% booktitle &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.btitle.pre</span>}
-{ <span class="string">" {\it "</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-odd-diff-a">{ " {\it " }    % (default)
+</span>
 <span class="comment">% booktitle &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.btitle.post</span>}
-{ <span class="string">"}"</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-even-diff-a">{ "}" }    % (default)
+</span>
 <span class="comment">% booktitle &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.btitle.pre.jp</span>}
@@ -644,13 +667,13 @@
 <span class="comment">% journal name &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.journal.pre</span>}
-{ <span class="string">" {\it "</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-odd-diff-a">{ " {\it " }    % (default)
+</span>
 <span class="comment">% journal name &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.journal.post</span>}
-{ <span class="string">"}"</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-even-diff-a">{ "}" }    % (default)
+</span>
 <span class="comment">% journal name &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.journal.pre.jp</span>}
@@ -667,8 +690,8 @@
 <span class="comment">% &#35079;&#25968; editor &#12434;&#34920;&#12377;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.editors</span>}
-{ <span class="string">" eds. "</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-odd-diff-a">{ " eds. " }    % (default)
+</span>
 <span class="comment">% &#19968;&#20154;&#12398; editor &#12434;&#34920;&#12377;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.editor</span>}
@@ -678,6 +701,32 @@
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.editor.jp</span>}
 { <span class="string">"&#65288;&#32232;&#65289;"</span> }    <span class="comment">% (default)</span>
+
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="comment">%       kanyaku (&#30435;&#35379;&#32773;)</span>
+
+<span class="comment">% kanyaku &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
+<span class="comment">%</span>
+<span class="keyword">FUNCTION</span> {<span class="function-name">bst.kanyaku.pre.jp</span>}
+{ <span class="string">"&#65292;"</span> }    <span class="comment">% (default)</span>
+
+<span class="comment">% kanyaku &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
+<span class="comment">%</span>
+<span class="keyword">FUNCTION</span> {<span class="function-name">bst.kanyaku.post.jp</span>}
+{ <span class="string">"&#30435;&#35379;"</span> }    <span class="comment">% (default)</span>
+
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="comment">%       translator (&#32763;&#35379;&#32773;)</span>
+
+<span class="comment">% translator &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
+<span class="comment">%</span>
+<span class="keyword">FUNCTION</span> {<span class="function-name">bst.translator.pre.jp</span>}
+{ <span class="string">"&#65292;"</span> }    <span class="comment">% (default)</span>
+
+<span class="comment">% translator &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
+<span class="comment">%</span>
+<span class="keyword">FUNCTION</span> {<span class="function-name">bst.translator.post.jp</span>}
+{ <span class="string">"&#35379;"</span> }    <span class="comment">% (default)</span>
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       edition</span>
@@ -708,8 +757,8 @@
 <span class="comment">% volume &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.volume.pre</span>}
-{ <span class="string">", Vol. "</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-even-diff-a">{ ", Vol. " }    % (default)
+</span>
 <span class="comment">% volume &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.volume.post</span>}
@@ -762,8 +811,8 @@
 <span class="comment">% page &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#35079;&#25968;&#12506;&#12540;&#12472;) (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.pages.pre</span>}
-{ <span class="string">", pp."</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-odd-diff-a">{ ", pp." }    % (default)
+</span>
 <span class="comment">% page &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.page.pre</span>}
@@ -800,8 +849,8 @@
 <span class="comment">% chapter &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.chapter.post</span>}
-{ <span class="string">""</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-even-diff-a">{ "" }    % (default)
+</span>
 <span class="comment">% chapter &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.chapter.pre.jp</span>}
@@ -845,8 +894,8 @@
 <span class="comment">% address &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.address.post</span>}
-{ <span class="string">""</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-odd-diff-a">{ "" }    % (default)
+</span>
 <span class="comment">% address &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.address.pre.jp</span>}
@@ -863,13 +912,13 @@
 <span class="comment">% publisher &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.publisher.pre</span>}
-{ <span class="string">": "</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-even-diff-a">{ ": " }    % (default)
+</span>
 <span class="comment">% publisher &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.publisher.post</span>}
-{ <span class="string">""</span> }    <span class="comment">% (default)</span>
-
+<span class="ediff-odd-diff-a">{ "" }    % (default)
+</span>
 <span class="comment">% publisher &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.publisher.pre.jp</span>}
@@ -1245,18 +1294,18 @@
   <span class="comment">%%% &#25991;&#29486;&#12501;&#12451;&#12540;&#12523;&#12489;&#12398;&#23459;&#35328;</span>
   { <span class="variable-name">access</span> <span class="variable-name">address</span> <span class="variable-name">author</span> <span class="variable-name">booktitle</span> <span class="variable-name">chapter</span> <span class="variable-name">doi</span> <span class="variable-name">edition</span> <span class="variable-name">editor</span> <span class="variable-name">howpublished</span>
     <span class="variable-name">institution</span> <span class="variable-name">journal</span> <span class="variable-name">key</span> <span class="variable-name">month</span> <span class="variable-name">note</span> <span class="variable-name">number</span> <span class="variable-name">organization</span> <span class="variable-name">pages</span> <span class="variable-name">publisher</span>
-    <span class="variable-name">school</span> <span class="variable-name">series</span> <span class="variable-name">title</span> <span class="variable-name">type</span> <span class="variable-name">url</span> <span class="variable-name">volume</span> <span class="variable-name">year</span> <span class="variable-name">yomi</span>
+    <span class="variable-name">school</span> <span class="variable-name">series</span> <span class="variable-name">title</span> <span class="variable-name">type</span> <span class="variable-name">url</span> <span class="variable-name">volume</span> <span class="variable-name">year</span> <span class="variable-name">yomi</span> <span class="variable-name">language</span>
 
     <span class="comment">% &#20197;&#19979;&#12399;&#26222;&#36890;&#12398; bst &#12501;&#12449;&#12452;&#12523;&#12391;&#12399;&#21033;&#29992;&#12373;&#12428;&#12394;&#12356;&#12501;&#12451;&#12540;&#12523;&#12489;</span>
     <span class="variable-name">jauthor</span> <span class="variable-name">jkanyaku</span> <span class="variable-name">jtitle</span> <span class="variable-name">jpublisher</span> <span class="variable-name">jyear</span>
-    <span class="variable-name">order</span> <span class="variable-name">absorder</span>
+    <span class="variable-name">order</span> <span class="variable-name">absorder</span> <span class="variable-name">translator</span> <span class="variable-name">kanyaku</span>
   }
 
   <span class="comment">% &#20197;&#19979;&#65292;&#12456;&#12531;&#12488;&#12522;&#12540;&#22793;&#25968;&#12398;&#23450;&#32681;&#65294;&#12456;&#12531;&#12488;&#12522;&#12540;&#22793;&#25968;&#12392;&#12399;&#65292;&#25991;&#29486;&#12456;&#12531;&#12488;&#12522;&#12540;&#21029;&#12395;&#30064;&#12394;&#12387;</span>
   <span class="comment">% &#12383;&#20516;&#12434;&#25345;&#12388;&#22793;&#25968;&#12398;&#12371;&#12392;&#65294;</span>
 
   <span class="comment">%% &#12371;&#12428;&#12399; entry &#21029;&#12398;&#25972;&#25968;&#22411;&#22793;&#25968; (&#25972;&#25968;&#22411;&#12456;&#12531;&#12488;&#12522;&#22793;&#25968;)</span>
-  { is.kanji.entry is.kanji.entry.two order.cited }
+  { is.kanji.entry is.kanji.entry.two order.cited is.kanji.entry.author }
 
   <span class="comment">%% &#12371;&#12428;&#12399; entry &#21029;&#12398;&#25991;&#23383;&#21015;&#22411;&#22793;&#25968; (&#25991;&#23383;&#21015;&#22411;&#12456;&#12531;&#12488;&#12522;&#22793;&#25968;)</span>
   { label cyear flabel alabel extra.label sort.label sort.label.abb
@@ -1269,7 +1318,7 @@
 <span class="keyword">STRINGS</span> { year.num }
 <span class="keyword">STRINGS</span> { num.kanji }
 <span class="keyword">STRINGS</span> { preone preten }
-<span class="keyword">STRINGS</span> { last.sort.label next.extra prev.author prev.author.aer this.author }
+<span class="keyword">STRINGS</span> { last.sort.label next.extra this.author prev.author prev.author.jecon }
 <span class="keyword">STRINGS</span> { hang }
 <span class="keyword">STRINGS</span> { item.type }
 <span class="keyword">STRINGS</span> { tempa tempb tempc }
@@ -1283,7 +1332,7 @@
 <span class="keyword">INTEGERS</span> { last.extra.num }
 <span class="keyword">INTEGERS</span> { output.state before.all mid.sentence after.sentence after.block int }
 <span class="keyword">INTEGERS</span> { last.period.comma }
-<span class="keyword">INTEGERS</span> { len1.aer len2.aer i.aer }
+<span class="keyword">INTEGERS</span> { len1.jecon len2.jecon i.jecon }
 
 <span class="comment">%%% &#22793;&#25968;&#12398;&#35500;&#26126;</span>
 
@@ -1301,6 +1350,21 @@
 <span class="comment">% sort.key$: &#25991;&#29486;&#12398;&#12477;&#12540;&#12488; (&#20006;&#12409;&#26367;&#12360;) &#12398;&#12383;&#12417;&#12395;&#21033;&#29992;&#12373;&#12428;&#12427;&#25991;&#23383;&#21015;&#12434;&#20445;&#25345;&#12377;&#12427;&#65294;</span>
 <span class="comment">% jecon.debug &#12434;&#38750;&#12476;&#12525;&#12395;&#12377;&#12428;&#12400;&#12393;&#12398;&#12424;&#12358;&#12394;&#20516;&#12364;&#20837;&#12387;&#12390;&#12356;&#12427;&#12363;&#34920;&#31034;&#12391;&#12365;&#12427; (&#36890;&#24120;&#12399; </span>
 <span class="comment">% author - year - title - month &#31561;&#12364;&#32331;&#12387;&#12383;&#25991;&#23383;&#21015;&#12364;&#25351;&#23450;&#12373;&#12428;&#12427;)&#65294;</span>
+
+<span class="comment">% extra.label: &#33879;&#32773;&#21517;&#12364;&#21516;&#12376;&#12392;&#12365;&#12395;&#24180;&#12395;&#20184;&#12369;&#12427;&#12450;&#12523;&#12501;&#12449;&#12505;&#12483;&#12488;&#12290;</span>
+
+<span class="comment">% &#20197;&#19979;&#12399; Type 1 &#12398; bysame &#12434;&#21033;&#29992;&#12377;&#12427;&#12392;&#12365;&#12395;&#20351;&#12358;&#22793;&#25968;&#12290;</span>
+<span class="comment">% </span>
+<span class="comment">% this.author: &#29694;&#22312;&#12398; author (or editor) &#12434;&#20837;&#12428;&#12427;&#22793;&#25968;</span>
+<span class="comment">% prev.author: &#19968;&#20491;&#21069;&#12398; author (or editor) &#12434;&#20837;&#12428;&#12427;&#22793;&#25968;</span>
+<span class="comment">% extra.label.bysame:</span>
+<span class="comment">% &#12371;&#12428;&#12399;&#12456;&#12531;&#12488;&#12522;&#12540;&#22793;&#25968;&#12290;bysame &#12434;&#21033;&#29992;&#12377;&#12427;&#25991;&#29486;&#12398;&#22580;&#21512;&#12395;&#12399;&#12289;"bysame" &#12434;&#20837;&#12428;&#12427;&#12290;</span>
+
+<span class="comment">% &#20197;&#19979;&#12399; Type 2 &#12398; bysame &#12434;&#21033;&#29992;&#12377;&#12427;&#12392;&#12365;&#12395;&#20351;&#12358;&#22793;&#25968;&#12290;</span>
+<span class="comment">% </span>
+<span class="comment">% prev.author.jecon: &#19968;&#20491;&#21069;&#12398; author (or editor) &#12434;&#20837;&#12428;&#12427;&#22793;&#25968;</span>
+<span class="comment">% len1.jecon len2.jecon i.jecon</span>
+
 
 <span class="comment">%%% &#27726;&#29992;&#12398;&#38306;&#25968;&#12398;&#23450;&#32681;</span>
 
@@ -1442,6 +1506,8 @@
   <span class="builtin">if$</span>
 }
 
+<span class="comment">% &#30452;&#36817;&#12398; field &#12364; period or comma &#12391;&#32066;&#12387;&#12390;&#12356;&#12427;&#12363;&#21028;&#26029;&#12290;&#32066;&#12387;&#12390;&#12356;&#12383;&#12425;</span>
+<span class="comment">% last.period.comma &#12395; #1 &#12434;&#20195;&#20837;&#12290;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">period.comma.p</span>}
 { <span class="builtin">duplicate$</span> 't <span class="constant">:=</span>
   t period.comma.a.p
@@ -1476,7 +1542,6 @@
   <span class="builtin">if$</span>
 }
 
-<span class="comment">%%%</span>
 <span class="comment">%</span>
 <span class="comment">% </span>
 <span class="comment">%</span>
@@ -1487,8 +1552,8 @@
     { <span class="comment">% &#12388;&#12356;&#12391;&#12395;&#30452;&#36817;&#12398; field &#12364; period or comma &#12391;&#32066;&#12387;&#12390;&#12356;&#12427;&#12363;&#21028;&#26029;&#12290;</span>
       period.comma.p
       <span class="comment">% pop &#12375;&#12390;&#26360;&#12365;&#36796;&#12415;&#12290;</span>
-      <span class="builtin">write$</span> }
- 
+      <span class="builtin">write$</span>
+    }
     <span class="comment">% mid.sentence &#12391;&#12399;&#12394;&#12356;&#12392;&#12365;</span>
     { output.state after.block =
 
@@ -1595,11 +1660,53 @@
   <span class="builtin">if$</span>
 }
 
+<span class="keyword">INTEGERS</span> {l1 l2 f1 f2 kan.p}
+<span class="keyword">STRINGS</span> {kan.fn kan.ln zzz zz}
+<span class="keyword">FUNCTION</span> {<span class="function-name">check.kanji.str.sub</span>}
+{ 'zzz <span class="constant">:=</span>
+  zzz #1 <span class="string">"{ll}"</span> <span class="builtin">format.name$</span> 'kan.ln <span class="constant">:=</span>         <span class="comment">% kan.ln        &lt;- 1st author &#12398; Last name</span>
+  zzz #1 <span class="string">"{ff}"</span> <span class="builtin">format.name$</span> 'kan.fn <span class="constant">:=</span>         <span class="comment">% kan.fn        &lt;- 1st author &#12398; first name</span>
+  kan.ln #1 #1 <span class="builtin">substring$</span> <span class="builtin">is.kanji.str$</span> 'l1 <span class="constant">:=</span>  <span class="comment">% l1            &lt;- Last name &#12398;1&#25991;&#23383;&#30446;</span>
+  kan.fn #1 #1 <span class="builtin">substring$</span> <span class="builtin">is.kanji.str$</span> 'f1 <span class="constant">:=</span>  <span class="comment">% f1            &lt;- First name &#12398;1&#25991;&#23383;&#30446;</span>
+  kan.ln #-1 #1 <span class="builtin">substring$</span> <span class="builtin">is.kanji.str$</span> 'l2 <span class="constant">:=</span> <span class="comment">% l2            &lt;- Last name &#12398;&#26368;&#24460;&#12398;1&#25991;&#23383;&#30446;</span>
+  kan.fn #-1 #1 <span class="builtin">substring$</span> <span class="builtin">is.kanji.str$</span> 'f2 <span class="constant">:=</span> <span class="comment">% f2            &lt;- First name &#12398;&#26368;&#24460;&#12398;1&#25991;&#23383;&#30446;</span>
+
+  is.kanji.entry #0 =
+     <span class="comment">% &#12381;&#12418;&#12381;&#12418; is.kanji.entry &#12364; 0 &#12394;&#12425; 0 &#12434;&#36820;&#12377;&#12290;</span>
+     { #0 'kan.p <span class="constant">:=</span> }
+     { l1 #0 = f1 #0 = and l2 #0 = and f2 #0 = and
+        <span class="comment">% &#26368;&#21021;&#12398;1&#25991;&#23383;&#30446;&#12289;&#26368;&#24460;&#12398;1&#25991;&#23383;&#30446;&#12364;&#12393;&#12428;&#12418;&#12450;&#12473;&#12461;&#12540;&#12394;&#12425; 0 </span>
+        { #0 'kan.p <span class="constant">:=</span> }
+        { l1 #0 = l2 #0 = and
+          f1 #0 = f2 #0 = or and
+            <span class="comment">% </span>
+            { #0 'kan.p <span class="constant">:=</span> }
+            { #1 'kan.p <span class="constant">:=</span> }
+          <span class="builtin">if$</span>
+        }
+      <span class="builtin">if$</span>
+     }
+  <span class="builtin">if$</span>
+  kan.p
+}
+
+<span class="keyword">FUNCTION</span> {<span class="function-name">check.kanji.str</span>}
+{ 'zzz <span class="constant">:=</span>
+  zzz <span class="builtin">empty$</span>
+    { #1 }
+    { bst.use.unicode #0 =
+       { zzz <span class="builtin">is.kanji.str$</span> }
+       { zzz check.kanji.str.sub }
+      <span class="builtin">if$</span>
+    }
+  <span class="builtin">if$</span>
+}
+
 <span class="comment">%%% booktitle &#12398;&#25972;&#24418;&#12290;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">format.btitle</span>}
 { <span class="variable-name">booktitle</span> <span class="builtin">empty$</span>
     { <span class="string">""</span> }
-    { <span class="variable-name">booktitle</span> <span class="builtin">is.kanji.str$</span>
+    { is.kanji.entry
         { bst.btitle.pre.jp <span class="variable-name">booktitle</span> * bst.btitle.post.jp * }
         { bst.btitle.pre <span class="variable-name">booktitle</span> * bst.btitle.post * }
       <span class="builtin">if$</span>
@@ -1611,7 +1718,7 @@
 <span class="keyword">FUNCTION</span> {<span class="function-name">format.journal</span>}
 { <span class="variable-name">journal</span> <span class="builtin">empty$</span>
     { <span class="string">""</span> }
-    { <span class="variable-name">journal</span> <span class="builtin">is.kanji.str$</span>
+    { is.kanji.entry
         { bst.journal.pre.jp <span class="variable-name">journal</span> * bst.journal.post.jp * }
         { bst.journal.pre <span class="variable-name">journal</span> * bst.journal.post * }
       <span class="builtin">if$</span>
@@ -1623,7 +1730,7 @@
 <span class="keyword">FUNCTION</span> {<span class="function-name">format.book</span>}
 { <span class="variable-name">title</span> <span class="builtin">empty$</span>
     { <span class="string">""</span> }
-    { <span class="variable-name">title</span> <span class="builtin">is.kanji.str$</span>
+    { is.kanji.entry
         { bst.book.pre.jp <span class="variable-name">title</span> * bst.book.post.jp * }
         { bst.book.pre <span class="variable-name">title</span> * bst.book.post * }
       <span class="builtin">if$</span>
@@ -1681,7 +1788,7 @@
   <span class="comment">% namesleft &#12364; 0 &#12424;&#12426;&#22823;&#12394;&#12425;&#32368;&#12426;&#36820;&#12375; (while)</span>
   { namesleft #0 &gt; }
     <span class="comment">% s &#12395;&#26085;&#26412;&#35486;&#21547;&#12416;&#12363;&#65311;</span>
-    { s <span class="builtin">is.kanji.str$</span>
+    { s check.kanji.str
         <span class="comment">% &#26085;&#26412;&#35486;&#21547;&#12416;&#12465;&#12540;&#12473;&#12398;&#20966;&#29702;</span>
         { nameptr 'name.num <span class="constant">:=</span>
           s set.alphabet.in.author
@@ -1777,20 +1884,165 @@
       nameptr #1 &gt;
         <span class="comment">% &#20108;&#30058;&#30446;&#20197;&#38477;&#12398; author &#12398;&#12465;&#12540;&#12473;&#12391;&#12398;&#20966;&#29702;</span>
         { namesleft #1 &gt;
-<span class="comment">%           { is.kanji.entry</span>
-            { s <span class="builtin">is.kanji.str$</span>
+            { s check.kanji.str
                 { bst.and.jp  * t * }
                 { <span class="string">", "</span> * t * }
               <span class="builtin">if$</span>
             }
             { t <span class="string">"others"</span> =
-                { s <span class="builtin">is.kanji.str$</span>
+                { s check.kanji.str
                     { bst.and.others.jp * }
                     { bst.and.others * }
                   <span class="builtin">if$</span>
                 }
-<span class="comment">%               { is.kanji.entry</span>
-                { s <span class="builtin">is.kanji.str$</span>
+                { s check.kanji.str
+                    { bst.and.jp * t * }
+                    { numnames #2 =
+                        { bst.and * t * }
+                        { bst.ands * t * }
+                      <span class="builtin">if$</span>
+                    }
+                   <span class="builtin">if$</span>
+                }
+              <span class="builtin">if$</span>
+            }
+          <span class="builtin">if$</span>
+        }
+        't
+      <span class="builtin">if$</span>
+      nameptr #1 <span class="constant">+</span> 'nameptr <span class="constant">:=</span>
+      namesleft #1 - 'namesleft <span class="constant">:=</span>
+    }
+  <span class="builtin">while$</span>
+}
+
+<span class="comment">%%% name &#12434;&#20966;&#29702;&#12377;&#12427;&#38306;&#25968;</span>
+<span class="keyword">FUNCTION</span> {<span class="function-name">format.names.alt</span>}
+{ 'sss <span class="constant">:=</span>  <span class="comment">% &#30465;&#30053;&#12373;&#12428;&#12390;&#12356;&#12394;&#12356;&#21517;&#21069;</span>
+  's <span class="constant">:=</span>  <span class="comment">% &#30465;&#30053;&#12373;&#12428;&#12383;&#21517;&#21069;</span>
+<span class="comment">%   "abbreviated (s) = \texttt{" s * "}\\" * write$ </span>
+<span class="comment">%   "full (sss) = \texttt{" sss * "}\\" * write$ </span>
+  jecon.debug #0 = not <span class="comment">% for debug</span>
+     { <span class="string">"abbreviated (s) = \texttt{"</span> s * <span class="string">"}\\"</span> * <span class="builtin">write$</span> 
+       <span class="string">"full (sss) = \texttt{"</span> sss * <span class="string">"}\\"</span> * <span class="builtin">write$</span> }
+     '<span class="builtin">skip$</span>
+  <span class="builtin">if$</span>
+  <span class="comment">% nameptr &#12395; 1 &#12434;&#20195;&#20837;</span>
+  #1 'nameptr <span class="constant">:=</span>
+  <span class="comment">% numnames &#12395; author (editor) &#12398;&#25968;&#12434;&#20195;&#20837;</span>
+  s <span class="builtin">num.names$</span> 'numnames <span class="constant">:=</span>
+  numnames 'namesleft <span class="constant">:=</span>
+  <span class="comment">% namesleft &#12364; 0 &#12424;&#12426;&#22823;&#12394;&#12425;&#32368;&#12426;&#36820;&#12375; (while)</span>
+  { namesleft #0 &gt; }
+    <span class="comment">% s &#12395;&#26085;&#26412;&#35486;&#21547;&#12416;&#12363;&#65311;</span>
+    { sss check.kanji.str
+        <span class="comment">% &#26085;&#26412;&#35486;&#21547;&#12416;&#12465;&#12540;&#12473;&#12398;&#20966;&#29702;</span>
+        { nameptr 'name.num <span class="constant">:=</span>
+          s set.alphabet.in.author
+          alphabet.in.author #0 =
+            <span class="comment">% first name&#12364;&#26085;&#26412;&#35486;&#12398;&#12465;&#12540;&#12473;&#65288;&#26085;&#26412;&#20154;&#21517;&#12392;&#12356;&#12358;&#12371;&#12392;&#65289;</span>
+
+            <span class="comment">% &#27880;&#65306;&#26085;&#26412;&#35486;&#12398; author &#12399; "&#22995; &#21517;" &#12398;&#38918;&#12391;&#25351;&#23450;&#12373;&#12428;&#12427;&#12364;&#12289;bst &#12391;&#12399;</span>
+            <span class="comment">% &#38918;&#30058;&#36890;&#12426;&#12395;&#22995;&#65309;first name&#12289;&#21517;&#65309;last name &#12392;&#12375;&#12390;&#25201;&#12431;&#12428;&#12427;&#12290;</span>
+            { bst.sei.mei.order #0 =
+                { s nameptr <span class="string">"{ff}"</span> <span class="builtin">format.name$</span> 'ss <span class="constant">:=</span>
+                  s nameptr <span class="string">"{ll}"</span> <span class="builtin">format.name$</span> 'tt <span class="constant">:=</span> }
+                <span class="comment">% &#26222;&#36890;&#12392;&#36870;&#38918;&#12398;&#12465;&#12540;&#12473;</span>
+                { s nameptr <span class="string">"{ll}"</span> <span class="builtin">format.name$</span> 'ss <span class="constant">:=</span>
+                  s nameptr <span class="string">"{ff}"</span> <span class="builtin">format.name$</span> 'tt <span class="constant">:=</span> }
+              <span class="builtin">if$</span>
+              ss <span class="string">""</span> =
+                <span class="comment">%% &#22995;&#12398;&#12415;&#12398;&#12465;&#12540;&#12473;&#12399;&#12381;&#12398;&#12414;&#12414;</span>
+                { tt 't <span class="constant">:=</span> }
+                <span class="comment">%% &#22995;&#12539;&#21517;&#12392;&#12418;&#12395;&#12354;&#12427;&#12465;&#12540;&#12473;</span>
+                { ss count.number.of.letters <span class="string">"1"</span> =
+                  tt count.number.of.letters <span class="string">"1"</span> = or
+                    { ss bst.sei.mei.one.jp * tt * 't <span class="constant">:=</span> }
+                    { ss bst.sei.mei.two.jp * tt * 't <span class="constant">:=</span> }
+                  <span class="builtin">if$</span>
+                }
+              <span class="builtin">if$</span>
+            }
+            <span class="comment">% first name &#12364; alphabet &#12398;&#12465;&#12540;&#12473; (&#12388;&#12414;&#12426;&#12289;&#12459;&#12479;&#12459;&#12490;&#12398;&#22806;&#22269;&#20154;&#21517;)</span>
+            { nameptr #1 =
+               <span class="comment">% first author &#12398;&#12465;&#12540;&#12473; (last name - first name &#12398; order)</span>
+               { bst.author.name #0 =
+                 bst.author.name #1 = or
+                   <span class="comment">% Last name - first name</span>
+                   { s nameptr <span class="string">"{ll}"</span> <span class="builtin">format.name$</span> 'ss <span class="constant">:=</span>
+                     s nameptr <span class="string">"{ff}"</span> <span class="builtin">format.name$</span> 'tt <span class="constant">:=</span>
+                     ss bst.touten.jp * tt * 't <span class="constant">:=</span> }
+                   <span class="comment">% First name - Last name</span>
+                   { s nameptr <span class="string">"{ff~}{ll}"</span> <span class="builtin">format.name$</span> 't <span class="constant">:=</span> }
+                 <span class="builtin">if$</span>
+               }
+               <span class="comment">% first author &#20197;&#22806;&#12398;&#12465;&#12540;&#12473; (first name - last name &#12398; order)</span>
+               { bst.author.name #0 =
+                 bst.author.name #2 = or
+                   <span class="comment">% First name - Last name</span>
+                   { s nameptr <span class="string">"{ff~}{ll}"</span> <span class="builtin">format.name$</span> 't <span class="constant">:=</span> }
+                   <span class="comment">% Last name - First name</span>
+                   { s nameptr <span class="string">"{ll}"</span> <span class="builtin">format.name$</span> 'ss <span class="constant">:=</span>
+                     s nameptr <span class="string">"{ff}"</span> <span class="builtin">format.name$</span> 'tt <span class="constant">:=</span>
+                     ss bst.touten.jp * tt * 't <span class="constant">:=</span> }
+                 <span class="builtin">if$</span>
+               }
+              <span class="builtin">if$</span>
+            }
+          <span class="builtin">if$</span>
+        }
+        <span class="comment">% author &#12395;&#26085;&#26412;&#35486;&#21547;&#12414;&#12394;&#12356;&#12465;&#12540;&#12473;&#12398;&#20966;&#29702;</span>
+        { nameptr #1 =
+           <span class="comment">% &#19968;&#30058;&#30446;&#12398; author</span>
+           { bst.author.name #0 =
+             bst.author.name #1 =
+             or
+                { bst.first.name.initial #0 = 
+                   { s nameptr <span class="string">"{vv~}{ll}{, ff}{, jj}"</span> <span class="builtin">format.name$</span> 't <span class="constant">:=</span> }
+                   { s nameptr <span class="string">"{vv~}{ll}{, f.}{, jj}"</span> <span class="builtin">format.name$</span> 't <span class="constant">:=</span> }
+                  <span class="builtin">if$</span>
+                }
+                { bst.first.name.initial #0 = 
+                   { s nameptr <span class="string">"{ff~}{vv~}{ll}{, jj}"</span> <span class="builtin">format.name$</span> 't <span class="constant">:=</span> }
+                   { s nameptr <span class="string">"{f.~}{vv~}{ll}{, jj}"</span> <span class="builtin">format.name$</span> 't <span class="constant">:=</span> }
+                  <span class="builtin">if$</span>
+                }
+             <span class="builtin">if$</span>
+           }
+           <span class="comment">% &#20108;&#30058;&#30446;&#20197;&#38477;&#12398; author</span>
+           { bst.author.name #0 =
+             bst.author.name #2 =
+             or
+                { bst.first.name.initial #0 = 
+                   { s nameptr <span class="string">"{ff~}{vv~}{ll}{, jj}"</span> <span class="builtin">format.name$</span> 't <span class="constant">:=</span> }
+                   { s nameptr <span class="string">"{f.~}{vv~}{ll}{, jj}"</span> <span class="builtin">format.name$</span> 't <span class="constant">:=</span> }
+                 <span class="builtin">if$</span>
+                }
+                { bst.first.name.initial #0 = 
+                   { s nameptr <span class="string">"{vv~}{ll}{, ff}{, jj}"</span> <span class="builtin">format.name$</span> 't <span class="constant">:=</span> }
+                   { s nameptr <span class="string">"{vv~}{ll}{, f.}{, jj}"</span> <span class="builtin">format.name$</span> 't <span class="constant">:=</span> }
+                 <span class="builtin">if$</span>
+                }
+             <span class="builtin">if$</span>
+           }
+          <span class="builtin">if$</span>
+        }
+      <span class="builtin">if$</span>
+      nameptr #1 &gt;
+        <span class="comment">% &#20108;&#30058;&#30446;&#20197;&#38477;&#12398; author &#12398;&#12465;&#12540;&#12473;&#12391;&#12398;&#20966;&#29702;</span>
+        { namesleft #1 &gt;
+            { sss check.kanji.str
+                { bst.and.jp  * t * }
+                { <span class="string">", "</span> * t * }
+              <span class="builtin">if$</span>
+            }
+            { t <span class="string">"others"</span> =
+                { s check.kanji.str
+                    { bst.and.others.jp * }
+                    { bst.and.others * }
+                  <span class="builtin">if$</span>
+                }
+                { sss check.kanji.str
                     { bst.and.jp * t * }
                     { numnames #2 =
                         { bst.and * t * }
@@ -1813,16 +2065,21 @@
 
 <span class="comment">% remove successive periods (commas) from author</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">remove.ss.period.auth</span>}
-{ 's <span class="constant">:=</span>
-  'tempc <span class="constant">:=</span>
-  s format.names 'tempa <span class="constant">:=</span>
+{ 's <span class="constant">:=</span> <span class="comment">% &#12371;&#12385;&#12425;&#12399; bysame &#12391;&#30465;&#30053;&#12373;&#12428;&#12383;&#21517;&#21069;</span>
+  'tempc <span class="constant">:=</span>  <span class="comment">% &#12371;&#12385;&#12425;&#12399;&#20803;&#12398; author (or editor) &#21517;</span>
+  s tempc format.names.alt 'tempa <span class="constant">:=</span>
+  <span class="comment">% For debug</span>
+  jecon.debug #0 = not <span class="comment">% for debug</span>
+     { <span class="string">"tempa = \texttt{"</span> tempa * <span class="string">"}\\"</span> * <span class="builtin">write$</span> }
+     '<span class="builtin">skip$</span>
+  <span class="builtin">if$</span>
 
-  tempc <span class="builtin">is.kanji.str$</span>
+  tempc check.kanji.str
     { bst.author.pre.jp tempa * 'tempa <span class="constant">:=</span> }
     { bst.author.pre tempa * 'tempa <span class="constant">:=</span> }
   <span class="builtin">if$</span>
 
-  tempc <span class="builtin">is.kanji.str$</span>
+  tempc check.kanji.str
     { bst.author.post.jp 'tempb <span class="constant">:=</span> }
     { bst.author.post 'tempb <span class="constant">:=</span> }
   <span class="builtin">if$</span>
@@ -1842,58 +2099,79 @@
 }
 
 <span class="keyword">FUNCTION</span> {<span class="function-name">insert.bysame</span>}
-{ is.kanji.entry
-     { <span class="string">" \bysamejp{} "</span> }
-     { <span class="string">" \bysame{} "</span> }
+{ 'zz <span class="constant">:=</span> 
+  bst.use.unicode #0 = 
+    { is.kanji.entry.author
+       { <span class="string">" \bysamejp{} "</span> }
+       { <span class="string">" \bysame{} "</span> }
+      <span class="builtin">if$</span>
+    }
+    { zz check.kanji.str.sub
+       { <span class="string">" \bysamejp{} "</span> }
+       { <span class="string">" \bysame{} "</span> }
+      <span class="builtin">if$</span>
+    }
   <span class="builtin">if$</span>
 }
 
-<span class="comment">% &lt;prev name list&gt; &lt;new name list&gt; compare.names &lt;modified name list&gt;</span>
-<span class="keyword">FUNCTION</span> {<span class="function-name">compare.names.aer</span>}
+<span class="comment">% &lt;prev name list&gt; &lt;new name list&gt; compare.names -&gt; &lt;modified name list&gt;</span>
+<span class="comment">% &#12371;&#12398;&#38306;&#25968;&#12399; bst.use.bysame &#12364; 2 &#12398;&#12392;&#12365;&#12398;&#12415;&#21033;&#29992;&#12377;&#12427;&#12290;</span>
+<span class="keyword">FUNCTION</span> {<span class="function-name">compare.names.jecon</span>}
+<span class="comment">% &lt;&#19968;&#20491;&#21069;&#12398; author&gt; &lt;&#29694;&#22312;&#12398; author&gt; &#12434;&#24341;&#25968;&#12395;&#12392;&#12427;&#12290;</span>
 { 's <span class="constant">:=</span>
   'tempa <span class="constant">:=</span>
 
-<span class="comment">%   "current.author = " s * "\\" * write$ newline$</span>
-<span class="comment">%   "prev.author = " tempa * "\\" * write$ newline$</span>
+<span class="comment">%   "author = " author * "\\" * write$ newline$ % For debug</span>
+<span class="comment">%   "current author = " s * "\\" * write$ newline$ % For debug</span>
+<span class="comment">%   "prev.author = " tempa * "\\" * write$ newline$ % For dedug</span>
 
-  tempa <span class="builtin">num.names$</span> 'len1.aer <span class="constant">:=</span>  <span class="comment">% len1 = the number of previous authors</span>
-  s <span class="builtin">num.names$</span> 'len2.aer <span class="constant">:=</span>         <span class="comment">% len2 = the number of current authors</span>
+  tempa <span class="builtin">num.names$</span> 'len1.jecon <span class="constant">:=</span>  <span class="comment">% len1 = the number of previous authors</span>
+  s <span class="builtin">num.names$</span> 'len2.jecon <span class="constant">:=</span>      <span class="comment">% len2 = the number of current authors</span>
 
-<span class="comment">% len1.aer := min(len1.aer,len2.aer)</span>
-<span class="comment">% len1 -&gt; min{ the number of previous authors, the number of current authors }</span>
-  len1.aer len2.aer &gt;
-    { len2.aer 'len1.aer <span class="constant">:=</span> }
+<span class="comment">% len1.jecon := min(len1.jecon,len2.jecon)</span>
+<span class="comment">% len1 -&gt; min{the number of previous authors, the number of current authors}</span>
+  len1.jecon len2.jecon &gt;
+    { len2.jecon 'len1.jecon <span class="constant">:=</span> }
     { }
   <span class="builtin">if$</span>
 
 <span class="comment">% start with an empty string, then while the components are the same</span>
-<span class="comment">% add "\bysame"</span>
+<span class="comment">% add "bysame"</span>
   <span class="string">""</span>
-  #1 'i.aer <span class="constant">:=</span>
-
-  { i.aer len1.aer &gt; not }
-    { tempa i.aer <span class="string">"{ff }{vv }{ll}{ jj}"</span> <span class="builtin">format.name$</span>
-      s i.aer <span class="string">"{ff }{vv }{ll}{ jj}"</span> <span class="builtin">format.name$</span>
-      =
-        { #1 i.aer &lt;
-            { <span class="string">" and "</span> * }       <span class="comment">% \bysame &#12391;&#30465;&#30053;&#12377;&#12427;&#33879;&#32773;&#12398;&#21069;&#12395;&#12388;&#12367; and </span>
+  #1 'i.jecon <span class="constant">:=</span>
+  <span class="comment">% i.jecon &gt; len1.jeon &#12391;&#12394;&#12356;&#12394;&#12425;&#32368;&#12426;&#36820;&#12375;</span>
+  { i.jecon len1.jecon &gt; not }
+    <span class="comment">% current author &#12392; previous author &#12364;&#31561;&#12375;&#12356;&#12363;&#65311;</span>
+    { tempa i.jecon <span class="string">"{ff }{vv }{ll}{ jj}"</span> <span class="builtin">format.name$</span>
+      s     i.jecon <span class="string">"{ff }{vv }{ll}{ jj}"</span> <span class="builtin">format.name$</span> =
+        <span class="comment">% &#31561;&#12375;&#12356;&#12392;&#12365;</span>
+        { #1 i.jecon &lt;
+            { <span class="string">" and "</span> * }       <span class="comment">% bysame &#12391;&#30465;&#30053;&#12377;&#12427;&#33879;&#32773;&#12398;&#21069;&#12395;&#12388;&#12367; and </span>
             { }
           <span class="builtin">if$</span>
-          insert.bysame *
-          i.aer #1 <span class="constant">+</span> 'i.aer <span class="constant">:=</span> } 
-        { #-1 'len1.aer <span class="constant">:=</span> }
+          s insert.bysame *
+          i.jecon #1 <span class="constant">+</span> 'i.jecon <span class="constant">:=</span> }
+        <span class="comment">% &#31561;&#12375;&#12367;&#12394;&#12356;&#12392;&#12365;&#12399; len1.jecon &#12395;&#12510;&#12452;&#12490;&#12473;1&#12434;&#20195;&#20837; &#8594; loop &#12434;&#25244;&#12369;&#12427;&#12290;</span>
+        { #-1 'len1.jecon <span class="constant">:=</span> }
       <span class="builtin">if$</span>
     }
   <span class="builtin">while$</span>
 
+  jecon.debug #0 = not <span class="comment">% for debug</span>
+     { <span class="string">"i.jecon = "</span> i.jecon <span class="builtin">int.to.str$</span> * <span class="string">"\\"</span> * <span class="builtin">write$</span> }
+     '<span class="builtin">skip$</span>
+  <span class="builtin">if$</span>
+  <span class="comment">% i.jecon &#12395;&#12399;&#12300;prev.author &#12392;&#31561;&#12375;&#12356; author &#12398;&#25968; + 1&#12301;&#12364;&#20837;&#12387;&#12390;&#12356;&#12427;&#12290;</span>
+
 <span class="comment">% add the rest of the second string</span>
-  { i.aer len2.aer &gt; not }
-    { #1 i.aer &lt;
+  { i.jecon len2.jecon &gt; not }
+    { #1 i.jecon &lt;
+        <span class="comment">% prev.author &#12392;&#21516;&#12376; author &#12364;&#19968;&#20154;&#20197;&#19978;&#12356;&#12427;&#12392;&#12365;</span>
         { <span class="string">" and "</span> * }
         { }
       <span class="builtin">if$</span>
-      s i.aer <span class="string">"{ff }{vv }{ll}{ jj}"</span> <span class="builtin">format.name$</span> *
-      i.aer #1 <span class="constant">+</span> 'i.aer <span class="constant">:=</span>
+      s i.jecon <span class="string">"{ff }{vv }{ll}{ jj}"</span> <span class="builtin">format.name$</span> *
+      i.jecon #1 <span class="constant">+</span> 'i.jecon <span class="constant">:=</span>
     }
   <span class="builtin">while$</span>
 }
@@ -1903,15 +2181,28 @@
 { <span class="variable-name">author</span> <span class="builtin">empty$</span>
     { <span class="string">""</span> }
     { bst.use.bysame #2 =
-        { prev.author.aer <span class="variable-name">author</span> compare.names.aer 's <span class="constant">:=</span>
-<span class="comment">%           "prev.author.aer = \texttt{" prev.author.aer * "}\\" * write$ % for debug</span>
-<span class="comment">%           "\noindent s = \texttt{" s * "}\\" * write$ % for debug</span>
-          <span class="variable-name">author</span> 'prev.author.aer <span class="constant">:=</span>
-          }
+        <span class="comment">% 2 &#12398;&#12479;&#12452;&#12503;&#12398; bysame &#12434;&#21033;&#29992;&#12377;&#12427;&#12392;&#12365;&#12290;</span>
+        { prev.author.jecon <span class="variable-name">author</span> compare.names.jecon 's <span class="constant">:=</span>
+
+          jecon.debug #0 = not <span class="comment">% for debug</span>
+            { <span class="string">"prev.author.jecon = \texttt{"</span> prev.author.jecon * <span class="string">"}\\"</span> * <span class="builtin">write$</span>
+              <span class="string">"\noindent s = \texttt{"</span> s * <span class="string">"}\\"</span> * <span class="builtin">write$</span>
+            }
+            '<span class="builtin">skip$</span>
+          <span class="builtin">if$</span>
+
+          <span class="comment">% prev.author.jecon &#12395;&#29694;&#22312;&#12398; author &#12434;&#20195;&#20837;&#12375;&#12390;&#12362;&#12367;</span>
+          <span class="variable-name">author</span> 'prev.author.jecon <span class="constant">:=</span>
+        }
+        <span class="comment">% bysame &#12434;&#21033;&#29992;&#12375;&#12394;&#12356;&#12363;&#12289;1 &#12398;&#12479;&#12452;&#12503;&#12398; bysame &#12434;&#21033;&#29992;&#12377;&#12427;&#12392;&#12365;&#12399; author &#12434;</span>
+        <span class="comment">% s &#12395;&#20195;&#20837;&#12290;</span>
         { <span class="variable-name">author</span> 's <span class="constant">:=</span> }
       <span class="builtin">if$</span>
+      <span class="comment">% extra.label.bysame &#12395; bysame &#12392;&#12356;&#12358;&#20516;&#12364;&#20837;&#12387;&#12390;&#12356;&#12427;&#12363;&#65311;</span>
       extra.label.bysame <span class="string">"bysame"</span> =
-        { insert.bysame }
+        <span class="comment">% Yes &#12394;&#12425; bysame &#12434;&#25407;&#20837;&#12290;</span>
+        { <span class="variable-name">author</span> insert.bysame }
+        <span class="comment">% No &#12394;&#12425; ? &#12434;&#36820;&#12377;&#12290;</span>
         { <span class="variable-name">author</span> s remove.ss.period.auth }
       <span class="builtin">if$</span>
     }
@@ -1923,24 +2214,33 @@
 { <span class="variable-name">editor</span> <span class="builtin">empty$</span>
     { <span class="string">""</span> }
     { bst.use.bysame #2 =
-        { prev.author.aer <span class="variable-name">editor</span> compare.names.aer 's <span class="constant">:=</span>
-          <span class="variable-name">editor</span> 'prev.author.aer <span class="constant">:=</span> }
+        { prev.author.jecon <span class="variable-name">editor</span> compare.names.jecon 's <span class="constant">:=</span>
+          jecon.debug #0 = not
+            { <span class="string">"prev.author.jecon = \texttt{"</span> prev.author.jecon * <span class="string">"}\\"</span> * <span class="builtin">write$</span> <span class="comment">% for debug</span>
+              <span class="string">"\noindent s = \texttt{"</span> s * <span class="string">"}\\"</span> * <span class="builtin">write$</span> <span class="comment">% for debug</span>
+            }
+            '<span class="builtin">skip$</span>
+          <span class="builtin">if$</span>
+          <span class="variable-name">editor</span> 'prev.author.jecon <span class="constant">:=</span>
+        }
         { <span class="variable-name">editor</span> 's <span class="constant">:=</span> }
       <span class="builtin">if$</span>
+      <span class="comment">% extra.label.bysame &#12395; bysame &#12392;&#12356;&#12358;&#20516;&#12364;&#20837;&#12387;&#12390;&#12356;&#12427;&#12363;&#65311;</span>
       extra.label.bysame <span class="string">"bysame"</span> =
+        <span class="comment">% Yes &#12394;&#12425; bysame.check &#12395; 1 &#12434;&#20195;&#20837;&#12375;&#12289;bysame &#12434;&#25407;&#20837;</span>
         { #1 'bysame.check <span class="constant">:=</span>
-          insert.bysame }
+          <span class="variable-name">editor</span> insert.bysame }
         { <span class="variable-name">editor</span> s remove.ss.period.auth }
       <span class="builtin">if$</span>
       #1 bysame.check =
         { <span class="string">""</span> * }
         { <span class="variable-name">editor</span> <span class="builtin">num.names$</span> #1 &gt;
-          { <span class="variable-name">editor</span> <span class="builtin">is.kanji.str$</span>
+          { <span class="variable-name">editor</span> check.kanji.str
               { bst.editor.jp * }
               { bst.editors * }
             <span class="builtin">if$</span>
           }
-          { <span class="variable-name">editor</span> <span class="builtin">is.kanji.str$</span>
+          { <span class="variable-name">editor</span> check.kanji.str
               { bst.editor.jp * }
               { bst.editor * }
             <span class="builtin">if$</span>
@@ -1956,9 +2256,11 @@
 <span class="keyword">FUNCTION</span> {<span class="function-name">format.authors.alt</span>}
 { <span class="variable-name">author</span> <span class="builtin">empty$</span>
     { <span class="string">""</span> }
+    <span class="comment">% extra.label.bysame &#12395; bysame &#12392;&#12356;&#12358;&#20516;&#12364;&#20837;&#12387;&#12390;&#12356;&#12427;&#12363;&#65311;</span>
     { extra.label.bysame <span class="string">"bysame"</span> =
-        { insert.bysame }
-        { <span class="variable-name">author</span> <span class="builtin">is.kanji.str$</span>
+        <span class="comment">% Yes &#12394;&#12425; bysame &#12434;&#25407;&#20837;</span>
+        { <span class="variable-name">author</span> insert.bysame }
+        { <span class="variable-name">author</span> check.kanji.str
             { bst.author.pre.jp <span class="variable-name">author</span> format.names * bst.author.post.jp * }
             { bst.author.pre <span class="variable-name">author</span> format.names * bst.author.post * }
           <span class="builtin">if$</span>
@@ -1972,10 +2274,12 @@
 <span class="keyword">FUNCTION</span> {<span class="function-name">format.editors.alt</span>}
 { <span class="variable-name">editor</span> <span class="builtin">empty$</span>
     { <span class="string">""</span> }
+    <span class="comment">% extra.label.bysame &#12395; bysame &#12392;&#12356;&#12358;&#20516;&#12364;&#20837;&#12387;&#12390;&#12356;&#12427;&#12363;&#65311;</span>
     { extra.label.bysame <span class="string">"bysame"</span> =
+        <span class="comment">% Yes &#12394;&#12425; bysame.check &#12395; 1 &#12434;&#20195;&#20837;&#12375;&#12289;bysame &#12434;&#25407;&#20837;</span>
         { #1 'bysame.check <span class="constant">:=</span>
-          insert.bysame }
-        { <span class="variable-name">editor</span> <span class="builtin">is.kanji.str$</span>
+          <span class="variable-name">editor</span> insert.bysame }
+        { <span class="variable-name">editor</span> check.kanji.str
             { bst.author.pre.jp <span class="variable-name">editor</span> format.names * }
             { bst.author.pre <span class="variable-name">editor</span> format.names * bst.author.post * }
           <span class="builtin">if$</span>
@@ -1984,12 +2288,12 @@
       #1 bysame.check =
         { <span class="string">""</span> * }
         { <span class="variable-name">editor</span> <span class="builtin">num.names$</span> #1 &gt;
-          { <span class="variable-name">editor</span> <span class="builtin">is.kanji.str$</span>
+          { <span class="variable-name">editor</span> check.kanji.str
               { bst.editor.jp * }
               { bst.editors * }
             <span class="builtin">if$</span>
           }
-          { <span class="variable-name">editor</span> <span class="builtin">is.kanji.str$</span>
+          { <span class="variable-name">editor</span> check.kanji.str
               { bst.editor.jp * }
               { bst.editor * }
             <span class="builtin">if$</span>
@@ -2007,12 +2311,12 @@
     { <span class="string">""</span> }
     { <span class="variable-name">editor</span> format.names 
       <span class="variable-name">editor</span> <span class="builtin">num.names$</span> #1 &gt;
-        { <span class="variable-name">editor</span> <span class="builtin">is.kanji.str$</span>
+        { <span class="variable-name">editor</span> check.kanji.str
             { bst.editor.jp * }
             { bst.editors * }
           <span class="builtin">if$</span>
         }
-        { <span class="variable-name">editor</span> <span class="builtin">is.kanji.str$</span>
+        { <span class="variable-name">editor</span> check.kanji.str
             { bst.editor.jp * }
             { bst.editor * }
           <span class="builtin">if$</span>
@@ -2058,7 +2362,7 @@
   <span class="builtin">if$</span>
 }
 
-<span class="comment">%%% &#26368;&#24460;&#12395;&#12388;&#12356;&#12390;&#12356;&#12427;&#12398;&#12300;&#65292;&#12301;&#12289;&#12300;&#12289;&#12301;&#12289;&#12300;&#65294;&#12301;&#12289;&#12300;&#65294;&#12301;&#12434;&#38500;&#21435;&#12377;&#12427;&#38306;&#25968; (&#37030;&#35379;&#26360;&#29992;)</span>
+<span class="comment">%%% &#26368;&#24460;&#12395;&#12388;&#12356;&#12390;&#12356;&#12427;&#12300;&#65292;&#12301;&#12289;&#12300;&#12289;&#12301;&#12289;&#12300;&#65294;&#12301;&#12289;&#12300;&#65294;&#12301;&#12434;&#38500;&#21435;&#12377;&#12427;&#38306;&#25968; (&#37030;&#35379;&#26360;&#29992;)</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">remove.irrelevant.kutoten</span>}
 { 's <span class="constant">:=</span>
   s <span class="builtin">empty$</span>
@@ -2068,6 +2372,23 @@
       s #-1 #1 <span class="builtin">substring$</span> <span class="string">"&#12290;"</span> = or
       s #-1 #1 <span class="builtin">substring$</span> <span class="string">"&#65294;"</span> = or
         { s #-2 <span class="builtin">global.max$</span> <span class="builtin">substring$</span> <span class="string">""</span> * }
+        { s }
+      <span class="builtin">if$</span>
+    }
+  <span class="builtin">if$</span>
+}
+
+<span class="comment">%%% &#26368;&#21021;&#12395;&#12300;&#65292;&#65292;&#12301;&#12289;&#12300;&#12289;&#12289;&#12301;&#12289;&#12300;&#65292;&#12289;&#12301;&#12289;&#12300;&#12289;&#65292;&#12301;&#31561;&#12364;&#20184;&#12356;&#12390;&#12356;&#12383;&#12425;&#19968;&#20491;&#30446;&#12434;&#38500;&#21435;&#12375;&#12383;</span>
+<span class="comment">%%% &#25991;&#23383;&#21015;&#12434;&#36820;&#12377;&#12290;</span>
+<span class="keyword">FUNCTION</span> {<span class="function-name">remove.irrelevant.pre.kutoten</span>}
+{ 's <span class="constant">:=</span>
+  s <span class="builtin">empty$</span>
+    { <span class="string">""</span> }
+    { s #1 #4 <span class="builtin">substring$</span> <span class="string">"&#12289;&#12289;"</span> =
+      s #1 #4 <span class="builtin">substring$</span> <span class="string">"&#65292;&#65292;"</span> = or
+      s #1 #4 <span class="builtin">substring$</span> <span class="string">"&#65292;&#12289;"</span> = or
+      s #1 #4 <span class="builtin">substring$</span> <span class="string">"&#12289;&#65292;"</span> = or
+        { s #3 <span class="builtin">global.max$</span> <span class="builtin">substring$</span> }
         { s }
       <span class="builtin">if$</span>
     }
@@ -2086,7 +2407,7 @@
 { <span class="variable-name">title</span> <span class="builtin">empty$</span>
   bst.hide.title #0 = not or
     { <span class="string">""</span> }
-    { <span class="variable-name">title</span> <span class="builtin">is.kanji.str$</span>
+    { is.kanji.entry
       { bst.title.pre.jp <span class="variable-name">title</span> * bst.title.post.jp * }
       { format.title.sub remove.irrelevant.period.comma }
      <span class="builtin">if$</span>
@@ -2106,7 +2427,7 @@
 <span class="keyword">FUNCTION</span> {<span class="function-name">format.misc.title</span>}
 { <span class="variable-name">title</span> <span class="builtin">empty$</span>
     { <span class="string">""</span> }
-    { <span class="variable-name">title</span> <span class="builtin">is.kanji.str$</span>
+    { is.kanji.entry
       { bst.title.pre.jp <span class="variable-name">title</span> * bst.title.post.jp * }
       { bst.title.pre <span class="variable-name">title</span> * bst.title.post * }
      <span class="builtin">if$</span>
@@ -2381,7 +2702,6 @@
           <span class="builtin">if$</span>
         }
       <span class="builtin">if$</span>
-<span class="comment">%       "volume and number" number either.or.check</span>
     }
   <span class="builtin">if$</span>
 }
@@ -2773,6 +3093,23 @@
   <span class="builtin">if$</span>
 }
 
+<span class="comment">%%% translator &amp; kanyaku &#12398;&#25972;&#24418;&#12290;</span>
+<span class="keyword">FUNCTION</span> {<span class="function-name">format.translator</span>}
+{ <span class="variable-name">kanyaku</span> <span class="builtin">empty$</span>
+   { <span class="variable-name">translator</span> <span class="builtin">empty$</span>
+      { <span class="string">""</span> }
+      { bst.translator.pre.jp <span class="variable-name">translator</span> format.names * bst.translator.post.jp * }
+    <span class="builtin">if$</span>
+   }
+   { <span class="variable-name">translator</span> <span class="builtin">empty$</span>
+      { bst.kanyaku.pre.jp <span class="variable-name">kanyaku</span> format.names * bst.kanyaku.post.jp * }
+      { bst.kanyaku.pre.jp <span class="variable-name">kanyaku</span> format.names * bst.kanyaku.post.jp * 
+        bst.translator.pre.jp * <span class="variable-name">translator</span> format.names * bst.translator.post.jp * }
+     <span class="builtin">if$</span>
+   }
+  <span class="builtin">if$</span>
+}
+
 <span class="comment">%%% howpublished &#12398;&#25972;&#24418;&#12290;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">format.howpublished</span>}
 { <span class="variable-name">howpublished</span> <span class="builtin">empty$</span>
@@ -2789,7 +3126,7 @@
 <span class="keyword">FUNCTION</span> {<span class="function-name">format.address</span>}
 { <span class="variable-name">address</span> <span class="builtin">empty$</span>
     { <span class="string">""</span> }
-    { <span class="variable-name">address</span> <span class="builtin">is.kanji.str$</span>
+    { is.kanji.entry
         { bst.address.pre.jp <span class="variable-name">address</span> * bst.address.post.jp * }
         { bst.address.pre <span class="variable-name">address</span> * bst.address.post * }
       <span class="builtin">if$</span>
@@ -2972,17 +3309,19 @@
   <span class="variable-name">jyear</span> <span class="builtin">empty$</span>
   and and and and
     { <span class="string">""</span> }
-    { is.kanji.entry
-        { bst.touten.jp *  }
-        { <span class="string">", "</span> *  }
+    {
+      is.kanji.entry
+        { bst.touten.jp }
+        { <span class="string">", "</span> }
       <span class="builtin">if$</span>
+      bst.hoyakusho.pre.jp * 
       <span class="variable-name">jauthor</span> <span class="builtin">empty$</span>
         { <span class="variable-name">jkanyaku</span> <span class="builtin">empty$</span>
-            { <span class="string">""</span> }
-            { <span class="variable-name">jkanyaku</span> format.names <span class="string">"&#30435;&#35379;"</span> * }
+            { <span class="string">""</span> * }
+            { <span class="variable-name">jkanyaku</span> format.names * <span class="string">"&#30435;&#35379;"</span> * }
           <span class="builtin">if$</span>
         }
-        { <span class="variable-name">jauthor</span> format.names <span class="string">"&#35379;"</span> *
+        { <span class="variable-name">jauthor</span> format.names * <span class="string">"&#35379;"</span> *
           <span class="variable-name">jkanyaku</span> <span class="builtin">empty$</span>
             { <span class="string">""</span> * }
             { bst.touten.jp * <span class="variable-name">jkanyaku</span> format.names * <span class="string">"&#30435;&#35379;"</span> * }
@@ -2991,7 +3330,7 @@
       <span class="builtin">if$</span>
       <span class="variable-name">jtitle</span> <span class="builtin">empty$</span>
         { <span class="string">""</span> * }
-        { bst.touten.jp * format.jtitle * bst.touten.jp * }
+        { bst.touten.jp format.jtitle * bst.touten.jp * remove.irrelevant.pre.kutoten * }
       <span class="builtin">if$</span>
       <span class="variable-name">jpublisher</span> <span class="builtin">empty$</span>
         { <span class="string">""</span> * }
@@ -3001,8 +3340,7 @@
         { <span class="string">""</span> * }
         { <span class="string">""</span> * <span class="variable-name">jyear</span> convert.year.kanji * <span class="string">"&#24180;"</span> * }
       <span class="builtin">if$</span>
-      remove.irrelevant.kutoten
-      bst.hoyakusho.pre.jp <span class="builtin">swap$</span> * bst.hoyakusho.post.jp *
+      remove.irrelevant.kutoten bst.hoyakusho.post.jp *
     }
  <span class="builtin">if$</span>
 }
@@ -3135,7 +3473,6 @@
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%        article &#12398;&#20966;&#29702;</span>
-
 <span class="keyword">FUNCTION</span> {<span class="function-name">article</span>}
 { output.bibitem
   format.authors <span class="string">"author"</span> output.check.nocomma
@@ -3165,7 +3502,6 @@
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%        book &#12398;&#20966;&#29702;</span>
-
 <span class="keyword">FUNCTION</span> {<span class="function-name">book</span>}
 { output.bibitem
   <span class="variable-name">author</span> <span class="builtin">empty$</span>
@@ -3180,6 +3516,7 @@
   <span class="builtin">if$</span>
   format.book <span class="string">"title"</span> output.check.nocomma
 
+  format.translator output.nocomma
   format.bvolume output.nocomma
   format.number.series output.nocomma
   output.publisher.address
@@ -3202,7 +3539,6 @@
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%        booklet &#12398;&#20966;&#29702;</span>
-
 <span class="keyword">FUNCTION</span> {<span class="function-name">booklet</span>}
 { output.bibitem
   format.authors output.nocomma
@@ -3220,7 +3556,6 @@
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       inbook &#12398;&#20966;&#29702;</span>
-
 <span class="keyword">FUNCTION</span> {<span class="function-name">inbook</span>}
 { output.bibitem
   <span class="variable-name">author</span> <span class="builtin">empty$</span>
@@ -3233,7 +3568,6 @@
     { format.year <span class="string">"year"</span> output.check.nocomma }
     '<span class="builtin">skip$</span>
   <span class="builtin">if$</span>
-<span class="comment">%   format.book remove.pre.comma.period "title" output.check.nocomma</span>
   format.book <span class="string">"title"</span> output.check.nocomma
   format.edition output.nocomma
 
@@ -3256,7 +3590,6 @@
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       incollection &#12398;&#20966;&#29702;</span>
-
 <span class="keyword">FUNCTION</span> {<span class="function-name">incollection</span>}
 { output.bibitem
   format.authors <span class="string">"author"</span> output.check.nocomma
@@ -3286,7 +3619,6 @@
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       inproceedings &#12398;&#20966;&#29702;</span>
-
 <span class="keyword">FUNCTION</span> {<span class="function-name">inproceedings</span>}
 { output.bibitem
   format.authors <span class="string">"author"</span> output.check.nocomma
@@ -3316,13 +3648,11 @@
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       conference &#12398;&#20966;&#29702;</span>
-
 <span class="keyword">FUNCTION</span> {<span class="function-name">conference</span>}
 { inproceedings }
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       manual &#12398;&#20966;&#29702;</span>
-
 <span class="keyword">FUNCTION</span> {<span class="function-name">manual</span>}
 { output.bibitem
   <span class="variable-name">author</span> <span class="builtin">empty$</span>
@@ -3366,7 +3696,6 @@
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       mastersthesis &#12398;&#20966;&#29702;</span>
-
 <span class="keyword">FUNCTION</span> {<span class="function-name">mastersthesis</span>}
 { output.bibitem
   format.authors <span class="string">"author"</span> output.check.nocomma
@@ -3393,7 +3722,6 @@
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       misc &#12398;&#20966;&#29702;</span>
-
 <span class="keyword">FUNCTION</span> {<span class="function-name">misc</span>}
 { output.bibitem
   format.authors <span class="string">"author"</span> output.check.nocomma
@@ -3421,7 +3749,6 @@
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       online &#12398;&#20966;&#29702;</span>
-
 <span class="keyword">FUNCTION</span> {<span class="function-name">online</span>}
 { output.bibitem
   format.authors <span class="string">"author"</span> output.check.nocomma
@@ -3449,7 +3776,6 @@
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       phdthesis &#12398;&#20966;&#29702;</span>
-
 <span class="keyword">FUNCTION</span> {<span class="function-name">phdthesis</span>}
 { output.bibitem
   format.authors <span class="string">"author"</span> output.check.nocomma
@@ -3480,7 +3806,6 @@
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       proceedings &#12398;&#20966;&#29702;</span>
-
 <span class="keyword">FUNCTION</span> {<span class="function-name">proceedings</span>}
 { output.bibitem
   <span class="variable-name">editor</span> <span class="builtin">empty$</span>
@@ -3510,7 +3835,6 @@
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       techreport &#12398;&#20966;&#29702;</span>
-
 <span class="keyword">FUNCTION</span> {<span class="function-name">techreport</span>}
 { output.bibitem
   format.authors <span class="string">"author"</span> output.check.nocomma
@@ -3538,7 +3862,6 @@
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       unpublished &#12398;&#20966;&#29702;</span>
-
 <span class="keyword">FUNCTION</span> {<span class="function-name">unpublished</span>}
 { output.bibitem
   format.authors <span class="string">"author"</span> output.check.nocomma
@@ -3586,8 +3909,16 @@
 <span class="comment">%%% &#12456;&#12531;&#12488;&#12522;&#12434;&#35501;&#12415;&#36796;&#12416;</span>
 <span class="keyword">READ</span>
 
+<span class="comment">%%% &#12456;&#12531;&#12488;&#12522;&#12540;&#12364;&#26085;&#26412;&#35486;&#25991;&#29486;&#12363;&#21028;&#26029;&#12377;&#12427;&#12383;&#12417;&#12398;&#38306;&#25968;</span>
+<span class="keyword">FUNCTION</span> {<span class="function-name">set.is.kanji.entry.author</span>}
+{
+  <span class="variable-name">author</span>    field.or.null <span class="builtin">is.kanji.str$</span>
+  <span class="variable-name">editor</span>    field.or.null <span class="builtin">is.kanji.str$</span> or
+  'is.kanji.entry.author <span class="constant">:=</span>
+}
+
 <span class="comment">%%% &#12456;&#12531;&#12488;&#12522;&#12540;&#12364;&#26085;&#26412;&#35486;&#25991;&#29486;&#12363;&#21028;&#26029;&#12377;&#12427;&#12383;&#12417;&#12398;&#38306;&#25968; (yomi &#12399;&#38500;&#12367;)</span>
-<span class="keyword">FUNCTION</span> {<span class="function-name">set.is.kanji.entry</span>}
+<span class="keyword">FUNCTION</span> {<span class="function-name">set.is.kanji.entry.auto</span>}
 {
   <span class="variable-name">author</span>    field.or.null <span class="builtin">is.kanji.str$</span>
   <span class="variable-name">title</span>     field.or.null <span class="builtin">is.kanji.str$</span> or
@@ -3596,6 +3927,27 @@
   <span class="variable-name">booktitle</span> field.or.null <span class="builtin">is.kanji.str$</span> or
   <span class="variable-name">series</span>    field.or.null <span class="builtin">is.kanji.str$</span> or
   'is.kanji.entry <span class="constant">:=</span>
+}
+
+<span class="comment">%%% &#12456;&#12531;&#12488;&#12522;&#12540;&#12364;&#26085;&#26412;&#35486;&#25991;&#29486;&#12363;&#21028;&#26029;&#12377;&#12427;&#12383;&#12417;&#12398;&#38306;&#25968;&#12290;language &#12501;&#12451;&#12540;&#12523;&#12489;&#12395;&#12300;ja&#12301;&#12364;&#20837;&#12387;</span>
+<span class="comment">%%% &#12390;&#12356;&#12428;&#12400;&#26085;&#26412;&#35486;&#25991;&#29486;&#12290;</span>
+<span class="keyword">FUNCTION</span> {<span class="function-name">set.is.kanji.entry.manual</span>}
+{ <span class="variable-name">language</span> <span class="builtin">empty$</span>
+    { #0 'is.kanji.entry <span class="constant">:=</span> }
+    { <span class="variable-name">language</span> <span class="string">"ja"</span> =
+       { #1 'is.kanji.entry <span class="constant">:=</span> }
+       { #0 'is.kanji.entry <span class="constant">:=</span> }
+      <span class="builtin">if$</span>
+    }
+  <span class="builtin">if$</span>
+}
+
+<span class="keyword">FUNCTION</span> {<span class="function-name">set.is.kanji.entry</span>}
+{ set.is.kanji.entry.auto
+  bst.use.unicode #0 =
+    '<span class="builtin">skip$</span>
+    { set.is.kanji.entry.manual }
+  <span class="builtin">if$</span>
 }
 
 <span class="comment">%%% &#12456;&#12531;&#12488;&#12522;&#12540;&#12364;&#26085;&#26412;&#35486;&#25991;&#29486;&#12363;&#21028;&#26029;&#12377;&#12427;&#12383;&#12417;&#12398;&#38306;&#25968; (yomi &#12418;&#21547;&#12417;&#12390;)</span>
@@ -3612,6 +3964,7 @@
 }
 
 <span class="comment">%%% &#20840;&#12390;&#12398;&#12456;&#12531;&#12488;&#12522;&#12540;&#12395;&#23550;&#12375;&#23455;&#34892;</span>
+<span class="keyword">ITERATE</span> {<span class="function-name">set.is.kanji.entry.author</span>}
 <span class="keyword">ITERATE</span> {<span class="function-name">set.is.kanji.entry</span>}
 <span class="keyword">ITERATE</span> {<span class="function-name">set.is.kanji.entry.two</span>}
 
@@ -3633,21 +3986,12 @@
 <span class="comment">%%% &#20840;&#12390;&#12398;&#12456;&#12531;&#12488;&#12522;&#12540;&#12395;&#23550;&#12375;&#23455;&#34892;</span>
 <span class="keyword">ITERATE</span> {<span class="function-name">set.order.cited</span>}
   
-<span class="comment">% FUNCTION {init.field.constants}</span>
-<span class="comment">% { #0 'author.field :=</span>
-<span class="comment">%   #1 'editor.field :=</span>
-<span class="comment">%   #2 'organization.field :=</span>
-<span class="comment">%   #3 'title.field :=</span>
-<span class="comment">%   #4 'key.field :=</span>
-<span class="comment">% }</span>
-
-<span class="comment">% EXECUTE {init.field.constants}</span>
-
 <span class="comment">%%% &#35352;&#21495;&#12434;&#38500;&#21435;&#12375;&#12289;&#23567;&#25991;&#23383;&#12395;&#22793;&#25563;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">sortify</span>}
 { <span class="builtin">purify$</span> <span class="string">"l"</span> <span class="builtin">change.case$</span> }
 
 <span class="comment">%%% &#20808;&#38957;&#20309;&#25991;&#23383;&#12363;&#12434;&#38500;&#21435;&#12377;&#12427;&#12290;</span>
+<span class="comment">% s &#12398;&#26368;&#21021;&#12363;&#12425; len &#25991;&#23383;&#12434;&#38500;&#21435;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">chop.word</span>}
 { 's <span class="constant">:=</span>
   'len <span class="constant">:=</span>
@@ -3673,7 +4017,7 @@
         { <span class="string">", "</span> * }
         '<span class="builtin">skip$</span>
       <span class="builtin">if$</span>
-      s <span class="builtin">is.kanji.str$</span>
+      s check.kanji.str
          { bst.sei.mei.order #0 =
              { s nameptr <span class="string">"{ff }{ll}"</span> <span class="builtin">format.name$</span> 't <span class="constant">:=</span> }
              { s nameptr <span class="string">"{ll }{ff}"</span> <span class="builtin">format.name$</span> 't <span class="constant">:=</span> }
@@ -3686,9 +4030,9 @@
          '<span class="builtin">skip$</span>
       <span class="builtin">if$</span>
       nameptr numnames = t <span class="string">"others"</span> = and
-        { s <span class="builtin">is.kanji.str$</span>
+        { s check.kanji.str
                 { bst.and.others.jp * }
-                { bst.and.others *}
+                { bst.and.others * }
           <span class="builtin">if$</span>
         }
         { t sortify * }
@@ -3709,7 +4053,7 @@
   s <span class="builtin">num.names$</span> 'numnames <span class="constant">:=</span>
   numnames bst.and.others.num &lt;
      { s sort.format.names }
-     { s <span class="builtin">is.kanji.str$</span>
+     { s check.kanji.str
          <span class="comment">% author &#21517;&#12364;&#26085;&#26412;&#35486;&#12434;&#21547;&#12416;&#12465;&#12540;&#12473;</span>
          { bst.sei.mei.order #0 =
              { s #1 <span class="string">"{ff }{ll}"</span> <span class="builtin">format.name$</span> <span class="string">" et al. "</span> * }
@@ -3729,7 +4073,7 @@
   s <span class="builtin">num.names$</span> 'numnames <span class="constant">:=</span>
   numnames 'namesleft <span class="constant">:=</span>
     { namesleft #0 &gt; }
-      { s <span class="builtin">is.kanji.str$</span>
+      { s check.kanji.str
           <span class="comment">% author &#21517;&#12395;&#26085;&#26412;&#35486;&#21547;&#12416;&#12465;&#12540;&#12473;</span>
           { nameptr 'name.num <span class="constant">:=</span>
             s set.alphabet.in.author
@@ -3804,7 +4148,7 @@
      <span class="comment">% author &#25968;&#12364; bst.and.others.num &#12424;&#12426;&#23567;&#12373;&#12356;&#12394;&#12425; full &#12391;&#34920;&#31034;&#12290;</span>
      { s format.lab.names.full }
      <span class="comment">% author &#25968;&#12364; bst.and.others.num &#20197;&#19978;&#12394;&#12425; 1st author &#12398;&#12415;&#34920;&#31034;&#12290;&#12354;&#12392;&#12399;&#30053;&#12290;</span>
-     { s <span class="builtin">is.kanji.str$</span>
+     { s check.kanji.str
          <span class="comment">% author &#21517;&#12364;&#26085;&#26412;&#35486;&#12434;&#21547;&#12416;&#12465;&#12540;&#12473;</span>
          { #1 'name.num <span class="constant">:=</span>
            s set.alphabet.in.author
@@ -4219,17 +4563,6 @@
   <span class="builtin">if$</span>
 }
 
-<span class="comment">%%% &#38918;&#24207;&#12434;&#12477;&#12540;&#12488;&#12377;&#12427;&#12383;&#12417;&#12395; yomi &#12434;&#21152;&#24037;&#12377;&#12427;&#12290;</span>
-<span class="comment">% FUNCTION {yomi.label}</span>
-<span class="comment">% { yomi is.kanji.str$</span>
-<span class="comment">%     % yomi &#12364;&#12402;&#12425;&#12364;&#12394;&#12398;&#12465;&#12540;&#12473;&#12290;year (+ month) &#12434;&#20184;&#12369;&#36275;&#12377;&#12398;&#12415;&#12290;</span>
-<span class="comment">%     { yomi " " * year convert.year * }</span>
-<span class="comment">%     % yomi &#12364; alphabet &#12398;&#12465;&#12540;&#12473;&#12290;&#21517;&#21069;&#12434;&#21152;&#24037;&#12375;&#12390;&#12363;&#12425;&#23567;&#25991;&#23383;&#12395;&#22793;&#25563;&#12375;&#12289;year &#12434;</span>
-<span class="comment">%     % &#20184;&#12369;&#36275;&#12377;</span>
-<span class="comment">%     { yomi sort.format.names "l" change.case$ " " * year convert.year * }</span>
-<span class="comment">%   if$</span>
-<span class="comment">% }</span>
-
 <span class="comment">%%% &#25968;&#23383;&#12364;&#19968;&#25991;&#23383; (&#12388;&#12414;&#12426;, 1,...,9&#31561;) &#12394;&#12425;&#12381;&#12398;&#21069;&#12395; 00 &#12434;&#65292;&#25968;&#23383;&#12364;&#20108;&#25991;&#23383;</span>
 <span class="comment">%%% (10,...,99) &#12394;&#12425; 0 &#12434;&#20184;&#12369;&#12427;&#65294;10, 11, 12 &#12398;&#25351;&#23450;&#12364; 2, 3, 4,... &#12424;&#12426;&#12418;&#20778;&#20808;&#12373;</span>
 <span class="comment">%%% &#12428;&#12427;&#12398;&#12434;&#38450;&#12368;&#12383;&#12417;&#12290;</span>
@@ -4250,72 +4583,71 @@
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.sort.entry.type.order</span>}
 { 'item.type <span class="constant">:=</span>
   item.type <span class="string">"article"</span> =
-    { <span class="string">"01"</span> }
-    { item.type <span class="string">"book"</span> =
-        { <span class="string">"02"</span> }
-        { item.type <span class="string">"booklet"</span> =
-            { <span class="string">"03"</span> }
-            { item.type <span class="string">"comment"</span> =
-                { <span class="string">"04"</span> }
-                { item.type <span class="string">"conference"</span> =
-                    { <span class="string">"05"</span> }
-                    { item.type <span class="string">"inbook"</span> =
-                        { <span class="string">"06"</span> }
-                        { item.type <span class="string">"incollection"</span> =
-                            { <span class="string">"07"</span> }
-                            { item.type <span class="string">"inproceedings"</span> =
-                                { <span class="string">"08"</span> }
-                                { item.type <span class="string">"manual"</span> =
-                                    { <span class="string">"09"</span> }
-                                    { item.type <span class="string">"masterthesis"</span> =
-                                        { <span class="string">"10"</span> }
-                                        { item.type <span class="string">"misc"</span> =
-                                           { <span class="string">"11"</span> }
-                                           { item.type <span class="string">"phdthesis"</span> =
-                                              { <span class="string">"12"</span> }
-                                              { item.type <span class="string">"proceedings"</span> =
-                                                 { <span class="string">"13"</span> }
-                                                 { item.type <span class="string">"techreport"</span> =
-                                                    { <span class="string">"14"</span> }
-                                                    { item.type <span class="string">"unpublished"</span> =
-                                                       { <span class="string">"15"</span> }
-                                                       { <span class="string">"16"</span> }
-                                                      <span class="builtin">if$</span>
-                                                    }
-                                                   <span class="builtin">if$</span>
+<span class="ediff-even-diff-a">     { "01" }
+     { item.type "book" =
+         { "02" }
+         { item.type "booklet" =
+             { "03" }
+             { item.type "comment" =
+                 { "04" }
+                 { item.type "conference" =
+                     { "05" }
+                     { item.type "inbook" =
+                         { "06" }
+                         { item.type "incollection" =
+                             { "07" }
+                             { item.type "inproceedings" =
+                                 { "08" }
+                                 { item.type "manual" =
+                                     { "09" }
+                                     { item.type "masterthesis" =
+                                         { "10" }
+                                         { item.type "misc" =
+                                             { "11" }
+                                             { item.type "phdthesis" =
+                                                 { "12" }
+                                                 { item.type "proceedings" =
+                                                     { "13" }
+                                                     { item.type "techreport" =
+                                                         { "14" }
+                                                         { item.type "unpublished" =
+                                                             { "15" }
+                                                             { "16" }
+                                                           if$
+                                                         }
+                                                       if$
+                                                     }
+</span>                                                   <span class="builtin">if$</span>
                                                  }
-                                                <span class="builtin">if$</span>
-                                              }
-                                             <span class="builtin">if$</span>
-                                           }
-                                          <span class="builtin">if$</span>
-                                        }
-                                      <span class="builtin">if$</span>
-                                    }
-                                <span class="builtin">if$</span>
-                                }
-                            <span class="builtin">if$</span>
-                            }
-                        <span class="builtin">if$</span>
-                        }
-                    <span class="builtin">if$</span>
-                    }
-                <span class="builtin">if$</span>
-                }
-            <span class="builtin">if$</span>
-            }
-        <span class="builtin">if$</span>
-        }
-    <span class="builtin">if$</span>
-    }
-  <span class="builtin">if$</span>
+<span class="ediff-odd-diff-a">                                               if$
+                                             }
+                                           if$
+                                         }
+                                       if$
+                                     }
+                                 if$
+                                 }
+                             if$
+                             }
+                         if$
+                         }
+                     if$
+                     }
+                 if$
+                 }
+             if$
+             }
+         if$
+         }
+     if$
+     }
+</span>  <span class="builtin">if$</span>
 }
 
 <span class="comment">%%% &#12414;&#12378;&#12289;author -&gt; year -&gt; absorder -&gt; order -&gt; month -&gt; title &#12391; sort.key$ &#12434;</span>
 <span class="comment">%%% &#20316;&#25104;&#12377;&#12427;&#12290;&#19968;&#22238;&#30446;&#12398;&#12477;&#12540;&#12488;&#12391;&#21033;&#29992;&#12377;&#12427;&#65294;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">presort.one</span>}
-{
-  calc.cyear
+{ calc.cyear
   <span class="builtin">pop$</span>
   <span class="string">""</span>
   sort.label.abb *
@@ -4324,7 +4656,7 @@
     { * order.cited <span class="builtin">int.to.str$</span> add.zero.to.number * <span class="string">" "</span> * }
     { * <span class="string">" "</span> * }
   <span class="builtin">if$</span>
-  <span class="variable-name">title</span> <span class="builtin">is.kanji.str$</span> 
+  is.kanji.entry
     { bst.mixed.order #0 =
        { <span class="string">""</span> }
        { <span class="string">" "</span> }
@@ -4412,8 +4744,7 @@
 <span class="comment">%%% &#12371;&#12428;&#12399; absorder -&gt; author -&gt; year -&gt; order -&gt; month -&gt; title &#12391; sort.key$ &#12434;</span>
 <span class="comment">%%% &#20316;&#25104;&#12377;&#12427;&#12290;&#26368;&#32066;&#30340;&#12394;&#20006;&#12409;&#26367;&#12360;&#12399;&#12371;&#12385;&#12425;&#12391;&#25351;&#23450;&#12377;&#12427; sort.key$ &#12391;&#12362;&#12371;&#12394;&#12358;&#12290;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">presort.two</span>}
-{
-  bst.no.sort #0 = not
+{ bst.no.sort #0 = not
     <span class="comment">%% &#20006;&#12409;&#26367;&#12360;&#12375;&#12394;&#12356;(&#24341;&#29992;&#38918;&#12391;&#12381;&#12398;&#12414;&#12414;&#20006;&#12409;&#12427;)&#12465;&#12540;&#12473;&#12398;&#12383;&#12417;&#12398;&#35373;&#23450;&#65294;</span>
     { order.cited <span class="builtin">int.to.str$</span> add.zero.to.number <span class="string">" "</span> * }
     { <span class="string">""</span> }
@@ -4457,7 +4788,7 @@
   <span class="string">" "</span> *
   sort.label.abb *
   <span class="string">" "</span> *  
-  <span class="variable-name">title</span> <span class="builtin">is.kanji.str$</span>
+  is.kanji.entry
     { bst.mixed.order #0 =
        { <span class="string">""</span> }
        { <span class="string">" "</span> }
@@ -4524,6 +4855,7 @@
     '<span class="builtin">skip$</span>
  <span class="builtin">if$</span>
 }
+
 <span class="keyword">FUNCTION</span> {<span class="function-name">calc.flabel.mess</span>}
 { jecon.debug #0 = not
     { <span class="string">"\textbf{Iteration of calc.flabel}\\"</span> <span class="builtin">write$</span>
@@ -4531,6 +4863,7 @@
     '<span class="builtin">skip$</span>
  <span class="builtin">if$</span>
 }
+
 <span class="keyword">FUNCTION</span> {<span class="function-name">calc.sort.label.abb.mess</span>}
 { jecon.debug #0 = not
     { <span class="string">"\textbf{Iteration of calc.sort.label.abb}\\"</span> <span class="builtin">write$</span>
@@ -4538,6 +4871,7 @@
     '<span class="builtin">skip$</span>
  <span class="builtin">if$</span>
 }
+
 <span class="keyword">FUNCTION</span> {<span class="function-name">presort.one.mess</span>}
 { jecon.debug #0 = not
     { <span class="string">"\textbf{Iteration of presort.one (&#12477;&#12540;&#12488;1&#22238;&#30446;)}\\"</span> <span class="builtin">write$</span>
@@ -4545,6 +4879,7 @@
     '<span class="builtin">skip$</span>
  <span class="builtin">if$</span>
 }
+
 <span class="keyword">FUNCTION</span> {<span class="function-name">presort.two.mess</span>}
 { jecon.debug #0 = not
     { <span class="string">"\textbf{Iteration of presort.two (&#12477;&#12540;&#12488;2&#22238;&#30446;)}\\"</span> <span class="builtin">write$</span>
@@ -4579,32 +4914,23 @@
 
 <span class="keyword">SORT</span>
 
-<span class="comment">% \bysame &#12434;&#20351;&#12358;&#22580;&#21512;&#12399;&#12289;sort.label &#12364;&#21069;&#22238;&#12398;&#12418;&#12398;&#12392;&#21516;&#19968;&#12391;&#12354;&#12428;&#12400;&#12289;extra.label&#12434;&#12475;&#12483;&#12488;</span>
-<span class="comment">% author &#12364;&#21069;&#22238;&#12398;&#12418;&#12398;&#12392;&#21516;&#19968;&#12391;&#12354;&#12428;&#12400;&#12289;extra.label.bysame&#12434;&#12475;&#12483;&#12488;</span>
+<span class="comment">% last.sort.label: &#19968;&#20491;&#21069;&#12398; sort.label.abb &#12398;&#20516;&#12434;&#20445;&#25345;&#12290;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">forward.pass</span>}
-{ bst.use.bysame #0 = bst.use.bysame #2 = or
-    <span class="comment">% \bysame &#12434;&#20351;&#12431;&#12394;&#12356;&#22580;&#21512;</span>
-    { last.sort.label sort.label.abb =
-        { last.extra.num #1 <span class="constant">+</span> 'last.extra.num <span class="constant">:=</span>
-          last.extra.num <span class="builtin">int.to.chr$</span> 'extra.label <span class="constant">:=</span>
-        }
-        { <span class="string">"a"</span> <span class="builtin">chr.to.int$</span> 'last.extra.num <span class="constant">:=</span>
-          <span class="string">""</span> 'extra.label <span class="constant">:=</span>
-          sort.label.abb 'last.sort.label <span class="constant">:=</span>
-        }
-      <span class="builtin">if$</span>
+{ last.sort.label sort.label.abb =
+    { last.extra.num #1 <span class="constant">+</span> 'last.extra.num <span class="constant">:=</span>
+      last.extra.num <span class="builtin">int.to.chr$</span> 'extra.label <span class="constant">:=</span>
     }
-    <span class="comment">% \bysame &#12434;&#20351;&#12358;&#22580;&#21512;</span>
-    { last.sort.label sort.label.abb =
-        { last.extra.num #1 <span class="constant">+</span> 'last.extra.num <span class="constant">:=</span>
-          last.extra.num <span class="builtin">int.to.chr$</span> 'extra.label <span class="constant">:=</span>
-        }
-        { <span class="string">"a"</span> <span class="builtin">chr.to.int$</span> 'last.extra.num <span class="constant">:=</span>
-          <span class="string">""</span> 'extra.label <span class="constant">:=</span>
-          sort.label.abb 'last.sort.label <span class="constant">:=</span>
-        }
-      <span class="builtin">if$</span>
-      <span class="variable-name">author</span> <span class="builtin">empty$</span>
+    { <span class="string">"a"</span> <span class="builtin">chr.to.int$</span> 'last.extra.num <span class="constant">:=</span>
+     <span class="string">""</span> 'extra.label <span class="constant">:=</span>
+      sort.label.abb 'last.sort.label <span class="constant">:=</span>
+    }
+  <span class="builtin">if$</span>
+  bst.use.bysame #0 = bst.use.bysame #2 = or
+    <span class="comment">% 2 &#12398;&#12479;&#12452;&#12503;&#12398; bysame &#12434;&#20351;&#12358;&#22580;&#21512;&#12363; bysame &#12434;&#21033;&#29992;&#12375;&#12394;&#12356;&#22580;&#21512;</span>
+    '<span class="builtin">skip$</span>
+    <span class="comment">% 1 &#12398;&#12479;&#12452;&#12503;&#12398; bysame &#12434;&#20351;&#12358;&#22580;&#21512;</span>
+    <span class="comment">% this.author &#12395;&#29694;&#22312;&#12398; author (or editor) &#12434;&#20195;&#20837;</span>
+    { <span class="variable-name">author</span> <span class="builtin">empty$</span>
         { <span class="variable-name">editor</span> <span class="builtin">empty$</span>
           { <span class="string">""</span> }
           'format.editors.alt
@@ -4613,9 +4939,11 @@
         'format.authors.alt
       <span class="builtin">if$</span>
       'this.author <span class="constant">:=</span>
-      <span class="comment">% format.names 'this.author :=</span>
+      <span class="comment">% &#29694;&#22312;&#12398; author (this.author) &#12364;&#19968;&#20491;&#21069;&#12398; author (prev.author) &#12392;&#21516;&#12376;&#12363;&#65311;</span>
       this.author prev.author =
+        <span class="comment">% &#21516;&#12376;&#12394;&#12425; extra.labe.bysame &#12395; bysame &#12434;&#20195;&#20837;</span>
         { <span class="string">"bysame"</span> 'extra.label.bysame <span class="constant">:=</span> }
+        <span class="comment">% &#21516;&#12376;&#12391;&#12399;&#12394;&#12356;&#12394;&#12425; prev.author &#12395; this.author &#12434;&#20195;&#20837;&#12375;&#12390;&#12362;&#12367;&#12290;</span>
         { this.author <span class="string">""</span> =
             { <span class="string">"abcxyz"</span> }
             'this.author
@@ -4639,10 +4967,11 @@
   <span class="builtin">if$</span>
   <span class="string">""</span> field.or.null *
   'cyear <span class="constant">:=</span>
+  <span class="comment">% next.extra &#12395; extra.label &#12434;&#20195;&#20837;</span>
   extra.label 'next.extra <span class="constant">:=</span>
 }
 
-<span class="comment">%%% \bysame &#12434;&#20184;&#12369;&#12427;&#12290;</span>
+<span class="comment">%%% bysame &#12434;&#20184;&#12369;&#12427;&#12290;</span>
 <span class="keyword">ITERATE</span> {<span class="function-name">forward.pass</span>}
 
 <span class="comment">%%% &#21516;&#12376;&#33879;&#32773;&#12398;&#21516;&#12376;&#24180;&#12398;&#25991;&#29486;&#12364;&#35079;&#25968;&#12354;&#12427;&#12392;&#12365; a &#12434;&#20184;&#12369;&#12427;&#12290;</span>
@@ -4661,7 +4990,8 @@
 <span class="keyword">EXECUTE</span> {<span class="function-name">reset.prev.author</span>}
 
 <span class="keyword">FUNCTION</span> {<span class="function-name">forward.pass.two</span>}
-{ bst.use.bysame #1 = 
+{ bst.use.bysame #1 =
+    <span class="comment">% Type 1 &#12398; bysame &#12434;&#20351;&#12358;&#12465;&#12540;&#12473;&#12290;</span>
     { <span class="variable-name">author</span> <span class="builtin">empty$</span>
         { <span class="variable-name">editor</span> <span class="builtin">empty$</span>
           { <span class="string">""</span> }
@@ -4671,8 +5001,11 @@
         'format.authors.alt
      <span class="builtin">if$</span>
      'this.author <span class="constant">:=</span>
+     <span class="comment">% &#29694;&#22312;&#12398; author (this.author) &#12364;&#19968;&#20491;&#21069;&#12398; author (prev.author) &#12392;&#21516;&#12376;&#12363;&#65311;</span>
      this.author prev.author =
+        <span class="comment">% &#21516;&#12376;&#12394;&#12425; extra.labe.bysame &#12395; bysame &#12434;&#20195;&#20837;</span>
         { <span class="string">"bysame"</span> 'extra.label.bysame <span class="constant">:=</span> }
+        <span class="comment">% &#21516;&#12376;&#12391;&#12399;&#12394;&#12356;&#12394;&#12425; prev.author &#12395; this.author &#12434;&#20195;&#20837;&#12375;&#12390;&#12362;&#12367;&#12290;</span>
         { this.author <span class="string">""</span> =
             { <span class="string">"abcxyz"</span> }
             'this.author
@@ -4681,6 +5014,7 @@
         }
      <span class="builtin">if$</span>
     }
+    <span class="comment">% bysame &#12434;&#21033;&#29992;&#12375;&#12394;&#12356;&#12363;&#12289;Type 2 &#12398; bysame &#12434;&#20351;&#12358;&#12465;&#12540;&#12473;&#12391;&#12399;&#12394;&#12395;&#12418;&#12375;&#12394;&#12356;&#12290;</span>
    '<span class="builtin">skip$</span>
   <span class="builtin">if$</span>
 }
@@ -4702,15 +5036,14 @@
 <span class="keyword">EXECUTE</span> {<span class="function-name">punctuation</span>}
 
 <span class="keyword">FUNCTION</span> {<span class="function-name">begin.bib</span>}
-{
-  <span class="builtin">preamble$</span> <span class="builtin">empty$</span>
+{ <span class="builtin">preamble$</span> <span class="builtin">empty$</span>
     '<span class="builtin">skip$</span>
     { <span class="builtin">preamble$</span> <span class="builtin">write$</span> <span class="builtin">newline$</span> }
   <span class="builtin">if$</span>
   bst.use.bysame #0 =
-     <span class="comment">% \bysame &#12434;&#20351;&#12431;&#12394;&#12356;&#12465;&#12540;&#12473;</span>
+     <span class="comment">% bysame &#12434;&#20351;&#12431;&#12394;&#12356;&#12465;&#12540;&#12473;</span>
      '<span class="builtin">skip$</span>
-     <span class="comment">% \bysame &#12434;&#20351;&#12358;&#12465;&#12540;&#12473;</span>
+     <span class="comment">% bysame &#12434;&#20351;&#12358;&#12465;&#12540;&#12473;</span>
      { <span class="string">"</span><span class="comment">%%% Definition of \bysame" write$ newline$</span>
        <span class="string">"\ifx\undefined\bysame"</span> <span class="builtin">write$</span> <span class="builtin">newline$</span>
        <span class="string">"\newcommand{\bysame}{"</span> bst.bysame.definition * <span class="string">"}"</span> *
@@ -4780,11 +5113,13 @@
 
 <span class="comment">% &#32066;&#65294;</span>
 
-<span class="comment">%  --------------------</span>
-<span class="comment">%  Local Variables&#58;</span>
-<span class="comment">%  fill-column: 80</span>
-<span class="comment">%  mode: bst</span>
-<span class="comment">%  End:</span>
+<span class="comment">% --------------------</span>
+<span class="comment">% Local Variables&#58;</span>
+<span class="comment">% fill-column: 80</span>
+<span class="comment">% mode: bst</span>
+<span class="comment">% coding: utf-8-dos</span>
+<span class="comment">% End:</span>
+
 </pre>
   </body>
 </html>
