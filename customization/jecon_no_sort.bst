@@ -1,7 +1,7 @@
 % jecon.bst: 経済学用 BibTeX style file.
 %
 % First-written:       <2002/11/03>
-% Time-stamp:	       <2016-03-26 22:59:32 st>
+% Time-stamp:	       <2016-07-18 00:56:47 st>
 % Version 5.1
 %
 % これは，飯田修さんによって作成された jpolisci.bst を経済学用に
@@ -552,7 +552,7 @@ FUNCTION {bst.title.post.jp}
 % book の title 前に付ける文字列 (英語文献用)
 %
 FUNCTION {bst.book.pre}
-{ " {\it " }    % (default)
+{ " \textit{ " }    % (default)
 
 % book の title 後に付ける文字列 (英語文献用)
 %
@@ -575,7 +575,7 @@ FUNCTION {bst.book.post.jp}
 % booktitle の前に付ける文字列 (英語文献用)
 %
 FUNCTION {bst.btitle.pre}
-{ " {\it " }    % (default)
+{ " \textit{ " }    % (default)
 
 % booktitle の後に付ける文字列 (英語文献用)
 %
@@ -598,7 +598,7 @@ FUNCTION {bst.btitle.post.jp}
 % journal name の前に付ける文字列 (英語文献用)
 %
 FUNCTION {bst.journal.pre}
-{ " {\it " }    % (default)
+{ " \textit{ " }    % (default)
 
 % journal name の後に付ける文字列 (英語文献用)
 %
