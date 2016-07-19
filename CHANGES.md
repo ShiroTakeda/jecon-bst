@@ -3,11 +3,13 @@ Filename:		CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2016-03-26 23:18:18 st>
+Time-stamp:     <2016-07-19 12:51:31 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
+
+* `\it` 命令を `\textit` に変更。`\it` 命令は使わない方がよいみたいなので。
 
 ## Ver. 5.1 (2016-03-26)
 
