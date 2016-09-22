@@ -1,15 +1,22 @@
 <!--
-Filename:		CHANGES.txt
+Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2016-07-19 12:51:31 st>
+Time-stamp:     <2016-09-22 15:36:54 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
 
+## Ver. 5.1.1 (2016-09-22)
+
 * `\it` 命令を `\textit` に変更。`\it` 命令は使わない方がよいみたいなので。
+
+* unpulished タイプのバグを修正。
+
+* `jecon_unicode_xelatex.tex` に説明を追加。
+
 
 ## Ver. 5.1 (2016-03-26)
 

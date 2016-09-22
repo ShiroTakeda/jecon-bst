@@ -28,6 +28,7 @@
 \definecolor{MyBlue}{rgb}{0,0,0.3}
 \definecolor{MyRed}{rgb}{0.6,0,0.1}
 \definecolor{MyGreen}{rgb}{0,0.4,0}
+\definecolor{MyAltColor}{rgb}{0.6,0,0}
 \usepackage[bookmarks=true,%
 bookmarksnumbered=true,%
 colorlinks=true,%
@@ -67,6 +68,22 @@ urlcolor=MyGreen%
 
 %########################## Text Starts ##############################
 
+\vspace*{1em}
+
+\textcolor{MyAltColor}{{\Large \textbf{［注］}}}
+\begin{itemize}
+ \item 現在の \texttt{upbibtex} コマンドは（バグのため？）一部 \texttt{pbibtex}
+       とは異なる動作をします\footnote{正確に言うと、\texttt{\$substring} という
+       命令の動作が \texttt{upbibtex} では変わってしまっています。}。このため
+       \texttt{jecon.bst} で正常な処理がおこなわれず、参考文献の表示がおかしくな
+       る場合があります。
+ \item 例えば、\citet{naikakufu_2011}, \citet{takeda-gtap-2016ja},
+       \citet{chuokankyo06jp:ccs} という文献では、タイトルの後にカンマが二つ続い
+       てしまいます。これは上記の問題のためです。
+ \item これは \texttt{jecon.bst} 側では対処できず、\texttt{upbibtex} が修正され
+       ないと解決できないです。
+\end{itemize}
+
 \section{はじめに}
 
 \begin{itemize}
@@ -80,12 +97,12 @@ urlcolor=MyGreen%
        字のことです。
        \begin{itemize}
         \item 「草彅剛」の「彅」や「宮﨑あおい」の「﨑」のようにJISの第二水準を
-	      越える文字
+              越える文字
               \footnote{\url{https://texwiki.texjp.org/?upTeX\%2CupLaTeX}}。
         \item 「ò」、「ö」、「ç」、「è」、「é」、「ê」のような非アスキーの欧文の
-	      文字\footnote{アスキー文字とは、例えば
-	      \url{http://e-words.jp/p/r-ascii.html} に掲載されている128個の文字
-	      のことです。}。
+              文字\footnote{アスキー文字とは、例えば
+              \url{http://e-words.jp/p/r-ascii.html} に掲載されている128個の文字
+              のことです。}。
        \end{itemize}
  \item 「直接利用できない」と言うのは、これらの文字を直接ファイルに書くことはで
        きないという意味です。直接書くということでなければ pLaTeX であっても利用
@@ -282,26 +299,26 @@ urlcolor=MyGreen%
         \item このファイル (\texttt{jecon\_unicode\_xelatex.tex}) は XeLaTeX
               (\texttt{xelatex}) を利用することを前提としています。プリアンプル
               の設定も \texttt{xelatex} でコンパイルすることを前提として記述され
-	      ています。
+              ています。
         \item XeLaTeX を利用したい人はこのファイルを読んで書き方の参考にしてく
               ださい。
        \end{itemize}
  \item \texttt{bibliographystyle} や \texttt{bibliography} の指定
        \begin{itemize}
-	\item \texttt{bibliographystyle} や \texttt{bibliography} の指定は普通と同じよ
+        \item \texttt{bibliographystyle} や \texttt{bibliography} の指定は普通と同じよ
        うにすればよいです。
-	\item このファイルでは以下の設定にしています。
+        \item このファイルでは以下の設定にしています。
 \begin{verbatim}
     \bibliographystyle{jecon_unicode}       
     \bibliographystyle{../jecon_example_reverse,unicode_example}        
 \end{verbatim}
        つまり、\texttt{bst} ファイルには \texttt{jecon\_unicode.bst} を、
-	      \texttt{bib} ファイルには \texttt{unicode\_example.bib} と
-	      \texttt{jecon\_example\_reverse.bib} の二つを指定しています。後者
-	      のファイルは一個上のフォルダに置いてあるものを利用するので、
-	      「\texttt{../}」を付けています\footnote{「\texttt{../}」は一個上の
-	      フォルダを表す記号です。}。このファイルも同じフォルダに置くなら単
-	      純に以下のように書けばよいです。
+              \texttt{bib} ファイルには \texttt{unicode\_example.bib} と
+              \texttt{jecon\_example\_reverse.bib} の二つを指定しています。後者
+              のファイルは一個上のフォルダに置いてあるものを利用するので、
+              「\texttt{../}」を付けています\footnote{「\texttt{../}」は一個上の
+              フォルダを表す記号です。}。このファイルも同じフォルダに置くなら単
+              純に以下のように書けばよいです。
 \begin{verbatim}
     \bibliographystyle{jecon_example_reverse,unicode_example}        
 \end{verbatim}
@@ -312,11 +329,11 @@ urlcolor=MyGreen%
 
 \textbf{upLaTeX や LuaLaTeX を使いたいとき}
 \begin{itemize}
-	\item プリアンプルさえ書き換えれば upLaTeX や LuaLaTeX でも同様にコンパ
-	      イルできると思います。
-	\item プリアンプルの書き方については、このファイルと一緒に配布されている
-	      \texttt{jecon\_unicode\_uplatex.tex} や
-	      \texttt{jecon\_unicode\_lualatex.tex} を参考にしてください。
+        \item プリアンプルさえ書き換えれば upLaTeX や LuaLaTeX でも同様にコンパ
+              イルできると思います。
+        \item プリアンプルの書き方については、このファイルと一緒に配布されている
+              \texttt{jecon\_unicode\_uplatex.tex} や
+              \texttt{jecon\_unicode\_lualatex.tex} を参考にしてください。
 \end{itemize}
 
 \subsection{コンパイルの方法}
@@ -325,8 +342,8 @@ urlcolor=MyGreen%
  \item このファイルをコンパイルするときには以下の2つのファ
        イルを同じフォルダに置いてください。
        \begin{itemize}
-	\item \texttt{jecon\_unicode.bst}
-	\item \texttt{unicode\_example.bib}
+        \item \texttt{jecon\_unicode.bst}
+        \item \texttt{unicode\_example.bib}
        \end{itemize}
  \item また、\texttt{jecon\_example\_reverse.bib} というファイルを一個上の階層の
        フォルダに置いてください。

@@ -21,20 +21,6 @@
         /* font-lock-constant-face */
         color: #22ffff;
       }
-      .ediff-current-diff-a {
-        /* ediff-current-diff-A */
-        background-color: #553333;
-      }
-      .ediff-even-diff-a {
-        /* ediff-even-diff-A */
-        color: #000000;
-        background-color: #d3d3d3;
-      }
-      .ediff-odd-diff-a {
-        /* ediff-odd-diff-A */
-        color: #ffffff;
-        background-color: #bebebe;
-      }
       .function-name {
         /* font-lock-function-name-face */
         color: #ffff60;
@@ -69,9 +55,9 @@
 <span class="comment">% jecon.bst: &#32076;&#28168;&#23398;&#29992; BibTeX style file.</span>
 <span class="comment">%</span>
 <span class="comment">% First-written:       &lt;2002/11/03&gt;</span>
-<span class="comment"><span class="ediff-odd-diff-a">% Time-stamp:          &lt;2016-03-26 22:52:22 st&gt;
-% Version 5.1
-</span></span><span class="comment">%</span>
+<span class="comment">% Time-stamp:          &lt;2016-08-28 13:40:17 st&gt;</span>
+<span class="comment">% Version 5.1.1</span>
+<span class="comment">%</span>
 <span class="comment">% &#12371;&#12428;&#12399;&#65292;&#39151;&#30000;&#20462;&#12373;&#12435;&#12395;&#12424;&#12387;&#12390;&#20316;&#25104;&#12373;&#12428;&#12383; jpolisci.bst &#12434;&#32076;&#28168;&#23398;&#29992;&#12395;</span>
 <span class="comment">% &#27494;&#30000;&#21490;&#37070;&#12364;&#25913;&#22793;&#12375;&#12383;&#12418;&#12398;&#12391;&#12377;&#65294;</span>
 <span class="comment">% &#25913;&#22793;&#12395;&#12399;</span>
@@ -95,8 +81,8 @@
 <span class="comment">% &#22793;&#26356;&#23653;&#27508; (Changelog) &#12399; CHANGES.txt &#12501;&#12449;&#12452;&#12523;&#12434;&#35211;&#12390;&#12367;&#12384;&#12373;&#12356;&#65294;</span>
 
 <span class="comment">% version &#25351;&#23450;</span>
-<span class="keyword"><span class="ediff-even-diff-a">FUNCTION {jecon.version} { "5.1" }
-</span></span>
+<span class="keyword">FUNCTION</span> {<span class="function-name">jecon.version</span>} { <span class="string">"5.1.1"</span> }
+
 <span class="comment">% Debug mode&#65294;0 &#20197;&#22806;&#12434;&#25351;&#23450;&#12377;&#12427;&#12392;&#27096;&#12293;&#12394;&#24773;&#22577;&#12434;&#34920;&#31034;&#12373;&#12379;&#12427;&#12371;&#12392;&#12364;&#21487;&#33021;&#65294;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">jecon.debug</span>}
 { #0 }    <span class="comment">% Debug mode off.</span>
@@ -192,9 +178,9 @@
 <span class="comment">% \bysame &#12392;&#12399;&#12289;&#21442;&#32771;&#25991;&#29486;&#37096;&#20998;&#21516;&#12376;&#33879;&#32773;&#21517;&#12364;&#36899;&#32154;&#12377;&#12427;&#12392;&#12365;&#12395; --- &#12391;&#30465;&#30053;&#12377;&#12427;&#12418;&#12398;&#12290;</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.use.bysame</span>}
-<span class="comment"><span class="ediff-odd-diff-a">% { #0 }    % Not use \bysame
-{ #1 }    % -&gt; Use \bysame (default)
-</span></span><span class="comment">% { #2 }    % -&gt; Use \bysame of alternative style.</span>
+<span class="comment">% { #0 }    % Not use \bysame</span>
+{ #1 }    <span class="comment">% -&gt; Use \bysame (default)</span>
+<span class="comment">% { #2 }    % -&gt; Use \bysame of alternative style.</span>
 
 <span class="comment">% \bysame &#12398;&#23450;&#32681;&#12290;\bysame &#12434;&#20351;&#12387;&#12383;&#12392;&#12365;&#12398;&#27178;&#26834;&#12398;&#24418;&#24335;&#12434;&#22793;&#12360;&#12427;&#12395;&#12399;&#20197;&#19979;&#12398;&#23450;&#32681;&#12434;&#20462;&#27491;</span>
 <span class="comment">% &#12377;&#12427;&#12290;</span>
@@ -214,10 +200,10 @@
 <span class="comment">% Editor &#12395;&#12418;&#36969;&#29992;&#12290;&#26085;&#26412;&#35486;&#25991;&#29486;&#12399;&#38306;&#20418;&#12394;&#12375;&#12290;#0 &#12363; #1 &#12363; #2 &#12434;&#36984;&#25246;&#21487;&#12290;</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.author.name</span>}
-<span class="ediff-even-diff-a">{ #0 }    % (default)
-</span><span class="comment">% { #1 }</span>
-<span class="comment"><span class="ediff-odd-diff-a">% { #2 }
-</span></span>
+{ #0 }    <span class="comment">% (default)</span>
+<span class="comment">% { #1 }</span>
+<span class="comment">% { #2 }</span>
+
 <span class="comment">% [#0 &#12398;&#12465;&#12540;&#12473;] &#12371;&#12428;&#26222;&#36890;&#12398;&#32076;&#28168;&#23398;&#39080;&#12290;</span>
 <span class="comment">% Fujita, Masahisa, Paul R. Krugman, and Anthony J. Venables. </span>
 
@@ -250,18 +236,18 @@
 <span class="comment">% Author (editor) &#21517;&#12398; first name &#12434;&#38957;&#25991;&#23383;&#12384;&#12369;&#12395;&#30053;&#12377;&#12290;</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.first.name.initial</span>}
-<span class="ediff-even-diff-a">{ #0 }    % #0 -&gt; &#30053;&#12373;&#12394;&#12356;&#12290; (default)
-% { #1 }    % #0 &#20197;&#22806; -&gt; first name &#12434;&#38957;&#25991;&#23383;&#12395;&#30053;&#12377;&#12290;
-</span>
+{ #0 }    <span class="comment">% #0 -&gt; &#30053;&#12373;&#12394;&#12356;&#12290; (default)</span>
+<span class="comment">% { #1 }    % #0 &#20197;&#22806; -&gt; first name &#12434;&#38957;&#25991;&#23383;&#12395;&#30053;&#12377;&#12290;</span>
+
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 
 <span class="comment">% Title &#12398;&#20808;&#38957;&#25991;&#23383;&#20197;&#22806;&#12434;&#23567;&#25991;&#23383;&#12395;&#22793;&#25563;&#12377;&#12427; (book &#12398; tile &#12399;&#38500;&#12367;&#12290;&#20803;&#12293;&#23567;&#25991;</span>
 <span class="comment">% &#23383;&#12394;&#12425;&#12394;&#12395;&#12418;&#22793;&#12431;&#12425;&#12394;&#12356;)&#12290;</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.title.lower.case</span>}
-<span class="ediff-odd-diff-a">{ #0 }    % #0 &#12394;&#12425;&#23567;&#25991;&#23383;&#12395;&#22793;&#25563;&#12375;&#12394;&#12356; (&#12381;&#12398;&#12414;&#12414;)  (default)
-% { #1 }    % #0 &#20197;&#22806;&#12394;&#12425;&#12289;&#23567;&#25991;&#23383;&#12395;&#22793;&#25563;&#12377;&#12427;&#12290;
-</span>
+{ #0 }    <span class="comment">% #0 &#12394;&#12425;&#23567;&#25991;&#23383;&#12395;&#22793;&#25563;&#12375;&#12394;&#12356; (&#12381;&#12398;&#12414;&#12414;)  (default)</span>
+<span class="comment">% { #1 }    % #0 &#20197;&#22806;&#12394;&#12425;&#12289;&#23567;&#25991;&#23383;&#12395;&#22793;&#25563;&#12377;&#12427;&#12290;</span>
+
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 
 <span class="comment">% Title &#12434;&#34920;&#31034;&#12377;&#12427;&#12363;&#12375;&#12394;&#12356;&#12363;&#65294;</span>
@@ -294,9 +280,9 @@
 <span class="comment">% number filed &#12434;&#34920;&#31034;&#12377;&#12427;&#12363;&#21542;&#12363;&#12290;&#38560;&#12377;(&#34920;&#31034;&#12375;&#12394;&#12356;)&#12394;&#12425; 0 &#20197;&#22806;&#12289;&#38560;&#12373;&#12394;&#12356;(&#34920;&#31034;&#12377;</span>
 <span class="comment">% &#12427;)&#12394;&#12425; 0 &#12434;&#25351;&#23450;&#12290;&#12371;&#12428;&#12418;&#26222;&#36890;&#12399;&#22793;&#26356;&#12375;&#12394;&#12356;&#65294;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.hide.number</span>}
-<span class="ediff-even-diff-a">{ #0 }    % #0 -&gt; &#34920;&#31034;&#12377;&#12427;&#65294;&#26222;&#36890;&#12399;&#12371;&#12385;&#12425;&#65294; (default)
-% { #1 }    % #0 &#20197;&#22806; -&gt; &#38560;&#12377; (&#34920;&#31034;&#12375;&#12394;&#12356;)
-</span>
+{ #0 }    <span class="comment">% #0 -&gt; &#34920;&#31034;&#12377;&#12427;&#65294;&#26222;&#36890;&#12399;&#12371;&#12385;&#12425;&#65294; (default)</span>
+<span class="comment">% { #1 }    % #0 &#20197;&#22806; -&gt; &#38560;&#12377; (&#34920;&#31034;&#12375;&#12394;&#12356;)</span>
+
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 
 <span class="comment">% &#12371;&#12428;&#12398;&#20516;&#12395; 0 &#20197;&#22806;&#12434;&#25351;&#23450;&#12377;&#12427;&#12392;&#12289;reference &#37096;&#20998;&#12391; plain.bst &#12398;&#12424;&#12358;&#12395;&#25991;&#29486;</span>
@@ -324,8 +310,8 @@
 <span class="comment">% &#12488;&#12364;&#22823;&#12365;&#30446;&#12395;&#12394;&#12427;&#12290;&#20516;&#12399; 1, 2, 3 &#12398;&#12393;&#12428;&#12363;&#12434;&#25351;&#23450;&#65294;</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.number.index.digit</span>}
-<span class="ediff-odd-diff-a">{ "3" }    % (default)
-</span>
+{ <span class="string">"3"</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% &#20197;&#19979;&#12399;&#12289;number index &#12434;&#34920;&#31034;&#12377;&#12427;&#12392;&#12365;&#12395;&#35211;&#12383;&#30446;&#12434;&#35519;&#25972;&#12377;&#12427;&#12383;&#12417;&#12398;&#38306;&#25968;&#12290;computer</span>
 <span class="comment">% modern &#20197;&#22806;&#12398;&#12501;&#12457;&#12531;&#12488;&#12434;&#20351;&#29992;&#12377;&#12427;&#12424;&#12358;&#12394;&#12392;&#12365;&#12399;&#35201;&#35519;&#25972;&#12290;</span>
 <span class="comment">%</span>
@@ -389,11 +375,11 @@
 <span class="comment">% #3 -&gt; year &#12399; volume &#12398;&#24460;&#12395;&#34920;&#31034;&#12373;&#12428;&#12414;&#12377;&#12290;</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.year.position</span>}
-<span class="ediff-even-diff-a">{ #0 }    % autho &#12398;&#12377;&#12368;&#24460; (default).
-</span><span class="comment">% { #1 }    % &#26368;&#24460;&#65288;note &#12398;&#21069;&#65289;</span>
+{ #0 }    <span class="comment">% autho &#12398;&#12377;&#12368;&#24460; (default).</span>
+<span class="comment">% { #1 }    % &#26368;&#24460;&#65288;note &#12398;&#21069;&#65289;</span>
 <span class="comment">% { #2 }    % journal name &#12398;&#24460;&#65288;article entry&#12398;&#12415;&#65289;</span>
-<span class="comment"><span class="ediff-odd-diff-a">% { #3 }    % volume &#12398;&#24460;&#65288;article entry&#12398;&#12415;&#65289;
-</span></span>
+<span class="comment">% { #3 }    % volume &#12398;&#24460;&#65288;article entry&#12398;&#12415;&#65289;</span>
+
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 
 <span class="comment">% 0 &#20197;&#22806;&#12434;&#25351;&#23450;&#12377;&#12427;&#12392;&#26032;&#12375;&#12356;&#24180;&#12398;&#25991;&#29486;&#12434;&#21069;&#12395;&#12418;&#12387;&#12390;&#12367;&#12427;&#12290;</span>
@@ -542,8 +528,8 @@
 <span class="comment">% author &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.author.post</span>}
-<span class="ediff-even-diff-a">{ "" }    % (default)
-</span>
+{ <span class="string">""</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% author &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.author.pre.jp</span>}
@@ -575,36 +561,36 @@
 <span class="comment">% year &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.year.pre</span>}
-<span class="ediff-odd-diff-a">{ " (" }    % (default)
-</span>
+{ <span class="string">" ("</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% year &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.year.post</span>}
-<span class="ediff-even-diff-a">{ ") " }    % (default)
-</span>
+{ <span class="string">") "</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% year &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.year.pre.jp</span>}
-<span class="ediff-odd-diff-a">{ " (" }    % (default)
-</span>
+{ <span class="string">" ("</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% year &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.year.post.jp</span>}
-<span class="ediff-even-diff-a">{ ") " }    % (default)
-</span>
+{ <span class="string">") "</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       title (book &#20197;&#22806;)</span>
 
 <span class="comment">% title &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.title.pre</span>}
-<span class="ediff-odd-diff-a">{ "``" }    % (default)
-</span>
+{ <span class="string">"``"</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% title &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.title.post</span>}
-<span class="ediff-even-diff-a">{ ",''" }    % (default)
-</span>
+{ <span class="string">",''"</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% title &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.title.pre.jp</span>}
@@ -621,13 +607,13 @@
 <span class="comment">% book &#12398; title &#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.book.pre</span>}
-<span class="ediff-odd-diff-a">{ " {\it " }    % (default)
-</span>
+{ <span class="string">" \textit{ "</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% book &#12398; title &#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.book.post</span>}
-<span class="ediff-even-diff-a">{ "}" }    % (default)
-</span>
+{ <span class="string">"}"</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% book &#12398; title &#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.book.pre.jp</span>}
@@ -644,13 +630,13 @@
 <span class="comment">% booktitle &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.btitle.pre</span>}
-<span class="ediff-odd-diff-a">{ " {\it " }    % (default)
-</span>
+{ <span class="string">" \textit{ "</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% booktitle &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.btitle.post</span>}
-<span class="ediff-even-diff-a">{ "}" }    % (default)
-</span>
+{ <span class="string">"}"</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% booktitle &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.btitle.pre.jp</span>}
@@ -667,13 +653,13 @@
 <span class="comment">% journal name &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.journal.pre</span>}
-<span class="ediff-odd-diff-a">{ " {\it " }    % (default)
-</span>
+{ <span class="string">" \textit{ "</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% journal name &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.journal.post</span>}
-<span class="ediff-even-diff-a">{ "}" }    % (default)
-</span>
+{ <span class="string">"}"</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% journal name &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.journal.pre.jp</span>}
@@ -690,8 +676,8 @@
 <span class="comment">% &#35079;&#25968; editor &#12434;&#34920;&#12377;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.editors</span>}
-<span class="ediff-odd-diff-a">{ " eds. " }    % (default)
-</span>
+{ <span class="string">" eds. "</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% &#19968;&#20154;&#12398; editor &#12434;&#34920;&#12377;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.editor</span>}
@@ -757,8 +743,8 @@
 <span class="comment">% volume &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.volume.pre</span>}
-<span class="ediff-even-diff-a">{ ", Vol. " }    % (default)
-</span>
+{ <span class="string">", Vol. "</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% volume &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.volume.post</span>}
@@ -811,8 +797,8 @@
 <span class="comment">% page &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#35079;&#25968;&#12506;&#12540;&#12472;) (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.pages.pre</span>}
-<span class="ediff-odd-diff-a">{ ", pp." }    % (default)
-</span>
+{ <span class="string">", pp."</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% page &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.page.pre</span>}
@@ -849,8 +835,8 @@
 <span class="comment">% chapter &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.chapter.post</span>}
-<span class="ediff-even-diff-a">{ "" }    % (default)
-</span>
+{ <span class="string">""</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% chapter &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.chapter.pre.jp</span>}
@@ -894,8 +880,8 @@
 <span class="comment">% address &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.address.post</span>}
-<span class="ediff-odd-diff-a">{ "" }    % (default)
-</span>
+{ <span class="string">""</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% address &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.address.pre.jp</span>}
@@ -912,13 +898,13 @@
 <span class="comment">% publisher &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.publisher.pre</span>}
-<span class="ediff-even-diff-a">{ ": " }    % (default)
-</span>
+{ <span class="string">": "</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% publisher &#12398;&#24460;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#33521;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.publisher.post</span>}
-<span class="ediff-odd-diff-a">{ "" }    % (default)
-</span>
+{ <span class="string">""</span> }    <span class="comment">% (default)</span>
+
 <span class="comment">% publisher &#12398;&#21069;&#12395;&#20184;&#12369;&#12427;&#25991;&#23383;&#21015; (&#26085;&#26412;&#35486;&#25991;&#29486;&#29992;)</span>
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.publisher.pre.jp</span>}
@@ -1501,6 +1487,8 @@
   pc #-1 #2 <span class="builtin">substring$</span> <span class="string">",~"</span> = or
   pc #-1 #1 <span class="builtin">substring$</span> <span class="string">"&#12290;"</span> = or
   pc #-1 #1 <span class="builtin">substring$</span> <span class="string">"&#65294;"</span> = or
+  pc #-1 #1 <span class="builtin">substring$</span> <span class="string">"&#12289;"</span> = or
+  pc #-1 #1 <span class="builtin">substring$</span> <span class="string">"&#65292;"</span> = or
     { #1 'comma.period.b.p <span class="constant">:=</span> }
     { #0 'comma.period.b.p <span class="constant">:=</span> }
   <span class="builtin">if$</span>
@@ -4583,65 +4571,65 @@
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.sort.entry.type.order</span>}
 { 'item.type <span class="constant">:=</span>
   item.type <span class="string">"article"</span> =
-<span class="ediff-even-diff-a">     { "01" }
-     { item.type "book" =
-         { "02" }
-         { item.type "booklet" =
-             { "03" }
-             { item.type "comment" =
-                 { "04" }
-                 { item.type "conference" =
-                     { "05" }
-                     { item.type "inbook" =
-                         { "06" }
-                         { item.type "incollection" =
-                             { "07" }
-                             { item.type "inproceedings" =
-                                 { "08" }
-                                 { item.type "manual" =
-                                     { "09" }
-                                     { item.type "masterthesis" =
-                                         { "10" }
-                                         { item.type "misc" =
-                                             { "11" }
-                                             { item.type "phdthesis" =
-                                                 { "12" }
-                                                 { item.type "proceedings" =
-                                                     { "13" }
-                                                     { item.type "techreport" =
-                                                         { "14" }
-                                                         { item.type "unpublished" =
-                                                             { "15" }
-                                                             { "16" }
-                                                           if$
+     { <span class="string">"01"</span> }
+     { item.type <span class="string">"book"</span> =
+         { <span class="string">"02"</span> }
+         { item.type <span class="string">"booklet"</span> =
+             { <span class="string">"03"</span> }
+             { item.type <span class="string">"comment"</span> =
+                 { <span class="string">"04"</span> }
+                 { item.type <span class="string">"conference"</span> =
+                     { <span class="string">"05"</span> }
+                     { item.type <span class="string">"inbook"</span> =
+                         { <span class="string">"06"</span> }
+                         { item.type <span class="string">"incollection"</span> =
+                             { <span class="string">"07"</span> }
+                             { item.type <span class="string">"inproceedings"</span> =
+                                 { <span class="string">"08"</span> }
+                                 { item.type <span class="string">"manual"</span> =
+                                     { <span class="string">"09"</span> }
+                                     { item.type <span class="string">"masterthesis"</span> =
+                                         { <span class="string">"10"</span> }
+                                         { item.type <span class="string">"misc"</span> =
+                                             { <span class="string">"11"</span> }
+                                             { item.type <span class="string">"phdthesis"</span> =
+                                                 { <span class="string">"12"</span> }
+                                                 { item.type <span class="string">"proceedings"</span> =
+                                                     { <span class="string">"13"</span> }
+                                                     { item.type <span class="string">"techreport"</span> =
+                                                         { <span class="string">"14"</span> }
+                                                         { item.type <span class="string">"unpublished"</span> =
+                                                             { <span class="string">"15"</span> }
+                                                             { <span class="string">"16"</span> }
+                                                           <span class="builtin">if$</span>
                                                          }
-                                                       if$
+                                                       <span class="builtin">if$</span>
                                                      }
-</span>                                                   <span class="builtin">if$</span>
+                                                   <span class="builtin">if$</span>
                                                  }
-<span class="ediff-odd-diff-a">                                               if$
+                                               <span class="builtin">if$</span>
                                              }
-                                           if$
+                                           <span class="builtin">if$</span>
                                          }
-                                       if$
+                                       <span class="builtin">if$</span>
                                      }
-                                 if$
+                                 <span class="builtin">if$</span>
                                  }
-                             if$
+                             <span class="builtin">if$</span>
                              }
-                         if$
+                         <span class="builtin">if$</span>
                          }
-                     if$
+                     <span class="builtin">if$</span>
                      }
-                 if$
+                 <span class="builtin">if$</span>
                  }
-             if$
+             <span class="builtin">if$</span>
              }
-         if$
+         <span class="builtin">if$</span>
          }
-     if$
+     <span class="builtin">if$</span>
      }
-</span>  <span class="builtin">if$</span>
+  <span class="builtin">if$</span>
 }
 
 <span class="comment">%%% &#12414;&#12378;&#12289;author -&gt; year -&gt; absorder -&gt; order -&gt; month -&gt; title &#12391; sort.key$ &#12434;</span>
