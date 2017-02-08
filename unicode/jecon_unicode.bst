@@ -3869,7 +3869,11 @@ FUNCTION {set.is.kanji.entry.manual}
     { #0 'is.kanji.entry := }
     { language "ja" =
        { #1 'is.kanji.entry := }
-       { #0 'is.kanji.entry := }
+           { language "日本語" =
+               { #1 'is.kanji.entry := }
+               { #0 'is.kanji.entry := }
+         if$
+       }
       if$
     }
   if$
