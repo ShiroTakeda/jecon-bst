@@ -1,5 +1,5 @@
 %#!uplatex
-%#BIBTEX upbibtex jecon_unicode_uplatex.aux
+%#BIBTEX upbibtex jecon-unicode-uplatex.aux
 % 
 % このファイルは uplatex でコンパイルすることを前提で作成しています。
 %
@@ -61,9 +61,9 @@ urlcolor=MyGreen%
 \subsection{TeX ファイルの書き方}
 
 \begin{itemize}
- \item このファイル (\texttt{jecon\_unicode\_uplatex.tex}) を参考にしてください。
+ \item このファイル (\texttt{jecon-unicode-uplatex.tex}) を参考にしてください。
  \item \texttt{bib} ファイルの書き方、\texttt{jecon.bst} の使い方は
-       \texttt{jecon\_unicode\_xelatex.pdf} を見てください。
+       \texttt{jecon-unicode-xelatex.pdf} を見てください。
 \end{itemize}
 
 \subsection{コンパイル}
@@ -71,11 +71,11 @@ urlcolor=MyGreen%
 \begin{itemize}
  \item upLaTeX でのコンパイル。
 \begin{verbatim}
-uplatex jecon_unicode_uplatex.tex
-upbibtex jecon_unicode_uplatex
-uplatex jecon_unicode_uplatex.tex               
-uplatex jecon_unicode_uplatex.tex
-dvipdfmx jecon_unicode_uplatex.dvi
+uplatex jecon-unicode-uplatex.tex
+upbibtex jecon-unicode-uplatex
+uplatex jecon-unicode-uplatex.tex               
+uplatex jecon-unicode-uplatex.tex
+dvipdfmx jecon-unicode-uplatex.dvi
 \end{verbatim}
  \item つまり、\TeX のコマンドとしては \texttt{uplatex} を、BibTeX のコマンドと
        しては \texttt{upbibtex} を利用します。
@@ -85,17 +85,17 @@ dvipdfmx jecon_unicode_uplatex.dvi
 
 \section{例}
 
-\input{unicode_example.tex}
+\input{unicode-example.tex}
 
 \nocite{*}
 
-%%% BibTeX スタイルファイルの指定．jecon_unicode.bst を指定．
-\bibliographystyle{jecon_unicode}
+%%% BibTeX スタイルファイルの指定．jecon-unicode.bst を指定．
+\bibliographystyle{jecon-unicode}
 
 %% BibTeX データベースファイルの指定．
 %
-% jecon_example_reverse.bib は一個上のフォルダにあるものを利用する。
-\bibliography{../jecon_example_reverse,unicode_example}
+% jecon-example-reverse.bib は一個上のフォルダにあるものを利用する。
+\bibliography{../jecon-example-reverse,unicode-example}
 
 \end{document}
 %#####################################################################

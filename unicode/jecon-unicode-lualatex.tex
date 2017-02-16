@@ -1,5 +1,5 @@
 %#!lualatex
-%#BIBTEX upbibtex jecon_unicode_lualatex.aux
+%#BIBTEX upbibtex jecon-unicode-lualatex.aux
 % 
 % このファイルは lualatex でコンパイルすることを前提で作成しています。
 %
@@ -64,9 +64,9 @@ urlcolor=MyGreen%
 \subsection{TeX ファイルの書き方}
 
 \begin{itemize}
- \item このファイル (\texttt{jecon\_unicode\_lualatex.tex}) を参考にしてください。
+ \item このファイル (\texttt{jecon-unicode-lualatex.tex}) を参考にしてください。
  \item \texttt{bib} ファイルの書き方、\texttt{jecon.bst} の使い方は
-       \texttt{jecon\_unicode\_xelatex.pdf} を見てください。
+       \texttt{jecon-unicode-xelatex.pdf} を見てください。
 \end{itemize}
 
 \subsection{コンパイル}
@@ -74,10 +74,10 @@ urlcolor=MyGreen%
 \begin{itemize}
  \item LuaLaTeX でのコンパイル。
 \begin{verbatim}
-lualatex jecon_unicode_lualatex.tex
-upbibtex jecon_unicode_lualatex
-lualatex jecon_unicode_lualatex.tex               
-lualatex jecon_unicode_lualatex.tex
+lualatex jecon-unicode-lualatex.tex
+upbibtex jecon-unicode-lualatex
+lualatex jecon-unicode-lualatex.tex               
+lualatex jecon-unicode-lualatex.tex
 \end{verbatim}
  \item つまり、\TeX のコマンドとしては \texttt{lualatex} を、BibTeX のコマンドと
        しては \texttt{upbibtex} を利用します。
@@ -85,17 +85,17 @@ lualatex jecon_unicode_lualatex.tex
 
 \section{例}
 
-\input{unicode_example.tex}
+\input{unicode-example.tex}
 
 \nocite{*}
 
-%%% BibTeX スタイルファイルの指定．jecon_unicode.bst を指定．
-\bibliographystyle{jecon_unicode}
+%%% BibTeX スタイルファイルの指定．jecon-unicode.bst を指定．
+\bibliographystyle{jecon-unicode}
 
 %% BibTeX データベースファイルの指定．
 %
-% jecon_example_reverse.bib は一個上のフォルダにあるものを利用する。
-\bibliography{../jecon_example_reverse,unicode_example}
+% jecon-example-reverse.bib は一個上のフォルダにあるものを利用する。
+\bibliography{../jecon-example-reverse,unicode-example}
 
 \end{document}
 %#####################################################################

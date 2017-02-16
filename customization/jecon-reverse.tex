@@ -1,12 +1,12 @@
 % Author:	       Shiro Takeda
-% First-written:       <2002/11/02>
-% Time-stamp:	       <2016-03-25 08:07:01 st>
+% First-written:       <2014/01/23>
+% Time-stamp:	       <2017-02-16 17:21:43 st>
 %
 %############################## Main #################################
 \documentclass[10pt]{jarticle}
 
 %% natbib.sty を使う。
-\usepackage[longnamesfirst]{natbib}
+\usepackage{natbib}
 \usepackage{mathpazo}
 \usepackage{color}
 \definecolor{MyBrown}{rgb}{0.3,0,0}
@@ -34,20 +34,26 @@ urlcolor=MyGreen%
 %#####################################################################
 \begin{document}
 
-\verb|\bibliographystyle| に \verb|jecon_b.bst| を指定したもの。
+\verb|\bibliographystyle|に\verb|jecon-reverse.bst|を指定し、
+\verb|\bibliography|に\verb|jecon-example-reverse.bib|を指定。
+\vspace{1em}\\
+普通、\verb|bib|ファイルでは日本人名は「姓 名」という形で名前を指定する。
+\verb|jecon-example-reverse.bib|では日本人名についても外国人名と同じように「姓,
+名」という形式で指定している。そのような\verb|bib|ファイルでも適切扱う設定にしているのが、\verb|jecon-reverse.bst|。
 \vspace{1em}\\
 
-\input{cited_part}
+\input{cited-part}
 
 \nocite{*}
 
 %% BibTeX スタイルファイルの指定。
-\bibliographystyle{jecon_b}
+\bibliographystyle{jecon-reverse}
+% \bibliographystyle{jecon-new}
 
 %% BibTeX データベースファイルの指定。
 %
-% 一個上のフォルダにある jecon_example.bib を指定。
-\bibliography{../jecon_example}
+% 一個上のフォルダにある jecon-example-reverse.bib を指定。
+\bibliography{../jecon-example-reverse}
 
 \end{document}
 
@@ -59,3 +65,4 @@ urlcolor=MyGreen%
 % Local Variables:
 % fill-column: 80
 % End:
+

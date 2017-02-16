@@ -1,5 +1,5 @@
 %#!xelatex
-%#BIBTEX upbibtex jecon_unicode_xelatex.aux
+%#BIBTEX upbibtex jecon-unicode-xelatex.aux
 % 
 % このファイルは xelatex でコンパイルすることを前提で作成しています。
 % uplatex や lualatex でコンパイルするにはプリアンプルの設定等を変更する必要があ
@@ -217,8 +217,11 @@ urlcolor=MyGreen%
 \textbf{その2：\texttt{language} フィールドの追加}
 \begin{itemize}
  \item \textbf{日本語の文献には必ず \texttt{language} フィールドというフィールド
-       を追加し、その値に「\texttt{ja}」を指定してください。}
-       \verb|language = {ja}| というようにです。
+       を追加し、その値に「\texttt{ja}」（あるいは「日本語」）を指定してください。}
+       \verb|language = {ja}| （あるいは、\verb|language = {日本語}|）というよう
+       にです\footnote{「\texttt{ja}」 という指定でも、「日本語」でもどちらでも
+       いいのですが、以下の説明では「\texttt{ja}」という指定を使うものとして説明
+       します。}}。
  \item 「日本語の文献」とは中身が日本語で書かれた文献のことです。外国人が
        書いたものでも、邦訳書は日本語の文献です。
  \item \texttt{language} フィールドの値が \texttt{ja} のときに
@@ -249,8 +252,8 @@ urlcolor=MyGreen%
 \end{verbatim}
 
 このファイルで \texttt{bib} ファイルとして利用している
-\texttt{unicode\_example.bib} と \texttt{jecon\_example\_reverse.bib} の二つも書き方
-の参考にしてください。\texttt{unicode\_example.bib} の方でユニコード文字を利用し
+\texttt{unicode-example.bib} と \texttt{jecon-example-reverse.bib} の二つも書き方
+の参考にしてください。\texttt{unicode-example.bib} の方でユニコード文字を利用し
 ています。
 
 \subsection{\texttt{jecon.bst} ファイルの設定}
@@ -284,7 +287,7 @@ urlcolor=MyGreen%
 \vspace*{1em}
 
 \texttt{jecon.bst} に上の二つの修正を加え、さらに \texttt{bst.use.bysame} を以下
-のように書き換えたものが、このファイルで利用している \texttt{jecon\_unicode.bst}
+のように書き換えたものが、このファイルで利用している \texttt{jecon-unicode.bst}
 です（注：\texttt{bst.use.bysame} は書き換える必要はないです）。
 \begin{verbatim}
         bst.use.bysame
@@ -296,7 +299,7 @@ urlcolor=MyGreen%
 \begin{itemize}
  \item プリアンプルの設定
        \begin{itemize}
-        \item このファイル (\texttt{jecon\_unicode\_xelatex.tex}) は XeLaTeX
+        \item このファイル (\texttt{jecon-unicode-xelatex.tex}) は XeLaTeX
               (\texttt{xelatex}) を利用することを前提としています。プリアンプル
               の設定も \texttt{xelatex} でコンパイルすることを前提として記述され
               ています。
@@ -309,18 +312,18 @@ urlcolor=MyGreen%
        うにすればよいです。
         \item このファイルでは以下の設定にしています。
 \begin{verbatim}
-    \bibliographystyle{jecon_unicode}       
-    \bibliographystyle{../jecon_example_reverse,unicode_example}        
+    \bibliographystyle{jecon-unicode}       
+    \bibliographystyle{../jecon-example-reverse,unicode-example}        
 \end{verbatim}
-       つまり、\texttt{bst} ファイルには \texttt{jecon\_unicode.bst} を、
-              \texttt{bib} ファイルには \texttt{unicode\_example.bib} と
-              \texttt{jecon\_example\_reverse.bib} の二つを指定しています。後者
+       つまり、\texttt{bst} ファイルには \texttt{jecon-unicode.bst} を、
+              \texttt{bib} ファイルには \texttt{unicode-example.bib} と
+              \texttt{jecon-example-reverse.bib} の二つを指定しています。後者
               のファイルは一個上のフォルダに置いてあるものを利用するので、
               「\texttt{../}」を付けています\footnote{「\texttt{../}」は一個上の
               フォルダを表す記号です。}。このファイルも同じフォルダに置くなら単
               純に以下のように書けばよいです。
 \begin{verbatim}
-    \bibliographystyle{jecon_example_reverse,unicode_example}        
+    \bibliographystyle{jecon-example-reverse,unicode-example}        
 \end{verbatim}
        \end{itemize}
 \end{itemize}
@@ -332,8 +335,8 @@ urlcolor=MyGreen%
         \item プリアンプルさえ書き換えれば upLaTeX や LuaLaTeX でも同様にコンパ
               イルできると思います。
         \item プリアンプルの書き方については、このファイルと一緒に配布されている
-              \texttt{jecon\_unicode\_uplatex.tex} や
-              \texttt{jecon\_unicode\_lualatex.tex} を参考にしてください。
+              \texttt{jecon-unicode-uplatex.tex} や
+              \texttt{jecon-unicode-lualatex.tex} を参考にしてください。
 \end{itemize}
 
 \subsection{コンパイルの方法}
@@ -342,17 +345,17 @@ urlcolor=MyGreen%
  \item このファイルをコンパイルするときには以下の2つのファ
        イルを同じフォルダに置いてください。
        \begin{itemize}
-        \item \texttt{jecon\_unicode.bst}
-        \item \texttt{unicode\_example.bib}
+        \item \texttt{jecon-unicode.bst}
+        \item \texttt{unicode-example.bib}
        \end{itemize}
- \item また、\texttt{jecon\_example\_reverse.bib} というファイルを一個上の階層の
+ \item また、\texttt{jecon-example-reverse.bib} というファイルを一個上の階層の
        フォルダに置いてください。
  \item コンパイルはコマンドラインであれば次のようにおこないます。
 \begin{verbatim}
-    xelatex jecon_unicode_xelatex.tex
-    upbibtex jecon_unicode_xelatex
-    xelatex jecon_unicode_xelatex.tex               
-    xelatex jecon_unicode_xelatex.tex
+    xelatex jecon-unicode-xelatex.tex
+    upbibtex jecon-unicode-xelatex
+    xelatex jecon-unicode-xelatex.tex               
+    xelatex jecon-unicode-xelatex.tex
 \end{verbatim}
        \TeX のコマンドとしては \texttt{xelatex} を、BibTeX のコマンドとしては
        \texttt{upbibtex} を利用し、\texttt{xelatex} を1回、次に
@@ -419,7 +422,7 @@ urlcolor=MyGreen%
 
 \section{例}
 
-\input{unicode_example.tex}
+\input{unicode-example.tex}
 
 
 \section{不具合・問題}
@@ -445,13 +448,13 @@ urlcolor=MyGreen%
 
 \nocite{*}
 
-%%% BibTeX スタイルファイルの指定．jecon_unicode.bst を指定．
-\bibliographystyle{jecon_unicode}
+%%% BibTeX スタイルファイルの指定．jecon-unicode.bst を指定．
+\bibliographystyle{jecon-unicode}
 
 %% BibTeX データベースファイルの指定．
 %
-% jecon_example_reverse.bib は一個上のフォルダにあるものを利用する。
-\bibliography{../jecon_example_reverse,unicode_example}
+% jecon-example-reverse.bib は一個上のフォルダにあるものを利用する。
+\bibliography{../jecon-example-reverse,unicode-example}
 
 \end{document}
 %#####################################################################

@@ -1,11 +1,11 @@
 %#!platex -kanji=uft-8
 %#BIBTEX pbibtex -kanji=utf-8 
 
-% Filename:            jecon_example.tex
+% Filename:            jecon-example.tex
 % Author:              Shiro Takeda
 % e-mail               <shiro.takeda@gmail.com>
 % First-written:       <2002/11/02>
-% Time-stamp:          <2016-07-18 11:28:24 st>
+% Time-stamp:          <2017-02-16 18:13:19 st>
 %
 % jecon.bst の使い方を説明するファイル
 %
@@ -593,7 +593,7 @@ FUNCTION {bst.sei.mei.order}
 \texttt{yomi}，\texttt{translator}，\texttt{kanyaku}等も全て英語表記の人名と同じ
 形式で記述されているとみなします．
 
-このファイルと一緒に配布されている\texttt{jecon\_example-reverse.bib}というファイル
+このファイルと一緒に配布されている\texttt{jecon-example-reverse.bib}というファイル
 では日本語文献の人名が英語文献での人名と同じ方法で指定されています．上のよう
 に\texttt{bst.sei.mei.order}に非ゼロを設定すれば，そのように書かれ
 た\texttt{bib}ファイルでも適切に扱うことができます．
@@ -651,11 +651,11 @@ FUNCTION {bst.sei.mei.order}
 \begin{screen}
  \begin{verbatim}
         
- \bibliography{jecon_example}
+ \bibliography{jecon-example}
  \end{verbatim}
 \end{screen}
 
-というようにデータベースファイル（ここでは，\texttt{jecon\_example.bib} というファ
+というようにデータベースファイル（ここでは，\texttt{jecon-example.bib} というファ
 イル）を指定します．
 
 \subsection{コンパイルの方法}
@@ -684,7 +684,7 @@ FUNCTION {bst.sei.mei.order}
 \subsection{ファイルの文字コードについて}
 
 \texttt{jecon.bst}（一緒に配布している他の bst ファイルも），
-\texttt{jecon\_example.bib}，\texttt{jecon\_example.tex} は全て文字コードに
+\texttt{jecon-example.bib}，\texttt{jecon-example.tex} は全て文字コードに
 UTF-8を利用しています．従って，そのまま利用するにはコンパイル時に UTF-8
 で処理する必要があります．
 
@@ -693,8 +693,8 @@ UTF-8を利用しています．従って，そのまま利用するにはコン
 \begin{screen}
  \begin{verbatim}
 
- platex -kanji=utf8 jecon_example.tex
- pbibtex -kanji=utf8 jecon_example.aux
+ platex -kanji=utf8 jecon-example.tex
+ pbibtex -kanji=utf8 jecon-example.aux
  \end{verbatim}
 \end{screen}
 
@@ -705,7 +705,7 @@ UTF-8を利用しています．従って，そのまま利用するにはコン
 は upLaTeX，LuaLaTeX，XeLaTeX 等を利用する必要があります．
 
 Version 5.0 以降の \texttt{jecon.bst} ではユニコード文字を適切に扱うような機能を
-加えています．もし利用したい人は \texttt{jecon\_unicode\_xelatex.pdf} で説明して
+加えています．もし利用したい人は \texttt{jecon-unicode-xelatex.pdf} で説明して
 いますので，それを読んでください．
 
 
@@ -887,7 +887,7 @@ FUNCTION {bst.use.bysame}
 \end{itemize}
 \end{screen}
 つまり，著者名の一部のみが同じ場合でも \verb|\bysame| による省略をおこなうような
-表示形式です．このスタイルは \verb|jecon_b.pdf| で使われています．
+表示形式です．このスタイルは \verb|jecon-b.pdf| で使われています．
 
 
 
@@ -1129,7 +1129,7 @@ FUNCTION {bst.journal.pre}
 
 \subsubsection{urlとaccessフィールド}
 
-例えば，\texttt{jecon\_example.bib}に次のような文献があります．
+例えば，\texttt{jecon-example.bib}に次のような文献があります．
 \begin{verbatim}
 @unpublished{rutherford00:_gtapin_gtap_eg,
   author       = {Thomas F. Rutherford and Sergey V. Paltsev},
@@ -1329,7 +1329,7 @@ bib ファイルにおいて \texttt{absorder} フィールドを指定してあ
 
 つまり，\texttt{absorder} の値が小さほど前に表示されることになります．何
 も指定していないときは 0 と同じですので，優先順位は一番になります．この
-文書の bib ファイル（\texttt{jecon\_example.bib}）では，
+文書の bib ファイル（\texttt{jecon-example.bib}）では，
 \citet{takeda06:_cge_analy_welfar_effec_trade} という文献の
 \texttt{absorder} に 999 を指定しています．そのためこの文献だけ一番後ろに
 表示されるようになっています．
@@ -1449,8 +1449,8 @@ FUNCTION {bst.hide.month}
        ていただきました．これらの有益なプログラム，ページを作成してくだ
        さった方々に感謝します．
  \item この PDF ファイルと一緒に，このファイルの元となる \TeX ファイル 
-      （\texttt{jecon\_example.tex}）と文献ファイル 
-      （\texttt{jecon\_example.bib}）も配布しているので，\TeX ファイルの書
+      （\texttt{jecon-example.tex}）と文献ファイル 
+      （\texttt{jecon-example.bib}）も配布しているので，\TeX ファイルの書
        き方，文献の登録の仕方はそちらも参考にしてください．
  \item ここをこうして欲しい，こうしたいという要望がありましたらおっしゃってくださ
        い．私に直せるようなものだったら直しますので．不具合があるときには，不具合
@@ -1469,12 +1469,12 @@ FUNCTION {bst.hide.month}
 %%% BibTeX スタイルファイルの指定．jecon.bst を指定．
 \bibliographystyle{jecon}
 % \bibliographystyle{./jecon}
-% \bibliographystyle{jecon_new}
+% \bibliographystyle{jecon-new}
 
 %% BibTeX データベースファイルの指定．
 %
-\bibliography{jecon_example}
-% \bibliography{./jecon_example}
+\bibliography{jecon-example}
+% \bibliography{./jecon-example}
 
 \end{document}
 %#####################################################################

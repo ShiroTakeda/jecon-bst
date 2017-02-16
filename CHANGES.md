@@ -3,11 +3,19 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2016-09-22 15:36:54 st>
+Time-stamp:     <2017-02-16 18:34:45 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
+
+## Ver. 5.2 (2017-02-16)
+
+* ファイル名に underscore (_) があると不具合が生じるケースがあるので、underscore
+  を全てハイフン (-) の置き換えた。
+  
+* `jecon_unicode_xelatex.tex` に説明を追加。
+
 
 ## Ver. 5.1.1 (2016-09-22)
 

@@ -2,7 +2,7 @@
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2016-03-16>
-Time-stamp:     <2016-03-26 10:21:51 st>
+Time-stamp:     <2017-02-16 18:32:53 st>
 -->
 
 このフォルダの説明
@@ -16,12 +16,12 @@ Time-stamp:     <2016-03-26 10:21:51 st>
 | bst ファイル         | 説明                                                    |
 |:---------------------|:--------------------------------------------------------|
 | `jecon.bst`          | そのままの `jecon.bst`。                                |
-| `jecon_a.bst`        | 括弧などの装飾をできるだけなくしたもの。                |
-| `jecon_b.bst`        | いろいろ変えてみたもの。                                |
-| `jecon_tategaki.bst` | 数字を漢数字にして縦書きにしたもの。                    |
-| `jecon_no_sort.bst`  | 引用順にそのまま並べる形式。                            |
-| `jecon_jet.bst`      | Journal of Economic Theoryのような形式。番号による引用。|
-| `jecon_reverse.bst`  | 著者名の姓名の順序が逆のbibファイルを処理するケース。   |
+| `jecon-a.bst`        | 括弧などの装飾をできるだけなくしたもの。                |
+| `jecon-b.bst`        | いろいろ変えてみたもの。                                |
+| `jecon-tategaki.bst` | 数字を漢数字にして縦書きにしたもの。                    |
+| `jecon-no-sort.bst`  | 引用順にそのまま並べる形式。                            |
+| `jecon-jet.bst`      | Journal of Economic Theoryのような形式。番号による引用。|
+| `jecon-reverse.bst`  | 著者名の姓名の順序が逆のbibファイルを処理するケース。   |
 
 
 <!--
