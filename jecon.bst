@@ -1,7 +1,7 @@
 % jecon.bst: 経済学用 BibTeX style file.
 %
 % First-written:       <2002/11/03>
-% Time-stamp:	       <2017-02-16 18:29:51 st>
+% Time-stamp:	       <2017-02-28 14:31:08 st>
 % Version 5.2
 %
 % これは，飯田修さんによって作成された jpolisci.bst を経済学用に

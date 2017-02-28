@@ -5,7 +5,7 @@
 % Author:              Shiro Takeda
 % e-mail               <shiro.takeda@gmail.com>
 % First-written:       <2002/11/02>
-% Time-stamp:          <2017-02-16 18:13:19 st>
+% Time-stamp:          <2017-02-28 14:41:43 st>
 %
 % jecon.bst の使い方を説明するファイル
 %
@@ -85,13 +85,13 @@ urlcolor=MyGreen%
 \makeatother
 
 %%% title, author, acknowledgement, and date
-\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 5.1)
+\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 5.2)
 \thanks{このファイルの配布場所: \url{http://shirotakeda.org/ja/tex-ja/jecon-ja.html}}
 }
 
 \author{武田史郎\thanks{Email: \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}}}}
 
-\date{平成28年3月26日}
+\date{平成29年2月28日}
 % \date{平成\today}
 
 %#####################################################################
@@ -109,11 +109,15 @@ urlcolor=MyGreen%
 
 \section{導入}
 
-\begin{screen}
- \textbf{［注］} この \texttt{jecon.bst} を利用するには， 当然 \BibTeX 自体を使
- えるようになっていなければいけませんが，以下では \BibTeX の説明はしていません．
- \BibTeX については，\TeX 関連の書籍・ウェブサイト等で調べてください．
-\end{screen}
+\noindent \textbf{［注］} この \texttt{jecon.bst} を利用するには， 当然 \BibTeX
+自体を使えるようになっていなければいけませんが，以下では \BibTeX の説明はしてい
+ません．\BibTeX については，\TeX 関連の書籍・ウェブサイト等で調べてください．\\
+
+\noindent \textbf{［注］} \TeX において引用・参考文献を扱う仕組みとして本稿で紹
+介する \BibTeX 以外に、biblatex というパッケージもあります
+\footnote{\url{https://texwiki.texjp.org/?Biblatex}}。英語の文献だけを扱うのでし
+たら biblatex を使うほうが簡単かもしれせん。
+\\
 \\
 
 \BibTeX の標準的なスタイルファイルの中には，\texttt{jplain.bst}，
