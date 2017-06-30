@@ -3,11 +3,27 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2017-02-16 18:34:45 st>
+Time-stamp:     <2017-06-30 21:23:23 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
+
+## Ver. 5.3 ()
+
+* URL フィールドと DOI フィールドの両方があるときの表示方法の選択をできるように
+  修正。`bst.url.doi` という関数の値によって表示を変更する。
+
+  + #0 -> URL と DOI の両方を表示
+  + #1 -> URL のみ表示
+  + #2 -> DOI のみ表示
+
+  `bst.url.doi` がどのような値でも `bst.show.doi` や `bst.show.url` が #0 なら
+  DOI や URL は表示されないです。
+
+* 巻（volume）がなくて、号（number）があるという文献でも、上手く処理できるように
+  修正。
+
 
 ## Ver. 5.2 (2017-02-16)
 

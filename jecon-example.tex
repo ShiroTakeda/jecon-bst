@@ -1,18 +1,18 @@
 %#!platex -kanji=uft-8
-%#BIBTEX pbibtex -kanji=utf-8 
+%#BIBTEX pbibtex -kanji=utf-8 jecon-example
 
 % Filename:            jecon-example.tex
 % Author:              Shiro Takeda
 % e-mail               <shiro.takeda@gmail.com>
 % First-written:       <2002/11/02>
-% Time-stamp:          <2017-02-28 14:41:43 st>
+% Time-stamp:          <2017-06-28 13:36:44 st>
 %
-% jecon.bst の使い方を説明するファイル
+% jecon.bst �̎g�������������t�@�C��
 %
 %############################## Main #################################
 \documentclass[a4j,10pt]{jarticle}
 
-%% natbib.sty を使う．
+%% natbib.sty ���g���D
 \usepackage{natbib}
 %
 %% Fancybox
@@ -21,13 +21,13 @@
 %% For screen command.
 \usepackage{ascmac}
 
-%% Font を変更．
+%% Font ��ύX�D
 \usepackage{mathpazo}
 
-%% \url を利用できるようにする．
+%% \url �𗘗p�ł���悤�ɂ���D
 \usepackage{url}
 
-%% 色を付ける．
+%% �F��t����D
 \usepackage{graphicx}
 \usepackage{color}
 \definecolor{MyBrown}{rgb}{0.3,0,0}
@@ -45,17 +45,17 @@ pagecolor=MyBlue,%
 urlcolor=MyGreen%
 ]{hyperref}
 
-%% dvipdfmx で PDF に修正したときにしおりが文字化けしないようにするための設定．
+%% dvipdfmx �� PDF �ɏC�������Ƃ��ɂ����肪�����������Ȃ��悤�ɂ��邽�߂̐ݒ�D
 \AtBeginDvi{\special{pdf:tounicode 90ms-RKSJ-UCS2}}%SJIS
 
-%% \BibTeX command を定義．
+%% \BibTeX command ���`�D
 \makeatletter
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \makeatother
 
-%% footnote 環境を再定義 (jsclasses.dtx より）．footnote 環境で \verb 命
-%% 令を利用できるようにする．
+%% footnote �����Ē�` (jsclasses.dtx ���j�Dfootnote ���� \verb ��
+%% �߂𗘗p�ł���悤�ɂ���D
 \makeatletter
 \long\def\@footnotetext{%
   \insert\footins\bgroup
@@ -85,150 +85,150 @@ urlcolor=MyGreen%
 \makeatother
 
 %%% title, author, acknowledgement, and date
-\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 5.2)
-\thanks{このファイルの配布場所: \url{http://shirotakeda.org/ja/tex-ja/jecon-ja.html}}
+\title{\texttt{jecon.bst}:\\ �o�ϊw�p \BibTeX{} �X�^�C���t�@�C��\\ (ver. 5.2)
+\thanks{���̃t�@�C���̔z�z�ꏊ: \url{http://shirotakeda.org/ja/tex-ja/jecon-ja.html}}
 }
 
-\author{武田史郎\thanks{Email: \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}}}}
+\author{���c�j�Y\thanks{Email: \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}}}}
 
-\date{平成29年2月28日}
-% \date{平成\today}
+\date{����29�N2��28��}
+% \date{����\today}
 
 %#####################################################################
 %######################### Document Starts ###########################
 %#####################################################################
 \begin{document}
 
-%%% タイトル付ける．
+%%% �^�C�g���t����D
 \maketitle
 
-%%% 目次を出力
+%%% �ڎ����o��
 \tableofcontents
 
 %########################## Text Starts ##############################
 
-\section{導入}
+\section{����}
 
-\noindent \textbf{［注］} この \texttt{jecon.bst} を利用するには， 当然 \BibTeX
-自体を使えるようになっていなければいけませんが，以下では \BibTeX の説明はしてい
-ません．\BibTeX については，\TeX 関連の書籍・ウェブサイト等で調べてください．\\
+\noindent \textbf{�m���n} ���� \texttt{jecon.bst} �𗘗p����ɂ́C ���R \BibTeX
+���̂��g����悤�ɂȂ��Ă��Ȃ���΂����܂��񂪁C�ȉ��ł� \BibTeX �̐����͂��Ă�
+�܂���D\BibTeX �ɂ��ẮC\TeX �֘A�̏��ЁE�E�F�u�T�C�g���Œ��ׂĂ��������D\\
 
-\noindent \textbf{［注］} \TeX において引用・参考文献を扱う仕組みとして本稿で紹
-介する \BibTeX 以外に、biblatex というパッケージもあります
-\footnote{\url{https://texwiki.texjp.org/?Biblatex}}。英語の文献だけを扱うのでし
-たら biblatex を使うほうが簡単かもしれせん。
+\noindent \textbf{�m���n} \TeX �ɂ����Ĉ��p�E�Q�l�����������d�g�݂Ƃ��Ė{�e�ŏ�
+��� \BibTeX �ȊO�ɁAbiblatex �Ƃ����p�b�P�[�W������܂�
+\footnote{\url{https://texwiki.texjp.org/?Biblatex}}�B�p��̕��������������̂ł�
+���� biblatex ���g���ق����ȒP�������ꂹ��B
 \\
 \\
 
-\BibTeX の標準的なスタイルファイルの中には，\texttt{jplain.bst}，
-\texttt{jalpha.bst}，\texttt{jabbrev.bst} 等のように日本語の文献にも対応している
-ものがすでに幾つもあります．しかし，これらのスタイルファイルでは，経済学でよく用
-いられる author-year 形式，つまり「著者名（年）」という形式で引用することはできま
-せん\footnote{\verb|\cite| 命令を使ったときのはなしです．}．また，Reference に列
-挙する形式も経済学で通常使われている形式とは異なっています．
+\BibTeX �̕W���I�ȃX�^�C���t�@�C���̒��ɂ́C\texttt{jplain.bst}�C
+\texttt{jalpha.bst}�C\texttt{jabbrev.bst} ���̂悤�ɓ��{��̕����ɂ��Ή����Ă���
+���̂����łɊ������܂��D�������C�����̃X�^�C���t�@�C���ł́C�o�ϊw�ł悭�p
+������ author-year �`���C�܂�u���Җ��i�N�j�v�Ƃ����`���ň��p���邱�Ƃ͂ł���
+����\footnote{\verb|\cite| ���߂��g�����Ƃ��̂͂Ȃ��ł��D}�D�܂��CReference �ɗ�
+������`�����o�ϊw�Œʏ�g���Ă���`���Ƃ͈قȂ��Ă��܂��D
 
-一方，経済学で用いられる参照形式を実現する \BibTeX スタイルファイルとして，
-\texttt{aer.bst}，\texttt{ecta.bst}，\texttt{cje.bst} 等があります\footnote{それ
-ぞれ，Americal Economic Review 形式，Econometrica 形式，Canadian Journal of
-Economics 形式のスタイルファイルです．}．これらの \BibTeX スタイルファイルを，
-\texttt{natbib.sty}と同時に使うことで「著者名（年）」形式で引用することができます．
-また，Reference 形式も経済学でよく見られる形式のものにすることができます．しかし，
-これらのスタイルファイルは，英語の文献を前提として作られているため，日本語の文献
-を適切に扱うことができません\footnote{「英語」対象というより，正確には欧米の言語
-対象ですが．}．
+����C�o�ϊw�ŗp������Q�ƌ`������������ \BibTeX �X�^�C���t�@�C���Ƃ��āC
+\texttt{aer.bst}�C\texttt{ecta.bst}�C\texttt{cje.bst} ��������܂�\footnote{����
+����CAmerical Economic Review �`���CEconometrica �`���CCanadian Journal of
+Economics �`���̃X�^�C���t�@�C���ł��D}�D������ \BibTeX �X�^�C���t�@�C�����C
+\texttt{natbib.sty}�Ɠ����Ɏg�����ƂŁu���Җ��i�N�j�v�`���ň��p���邱�Ƃ��ł��܂��D
+�܂��CReference �`�����o�ϊw�ł悭������`���̂��̂ɂ��邱�Ƃ��ł��܂��D�������C
+�����̃X�^�C���t�@�C���́C�p��̕�����O��Ƃ��č���Ă��邽�߁C���{��̕���
+��K�؂Ɉ������Ƃ��ł��܂���\footnote{�u�p��v�ΏۂƂ������C���m�ɂ͉��Ă̌���
+�Ώۂł����D}�D
 
-飯田修さんという方が\footnote{\url{http://www.bol.ucla.edu/~oiida/jpolisci/}（注：
-もうこのページは存在していないです）．}，英語・日本語の両方の文献を扱えて，しかも
-「（著者名，年）」という形式で引用することが可能な \texttt{jpolisci.bst} というス
-タイルファイルを作成してくれているのですが，これの引用形式は「（著者名，年）」で
-すので，ちょっと経済学の標準的な形式とはずれています．
+�ѓc�C����Ƃ�������\footnote{\url{http://www.bol.ucla.edu/~oiida/jpolisci/}�i���F
+�������̃y�[�W�͑��݂��Ă��Ȃ��ł��j�D}�C�p��E���{��̗����̕����������āC������
+�u�i���Җ��C�N�j�v�Ƃ����`���ň��p���邱�Ƃ��\�� \texttt{jpolisci.bst} �Ƃ����X
+�^�C���t�@�C�����쐬���Ă���Ă���̂ł����C����̈��p�`���́u�i���Җ��C�N�j�v��
+���̂ŁC������ƌo�ϊw�̕W���I�Ȍ`���Ƃ͂���Ă��܂��D
 
-このように，経済学の標準的な形式で日本語・英語を両方扱える \BibTeX のスタイルファ
-イルがないようでしたので， \texttt{jpolisci.bst} を修正し\texttt{jecon.bst} とい
-うものを作成してみました．
+���̂悤�ɁC�o�ϊw�̕W���I�Ȍ`���œ��{��E�p��𗼕������� \BibTeX �̃X�^�C���t�@
+�C�����Ȃ��悤�ł����̂ŁC \texttt{jpolisci.bst} ���C����\texttt{jecon.bst} �Ƃ�
+�����̂��쐬���Ă݂܂����D
 
-\texttt{jecon.bst} を使うと次のようなことができます．
+\texttt{jecon.bst} ���g���Ǝ��̂悤�Ȃ��Ƃ��ł��܂��D
 \\
 
 \begin{screen}
  \begin{itemize}
- \item \texttt{natbib.sty} と組み合わせることで「著者名（年）」形式で引用可能です．
- \item 経済学でよく利用される reference 形式をつくることが可能です．
- \item 英語の文献だけでなく，日本語の文献も適切に処理することが可能です．
- \item 他の \BibTeX 用のスタイルファイルよりも表示形式のカスタマイズが簡
-       単にできます．
+ \item \texttt{natbib.sty} �Ƒg�ݍ��킹�邱�ƂŁu���Җ��i�N�j�v�`���ň��p�\�ł��D
+ \item �o�ϊw�ł悭���p����� reference �`�������邱�Ƃ��\�ł��D
+ \item �p��̕��������łȂ��C���{��̕������K�؂ɏ������邱�Ƃ��\�ł��D
+ \item ���� \BibTeX �p�̃X�^�C���t�@�C�������\���`���̃J�X�^�}�C�Y����
+       �P�ɂł��܂��D
  \end{itemize}
 \end{screen}
 \\
 
-日本語で経済学の論文を書き，日本語，英語の文献の両方を引用・参照するような人，ま
-た，author (year) 形式で日本語の文献も引用したい人にとっては役に立つのではないか
-と思います．
+���{��Ōo�ϊw�̘_���������C���{��C�p��̕����̗��������p�E�Q�Ƃ���悤�Ȑl�C��
+���Cauthor (year) �`���œ��{��̕��������p�������l�ɂƂ��Ă͖��ɗ��̂ł͂Ȃ���
+�Ǝv���܂��D
 
-\section{使用例}
+\section{�g�p��}
 
-言葉で説明してもわかりにくいので \texttt{jecon.bst} の使用例を挙げます一緒に
-\texttt{natbib.sty} を使っています）．例えば，
+���t�Ő������Ă��킩��ɂ����̂� \texttt{jecon.bst} �̎g�p��������܂��ꏏ��
+\texttt{natbib.sty} ���g���Ă��܂��j�D�Ⴆ�΁C
 \begin{screen}
 \begin{verbatim}
-\citet{miyazawa02:_io_intr}，\citet{isikawa02jp:_env_trade}，
-\citet{oyama99:_mark_stru}，\citet{kuroda97jp:keo}，
-\citet{kiyono93:_regu_comp_1}，\citet{iwamoto91jp:haito-keika}，
-\citet{ito85:_inte_trad}，\citet{nishimura90:_micr_econ}，
-\citet*{imai72:_micr_2}，\citet*{imai71:_micr_1}，
-\citet{somusho04jp:2000io-kaisetsu}，
-\citet{barro97jp}，\citet*{markusen99jp:trade_vol_1}．\\
-省略形では，\citet{imai71:_micr_1}，\citet{markusen99jp:trade_vol_1}
-のようになる．
+\citet{miyazawa02:_io_intr}�C\citet{isikawa02jp:_env_trade}�C
+\citet{oyama99:_mark_stru}�C\citet{kuroda97jp:keo}�C
+\citet{kiyono93:_regu_comp_1}�C\citet{iwamoto91jp:haito-keika}�C
+\citet{ito85:_inte_trad}�C\citet{nishimura90:_micr_econ}�C
+\citet*{imai72:_micr_2}�C\citet*{imai71:_micr_1}�C
+\citet{somusho04jp:2000io-kaisetsu}�C
+\citet{barro97jp}�C\citet*{markusen99jp:trade_vol_1}�D\\
+�ȗ��`�ł́C\citet{imai71:_micr_1}�C\citet{markusen99jp:trade_vol_1}
+�̂悤�ɂȂ�D
 \end{verbatim}
 \end{screen}
-というような命令を書くと，次のような出力になります\footnote{Backslash は Windows
-では円マークになります．}．\texttt{citet} 命令の \verb|{ }| の中は私が自分の文献
-データベースファイルの中で各文献に付けているキーワードです．
+�Ƃ����悤�Ȗ��߂������ƁC���̂悤�ȏo�͂ɂȂ�܂�\footnote{Backslash �� Windows
+�ł͉~�}�[�N�ɂȂ�܂��D}�D\texttt{citet} ���߂� \verb|{ }| �̒��͎��������̕���
+�f�[�^�x�[�X�t�@�C���̒��Ŋe�����ɕt���Ă���L�[���[�h�ł��D
 
 \begin{screen}
-\citet{miyazawa02:_io_intr}，\citet{isikawa02jp:_env_trade}，
-\citet{oyama99:_mark_stru}，\citet{kuroda97jp:keo}，
-\citet{kiyono93:_regu_comp_1}，\citet{iwamoto91jp:haito-keika}，
-\citet{ito85:_inte_trad}，\citet{nishimura90:_micr_econ}，
-\citet*{imai72:_micr_2}，\citet*{imai71:_micr_1}，
-\citet{somusho04jp:2000io-kaisetsu}，
-\citet{barro97jp}，\citet*{markusen99jp:trade_vol_1}．\\
-省略形では，\citet{imai71:_micr_1}，\citet{markusen99jp:trade_vol_1}
-のようになる．
+\citet{miyazawa02:_io_intr}�C\citet{isikawa02jp:_env_trade}�C
+\citet{oyama99:_mark_stru}�C\citet{kuroda97jp:keo}�C
+\citet{kiyono93:_regu_comp_1}�C\citet{iwamoto91jp:haito-keika}�C
+\citet{ito85:_inte_trad}�C\citet{nishimura90:_micr_econ}�C
+\citet*{imai72:_micr_2}�C\citet*{imai71:_micr_1}�C
+\citet{somusho04jp:2000io-kaisetsu}�C
+\citet{barro97jp}�C\citet*{markusen99jp:trade_vol_1}�D\\
+�ȗ��`�ł́C\citet{imai71:_micr_1}�C\citet{markusen99jp:trade_vol_1}
+�̂悤�ɂȂ�D
 \end{screen}
 \\
 
-Reference 部分の形式がどうなるかは，この文書の参考文献の部分を見て確認してくださ
-い．
+Reference �����̌`�����ǂ��Ȃ邩�́C���̕����̎Q�l�����̕��������Ċm�F���Ă�����
+���D
 \\
 
-\texttt{natbib.sty} を一緒に使っている場合には，\texttt{cite} 命令を変え
-るだけで次のような引用も可能です．
+\texttt{natbib.sty} ���ꏏ�Ɏg���Ă���ꍇ�ɂ́C\texttt{cite} ���߂�ς�
+�邾���Ŏ��̂悤�Ȉ��p���\�ł��D
 
 \begin{screen}
 \hspace*{1cm} \citet{ito85:_inte_trad}\\
 \hspace*{1cm} \citep{ito85:_inte_trad}\\
 \hspace*{1cm} \citet[p.100]{ito85:_inte_trad}\\
-\hspace*{1cm} \citet[p.200 参照]{ito85:_inte_trad}\\
-\hspace*{1cm} \citep[詳しくは][]{ito85:_inte_trad}
+\hspace*{1cm} \citet[p.200 �Q��]{ito85:_inte_trad}\\
+\hspace*{1cm} \citep[�ڂ�����][]{ito85:_inte_trad}
 \end{screen}
 
-こう出力するには次のように \texttt{tex} のファイルで書きます
-\footnote{\verb|\citet| や \verb|\citep| は \texttt{natbib.sty} に特有の命令です．}．
+�����o�͂���ɂ͎��̂悤�� \texttt{tex} �̃t�@�C���ŏ����܂�
+\footnote{\verb|\citet| �� \verb|\citep| �� \texttt{natbib.sty} �ɓ��L�̖��߂ł��D}�D
 
 \begin{screen}
  \begin{verbatim}
 \citet{ito85:_inte_trad}
 \citep{ito85:_inte_trad}
 \citet[p.100]{ito85:_inte_trad}
-\citet[p.200 参照]{ito85:_inte_trad}
-\citep[詳しくは][]{ito85:_inte_trad}
+\citet[p.200 �Q��]{ito85:_inte_trad}
+\citep[�ڂ�����][]{ito85:_inte_trad}
  \end{verbatim}
 \end{screen}
 \\
 
-同じ文書内で英語の文献も同時に扱うことができます．
+�����������ŉp��̕����������Ɉ������Ƃ��ł��܂��D
 
 \begin{screen}
  \citet{ishikawa03:_green_gas_emiss_contr_open_econom},
@@ -243,11 +243,11 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
  \citet{wang89:_model_therm_hydrod_aspec_molten},
  \citet{lucas76:_econom_polic_evaluat},
  \citet{milne-thomson68:_theor_hydrod},
- \citet{2007yamasue482353}，
+ \citet{2007yamasue482353}�C
  \citet{2009yamasue502165} 
 \end{screen}
 
-この場合の \texttt{tex} ファイルでの命令．
+���̏ꍇ�� \texttt{tex} �t�@�C���ł̖��߁D
 
 \begin{screen}
 \begin{verbatim}
@@ -264,105 +264,105 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 \end{screen}
 
 
-\section{使用法}
+\section{�g�p�@}
 
-基本的に他の \BibTeX スタイルファイルを使う場合と同じですが，いくつか違う部分，
-気を付ける部分があります．
+��{�I�ɑ��� \BibTeX �X�^�C���t�@�C�����g���ꍇ�Ɠ����ł����C�������Ⴄ�����C
+�C��t���镔��������܂��D
 
-\subsection{必要なもの}
+\subsection{�K�v�Ȃ���}
 
-\texttt{jecon.bst} を利用するには，\texttt{natbib.sty}が必要になります．最近の
-\LaTeX を使っている人は標準で \texttt{natbib.sty} もインストールされていると思い
-ます\footnote{持ってない人は CTAN で入手してください．}．
+\texttt{jecon.bst} �𗘗p����ɂ́C\texttt{natbib.sty}���K�v�ɂȂ�܂��D�ŋ߂�
+\LaTeX ���g���Ă���l�͕W���� \texttt{natbib.sty} ���C���X�g�[������Ă���Ǝv��
+�܂�\footnote{�����ĂȂ��l�� CTAN �œ��肵�Ă��������D}�D
 
 
-\subsection{\texttt{jecon.bst} のインストール}
+\subsection{\texttt{jecon.bst} �̃C���X�g�[��}
 
-\texttt{jecon.bst} は \texttt{jplain.bst}，\texttt{jalpha.bst} 等と同じ場所に置
-いてください\footnote{\texttt{BSTINPUTS} という環境変数を設定することで自分の好
-きな場所に \texttt{bst} ファイルを置けるようになります．編集している
-\texttt{tex} ファイルと同じフォルダに置いてもよいです．ただ，その場合には
-\texttt{tex} ファイル毎に置かなければいけませんが．}．\texttt{jplain.bst} を検索
-して見付かったディレクトリに入れておけばいいと思います．
+\texttt{jecon.bst} �� \texttt{jplain.bst}�C\texttt{jalpha.bst} ���Ɠ����ꏊ�ɒu
+���Ă�������\footnote{\texttt{BSTINPUTS} �Ƃ������ϐ���ݒ肷�邱�ƂŎ����̍D
+���ȏꏊ�� \texttt{bst} �t�@�C����u����悤�ɂȂ�܂��D�ҏW���Ă���
+\texttt{tex} �t�@�C���Ɠ����t�H���_�ɒu���Ă��悢�ł��D�����C���̏ꍇ�ɂ�
+\texttt{tex} �t�@�C�����ɒu���Ȃ���΂����܂��񂪁D}�D\texttt{jplain.bst} ������
+���Č��t�������f�B���N�g���ɓ���Ă����΂����Ǝv���܂��D
 
-\subsection{\texttt{bib} ファイルの書き方}
+\subsection{\texttt{bib} �t�@�C���̏�����}
 
-\texttt{bib}ファイルとは拡張子が \texttt{bib} である \BibTeX のデータベースファ
-イルのことです．この書き方も基本的には普通の場合と同じですが，\texttt{jecon.bst}
-独自の部分もあります．いくつか例を挙げときます．
+\texttt{bib}�t�@�C���Ƃ͊g���q�� \texttt{bib} �ł��� \BibTeX �̃f�[�^�x�[�X�t�@
+�C���̂��Ƃł��D���̏���������{�I�ɂ͕��ʂ̏ꍇ�Ɠ����ł����C\texttt{jecon.bst}
+�Ǝ��̕���������܂��D��������������Ƃ��܂��D
 
 \begin{screen}
  \begin{verbatim}
 
 @InCollection{oyama99:_mark_stru,
-  author =       {大山 道広},
-  title =        {市場構造・経済厚生・国際貿易},
-  editor =       {岡田 章 and 神谷 和也 and 柴田 弘文 and 伴 金美},
-  booktitle =    {現代経済学の潮流 1999},
+  author =       {��R ���L},
+  title =        {�s��\���E�o�ό����E���ۖf��},
+  editor =       {���c �� and �_�J �a�� and �ēc �O�� and �� ����},
+  booktitle =    {����o�ϊw�̒��� 1999},
   pages =        {3-34},
-  publisher =    {東洋経済新報社},
+  publisher =    {���m�o�ϐV���},
   year =         1999,
-  yomi =         {おおやま みちひろ}
+  yomi =         {������� �݂��Ђ�}
 }
  \end{verbatim}
 \end{screen}
 
-注意点として，
+���ӓ_�Ƃ��āC
 \begin{itemize}
-\item author の名前は日本語文献では「姓 名」の順で指定してください（姓・名の間に
-      半角か全角の空白を入れてください）．\\ \textbf{注：日本語文献での人名の指
-      定方法については第\ref{sec:nihonjin}節も読んでください．普通の流儀に従って
-      上では「姓 名」の順でと説明しましたが、今後は日本語文献でも英語文献と同様
-      の名前の指定方法（つまり，「姓, 名」）とする方がよいと思います。}．
- \item \texttt{yomi} フィールドを付けると日本語文献を Reference で列挙するときに
-      並び順を考慮してくれます．\texttt{yomi}フィールドの記入方法には
+\item author �̖��O�͓��{�ꕶ���ł́u�� ���v�̏��Ŏw�肵�Ă��������i���E���̊Ԃ�
+      ���p���S�p�̋󔒂����Ă��������j�D\\ \textbf{���F���{�ꕶ���ł̐l���̎w
+      ����@�ɂ��Ă͑�\ref{sec:nihonjin}�߂��ǂ�ł��������D���ʂ̗��V�ɏ]����
+      ��ł́u�� ���v�̏��łƐ������܂������A����͓��{�ꕶ���ł��p�ꕶ���Ɠ��l
+      �̖��O�̎w����@�i�܂�C�u��, ���v�j�Ƃ�������悢�Ǝv���܂��B}�D
+ \item \texttt{yomi} �t�B�[���h��t����Ɠ��{�ꕶ���� Reference �ŗ񋓂���Ƃ���
+      ���я����l�����Ă���܂��D\texttt{yomi}�t�B�[���h�̋L�����@�ɂ�
        \begin{itemize}
-        \item ローマ字で書く（e.g. \texttt{Michihiro Ohyama}）
-        \item ひらがなで書く（e.g. おおやま みちひろ）
+        \item ���[�}���ŏ����ie.g. \texttt{Michihiro Ohyama}�j
+        \item �Ђ炪�Ȃŏ����ie.g. ������� �݂��Ђ�j
        \end{itemize}
-       の 2 種類の方法があります．
+       �� 2 ��ނ̕��@������܂��D
 
-       \paragraph{ローマ字で書くケース}
-       ローマ字で書くときには次の 3 つの形式のどれかで書いてください．
+       \paragraph{���[�}���ŏ����P�[�X}
+       ���[�}���ŏ����Ƃ��ɂ͎��� 3 �̌`���̂ǂꂩ�ŏ����Ă��������D
        \begin{enumerate}
         \item first name -- family name (e.g. \texttt{Michihiro Ohyama})
         \item family name, first name (e.g. \texttt{Ohyama, Michihiro})
-        \item family name のみ (e.g. \texttt{Ohyama})
+        \item family name �̂� (e.g. \texttt{Ohyama})
        \end{enumerate}
-       1 と 2 は基本的に同じです．3 の形式で書いた場合，同じ姓を持った違う著者同
-       士が混ざって表示されることがあります．そのようなことを避けたいときには 1
-       か 2 の形式で書くようにしてください．\texttt{yomi} をローマ字で書いた場合
-       には，英語の文献と混ざった形で alphabet 順で並べられます．
+       1 �� 2 �͊�{�I�ɓ����ł��D3 �̌`���ŏ������ꍇ�C���������������Ⴄ���ғ�
+       �m���������ĕ\������邱�Ƃ�����܂��D���̂悤�Ȃ��Ƃ���������Ƃ��ɂ� 1
+       �� 2 �̌`���ŏ����悤�ɂ��Ă��������D\texttt{yomi} �����[�}���ŏ������ꍇ
+       �ɂ́C�p��̕����ƍ��������`�� alphabet ���ŕ��ׂ��܂��D
 
-       \paragraph{ひらがなで書くケース}
-       ひらがなで書く場合には「姓\ 名」（間に空白），あるいは「姓」で書いてくださ
-       い．ひらがなで書いた場合，日本語の文献は著者名のあいうえお順で，英語文献
-       とは別に並べられます．日本語文献・英語文献を分けた形で列挙したい場合は，
-       \texttt{yomi} フィールドをひらがなで書くようにしてください．経済学では英
-       語文献と日本語文献は分けた形で列挙することが多いので，\texttt{yomi} フィー
-       ルドをひらがなで書いておくのがよいと思います．
+       \paragraph{�Ђ炪�Ȃŏ����P�[�X}
+       �Ђ炪�Ȃŏ����ꍇ�ɂ́u��\ ���v�i�Ԃɋ󔒁j�C���邢�́u���v�ŏ����Ă�����
+       ���D�Ђ炪�Ȃŏ������ꍇ�C���{��̕����͒��Җ��̂������������ŁC�p�ꕶ��
+       �Ƃ͕ʂɕ��ׂ��܂��D���{�ꕶ���E�p�ꕶ���𕪂����`�ŗ񋓂������ꍇ�́C
+       \texttt{yomi} �t�B�[���h���Ђ炪�Ȃŏ����悤�ɂ��Ă��������D�o�ϊw�ł͉p
+       �ꕶ���Ɠ��{�ꕶ���͕������`�ŗ񋓂��邱�Ƃ������̂ŁC\texttt{yomi} �t�B�[
+       ���h���Ђ炪�Ȃŏ����Ă����̂��悢�Ǝv���܂��D
 
-       \paragraph{その他}
-       日本語文献の \texttt{yomi} フィールドを省略してしまうとおかしな順番で列挙
-       されてしまいます（漢字の文字コードの順番だと思いますが，よくわかりません）．
-       \\このサンプルファイルではいくつかの日本語文献は \texttt{yomi} をアルファ
-       ベットで指定しており，それは英語文献に混ざって表示されています（日本語文
-       献でも邦訳書で著者名がアルファベットで記載されている文献も英語文献に混ざっ
-       て表示されています）．
- \item \texttt{pages} フィールドに関しては，\texttt{3--34} のようにハイフンを二
-       個続けて書いておかないときれいに表示されないのですが，\texttt{jecon.bst}
-       では，上の例のように \texttt{3-34} と書いていても自動的に \texttt{3--34}
-       と変換するので一個でもかまいません．ただ，他の \BibTeX スタイルファイルも
-       使うという人はハイフンを二個にしといたほうがいいかもしれません．
+       \paragraph{���̑�}
+       ���{�ꕶ���� \texttt{yomi} �t�B�[���h���ȗ����Ă��܂��Ƃ������ȏ��Ԃŗ�
+       ����Ă��܂��܂��i�����̕����R�[�h�̏��Ԃ��Ǝv���܂����C�悭�킩��܂���j�D
+       \\���̃T���v���t�@�C���ł͂������̓��{�ꕶ���� \texttt{yomi} ���A���t�@
+       �x�b�g�Ŏw�肵�Ă���C����͉p�ꕶ���ɍ������ĕ\������Ă��܂��i���{�ꕶ
+       ���ł��M�󏑂Œ��Җ����A���t�@�x�b�g�ŋL�ڂ���Ă��镶�����p�ꕶ���ɍ�����
+       �ĕ\������Ă��܂��j�D
+ \item \texttt{pages} �t�B�[���h�Ɋւ��ẮC\texttt{3--34} �̂悤�Ƀn�C�t�����
+       �����ď����Ă����Ȃ��Ƃ��ꂢ�ɕ\������Ȃ��̂ł����C\texttt{jecon.bst}
+       �ł́C��̗�̂悤�� \texttt{3-34} �Ə����Ă��Ă������I�� \texttt{3--34}
+       �ƕϊ�����̂ň�ł����܂��܂���D�����C���� \BibTeX �X�^�C���t�@�C����
+       �g���Ƃ����l�̓n�C�t�����ɂ��Ƃ����ق���������������܂���D
 \end{itemize}
 
-\subsubsection{邦訳書の情報も付ける場合} \label{sec:hoyakusho}
+\subsubsection{�M�󏑂̏����t����ꍇ} \label{sec:hoyakusho}
 
-また book に関しては，以下のように \texttt{jauthor}，\texttt{jkanyaku}，
-\texttt{jtitle}，\texttt{jpublisher}，\texttt{jyear} を指定することで邦訳書の情
-報を付け加えることができます（これは \texttt{jpolisci.bst} の機能をそのまま使わ
-せていただいています）．以下の指定が reference にどう反映されるかは，後の
-reference 部分を見て確認してください．\\
+�܂� book �Ɋւ��ẮC�ȉ��̂悤�� \texttt{jauthor}�C\texttt{jkanyaku}�C
+\texttt{jtitle}�C\texttt{jpublisher}�C\texttt{jyear} ���w�肷�邱�ƂŖM�󏑂̏�
+���t�������邱�Ƃ��ł��܂��i����� \texttt{jpolisci.bst} �̋@�\�����̂܂܎g��
+���Ă��������Ă��܂��j�D�ȉ��̎w�肪 reference �ɂǂ����f����邩�́C���
+reference ���������Ċm�F���Ă��������D\\
 
 \begin{screen}
  \begin{verbatim}
@@ -372,187 +372,187 @@ reference 部分を見て確認してください．\\
   publisher =    {MIT Press},
   address =      {Cambridge, MA},
   year =         1999,
-  jauthor =      {小出 博之},
-  jtitle =       {空間経済学},
-  jpublisher =   {東洋経済新報社},
+  jauthor =      {���o ���V},
+  jtitle =       {��Ԍo�ϊw},
+  jpublisher =   {���m�o�ϐV���},
   jyear =        2000
 }
  \end{verbatim}
 \end{screen}
 \vspace*{1em}
 
-\noindent \textbf{［注］} ここでの「邦訳書の情報を付ける」とは英語の文献に邦訳書
-の情報を付けるような場合のことです．邦訳書自体を文献として登録したい場合には，普
-通に book として登録し，さらに次の節で紹介する \texttt{translator}フィールド，
-\texttt{kanyaku}フィールドに訳者，監訳者を指定してください．\\ \texttt{jauthor}，
-\texttt{jkanyaku}，\texttt{jtitle}，\texttt{jpublisher}，\texttt{jyear} は
-\texttt{jpolisci.bst} の機能をそのまま残したものですが，個人的には邦訳書は別の文
-献として独立して登録しておくのがいいような気がします．
+\noindent \textbf{�m���n} �����ł́u�M�󏑂̏���t����v�Ƃ͉p��̕����ɖM��
+�̏���t����悤�ȏꍇ�̂��Ƃł��D�M�󏑎��̂𕶌��Ƃ��ēo�^�������ꍇ�ɂ́C��
+�ʂ� book �Ƃ��ēo�^���C����Ɏ��̐߂ŏЉ�� \texttt{translator}�t�B�[���h�C
+\texttt{kanyaku}�t�B�[���h�ɖ�ҁC�Ė�҂��w�肵�Ă��������D\\ \texttt{jauthor}�C
+\texttt{jkanyaku}�C\texttt{jtitle}�C\texttt{jpublisher}�C\texttt{jyear} ��
+\texttt{jpolisci.bst} �̋@�\�����̂܂܎c�������̂ł����C�l�I�ɂ͖M�󏑂͕ʂ̕�
+���Ƃ��ēƗ����ēo�^���Ă����̂������悤�ȋC�����܂��D
 
-\subsubsection{邦訳書の書き方}
+\subsubsection{�M�󏑂̏�����}
 \label{sec:hoyakusho}
 
-邦訳書を book として登録する場合には，著者が外国人であっても，名前は片仮名となる
-場合が思います．このようなときには次のように指定してください．\\
+�M�󏑂� book �Ƃ��ēo�^����ꍇ�ɂ́C���҂��O���l�ł����Ă��C���O�͕Љ����ƂȂ�
+�ꍇ���v���܂��D���̂悤�ȂƂ��ɂ͎��̂悤�Ɏw�肵�Ă��������D\\
 
 \begin{screen}
  \begin{verbatim}
 @Book{barro97jp,
-  author       = {R. J. バロー},
-  title        = {経済学の正しい使用法 −政府は経済に手を出すな−},
-  publisher    = {東洋経済新報社},
+  author       = {R. J. �o���[},
+  title        = {�o�ϊw�̐������g�p�@ �|���{�͌o�ςɎ���o���ȁ|},
+  publisher    = {���m�o�ϐV���},
   year         = 1997,
-  translator   = {仁平 和夫},
-  yomi         = {ばろー}
+  translator   = {�m�� �a�v},
+  yomi         = {�΂�[}
 }
  \end{verbatim}
 \end{screen}
 
-注意点
+���ӓ_
 \begin{itemize}
- \item 上のように登録して置けば，\verb|\citet{barro97jp}| と書くことで，
-       「\citet{barro97jp}」 という表示になります．
- \item 上の例のように first name (+ middle name) を頭文字で付け加えるなら，
-       英語文献の場合と同じように，「first name - last name」の順で指定してくだ
-       さい．
- \item 頭文字を表すアルファベットは半角で書いてください\footnote{first name，
-       last name の両方を全角で書くと，日本人の名前と認識してしまうので．}．
- \item \verb|{ロバート バロー}| のように first name，last name のどちらも片仮名で
-       書いてしまうと上手く処理されません（姓名の順序が逆になります）\footnote{どうし
-       てもどちらも片仮名で書きたい場合には，\verb|{ロバート・バロー}| と書いてくだ
-       さい．ただし，この場合には引用部分が，バロー (1997) ではなく，ロバート・バ
-       ロー (1997) という形式になってしまいます．}．
- \item この場合も \texttt{yomi} フィールドを付けないと適切には並びかえられま
-       せん．
- \item 訳者は \texttt{translator} フィールドに指定します．もし監訳者もいれば
-       \texttt{kanyaku} フィールドに指定します．
- \item 同じような邦訳書の例として，\cite{markusen99jp:trade_vol_1} という文献
-       を挙げてありますので，そちらも参考にしてください．
+ \item ��̂悤�ɓo�^���Ēu���΁C\verb|\citet{barro97jp}| �Ə������ƂŁC
+       �u\citet{barro97jp}�v �Ƃ����\���ɂȂ�܂��D
+ \item ��̗�̂悤�� first name (+ middle name) �𓪕����ŕt��������Ȃ�C
+       �p�ꕶ���̏ꍇ�Ɠ����悤�ɁC�ufirst name - last name�v�̏��Ŏw�肵�Ă���
+       �����D
+ \item ��������\���A���t�@�x�b�g�͔��p�ŏ����Ă�������\footnote{first name�C
+       last name �̗�����S�p�ŏ����ƁC���{�l�̖��O�ƔF�����Ă��܂��̂ŁD}�D
+ \item \verb|{���o�[�g �o���[}| �̂悤�� first name�Clast name �̂ǂ�����Љ�����
+       �����Ă��܂��Ə�肭��������܂���i�����̏������t�ɂȂ�܂��j\footnote{�ǂ���
+       �Ă��ǂ�����Љ����ŏ��������ꍇ�ɂ́C\verb|{���o�[�g�E�o���[}| �Ə����Ă���
+       �����D�������C���̏ꍇ�ɂ͈��p�������C�o���[ (1997) �ł͂Ȃ��C���o�[�g�E�o
+       ���[ (1997) �Ƃ����`���ɂȂ��Ă��܂��܂��D}�D
+ \item ���̏ꍇ�� \texttt{yomi} �t�B�[���h��t���Ȃ��ƓK�؂ɂ͕��т�������
+       ����D
+ \item ��҂� \texttt{translator} �t�B�[���h�Ɏw�肵�܂��D�����Ė�҂������
+       \texttt{kanyaku} �t�B�[���h�Ɏw�肵�܂��D
+ \item �����悤�ȖM�󏑂̗�Ƃ��āC\cite{markusen99jp:trade_vol_1} �Ƃ�������
+       �������Ă���܂��̂ŁC��������Q�l�ɂ��Ă��������D
 \end{itemize}
 
 \vspace*{1em}
 
-\noindent \textbf{邦訳書であるが，著者名がアルファベットであるケース}
+\noindent \textbf{�M�󏑂ł��邪�C���Җ����A���t�@�x�b�g�ł���P�[�X}
 
-邦訳書であっても著者名を全てアルファベット表記にしている書籍もあります．例えば，
-次の文献です．
+�M�󏑂ł����Ă����Җ���S�ăA���t�@�x�b�g�\�L�ɂ��Ă��鏑�Ђ�����܂��D�Ⴆ�΁C
+���̕����ł��D
 \begin{screen}
 \begin{verbatim}
 @book{matloff__2012,
-  address      = {東京},
-  title        = {アート・オブ・ {R} プログラミング},
+  address      = {����},
+  title        = {�A�[�g�E�I�u�E {R} �v���O���~���O},
   isbn         = {978-4-87311-579-5},
   language     = {ja},
-  publisher    = {オライリージャパン},
+  publisher    = {�I���C���[�W���p��},
   author       = {Matloff, Norman},
-  kanyaku      = {大橋 真也},
-  translator   = {木下 哲也},
+  kanyaku      = {�勴 �^��},
+  translator   = {�؉� �N��},
   month        = sep,
   year         = {2012},
-  yomi         = {まっとろふ}
+  yomi         = {�܂��Ƃ��}
 }
 \end{verbatim}
 \end{screen}
 \begin{itemize}
- \item 名前が全てアルファベットであれば，英語文献と同様に指定してください．
- \item 引用部分では \citet{matloff__2012} のようになります．
- \item 訳者，監訳者をそれぞれ \texttt{translator} フィールド，\texttt{kanyaku}
-       フィールドに指定しています．訳者，監訳者を表記する必要がなければ指定しな
-       くてもいいです．
- \item 上の文献では \texttt{yomi} フィールドをひらがなで指定しています．こうする
-       と日本語文献に普通の日本語文献に混ざって列挙されます．
- \item \texttt{yomi} フィールドを付けないと列挙の際のキーとして著者名が利用され
-       るので，邦訳書であっても英語文献に混ざって列挙されます．
- \item 同じような文献の例として，\citet{Ryza2016}，\citet{Boswell-2012} がありま
-       すので，そちらも参考にしてください．
+ \item ���O���S�ăA���t�@�x�b�g�ł���΁C�p�ꕶ���Ɠ��l�Ɏw�肵�Ă��������D
+ \item ���p�����ł� \citet{matloff__2012} �̂悤�ɂȂ�܂��D
+ \item ��ҁC�Ė�҂����ꂼ�� \texttt{translator} �t�B�[���h�C\texttt{kanyaku}
+       �t�B�[���h�Ɏw�肵�Ă��܂��D��ҁC�Ė�҂�\�L����K�v���Ȃ���Ύw�肵��
+       ���Ă������ł��D
+ \item ��̕����ł� \texttt{yomi} �t�B�[���h���Ђ炪�ȂŎw�肵�Ă��܂��D��������
+       �Ɠ��{�ꕶ���ɕ��ʂ̓��{�ꕶ���ɍ������ė񋓂���܂��D
+ \item \texttt{yomi} �t�B�[���h��t���Ȃ��Ɨ񋓂̍ۂ̃L�[�Ƃ��Ē��Җ������p����
+       ��̂ŁC�M�󏑂ł����Ă��p�ꕶ���ɍ������ė񋓂���܂��D
+ \item �����悤�ȕ����̗�Ƃ��āC\citet{Ryza2016}�C\citet{Boswell-2012} �������
+       ���̂ŁC��������Q�l�ɂ��Ă��������D
 \end{itemize}
 
-\subsubsection{bibファイルにおける日本語での人名の書き方}
+\subsubsection{bib�t�@�C���ɂ�������{��ł̐l���̏�����}
 \label{sec:nihonjin}
 
-ここまで \texttt{bib} ファイルの書き方を説明してきました．ここで人名の指定方法に
-ついて補足説明をしておきます．
+�����܂� \texttt{bib} �t�@�C���̏�������������Ă��܂����D�����Ől���̎w����@��
+���ĕ⑫���������Ă����܂��D
 
-通常，\texttt{bib}ファイルにおいて英語文献の人名を指定するときには「名 姓」か
-「姓, 名」（区切は半角カンマ）という記述で指定します．例えば，著者が Barack
-Obama であるときには
+�ʏ�C\texttt{bib}�t�@�C���ɂ����ĉp�ꕶ���̐l�����w�肷��Ƃ��ɂ́u�� ���v��
+�u��, ���v�i��؂͔��p�J���}�j�Ƃ����L�q�Ŏw�肵�܂��D�Ⴆ�΁C���҂� Barack
+Obama �ł���Ƃ��ɂ�
 \begin{screen}
  \begin{verbatim}
   author =       {Barack Obama}
   author =       {Obama, Barack}
  \end{verbatim}
 \end{screen}
-のような指定をします．これは\texttt{author}フィールドだけではなく，
-\texttt{editor}についても同じです．
+�̂悤�Ȏw������܂��D�����\texttt{author}�t�B�[���h�����ł͂Ȃ��C
+\texttt{editor}�ɂ��Ă������ł��D
 
-一方，日本語文献での人名の指定方法では姓名の順番が逆になります．つまり，「姓 名」
-という記法，あるいは「名, 姓」（区切は半角カンマ）という記法になります．例えば，
-著者が「安倍晋三」なら，
+����C���{�ꕶ���ł̐l���̎w����@�ł͐����̏��Ԃ��t�ɂȂ�܂��D�܂�C�u�� ���v
+�Ƃ����L�@�C���邢�́u��, ���v�i��؂͔��p�J���}�j�Ƃ����L�@�ɂȂ�܂��D�Ⴆ�΁C
+���҂��u���{�W�O�v�Ȃ�C
 \begin{screen}
  \begin{verbatim}
-  author =       {安倍 晋三}
-  author =       {晋三, 安倍}
+  author =       {���{ �W�O}
+  author =       {�W�O, ���{}
  \end{verbatim}
 \end{screen}
-という指定になります．これは\texttt{editor}フィールドでも同じように指定します．
+�Ƃ����w��ɂȂ�܂��D�����\texttt{editor}�t�B�[���h�ł������悤�Ɏw�肵�܂��D
 \vspace*{1em}
 
-以上のように\texttt{bib}ファイルでは英語文献の場合と日本語文献の場合で人名の指定
-方法（姓名の順序）を逆にするというルールになっています．このため，日本語文献に対
-応した\texttt{bst}ファイル（例えば，\texttt{jplain.bst}等）は，英語の場合と日本
-語の場合で人名を処理するときの動作を変更するように作成されています
-\footnote{\texttt{bst}ファイルのルールが先ではなく，\texttt{bib}ファイルで日本人
-名は普通の日本語の順番で書きたいため，そうできるように\texttt{bst}ファイルの処理
-を変更したということかもしれません．このような書き方になった経緯は私もよくわかり
-ません．}．\vspace*{1em}
+�ȏ�̂悤��\texttt{bib}�t�@�C���ł͉p�ꕶ���̏ꍇ�Ɠ��{�ꕶ���̏ꍇ�Ől���̎w��
+���@�i�����̏����j���t�ɂ���Ƃ������[���ɂȂ��Ă��܂��D���̂��߁C���{�ꕶ���ɑ�
+������\texttt{bst}�t�@�C���i�Ⴆ�΁C\texttt{jplain.bst}���j�́C�p��̏ꍇ�Ɠ��{
+��̏ꍇ�Ől������������Ƃ��̓����ύX����悤�ɍ쐬����Ă��܂�
+\footnote{\texttt{bst}�t�@�C���̃��[������ł͂Ȃ��C\texttt{bib}�t�@�C���œ��{�l
+���͕��ʂ̓��{��̏��Ԃŏ����������߁C�����ł���悤��\texttt{bst}�t�@�C���̏���
+��ύX�����Ƃ������Ƃ�������܂���D���̂悤�ȏ������ɂȂ����o�܂͎����悭�킩��
+�܂���D}�D\vspace*{1em}
 
-\texttt{jecon.bst}についても同様に作成されています．このため，前節まで説明してき
-たように，日本語文献の場合，「姓 名」（あるいは「名, 姓」）という形で人名を指定
-することになります．これは\texttt{author}フィールドだけの話ではなく，人名を指定
-するフィールド（\texttt{editor}，\texttt{yomi}，\texttt{translator}，
-\texttt{kanyaku}等）全てについて同じようにします．
+\texttt{jecon.bst}�ɂ��Ă����l�ɍ쐬����Ă��܂��D���̂��߁C�O�߂܂Ő������Ă�
+���悤�ɁC���{�ꕶ���̏ꍇ�C�u�� ���v�i���邢�́u��, ���v�j�Ƃ����`�Ől�����w��
+���邱�ƂɂȂ�܂��D�����\texttt{author}�t�B�[���h�����̘b�ł͂Ȃ��C�l�����w��
+����t�B�[���h�i\texttt{editor}�C\texttt{yomi}�C\texttt{translator}�C
+\texttt{kanyaku}���j�S�Ăɂ��ē����悤�ɂ��܂��D
 
 \begin{screen}
- \textbf{［注］} ただし，\texttt{jecon.bst}では例外があります．第
- \ref{sec:hoyakusho}節で説明したように，「R.J. バロー」というような外国人名を片
- 仮名で記述する場合だけ英語文献での順番と同じにします．\\また日本語文献でも著者
- 名が全てアルファベット表記なら英語文献と同様にします．
+ \textbf{�m���n} �������C\texttt{jecon.bst}�ł͗�O������܂��D��
+ \ref{sec:hoyakusho}�߂Ő��������悤�ɁC�uR.J. �o���[�v�Ƃ����悤�ȊO���l�����
+ �����ŋL�q����ꍇ�����p�ꕶ���ł̏��ԂƓ����ɂ��܂��D\\�܂����{�ꕶ���ł�����
+ �����S�ăA���t�@�x�b�g�\�L�Ȃ�p�ꕶ���Ɠ��l�ɂ��܂��D
 \end{screen}
 \\
 
-普通\texttt{bib}ファイルはそういうルールで書くものということになっていますが，こ
-れでは少し困る場合があります．\vspace*{1em}
+����\texttt{bib}�t�@�C���͂����������[���ŏ������̂Ƃ������ƂɂȂ��Ă��܂����C��
+��ł͏�������ꍇ������܂��D\vspace*{1em}
 
 
-まず第一にMendeley\footnote{\url{http://www.mendeley.com/}}のような文献管理ソフ
-トを利用して文献を管理し，そこから\texttt{bib}ファイルを生成するというような場合
-です．文献管理ソフトでは英語文献の人名であろうが，日本語文献の人名であろうが，普
-通は同じ扱いをすると思います．実際，私もMendeleyを利用していますが，英語文献でも
-日本語文献でも同じように人名を扱っています（日本語文献は姓名を逆に登録するという
-ようなことはしません）．そうしないと著者名（姓）をキーにして表示する文献にフィル
-ターをかけるときなどに困るからです．このように人名の扱いが同じため，Mendeleyから
-\texttt{bib}ファイルを生成させると日本語文献の人名も英語文献の人名と同じ形の出力
-になります．こうして生成した\texttt{bib}ファイルを通常の\texttt{bst}ファイルで処
-理してしまうと日本語文献の人名の扱いがおかしくなってしまいます（姓名の順序が逆に
-なってしまいます）．\vspace*{1em}
+�܂�����Mendeley\footnote{\url{http://www.mendeley.com/}}�̂悤�ȕ����Ǘ��\�t
+�g�𗘗p���ĕ������Ǘ����C��������\texttt{bib}�t�@�C���𐶐�����Ƃ����悤�ȏꍇ
+�ł��D�����Ǘ��\�t�g�ł͉p�ꕶ���̐l���ł��낤���C���{�ꕶ���̐l���ł��낤���C��
+�ʂ͓�������������Ǝv���܂��D���ہC����Mendeley�𗘗p���Ă��܂����C�p�ꕶ���ł�
+���{�ꕶ���ł������悤�ɐl���������Ă��܂��i���{�ꕶ���͐������t�ɓo�^����Ƃ���
+�悤�Ȃ��Ƃ͂��܂���j�D�������Ȃ��ƒ��Җ��i���j���L�[�ɂ��ĕ\�����镶���Ƀt�B��
+�^�[��������Ƃ��Ȃǂɍ��邩��ł��D���̂悤�ɐl���̈������������߁CMendeley����
+\texttt{bib}�t�@�C���𐶐�������Ɠ��{�ꕶ���̐l�����p�ꕶ���̐l���Ɠ����`�̏o��
+�ɂȂ�܂��D�������Đ�������\texttt{bib}�t�@�C����ʏ��\texttt{bst}�t�@�C���ŏ�
+�����Ă��܂��Ɠ��{�ꕶ���̐l���̈��������������Ȃ��Ă��܂��܂��i�����̏������t��
+�Ȃ��Ă��܂��܂��j�D\vspace*{1em}
 
-もう一つは文献データベースで日本語文献も英語文献と同じように人名を扱っているケー
-スがあることです．例えば，CiNiiという日本語の論文，書籍，雑誌のデータベースを提供
-するウェブサイトがあります（\url{http://ci.nii.ac.jp/}）．CiNiiでは様々な形式で文
-献情報を出力することができ，\BibTeX 形式でも出力できます．しかし，そのCiNiiが提供
-する \BibTeX 形式では著者名の扱いが普通の \texttt{bib} ファイルのルールとは逆になっ
-ています．
+������͕����f�[�^�x�[�X�œ��{�ꕶ�����p�ꕶ���Ɠ����悤�ɐl���������Ă���P�[
+�X�����邱�Ƃł��D�Ⴆ�΁CCiNii�Ƃ������{��̘_���C���ЁC�G���̃f�[�^�x�[�X���
+����E�F�u�T�C�g������܂��i\url{http://ci.nii.ac.jp/}�j�DCiNii�ł͗l�X�Ȍ`���ŕ�
+�������o�͂��邱�Ƃ��ł��C\BibTeX �`���ł��o�͂ł��܂��D�������C����CiNii����
+���� \BibTeX �`���ł͒��Җ��̈��������ʂ� \texttt{bib} �t�@�C���̃��[���Ƃ͋t�ɂȂ�
+�Ă��܂��D
 
-例えば，\url{http://ci.nii.ac.jp/naid/40019823794}という文献の情報を \BibTeX 形式
-で出力すると次のようになります．
+�Ⴆ�΁C\url{http://ci.nii.ac.jp/naid/40019823794}�Ƃ��������̏��� \BibTeX �`��
+�ŏo�͂���Ǝ��̂悤�ɂȂ�܂��D
 \begin{screen}
 \begin{verbatim}
-@article{白井大地:2013-09,
-author="白井, 大地 and 武田, 史郎 and 落合, 勝昭",
-title="温室効果ガス排出規制の地域間CGE分析",
-journal="環境経済・政策研究",
+@article{�����n:2013-09,
+author="����, ��n and ���c, �j�Y and ����, ����",
+title="�������ʃK�X�r�o�K���̒n���CGE����",
+journal="���o�ρE���􌤋�",
 ISSN="1882-3742",
-publisher="岩波書店",
+publisher="��g���X",
 year="2013",
 month="sep",
 volume="6",
@@ -563,64 +563,64 @@ DOI="",
 }
 \end{verbatim}
 \end{screen}
-\texttt{author}フィールドが
+\texttt{author}�t�B�[���h��
 \begin{screen}
 \begin{verbatim}
-author="白井, 大地 and 武田, 史郎 and 落合, 勝昭",
+author="����, ��n and ���c, �j�Y and ����, ����",
 \end{verbatim}
 \end{screen}
-となっており，英語文献と同じ姓名の順序で指定されていることがわかります．このよう
-に指定されていたら普通の\texttt{bst}ファイルで処理すると姓名の順序が逆になってし
-まいます．
+�ƂȂ��Ă���C�p�ꕶ���Ɠ��������̏����Ŏw�肳��Ă��邱�Ƃ��킩��܂��D���̂悤
+�Ɏw�肳��Ă����畁�ʂ�\texttt{bst}�t�@�C���ŏ�������Ɛ����̏������t�ɂȂ��Ă�
+�܂��܂��D
 
-この問題に対処するため，\texttt{jecon.bst}では，日本語文献での人名も英語文献の人
-名と同様に記述されている場合でも適切に処理する機能を加えています．それに
-は\texttt{jecon.bst}の
+���̖��ɑΏ����邽�߁C\texttt{jecon.bst}�ł́C���{�ꕶ���ł̐l�����p�ꕶ���̐l
+���Ɠ��l�ɋL�q����Ă���ꍇ�ł��K�؂ɏ�������@�\�������Ă��܂��D�����
+��\texttt{jecon.bst}��
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.sei.mei.order}
 { #0 }
 \end{verbatim}
 \end{screen}
-という部分を
+�Ƃ���������
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.sei.mei.order}
 { #1 }
 \end{verbatim}
 \end{screen}
-に書き換えてください．
+�ɏ��������Ă��������D
 
-\texttt{bst.sei.mei.order}に非ゼロを指定すると\texttt{bib}ファイルにおいて日本語
-文献の人名も英語文献の人名と同様の記法が使われているものとして処理をおこないます．
-これは\texttt{author}フィールドに限った話ではなく，\texttt{editor}，
-\texttt{yomi}，\texttt{translator}，\texttt{kanyaku}等も全て英語表記の人名と同じ
-形式で記述されているとみなします．
+\texttt{bst.sei.mei.order}�ɔ�[�����w�肷���\texttt{bib}�t�@�C���ɂ����ē��{��
+�����̐l�����p�ꕶ���̐l���Ɠ��l�̋L�@���g���Ă�����̂Ƃ��ď����������Ȃ��܂��D
+�����\texttt{author}�t�B�[���h�Ɍ������b�ł͂Ȃ��C\texttt{editor}�C
+\texttt{yomi}�C\texttt{translator}�C\texttt{kanyaku}�����S�ĉp��\�L�̐l���Ɠ���
+�`���ŋL�q����Ă���Ƃ݂Ȃ��܂��D
 
-このファイルと一緒に配布されている\texttt{jecon-example-reverse.bib}というファイル
-では日本語文献の人名が英語文献での人名と同じ方法で指定されています．上のよう
-に\texttt{bst.sei.mei.order}に非ゼロを設定すれば，そのように書かれ
-た\texttt{bib}ファイルでも適切に扱うことができます．
+���̃t�@�C���ƈꏏ�ɔz�z����Ă���\texttt{jecon-example-reverse.bib}�Ƃ����t�@�C��
+�ł͓��{�ꕶ���̐l�����p�ꕶ���ł̐l���Ɠ������@�Ŏw�肳��Ă��܂��D��̂悤
+��\texttt{bst.sei.mei.order}�ɔ�[����ݒ肷��΁C���̂悤�ɏ�����
+��\texttt{bib}�t�@�C���ł��K�؂Ɉ������Ƃ��ł��܂��D
 
-昔は\texttt{bib}ファイルというのは自分で作成する（自分で書く）ものであったと思い
-ます．ですので，日本語文献の場合，姓名を逆にするというルールもおかしくはなかった
-のかもしれません．しかし，現在では，文献の情報を文献管理ソフトで管理したり，ネッ
-トのデータベースからとってくることが多くなっています．そういったソフトウェアやデー
-タベースにおいて英語文献，日本語文献とも同じように人名を扱っていることが多いよう
-ですので，今後は\texttt{bib}ファイルにおいてもそういうルールが普通になってくるか
-もしれません．私自身，Mendeley で文献管理をしており，今後は \texttt{bib} ファイ
-ルを書く際に日本語文献で姓名の順序を逆にするというようなことはもうしないと思いま
-すし，むしろそちらが標準になればよいと思っています．（この \texttt{jecon.bst} で
-利用する \texttt{bib} ファイルについては別ですが）．
+�̂�\texttt{bib}�t�@�C���Ƃ����͎̂����ō쐬����i�����ŏ����j���̂ł������Ǝv��
+�܂��D�ł��̂ŁC���{�ꕶ���̏ꍇ�C�������t�ɂ���Ƃ������[�������������͂Ȃ�����
+�̂�������܂���D�������C���݂ł́C�����̏��𕶌��Ǘ��\�t�g�ŊǗ�������C�l�b
+�g�̃f�[�^�x�[�X����Ƃ��Ă��邱�Ƃ������Ȃ��Ă��܂��D�����������\�t�g�E�F�A��f�[
+�^�x�[�X�ɂ����ĉp�ꕶ���C���{�ꕶ���Ƃ������悤�ɐl���������Ă��邱�Ƃ������悤
+�ł��̂ŁC�����\texttt{bib}�t�@�C���ɂ����Ă������������[�������ʂɂȂ��Ă��邩
+������܂���D�����g�CMendeley �ŕ����Ǘ������Ă���C����� \texttt{bib} �t�@�C
+���������ۂɓ��{�ꕶ���Ő����̏������t�ɂ���Ƃ����悤�Ȃ��Ƃ͂������Ȃ��Ǝv����
+�����C�ނ��낻���炪�W���ɂȂ�΂悢�Ǝv���Ă��܂��D�i���� \texttt{jecon.bst} ��
+���p���� \texttt{bib} �t�@�C���ɂ��Ă͕ʂł����j�D
 
-ただそうして日本語文献も英語文献と同じように扱うようになると，これまで作成
-された日本語文献に対応した\texttt{bst}ファイルは使えなくなってしまうという問題が
-出てきますが．
+�����������ē��{�ꕶ�����p�ꕶ���Ɠ����悤�Ɉ����悤�ɂȂ�ƁC����܂ō쐬
+���ꂽ���{�ꕶ���ɑΉ�����\texttt{bst}�t�@�C���͎g���Ȃ��Ȃ��Ă��܂��Ƃ�����肪
+�o�Ă��܂����D
 
-\subsection{\texttt{tex} ファイルの書き方}
+\subsection{\texttt{tex} �t�@�C���̏�����}
 
-\texttt{tex} ファイル（\TeX のファイル）の書き方も普通と同じです．まず，
-プリアンプルで \texttt{natbib.sty} を読み込みます．
+\texttt{tex} �t�@�C���i\TeX �̃t�@�C���j�̏����������ʂƓ����ł��D�܂��C
+�v���A���v���� \texttt{natbib.sty} ��ǂݍ��݂܂��D
 
 \begin{screen}
  \begin{verbatim}
@@ -629,8 +629,8 @@ FUNCTION {bst.sei.mei.order}
  \end{verbatim}
 \end{screen}
 
-さらに，\verb|\begin{document}| の後で，\BibTeX のスタイルファイルとして 
-\texttt{jecon.bst} を指定します．
+����ɁC\verb|\begin{document}| �̌�ŁC\BibTeX �̃X�^�C���t�@�C���Ƃ��� 
+\texttt{jecon.bst} ���w�肵�܂��D
 
 \begin{screen}
  \begin{verbatim}
@@ -639,18 +639,18 @@ FUNCTION {bst.sei.mei.order}
  \end{verbatim}
 \end{screen}
 
-引用したい部分では，
+���p�����������ł́C
 
 \begin{screen}
  \begin{verbatim}
         
- \citet{ito85:_inte_trad} によれば．．．
+ \citet{ito85:_inte_trad} �ɂ��΁D�D�D
  \end{verbatim}
 \end{screen}
 
-というように書きます．
+�Ƃ����悤�ɏ����܂��D
 
-最後に Reference を付けたい部分で，
+�Ō�� Reference ��t�����������ŁC
 
 \begin{screen}
  \begin{verbatim}
@@ -659,41 +659,41 @@ FUNCTION {bst.sei.mei.order}
  \end{verbatim}
 \end{screen}
 
-というようにデータベースファイル（ここでは，\texttt{jecon-example.bib} というファ
-イル）を指定します．
+�Ƃ����悤�Ƀf�[�^�x�[�X�t�@�C���i�����ł́C\texttt{jecon-example.bib} �Ƃ����t�@
+�C���j���w�肵�܂��D
 
-\subsection{コンパイルの方法}
+\subsection{�R���p�C���̕��@}
 
 \begin{screen}
-\textbf{［注］}以下では p\LaTeX を利用することを前提としています（このサンプルの
-ファイルもそうです）．最近利用が増えている upLaTeX，LuaLaTeX，XeLaTeX 等を用いる
-ときにはコマンドも変わりますし，\texttt{tex} ファイルの書き方も変わります．
+\textbf{�m���n}�ȉ��ł� p\LaTeX �𗘗p���邱�Ƃ�O��Ƃ��Ă��܂��i���̃T���v����
+�t�@�C���������ł��j�D�ŋߗ��p�������Ă��� upLaTeX�CLuaLaTeX�CXeLaTeX ����p����
+�Ƃ��ɂ̓R�}���h���ς��܂����C\texttt{tex} �t�@�C���̏��������ς��܂��D
 \end{screen}
 \vspace*{1em}
 
-\texttt{tex} ファイルのコンパイルは，普通に \BibTeX を使う場合と同じよう
-にしてください．
+\texttt{tex} �t�@�C���̃R���p�C���́C���ʂ� \BibTeX ���g���ꍇ�Ɠ����悤
+�ɂ��Ă��������D
 
 \begin{itemize}
- \item 一回 \texttt{platex} を実行
- \item 一回 \texttt{pbibtex} を実行
- \item あと，二回 \texttt{platex} を実行
+ \item ��� \texttt{platex} �����s
+ \item ��� \texttt{pbibtex} �����s
+ \item ���ƁC��� \texttt{platex} �����s
 \end{itemize}
 
-\BibTeX のコマンドとしては，\texttt{bibtex} ではなく \texttt{pbibtex} を使わなけ
-ればいけないです\footnote{昔は日本語文献用の \BibTeX のコマンドは
-\texttt{jbibtex} でしたが，現在 \TeX のシステムでは \texttt{pbibtex} という名前
-に変更されました．}．
+\BibTeX �̃R�}���h�Ƃ��ẮC\texttt{bibtex} �ł͂Ȃ� \texttt{pbibtex} ���g��Ȃ�
+��΂����Ȃ��ł�\footnote{�͓̂��{�ꕶ���p�� \BibTeX �̃R�}���h��
+\texttt{jbibtex} �ł������C���� \TeX �̃V�X�e���ł� \texttt{pbibtex} �Ƃ������O
+�ɕύX����܂����D}�D
 
-\subsection{ファイルの文字コードについて}
+\subsection{�t�@�C���̕����R�[�h�ɂ���}
 
-\texttt{jecon.bst}（一緒に配布している他の bst ファイルも），
-\texttt{jecon-example.bib}，\texttt{jecon-example.tex} は全て文字コードに
-UTF-8を利用しています．従って，そのまま利用するにはコンパイル時に UTF-8
-で処理する必要があります．
+\texttt{jecon.bst}�i�ꏏ�ɔz�z���Ă��鑼�� bst �t�@�C�����j�C
+\texttt{jecon-example.bib}�C\texttt{jecon-example.tex} �͑S�ĕ����R�[�h��
+UTF-8�𗘗p���Ă��܂��D�]���āC���̂܂ܗ��p����ɂ̓R���p�C������ UTF-8
+�ŏ�������K�v������܂��D
 
-現在，配布されている platexや pbibtexはUTF-8に対応していますので，単にコ
-ンパイルの際に以下のようなオプションを加えてやればよいだけです．
+���݁C�z�z����Ă��� platex�� pbibtex��UTF-8�ɑΉ����Ă��܂��̂ŁC�P�ɃR
+���p�C���̍ۂɈȉ��̂悤�ȃI�v�V�����������Ă��΂悢�����ł��D
 \begin{screen}
  \begin{verbatim}
 
@@ -702,50 +702,50 @@ UTF-8を利用しています．従って，そのまま利用するにはコン
  \end{verbatim}
 \end{screen}
 
-\subsection{ユニコード文字の利用について}
+\subsection{���j�R�[�h�����̗��p�ɂ���}
 
-前節で説明したように p\LaTeX{} (platex) はファイルの文字コードがユニコードでも扱
-えます．しかし，ユニコード文字を扱えるわけではありません．ユニコード文字を扱うに
-は upLaTeX，LuaLaTeX，XeLaTeX 等を利用する必要があります．
+�O�߂Ő��������悤�� p\LaTeX{} (platex) �̓t�@�C���̕����R�[�h�����j�R�[�h�ł���
+���܂��D�������C���j�R�[�h������������킯�ł͂���܂���D���j�R�[�h������������
+�� upLaTeX�CLuaLaTeX�CXeLaTeX ���𗘗p����K�v������܂��D
 
-Version 5.0 以降の \texttt{jecon.bst} ではユニコード文字を適切に扱うような機能を
-加えています．もし利用したい人は \texttt{jecon-unicode-xelatex.pdf} で説明して
-いますので，それを読んでください．
+Version 5.0 �ȍ~�� \texttt{jecon.bst} �ł̓��j�R�[�h������K�؂Ɉ����悤�ȋ@�\��
+�����Ă��܂��D�������p�������l�� \texttt{jecon-unicode-xelatex.pdf} �Ő�������
+���܂��̂ŁC�����ǂ�ł��������D
 
 
 
-\section{カスタマイズ}
+\section{�J�X�^�}�C�Y}
 
-ちょっとした形式の変更程度のカスタマイズは簡単にできます．
-\texttt{jecon.bst} 内の最初の部分で，\texttt{bst.xxx.yyy} というような名
-前の関数がたくさん定義されています．この関数の中身を変更することで出力の
-形式を変更することができます．
+������Ƃ����`���̕ύX���x�̃J�X�^�}�C�Y�͊ȒP�ɂł��܂��D
+\texttt{jecon.bst} ���̍ŏ��̕����ŁC\texttt{bst.xxx.yyy} �Ƃ����悤�Ȗ�
+�O�̊֐������������`����Ă��܂��D���̊֐��̒��g��ύX���邱�Ƃŏo�͂�
+�`����ύX���邱�Ƃ��ł��܂��D
 
-\subsection{関数についての注}
+\subsection{�֐��ɂ��Ă̒�}
 
 \begin{itemize}
- \item ここでのカスタマイズとは，参考文献部分の書式のカスタマイズのことです．引
-       用部分の書式は，引用のために用いるスタイルファイル（\texttt{natbib.sty}）
-       に主に依存しています．
- \item この方法では項目（著者，年，タイトル等）の表示の順番を変更するよう
-       なカスタマイズは（一部の例外を除いて）できません．そのようなカスタ
-       マイズをするには \texttt{jecon.bst} のプログラムを書き換える必要
-       があります（自分で簡単にできる場合もあると思います）．
- \item \texttt{.pre} が付いている関数は前に付ける文字列，\texttt{.post} 
-       が付いている関数は後に付ける文字列を表します．
- \item \texttt{.jp} が付いている関数は日本語文献用．
- \item Reference における文献（エントリー）の並び順を変えることもできま
-       すが，それについては第 \ref{sec:sort_rule} 節で説明します．
- \item 以下で幾つか例を挙げていますが，例で挙げるもの以外にもたくさんの
-       関数があります．自分で適当に中身を書き換えてみてください．
+ \item �����ł̃J�X�^�}�C�Y�Ƃ́C�Q�l���������̏����̃J�X�^�}�C�Y�̂��Ƃł��D��
+       �p�����̏����́C���p�̂��߂ɗp����X�^�C���t�@�C���i\texttt{natbib.sty}�j
+       �Ɏ�Ɉˑ����Ă��܂��D
+ \item ���̕��@�ł͍��ځi���ҁC�N�C�^�C�g�����j�̕\���̏��Ԃ�ύX����悤
+       �ȃJ�X�^�}�C�Y�́i�ꕔ�̗�O�������āj�ł��܂���D���̂悤�ȃJ�X�^
+       �}�C�Y������ɂ� \texttt{jecon.bst} �̃v���O����������������K�v
+       ������܂��i�����ŊȒP�ɂł���ꍇ������Ǝv���܂��j�D
+ \item \texttt{.pre} ���t���Ă���֐��͑O�ɕt���镶����C\texttt{.post} 
+       ���t���Ă���֐��͌�ɕt���镶�����\���܂��D
+ \item \texttt{.jp} ���t���Ă���֐��͓��{�ꕶ���p�D
+ \item Reference �ɂ����镶���i�G���g���[�j�̕��я���ς��邱�Ƃ��ł���
+       �����C����ɂ��Ă͑� \ref{sec:sort_rule} �߂Ő������܂��D
+ \item �ȉ��Ŋ����������Ă��܂����C��ŋ�������̈ȊO�ɂ����������
+       �֐�������܂��D�����œK���ɒ��g�����������Ă݂Ă��������D
 \end{itemize}
 
-\subsection{カスタマイズ例}
+\subsection{�J�X�^�}�C�Y��}
 
-\subsubsection{author, editor 間の区切を ``and'' から ``\&'' に変更する}
+\subsubsection{author, editor �Ԃ̋�؂� ``and'' ���� ``\&'' �ɕύX����}
 
-これには\texttt{bst.and} と \texttt{bst.ands} という関数の中身を変更しま
-す．
+����ɂ�\texttt{bst.and} �� \texttt{bst.ands} �Ƃ����֐��̒��g��ύX����
+���D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.and}
@@ -755,7 +755,7 @@ FUNCTION {bst.ands}
 \end{verbatim}
 \end{screen}
 
-これを以下のように書き換えます．
+������ȉ��̂悤�ɏ��������܂��D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.and}
@@ -765,18 +765,18 @@ FUNCTION {bst.ands}
 \end{verbatim}
 \end{screen}
 
-すると，参考文献の author 部分が
+����ƁC�Q�l������ author ������
 \begin{center}
 Fujita, Masahisa, Paul~R. Krugman, and Anthony~J. Venables \\
  $\downarrow$ \\
 Fujita, Masahisa, Paul~R. Krugman \& Anthony~J. Venables 
 \end{center}
-となります．
+�ƂȂ�܂��D
 
-\subsubsection{author を small caps 体にする}
+\subsubsection{author �� small caps �̂ɂ���}
 
-これには \texttt{bst.author.pre} と \texttt{bst.author.post} という関数
-の中身を変更します．
+����ɂ� \texttt{bst.author.pre} �� \texttt{bst.author.post} �Ƃ����֐�
+�̒��g��ύX���܂��D
 
 \begin{screen}
 \begin{verbatim}
@@ -786,7 +786,7 @@ FUNCTION {bst.author.post}
 { "" }
 \end{verbatim}
 \end{screen}
-を以下のように変更する．
+���ȉ��̂悤�ɕύX����D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.author.pre}
@@ -796,19 +796,19 @@ FUNCTION {bst.author.post}
 \end{verbatim}
 \end{screen}
 
-参考文献の author 部分が
+�Q�l������ author ������
 \begin{center}
 Fujita, Masahisa, Paul~R. Krugman, and Anthony~J. Venables \\
  $\downarrow$ \\
 \textsc{Fujita, Masahisa, Paul~R. Krugman, and Anthony~J. Venables}
 \end{center}
-となります．
+�ƂȂ�܂��D
 
-\subsubsection{volume と number の書式の変更}
+\subsubsection{volume �� number �̏����̕ύX}
 
-これには \texttt{bst.volume.pre}，\texttt{bst.volume.post}，
-\texttt{bst.number.pre}，\texttt{bst.number.post} という関数の中身を変更
-します．
+����ɂ� \texttt{bst.volume.pre}�C\texttt{bst.volume.post}�C
+\texttt{bst.number.pre}�C\texttt{bst.number.post} �Ƃ����֐��̒��g��ύX
+���܂��D
 
 \begin{screen}
 \begin{verbatim}
@@ -822,7 +822,7 @@ FUNCTION {bst.number.post}
 { "" }
 \end{verbatim}
 \end{screen}
-を以下のように変更する．
+���ȉ��̂悤�ɕύX����D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.volume.pre}
@@ -836,16 +836,16 @@ FUNCTION {bst.number.post}
 \end{verbatim}
 \end{screen}
 
-これで参考文献の volume, number の書式が，``Vol. 5, No. 10'' から 
-``\textbf{5} (10)'' となります．
+����ŎQ�l������ volume, number �̏������C``Vol. 5, No. 10'' ���� 
+``\textbf{5} (10)'' �ƂȂ�܂��D
 
 
-\subsubsection{著者名の省略方法を変更する}
+\subsubsection{���Җ��̏ȗ����@��ύX����}
 
-デフォールトでは参考文献部分で同じ著者が続く場合に，\verb|\bysame|という命令
-（{}\bysameline{}という記号）によって省略するようになっています．
+�f�t�H�[���g�ł͎Q�l���������œ������҂������ꍇ�ɁC\verb|\bysame|�Ƃ�������
+�i{}\bysameline{}�Ƃ����L���j�ɂ���ďȗ�����悤�ɂȂ��Ă��܂��D
 
-例えば，次のような文献があるとします．
+�Ⴆ�΁C���̂悤�ȕ���������Ƃ��܂��D
 \begin{screen}
 \begin{itemize}
  \item Mazda, A., Subaru, B., and Honda, C., (2011) ``ABC''
@@ -854,8 +854,8 @@ FUNCTION {bst.number.post}
 \end{itemize}
 \end{screen}
 
-デフォールトの設定（\texttt{bst.use.bysame} に \texttt{\#1} が設定されているとき）
-ではこれらの文献は次のように表示されます．
+�f�t�H�[���g�̐ݒ�i\texttt{bst.use.bysame} �� \texttt{\#1} ���ݒ肳��Ă���Ƃ��j
+�ł͂����̕����͎��̂悤�ɕ\������܂��D
 \begin{screen}
 \begin{itemize}
  \item Mazda, A., Subaru, B., and Honda, C., (2011) ``ABC''
@@ -864,8 +864,8 @@ FUNCTION {bst.number.post}
 \end{itemize}
 \end{screen}
 
-もし全ての著者の名前を省略せずに表示したいのなら，``\texttt{bst.use.bysame}'' の
-中身を次のようにします．
+�����S�Ă̒��҂̖��O���ȗ������ɕ\���������̂Ȃ�C``\texttt{bst.use.bysame}'' ��
+���g�����̂悤�ɂ��܂��D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.use.bysame}
@@ -873,8 +873,8 @@ FUNCTION {bst.use.bysame}
 \end{verbatim}
 \end{screen}
 
-デフォールトの設定では，著者名の省略は著者名が完全に一致するときのみおこなわれま
-した．ここで \texttt{bst.use.bysame} に次のように \texttt{\#2} を設定すると
+�f�t�H�[���g�̐ݒ�ł́C���Җ��̏ȗ��͒��Җ������S�Ɉ�v����Ƃ��݂̂����Ȃ���
+�����D������ \texttt{bst.use.bysame} �Ɏ��̂悤�� \texttt{\#2} ��ݒ肷���
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.use.bysame}
@@ -882,7 +882,7 @@ FUNCTION {bst.use.bysame}
 \end{verbatim}
 \end{screen}
 
-以下のように異なったスタイルの省略方法を選択することができます．
+�ȉ��̂悤�ɈقȂ����X�^�C���̏ȗ����@��I�����邱�Ƃ��ł��܂��D
 \begin{screen}
 \begin{itemize}
  \item Mazda, A., Subaru, B., Honda, C., (2011) ``ABC''
@@ -890,82 +890,82 @@ FUNCTION {bst.use.bysame}
  \item \bysameline, \bysameline, and Toyota, D., (2011) ``GHI''
 \end{itemize}
 \end{screen}
-つまり，著者名の一部のみが同じ場合でも \verb|\bysame| による省略をおこなうような
-表示形式です．このスタイルは \verb|jecon-b.pdf| で使われています．
+�܂�C���Җ��̈ꕔ�݂̂������ꍇ�ł� \verb|\bysame| �ɂ��ȗ��������Ȃ��悤��
+�\���`���ł��D���̃X�^�C���� \verb|jecon-b.pdf| �Ŏg���Ă��܂��D
 
 
 
 \vspace*{1em}
 
-\subsubsection{author（editor）名における「姓」，「名」の順序を変更する}
+\subsubsection{author�ieditor�j���ɂ�����u���v�C�u���v�̏�����ύX����}
 
-経済学の reference では，first author 名は「姓, 名」の順番で表記し，
-second author 以下は「名 姓」とするというケースが多いと思います． 
-\texttt{jecon.bst}でもデフォールトではこのような形式にしていますが，これも 
-\texttt{bst.author.name} という関数の中身を変えることで変更できます．
+�o�ϊw�� reference �ł́Cfirst author ���́u��, ���v�̏��Ԃŕ\�L���C
+second author �ȉ��́u�� ���v�Ƃ���Ƃ����P�[�X�������Ǝv���܂��D 
+\texttt{jecon.bst}�ł��f�t�H�[���g�ł͂��̂悤�Ȍ`���ɂ��Ă��܂����C����� 
+\texttt{bst.author.name} �Ƃ����֐��̒��g��ς��邱�ƂŕύX�ł��܂��D
 
-\texttt{bst.author.name} はもともとは次のように定義されています．
+\texttt{bst.author.name} �͂��Ƃ��Ƃ͎��̂悤�ɒ�`����Ă��܂��D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.author.name}
 { #0 }
 \end{verbatim}
 \end{screen}
-この \verb|#0| を \verb|#1| や \verb|#2| に変更することで姓名の順序が変
-わります．例えば，
+���� \verb|#0| �� \verb|#1| �� \verb|#2| �ɕύX���邱�ƂŐ����̏�������
+���܂��D�Ⴆ�΁C
 \begin{verbatim}
   author =       {Masahisa Fujita and Paul R. Krugman and Anthony J. Venables}
 \end{verbatim}
-という author が指定された文献があったとします．\texttt{bst.author.name} 
-の値によって，この author 名は以下のように表示が変わります．
+�Ƃ��� author ���w�肳�ꂽ�������������Ƃ��܂��D\texttt{bst.author.name} 
+�̒l�ɂ���āC���� author ���͈ȉ��̂悤�ɕ\�����ς��܂��D
 \begin{enumerate}
- \item \verb|#0| のとき： これがデフォールト． First author のみ「姓, 
-       名」，残りは「名 姓」\\
+ \item \verb|#0| �̂Ƃ��F ���ꂪ�f�t�H�[���g�D First author �̂݁u��, 
+       ���v�C�c��́u�� ���v\\
        $\rightarrow$ Fujita, Masahisa, Paul~R. Krugman, and
        Anthony~J. Venables
- \item \verb|#1| のとき： 全ての author で「姓, 名」という順序\\
+ \item \verb|#1| �̂Ƃ��F �S�Ă� author �Łu��, ���v�Ƃ�������\\
        $\rightarrow$ Fujita, Masahisa, Krugman, Paul~R., and Venables, Anthony~J.
- \item \verb|#2| のとき： 全ての author で「名 姓」という順序\\
+ \item \verb|#2| �̂Ƃ��F �S�Ă� author �Łu�� ���v�Ƃ�������\\
        $\rightarrow$ Masahisa Fujita, Paul~R. Krugman, and Anthony~J. Venables
 \end{enumerate}
 
-\subsubsection{first name を頭文字のみにする}
+\subsubsection{first name �𓪕����݂̂ɂ���}
 
-デフォールトでは，bib ファイル内で，first name を略さずに指定している場
-合，そのまま略さずに表示するようにしています．
-\texttt{bst.first.name.initial} という関数の中身を変えると，これを頭文字
-のみにすることができます．
+�f�t�H�[���g�ł́Cbib �t�@�C�����ŁCfirst name �𗪂����Ɏw�肵�Ă����
+���C���̂܂ܗ������ɕ\������悤�ɂ��Ă��܂��D
+\texttt{bst.first.name.initial} �Ƃ����֐��̒��g��ς���ƁC����𓪕���
+�݂̂ɂ��邱�Ƃ��ł��܂��D
 
-\texttt{bst.first.name.initial} はもともとは次のように定義されています．
+\texttt{bst.first.name.initial} �͂��Ƃ��Ƃ͎��̂悤�ɒ�`����Ă��܂��D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.first.name.initial}
 { #0 }
 \end{verbatim}
 \end{screen}
-この \verb|#0| を \verb|#0| 以外（例えば，\verb|#1|）に変更すると
-first name はイニシャルだけを表示するようになります．
+���� \verb|#0| �� \verb|#0| �ȊO�i�Ⴆ�΁C\verb|#1|�j�ɕύX�����
+first name �̓C�j�V����������\������悤�ɂȂ�܂��D
 \begin{center}
 Fujita, Masahisa, Paul~R. Krugman, and Anthony~J. Venables \\
  $\downarrow$ \\
 Fujita, M., P.~R. Krugman, and A.~J. Venables
 \end{center}
 
-\subsubsection{title 内の先頭文字以外を小文字に変換する}
+\subsubsection{title ���̐擪�����ȊO���������ɕϊ�����}
 
-デフォールトでは，bib ファイルで title を
+�f�t�H�[���g�ł́Cbib �t�@�C���� title ��
 \begin{center}
   \verb| title =        {Econometric Policy Evaluation: A Critique}|
 \end{center}
-というように指定していた場合，reference ではそのまま
+�Ƃ����悤�Ɏw�肵�Ă����ꍇ�Creference �ł͂��̂܂�
 \begin{center}
  Econometric Policy Evaluation: A Critique
 \end{center}
-というような形で出力されます．
+�Ƃ����悤�Ȍ`�ŏo�͂���܂��D
 
-\texttt{bst.title.lower.case} という関数の中身を以下のように \verb|#0| 
-以外に書き換えると，先頭文字（と : の後の文字）以外は全て小文字に変換す
-るようになります．
+\texttt{bst.title.lower.case} �Ƃ����֐��̒��g���ȉ��̂悤�� \verb|#0| 
+�ȊO�ɏ���������ƁC�擪�����i�� : �̌�̕����j�ȊO�͑S�ď������ɕϊ���
+��悤�ɂȂ�܂��D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.title.lower.case}
@@ -973,19 +973,19 @@ FUNCTION {bst.title.lower.case}
 \end{verbatim}
 \end{screen}
 
-つまり，以下のような出力になります．
+�܂�C�ȉ��̂悤�ȏo�͂ɂȂ�܂��D
 \begin{center}
  Econometric policy evaluation: A critique
 \end{center}
 
-ただし，Book の title 等には影響しません．また，元々小文字ならなにも変わ
-りません．
+�������CBook �� title ���ɂ͉e�����܂���D�܂��C���X�������Ȃ�Ȃɂ��ς�
+��܂���D
 
-\subsubsection{Reference の文献の前に番号を付ける}
+\subsubsection{Reference �̕����̑O�ɔԍ���t����}
 
-\texttt{jplain.bst} のように reference 部分の文献の前に番号（number index）を付け
-る方法\footnote{引用部分は，著者（年）で変わりません．}．これには，
-\texttt{bst.use.number.index} を以下のように変更します．
+\texttt{jplain.bst} �̂悤�� reference �����̕����̑O�ɔԍ��inumber index�j��t��
+����@\footnote{���p�����́C���ҁi�N�j�ŕς��܂���D}�D����ɂ́C
+\texttt{bst.use.number.index} ���ȉ��̂悤�ɕύX���܂��D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.use.number.index}
@@ -993,16 +993,16 @@ FUNCTION {bst.use.number.index}
 \end{verbatim}
 \end{screen}
 
-他に幾つかある \texttt{bst.number.index.xxx.yyy} という関数の中身を調整することで，
-番号を表示するときの見た目（インデント幅等）を調整できます．Computer modern 以外
-のフォントを利用するときには，デフォールトの設定ではインデントがずれるので，調整
-をおこなったほうが見た目がよくなると思います．
+���Ɋ������ \texttt{bst.number.index.xxx.yyy} �Ƃ����֐��̒��g�𒲐����邱�ƂŁC
+�ԍ���\������Ƃ��̌����ځi�C���f���g�����j�𒲐��ł��܂��DComputer modern �ȊO
+�̃t�H���g�𗘗p����Ƃ��ɂ́C�f�t�H�[���g�̐ݒ�ł̓C���f���g�������̂ŁC����
+�������Ȃ����ق��������ڂ��悭�Ȃ�Ǝv���܂��D
 
-\subsubsection{年によるソートを逆にする（新しい文献を上にする）}
+\subsubsection{�N�ɂ��\�[�g���t�ɂ���i�V������������ɂ���j}
 
-デフォールトでは同じ著者の文献ならより古い文献ほど reference で上側に表
-示されます．これを逆に新しい文献ほど上側に表示するように変更できます．こ
-れには \texttt{bst.reverse.year} に 0 以外を指定します．
+�f�t�H�[���g�ł͓������҂̕����Ȃ���Â������ق� reference �ŏ㑤�ɕ\
+������܂��D������t�ɐV���������قǏ㑤�ɕ\������悤�ɕύX�ł��܂��D��
+��ɂ� \texttt{bst.reverse.year} �� 0 �ȊO���w�肵�܂��D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.reverse.year}
@@ -1010,36 +1010,36 @@ FUNCTION {bst.reverse.year}
 \end{verbatim}
 \end{screen}
 
-このような設定は普通は意味はないと思いますが，自分の業績リスト等を \TeX 
-上で \BibTeX を使って作成するときには使えるかもしれません．
+���̂悤�Ȑݒ�͕��ʂ͈Ӗ��͂Ȃ��Ǝv���܂����C�����̋Ɛу��X�g���� \TeX 
+��� \BibTeX ���g���č쐬����Ƃ��ɂ͎g���邩������܂���D
 
-\subsubsection{日本語 author（editor）の姓名の間に空白（文字列）を入れる}
+\subsubsection{���{�� author�ieditor�j�̐����̊Ԃɋ󔒁i������j������}
 
-Reference での日本語 author（or editor）の姓名の間になんらかの文字列を入
-れることができます．これには\verb|bst.sei.mei.one.jp|，
-\verb|bst.sei.mei.two.jp| という二つの関数の中身を変更します．前者は姓名
-のどちらかが一文字の author 名に対する設定で，後者は姓名のどちらも二文字
-以上の author 名に対する設定です．例えば，次のように指定したとします．
+Reference �ł̓��{�� author�ior editor�j�̐����̊ԂɂȂ�炩�̕�������
+��邱�Ƃ��ł��܂��D����ɂ�\verb|bst.sei.mei.one.jp|�C
+\verb|bst.sei.mei.two.jp| �Ƃ�����̊֐��̒��g��ύX���܂��D�O�҂͐���
+�̂ǂ��炩���ꕶ���� author ���ɑ΂���ݒ�ŁC��҂͐����̂ǂ�����񕶎�
+�ȏ�� author ���ɑ΂���ݒ�ł��D�Ⴆ�΁C���̂悤�Ɏw�肵���Ƃ��܂��D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.sei.mei.one.jp}
-{ "　" }        % <- 全角空白を指定している．
+{ "�@" }        % <- �S�p�󔒂��w�肵�Ă���D
 FUNCTION {bst.sei.mei.two.jp}
-{ " " }         % <- 半角空白を指定している．
+{ " " }         % <- ���p�󔒂��w�肵�Ă���D
 \end{verbatim}
 \end{screen}
 
-この場合，Reference では根岸隆という author 名は「根岸　隆」のように間に
-全角空白が挿入されて表示され，小宮隆太郎は「小宮 隆太郎」のように半角空
-白が挿入されて表示されます．デフォールトでは何も挿入しないようになってい
-ます（空の文字列が指定してあります）．なお，これは incollection の editor 
-には適用されません．
+���̏ꍇ�CReference �ł͍��ݗ��Ƃ��� author ���́u���݁@���v�̂悤�ɊԂ�
+�S�p�󔒂��}������ĕ\������C���{�����Y�́u���{ �����Y�v�̂悤�ɔ��p��
+�����}������ĕ\������܂��D�f�t�H�[���g�ł͉����}�����Ȃ��悤�ɂȂ��Ă�
+�܂��i��̕����񂪎w�肵�Ă���܂��j�D�Ȃ��C����� incollection �� editor 
+�ɂ͓K�p����܂���D
 
-\subsubsection{年の表示される位置を後ろにもってくる}
+\subsubsection{�N�̕\�������ʒu�����ɂ����Ă���}
 
-標準では「年」は著者名のすぐ後ろに表示されるようになっていますが，これを
-後ろにもっていくことができます．これには \texttt{bst.year.backward} とい
-う関数の中身を 0 以外にしてください．
+�W���ł́u�N�v�͒��Җ��̂������ɕ\�������悤�ɂȂ��Ă��܂����C�����
+���ɂ����Ă������Ƃ��ł��܂��D����ɂ� \texttt{bst.year.backward} �Ƃ�
+���֐��̒��g�� 0 �ȊO�ɂ��Ă��������D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.year.backward}
@@ -1047,24 +1047,24 @@ FUNCTION {bst.year.backward}
 \end{verbatim}
 \end{screen}
 
-後ろとは \texttt{note} フィールドがなければ最後の位置，\texttt{note} フィー
-ルドがあればその前です．例えば，以下のようになります．
+���Ƃ� \texttt{note} �t�B�[���h���Ȃ���΍Ō�̈ʒu�C\texttt{note} �t�B�[
+���h������΂��̑O�ł��D�Ⴆ�΁C�ȉ��̂悤�ɂȂ�܂��D
 \begin{center}
  Krugman, Paul R. (1991a) \textit{Geography and Trade}, Cambridge, MA:
  MIT Press. \\
  $\downarrow$ \\
  Krugman, Paul R. \textit{Geography and Trade}, Cambridge, MA: MIT Press, 1991a.
 \end{center}
-この例では同時に年を囲む括弧をとるように設定を変更しています．
+���̗�ł͓����ɔN���͂ފ��ʂ��Ƃ�悤�ɐݒ��ύX���Ă��܂��D
 
-\subsubsection{日本語文献に含まれる数字（年，月，号，巻等）を漢数字に変換する}
+\subsubsection{���{�ꕶ���Ɋ܂܂�鐔���i�N�C���C���C�����j���������ɕϊ�����}
 
-経済学の論文は横書きで書くことが多いのでこんな機能にはあまり意味がないと
-思いますが，数字を漢数字に変換する機能も付いています．これには 
-\texttt{bst.kansuji.jp} という関数の中身を 0 以外に変更します\footnote
-{数字を漢数字にするには，\LaTeX の \texttt{plext} スタイルの 
-\verb|\kanji| 命令を利用する方法がありますが，ここでは bst ファイルの中
-で直接数字 $\rightarrow$ 漢数字の変換をおこなっています．}．
+�o�ϊw�̘_���͉������ŏ������Ƃ������̂ł���ȋ@�\�ɂ͂��܂�Ӗ����Ȃ���
+�v���܂����C�������������ɕϊ�����@�\���t���Ă��܂��D����ɂ� 
+\texttt{bst.kansuji.jp} �Ƃ����֐��̒��g�� 0 �ȊO�ɕύX���܂�\footnote
+{�������������ɂ���ɂ́C\LaTeX �� \texttt{plext} �X�^�C���� 
+\verb|\kanji| ���߂𗘗p������@������܂����C�����ł� bst �t�@�C���̒�
+�Œ��ڐ��� $\rightarrow$ �������̕ϊ��������Ȃ��Ă��܂��D}�D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.kansuji.jp}
@@ -1072,12 +1072,12 @@ FUNCTION {bst.kansuji.jp}
 \end{verbatim}
 \end{screen}
 
-縦書きで論文を書く人には役に立つかもしれません（？）．
+�c�����Ř_���������l�ɂ͖��ɗ���������܂���i�H�j�D
 
-\subsubsection{区切り文字（ピリオド，カンマ） について}
+\subsubsection{��؂蕶���i�s���I�h�C�J���}�j �ɂ���}
 
-Journal article のケースでは論文名（title フィールド）のすぐ後に
-雑誌名（journal フィールド）がきます．ここで，例えば
+Journal article �̃P�[�X�ł͘_�����ititle �t�B�[���h�j�̂������
+�G�����ijournal �t�B�[���h�j�����܂��D�����ŁC�Ⴆ��
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.title.post}
@@ -1087,53 +1087,53 @@ FUNCTION {bst.journal.pre}
 { ", \textit{ " }
 \end{verbatim}
 \end{screen}
-というように指定していたとします．\texttt{jecon.bst} では
+�Ƃ����悤�Ɏw�肵�Ă����Ƃ��܂��D\texttt{jecon.bst} �ł�
 \begin{center}
 \verb|bst.title.pre + title + bst.title.post| \\
 \verb|bst.journal.pre + journal + bst.journal.post|
 \end{center}
-という文字列を作成し，両者を繋げるという処理をおこないますので，
-上のように指定している場合には
+�Ƃ�����������쐬���C���҂��q����Ƃ��������������Ȃ��܂��̂ŁC
+��̂悤�Ɏw�肵�Ă���ꍇ�ɂ�
 \begin{flushleft}
  ..., ``The Double Dividend from Carbon Regulations in Japan\textbf{.'',} \textit{Journal of the Japanese and International Economies}, ...
 \end{flushleft}
-のように，ピリオドがあるにもかかわらずその後にカンマがくるという出力になってしま
-います．これは少しおかしいので，このようにピリオド，カンマが連続するような場合に
-は後側を省略するという処理をおこなっています．上の例では，「.'',」 ではなく「.''」
-にするということです．同じことは 「.,」，「..」，「.',」等にも適用されます．
+�̂悤�ɁC�s���I�h������ɂ�������炸���̌�ɃJ���}������Ƃ����o�͂ɂȂ��Ă���
+���܂��D����͏������������̂ŁC���̂悤�Ƀs���I�h�C�J���}���A������悤�ȏꍇ��
+�͌㑤���ȗ�����Ƃ��������������Ȃ��Ă��܂��D��̗�ł́C�u.'',�v �ł͂Ȃ��u.''�v
+�ɂ���Ƃ������Ƃł��D�������Ƃ� �u.,�v�C�u..�v�C�u.',�v���ɂ��K�p����܂��D
 
 
-\subsection{特殊なフィールド}
+\subsection{����ȃt�B�[���h}
 
-ここまでに既に普通のbibファイルでは指定しない特殊なフィールドがいくつかでてきま
-した．第~\ref{sec:hoyakusho} 節の \texttt{translator}，\texttt{kanyaku} 等です．
-これに加えて，いくつか\texttt{jecon.bst} 独自のフィールドがあります
-\footnote{\texttt{bst} ファイルによっては同じフィールドに対応しているものもある
-と思います．}．
+�����܂łɊ��ɕ��ʂ�bib�t�@�C���ł͎w�肵�Ȃ�����ȃt�B�[���h���������łĂ���
+�����D��~\ref{sec:hoyakusho} �߂� \texttt{translator}�C\texttt{kanyaku} ���ł��D
+����ɉ����āC������\texttt{jecon.bst} �Ǝ��̃t�B�[���h������܂�
+\footnote{\texttt{bst} �t�@�C���ɂ���Ă͓����t�B�[���h�ɑΉ����Ă�����̂�����
+�Ǝv���܂��D}�D
 \begin{itemize}
  \item \texttt{url}
  \item \texttt{access}
  \item \texttt{doi}
 \end{itemize}
 
-\texttt{url} は URL（ウェブサイトのアドレス）を指定するフィールド．
-\texttt{access} はそのURLにアクセスした日付を指定しておくフィールド．最後の
-\texttt{doi}は名前の通りDOI（digital object identifier）を指定しておくフィールド
-です．
+\texttt{url} �� URL�i�E�F�u�T�C�g�̃A�h���X�j���w�肷��t�B�[���h�D
+\texttt{access} �͂���URL�ɃA�N�Z�X�������t���w�肵�Ă����t�B�[���h�D�Ō��
+\texttt{doi}�͖��O�̒ʂ�DOI�idigital object identifier�j���w�肵�Ă����t�B�[���h
+�ł��D
 
 \begin{screen}
- \textbf{注意：}これらのフィールドを指定した文献を扱うときには \verb|\url| 命令が
- 利用できるようになっていなければいけないです．\verb|\url|命令は例えば
- \texttt{hyperref} パッケージで定義されていますので，次のようにプリアンプルで読み込んでおい
- てください．
+ \textbf{���ӁF}�����̃t�B�[���h���w�肵�������������Ƃ��ɂ� \verb|\url| ���߂�
+ ���p�ł���悤�ɂȂ��Ă��Ȃ���΂����Ȃ��ł��D\verb|\url|���߂͗Ⴆ��
+ \texttt{hyperref} �p�b�P�[�W�Œ�`����Ă��܂��̂ŁC���̂悤�Ƀv���A���v���œǂݍ���ł���
+ �Ă��������D
  \begin{verbatim}
 \usepackage{hyperref}
  \end{verbatim} 
 \end{screen}
 
-\subsubsection{urlとaccessフィールド}
+\subsubsection{url��access�t�B�[���h}
 
-例えば，\texttt{jecon-example.bib}に次のような文献があります．
+�Ⴆ�΁C\texttt{jecon-example.bib}�Ɏ��̂悤�ȕ���������܂��D
 \begin{verbatim}
 @unpublished{rutherford00:_gtapin_gtap_eg,
   author       = {Thomas F. Rutherford and Sergey V. Paltsev},
@@ -1147,7 +1147,7 @@ FUNCTION {bst.journal.pre}
 }
 \end{verbatim}
 
-これは参考文献では次のような表示になります．
+����͎Q�l�����ł͎��̂悤�ȕ\���ɂȂ�܂��D
 \begin{screen}
  \begin{itemize}
   \item  Rutherford, Thomas~F. and Sergey~V. Paltsev (2000) ``{GTAPinGAMS} and
@@ -1158,18 +1158,18 @@ FUNCTION {bst.journal.pre}
 \end{screen}
 
 \begin{itemize}
- \item URLの前後に付ける文字列は \texttt{bst.url.pre}，\texttt{bst.url.post} などで変更できます．
- \item accessはURLにアクセスした日付けを指定するフィールドですので，URLフィールド
-       がないときには意味がありません．accessは指定しなければ何も表示されません．
+ \item URL�̑O��ɕt���镶����� \texttt{bst.url.pre}�C\texttt{bst.url.post} �ȂǂŕύX�ł��܂��D
+ \item access��URL�ɃA�N�Z�X�������t�����w�肷��t�B�[���h�ł��̂ŁCURL�t�B�[���h
+       ���Ȃ��Ƃ��ɂ͈Ӗ�������܂���Daccess�͎w�肵�Ȃ���Ή����\������܂���D
 \end{itemize}
 
-\subsubsection{DOIフィールド}
+\subsubsection{DOI�t�B�[���h}
 
-URLですと論文の置き場に変更が生じたときにリンク切れになりますが，DOIならそういう
-ことがありません．最近はDOIが指定された論文が多くなったので，DOIも指定できるよう
-にしました．
+URL�ł��Ƙ_���̒u����ɕύX���������Ƃ��Ƀ����N�؂�ɂȂ�܂����CDOI�Ȃ炻������
+���Ƃ�����܂���D�ŋ߂�DOI���w�肳�ꂽ�_���������Ȃ����̂ŁCDOI���w��ł���悤
+�ɂ��܂����D
 
-例えば，次の文献はDOIを指定しています．
+�Ⴆ�΁C���̕�����DOI���w�肵�Ă��܂��D
 \begin{verbatim}
 @article{Takeda2012a,
   author       = {Takeda, Shiro and Tetsuya, Horie and Arimura, Toshi H.},
@@ -1183,7 +1183,7 @@ URLですと論文の置き場に変更が生じたときにリンク切れに�
 }
 \end{verbatim}
 
-これは参考文献では次のような表示になります．
+����͎Q�l�����ł͎��̂悤�ȕ\���ɂȂ�܂��D
 \begin{screen}
  \begin{itemize}
   \item Takeda, Shiro, Horie Tetsuya, and Toshi~H. Arimura (2012) ``A CGE Analysis of
@@ -1193,77 +1193,77 @@ URLですと論文の置き場に変更が生じたときにリンク切れに�
  \end{itemize}
 \end{screen}
 
-\section{文献ソートのルールについて}
+\section{�����\�[�g�̃��[���ɂ���}
 \label{sec:sort_rule}
 
-\noindent \textbf{［注］} 普通に参考文献つくるだけならこの節の説明は読ま
-ないでもいいと思います．参考文献で特殊な並び方をさせたいときのための説明
-です．
+\noindent \textbf{�m���n} ���ʂɎQ�l�������邾���Ȃ炱�̐߂̐����͓ǂ�
+�Ȃ��ł������Ǝv���܂��D�Q�l�����œ���ȕ��ѕ������������Ƃ��̂��߂̐���
+�ł��D
 
-\subsection{基本的なルール}
+\subsection{��{�I�ȃ��[��}
 
-ここでは reference における文献の並び順ルールについて説明します．文献の
-ソートは bib ファイルで指定されている各フィールドの値に従っておこなわれ
-ます．基本的には以下の優先順位に従ってソートがおこなわれます．
+�����ł� reference �ɂ����镶���̕��я����[���ɂ��Đ������܂��D������
+�\�[�g�� bib �t�@�C���Ŏw�肳��Ă���e�t�B�[���h�̒l�ɏ]���Ă����Ȃ��
+�܂��D��{�I�ɂ͈ȉ��̗D�揇�ʂɏ]���ă\�[�g�������Ȃ��܂��D
 \begin{enumerate}
- \item 文献のタイプの種類（ただし，\texttt{bst.sort.entry.type} に非ゼロ
-       が設定されているときのみ）．
- \item \texttt{year} の値（ただし，\texttt{bst.sort.year} に非ゼロが設定
-       されているときのみ）．
- \item \texttt{absorder} の値
- \item \texttt{author}，あるいは\texttt{editor}，日本語文献で
-       \texttt{yomi} が指定してあるときには \texttt{yomi} の値を優先
- \item \texttt{year} の値
- \item \texttt{order} の値
- \item \texttt{month} の値
- \item \texttt{title} の値
+ \item �����̃^�C�v�̎�ށi�������C\texttt{bst.sort.entry.type} �ɔ�[��
+       ���ݒ肳��Ă���Ƃ��̂݁j�D
+ \item \texttt{year} �̒l�i�������C\texttt{bst.sort.year} �ɔ�[�����ݒ�
+       ����Ă���Ƃ��̂݁j�D
+ \item \texttt{absorder} �̒l
+ \item \texttt{author}�C���邢��\texttt{editor}�C���{�ꕶ����
+       \texttt{yomi} ���w�肵�Ă���Ƃ��ɂ� \texttt{yomi} �̒l��D��
+ \item \texttt{year} �̒l
+ \item \texttt{order} �̒l
+ \item \texttt{month} �̒l
+ \item \texttt{title} �̒l
 \end{enumerate}
 
-上のルールは，まず，\texttt{bst.sort.entry.type} に非ゼロが設定されてい
-るならタイプ別（article，book，incollection 等）に分けられソート，次に 
-\texttt{bst.sort.year} に非ゼロが設定されているなら \texttt{year} の値 
-（年順）にソート，次に \texttt{absorder} の値を参照しソート，次に 
-\texttt{author}，\texttt{editor} の値（\texttt{yomi} が指定されていると
-きはそちらの値）を参照してソート，次に \texttt{year} の値でソートという
-ように並び順を決めていくということです．
+��̃��[���́C�܂��C\texttt{bst.sort.entry.type} �ɔ�[�����ݒ肳��Ă�
+��Ȃ�^�C�v�ʁiarticle�Cbook�Cincollection ���j�ɕ������\�[�g�C���� 
+\texttt{bst.sort.year} �ɔ�[�����ݒ肳��Ă���Ȃ� \texttt{year} �̒l 
+�i�N���j�Ƀ\�[�g�C���� \texttt{absorder} �̒l���Q�Ƃ��\�[�g�C���� 
+\texttt{author}�C\texttt{editor} �̒l�i\texttt{yomi} ���w�肳��Ă����
+���͂�����̒l�j���Q�Ƃ��ă\�[�g�C���� \texttt{year} �̒l�Ń\�[�g�Ƃ���
+�悤�ɕ��я������߂Ă����Ƃ������Ƃł��D
 
-\texttt{bst.sort.entry.type} のデフォールト値 は 0 であるので，デフォールトではタ
-イプ別には分けず，全てのタイプの文献が混ざった形で列挙されます．
-\texttt{bst.sort.year} も同様にデフォールトではゼロが設定されているので関係ありま
-せん．また，\textbf{『\texttt{absorder} 』}と \textbf {『\texttt{order}』} は
-\texttt{jecon.bst} に独自のフィールドであり普通は指定されていないはずなのでやはり
-デフォールトでは関係ないです．従って，普通は \texttt{author}
+\texttt{bst.sort.entry.type} �̃f�t�H�[���g�l �� 0 �ł���̂ŁC�f�t�H�[���g�ł̓^
+�C�v�ʂɂ͕������C�S�Ẵ^�C�v�̕��������������`�ŗ񋓂���܂��D
+\texttt{bst.sort.year} �����l�Ƀf�t�H�[���g�ł̓[�����ݒ肳��Ă���̂Ŋ֌W�����
+����D�܂��C\textbf{�w\texttt{absorder} �x}�� \textbf {�w\texttt{order}�x} ��
+\texttt{jecon.bst} �ɓƎ��̃t�B�[���h�ł��蕁�ʂ͎w�肳��Ă��Ȃ��͂��Ȃ̂ł�͂�
+�f�t�H�[���g�ł͊֌W�Ȃ��ł��D�]���āC���ʂ� \texttt{author}
 $\rightarrow$\texttt{year} $\rightarrow$\texttt{month}
-$\rightarrow$\texttt{title} の値に従ってソートされることになります．
+$\rightarrow$\texttt{title} �̒l�ɏ]���ă\�[�g����邱�ƂɂȂ�܂��D
 
-各フィールドの中での順位付けは文字コードが小さい順におこなわれます．例えば，英語
-の \texttt{author} の中での順番は alphabet 順となります（a, b, c という順に文字
-コードが大きくなるので）．また，日本語文献の著者で\texttt{yomi} にひらがなで指定
-してあるときには「あいうえお順」です．また，\texttt{year} の場合には数値が指定さ
-れていますが，このときは基本的に小さいものが優先されます（小さい数のが文字コード
-が小さいので）\footnote{year の並び順については逆にできます．前節参照．}．それと，
-日本語文献に関しては
+�e�t�B�[���h�̒��ł̏��ʕt���͕����R�[�h�����������ɂ����Ȃ��܂��D�Ⴆ�΁C�p��
+�� \texttt{author} �̒��ł̏��Ԃ� alphabet ���ƂȂ�܂��ia, b, c �Ƃ������ɕ���
+�R�[�h���傫���Ȃ�̂Łj�D�܂��C���{�ꕶ���̒��҂�\texttt{yomi} �ɂЂ炪�ȂŎw��
+���Ă���Ƃ��ɂ́u�������������v�ł��D�܂��C\texttt{year} �̏ꍇ�ɂ͐��l���w�肳
+��Ă��܂����C���̂Ƃ��͊�{�I�ɏ��������̂��D�悳��܂��i���������̂������R�[�h
+���������̂Łj\footnote{year �̕��я��ɂ��Ă͋t�ɂł��܂��D�O�ߎQ�ƁD}�D����ƁC
+���{�ꕶ���Ɋւ��Ă�
 \begin{itemize}
- \item \texttt{yomi} をひらがなで指定しているもの $\rightarrow$ 英語文献とは分け
-       て，後ろに並べられます．
- \item \texttt{yomi} を alphabet で指定しているも $\rightarrow$ 英語文献と混ぜた
-       形で並べられます．
- \item 日本語文献でも著者名がアルファベットであるときには，\texttt{yomi} を日本
-       語で指定していなければ英語文献と混ぜて表示され，\texttt{yomi} を日本語で
-       指定していれば日本語文献と混ぜて表示されまます．
+ \item \texttt{yomi} ���Ђ炪�ȂŎw�肵�Ă������ $\rightarrow$ �p�ꕶ���Ƃ͕���
+       �āC���ɕ��ׂ��܂��D
+ \item \texttt{yomi} �� alphabet �Ŏw�肵�Ă���� $\rightarrow$ �p�ꕶ���ƍ�����
+       �`�ŕ��ׂ��܂��D
+ \item ���{�ꕶ���ł����Җ����A���t�@�x�b�g�ł���Ƃ��ɂ́C\texttt{yomi} ����{
+       ��Ŏw�肵�Ă��Ȃ���Ήp�ꕶ���ƍ����ĕ\������C\texttt{yomi} ����{���
+       �w�肵�Ă���Γ��{�ꕶ���ƍ����ĕ\������܂܂��D
 \end{itemize}
-というルールがあります．
+�Ƃ������[��������܂��D
 
-普通の論文，レポート等を作成するときにはデフォールトのままの並び方で十分
-だと思いますが，特殊な参考文献を作成したい，参考文献での並び順をどうして
-も変更したいというような場合には，\texttt{absorder}，\texttt{order} といっ
-たフィールドを指定したり，その他のカスタマイズの機能を利用することで，あ
-る程度ソートの順番を変更することができます．以下ではその方法を説明します．
+���ʂ̘_���C���|�[�g�����쐬����Ƃ��ɂ̓f�t�H�[���g�̂܂܂̕��ѕ��ŏ\��
+���Ǝv���܂����C����ȎQ�l�������쐬�������C�Q�l�����ł̕��я����ǂ�����
+���ύX�������Ƃ����悤�ȏꍇ�ɂ́C\texttt{absorder}�C\texttt{order} �Ƃ���
+���t�B�[���h���w�肵����C���̑��̃J�X�^�}�C�Y�̋@�\�𗘗p���邱�ƂŁC��
+����x�\�[�g�̏��Ԃ�ύX���邱�Ƃ��ł��܂��D�ȉ��ł͂��̕��@��������܂��D
 
-\subsection{引用順でそのまま参考文献を並べる}
+\subsection{���p���ł��̂܂܎Q�l��������ׂ�}
 
-特に並べ替えはせずに引用した順序のまま参考文献に並べるようにもできます．
-こうするには \texttt{bst.no.sort} に非ゼロを設定します．
+���ɕ��בւ��͂����Ɉ��p���������̂܂܎Q�l�����ɕ��ׂ�悤�ɂ��ł��܂��D
+��������ɂ� \texttt{bst.no.sort} �ɔ�[����ݒ肵�܂��D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.no.sort}
@@ -1271,14 +1271,14 @@ FUNCTION {bst.no.sort}
 \end{verbatim}
 \end{screen}
 
-なお，これと \verb|\bysame| を同時に利用すると問題が起こる場合がありますので，こ
-れを利用するときには \texttt{bst.use.bysame} に0を設定してください．
+�Ȃ��C����� \verb|\bysame| �𓯎��ɗ��p����Ɩ�肪�N����ꍇ������܂��̂ŁC��
+��𗘗p����Ƃ��ɂ� \texttt{bst.use.bysame} ��0��ݒ肵�Ă��������D
 
-\subsection{文献のタイプによって分けて並べる}
+\subsection{�����̃^�C�v�ɂ���ĕ����ĕ��ׂ�}
 
-例えば，本（book），論文（article），本の中の論文（incollection）等をそれぞ
-れ分けて並べたいというようなときには，\texttt{bst.sort.entry.type} に非
-ゼロを設定します．
+�Ⴆ�΁C�{�ibook�j�C�_���iarticle�j�C�{�̒��̘_���iincollection�j�������ꂼ
+�ꕪ���ĕ��ׂ����Ƃ����悤�ȂƂ��ɂ́C\texttt{bst.sort.entry.type} �ɔ�
+�[����ݒ肵�܂��D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.sort.entry.type}
@@ -1286,67 +1286,67 @@ FUNCTION {bst.sort.entry.type}
 \end{verbatim}
 \end{screen}
 
-タイプの並び順は \texttt{bst.sort.entry.type.order} という関数の中身によって設定
-されます．デフォールトでは alphabet 順，つまり，まず article の文献がまとまって列
-挙され，次に book が列挙，次に booklet $\rightarrow$ comment $\rightarrow$
+�^�C�v�̕��я��� \texttt{bst.sort.entry.type.order} �Ƃ����֐��̒��g�ɂ���Đݒ�
+����܂��D�f�t�H�[���g�ł� alphabet ���C�܂�C�܂� article �̕������܂Ƃ܂��ė�
+������C���� book ���񋓁C���� booklet $\rightarrow$ comment $\rightarrow$
 conference $\rightarrow$ inbook $\rightarrow$ incollection $\rightarrow$
-... $\rightarrow$ unpublished という形になります．この並び順を変更するには
-\texttt{bst.sort.entry.type.order} で各文献タイプに割当てられている数字を変更すれ
-ばよいです．数字が小さいほど先に列挙されることになります．デフォールトでは，
-article $\rightarrow$ 01，book $\rightarrow$ 02，booklet $\rightarrow$ 03，
-comment $\rightarrow$ 04 ... という割当になっています（\texttt{jecon.bst} 内の
-\texttt{bst.sort.entry.type.order} の定義を見て確認してください）．
+... $\rightarrow$ unpublished �Ƃ����`�ɂȂ�܂��D���̕��я���ύX����ɂ�
+\texttt{bst.sort.entry.type.order} �Ŋe�����^�C�v�Ɋ����Ă��Ă��鐔����ύX����
+�΂悢�ł��D�������������قǐ�ɗ񋓂���邱�ƂɂȂ�܂��D�f�t�H�[���g�ł́C
+article $\rightarrow$ 01�Cbook $\rightarrow$ 02�Cbooklet $\rightarrow$ 03�C
+comment $\rightarrow$ 04 ... �Ƃ��������ɂȂ��Ă��܂��i\texttt{jecon.bst} ����
+\texttt{bst.sort.entry.type.order} �̒�`�����Ċm�F���Ă��������j�D
 
-\subsection{\texttt{year}（年）に従って並べる}
+\subsection{\texttt{year}�i�N�j�ɏ]���ĕ��ׂ�}
 
-業績リスト，論文リストを作るというようなときは，年の順番で文献を並べるこ
-とが多いと思います．単著の論文だけであれば，自然に年の順番で並ぶことにな
-りますが，共著論文も入っている場合には年順にはならない場合がでてきてしま
-います（\texttt{author} がキーとして優先されるので）．共著論文があるとき
-でも，必ず年順にするには \texttt{bst.sort.year} に非ゼロを設定します．
+�Ɛу��X�g�C�_�����X�g�����Ƃ����悤�ȂƂ��́C�N�̏��Ԃŕ�������ׂ邱
+�Ƃ������Ǝv���܂��D�P���̘_�������ł���΁C���R�ɔN�̏��Ԃŕ��Ԃ��Ƃɂ�
+��܂����C�����_���������Ă���ꍇ�ɂ͔N���ɂ͂Ȃ�Ȃ��ꍇ���łĂ��Ă���
+���܂��i\texttt{author} ���L�[�Ƃ��ėD�悳���̂Łj�D�����_��������Ƃ�
+�ł��C�K���N���ɂ���ɂ� \texttt{bst.sort.year} �ɔ�[����ݒ肵�܂��D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.sort.year}
 { #1 }
 \end{verbatim}
 \end{screen}
-\texttt{bst.sort.year} に非ゼロを設定すると，\texttt{year} フィールドの
-値を\texttt{author} よりも優先して並べかえをおこないます．よって，まず年
-順にソートされることなります．デフォールトでは古い文献ほど上に表示される
-ことになりますが，\texttt{bst.reverse.year} に非ゼロを設定すれば逆順にな
-ります．
+\texttt{bst.sort.year} �ɔ�[����ݒ肷��ƁC\texttt{year} �t�B�[���h��
+�l��\texttt{author} �����D�悵�ĕ��ׂ����������Ȃ��܂��D����āC�܂��N
+���Ƀ\�[�g����邱�ƂȂ�܂��D�f�t�H�[���g�ł͌Â������قǏ�ɕ\�������
+���ƂɂȂ�܂����C\texttt{bst.reverse.year} �ɔ�[����ݒ肷��΋t���ɂ�
+��܂��D
 
 
-\subsection{\texttt{absorder} フィールドを利用した並べ替え}
+\subsection{\texttt{absorder} �t�B�[���h�𗘗p�������בւ�}
 
-bib ファイルにおいて \texttt{absorder} フィールドを指定してある文献に関
-しては，その値を \texttt{author} よりも優先してソートします．
-\texttt{absorder} フィールドには 0から999の値を設定できます．
-\texttt{absorder} の値によって以下の優先順位で順番が決まります．
+bib �t�@�C���ɂ����� \texttt{absorder} �t�B�[���h���w�肵�Ă��镶���Ɋ�
+���ẮC���̒l�� \texttt{author} �����D�悵�ă\�[�g���܂��D
+\texttt{absorder} �t�B�[���h�ɂ� 0����999�̒l��ݒ�ł��܂��D
+\texttt{absorder} �̒l�ɂ���Ĉȉ��̗D�揇�ʂŏ��Ԃ����܂�܂��D
 
 \begin{screen}
  \begin{center}
- absorder 指定なし，absorder = 0  $\rightarrow$ absorder = 1 $\rightarrow$ absorder = 2
+ absorder �w��Ȃ��Cabsorder = 0  $\rightarrow$ absorder = 1 $\rightarrow$ absorder = 2
  $\rightarrow$ $\cdots$ $\rightarrow$ absorder = 999
  \end{center}
 \end{screen}
 
-つまり，\texttt{absorder} の値が小さほど前に表示されることになります．何
-も指定していないときは 0 と同じですので，優先順位は一番になります．この
-文書の bib ファイル（\texttt{jecon-example.bib}）では，
-\citet{takeda06:_cge_analy_welfar_effec_trade} という文献の
-\texttt{absorder} に 999 を指定しています．そのためこの文献だけ一番後ろに
-表示されるようになっています．
+�܂�C\texttt{absorder} �̒l�������قǑO�ɕ\������邱�ƂɂȂ�܂��D��
+���w�肵�Ă��Ȃ��Ƃ��� 0 �Ɠ����ł��̂ŁC�D�揇�ʂ͈�ԂɂȂ�܂��D����
+������ bib �t�@�C���i\texttt{jecon-example.bib}�j�ł́C
+\citet{takeda06:_cge_analy_welfar_effec_trade} �Ƃ���������
+\texttt{absorder} �� 999 ���w�肵�Ă��܂��D���̂��߂��̕���������Ԍ���
+�\�������悤�ɂȂ��Ă��܂��D
 
 
-\subsubsection{\texttt{absorder} フィールドを無視したいとき}
+\subsubsection{\texttt{absorder} �t�B�[���h�𖳎��������Ƃ�}
 
-特殊な並べ替えをする場合があるので bib ファイルで \texttt{absorder} を指
-定しているが，それを無視したいときもあると思います．デフォールトでは 
-\texttt{absorder} が指定されていればそれを必ず参照するという設定になって
-いますが，これは \texttt{bst.notuse.absorder.field} という関数の値によっ
-て変更できます．値を無視したいときはこの関数を以下のように修正してくださ
-い．
+����ȕ��בւ�������ꍇ������̂� bib �t�@�C���� \texttt{absorder} ���w
+�肵�Ă��邪�C����𖳎��������Ƃ�������Ǝv���܂��D�f�t�H�[���g�ł� 
+\texttt{absorder} ���w�肳��Ă���΂����K���Q�Ƃ���Ƃ����ݒ�ɂȂ���
+���܂����C����� \texttt{bst.notuse.absorder.field} �Ƃ����֐��̒l�ɂ��
+�ĕύX�ł��܂��D�l�𖳎��������Ƃ��͂��̊֐����ȉ��̂悤�ɏC�����Ă�����
+���D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.notuse.absorder.field}
@@ -1354,27 +1354,27 @@ FUNCTION {bst.notuse.absorder.field}
 \end{verbatim}
 \end{screen}
 
-\subsection{\texttt{order} フィールドを利用した並べ替え}
+\subsection{\texttt{order} �t�B�[���h�𗘗p�������בւ�}
 
-\texttt{order} フィールドも仕組みは \texttt{absorder} フィールドと同じで
-す．その値には 0-999 を指定でき，
+\texttt{order} �t�B�[���h���d�g�݂� \texttt{absorder} �t�B�[���h�Ɠ�����
+���D���̒l�ɂ� 0-999 ���w��ł��C
 
 \begin{screen}
  \begin{center}
- order 指定なし，order = 0  $\rightarrow$ order = 1 $\rightarrow$ order = 2
+ order �w��Ȃ��Corder = 0  $\rightarrow$ order = 1 $\rightarrow$ order = 2
  $\rightarrow$ $\cdots$ $\rightarrow$ order = 999
  \end{center}
 \end{screen}
 
-\noindent という順番でソートされます．ただし，全体の中での優先順位が 
-\texttt{year} の後にくることが\texttt{absorder} との違いです．
-\texttt{author}，\texttt{year} でソートした後の順番を指定するためのもの
-なので，同じ著者が書いた同じ年の文献が複数ある場合にその並び順を自分で指
-定したいというようなときに使います．
+\noindent �Ƃ������ԂŃ\�[�g����܂��D�������C�S�̂̒��ł̗D�揇�ʂ� 
+\texttt{year} �̌�ɂ��邱�Ƃ�\texttt{absorder} �Ƃ̈Ⴂ�ł��D
+\texttt{author}�C\texttt{year} �Ń\�[�g������̏��Ԃ��w�肷�邽�߂̂���
+�Ȃ̂ŁC�������҂������������N�̕�������������ꍇ�ɂ��̕��я��������Ŏw
+�肵�����Ƃ����悤�ȂƂ��Ɏg���܂��D
 
-\texttt{order} の値を無視したいときには，
-\texttt{bst.notuse.absorder.field} という関数の中身を次のように変更して
-ください．
+\texttt{order} �̒l�𖳎��������Ƃ��ɂ́C
+\texttt{bst.notuse.absorder.field} �Ƃ����֐��̒��g�����̂悤�ɕύX����
+���������D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.notuse.order.field}
@@ -1383,99 +1383,99 @@ FUNCTION {bst.notuse.order.field}
 \end{screen}
 
 
-\subsubsection{利用例}
+\subsubsection{���p��}
 
-例えば，以下の二つの文献（どちらも book）があったとします．
+�Ⴆ�΁C�ȉ��̓�̕����i�ǂ���� book�j���������Ƃ��܂��D
 \begin{screen}
 \begin{flushleft}
- 山田太郎 (2000) 『日本の経済』，日本経済新聞社\\
- 山田太郎 (2000) 『続・日本の経済』，日本経済新聞社
+ �R�c���Y (2000) �w���{�̌o�ρx�C���{�o�ϐV����\\
+ �R�c���Y (2000) �w���E���{�̌o�ρx�C���{�o�ϐV����
 \end{flushleft}
 \end{screen}
 
-この場合，著者，年が同じで，しかも book で month 指定はないため，title 
-の値で二つの文献の並び順を決定することになります．本来なら，上の表示のよ
-うに『続』のほうが後ろにくるのが自然ですが，「日」より「続」のほうが文字
-コードが小さいためデフォールトのままでは逆の並び順になってしまいます．こ
-のような場合，後者の \texttt{order} フィールドに前者よりも大きい値を指定
-しておくことで，前者のほうを上に表示することができます．
+���̏ꍇ�C���ҁC�N�������ŁC������ book �� month �w��͂Ȃ����߁Ctitle 
+�̒l�œ�̕����̕��я������肷�邱�ƂɂȂ�܂��D�{���Ȃ�C��̕\���̂�
+���Ɂw���x�̂ق������ɂ���̂����R�ł����C�u���v���u���v�̂ق�������
+�R�[�h�����������߃f�t�H�[���g�̂܂܂ł͋t�̕��я��ɂȂ��Ă��܂��܂��D��
+�̂悤�ȏꍇ�C��҂� \texttt{order} �t�B�[���h�ɑO�҂����傫���l���w��
+���Ă������ƂŁC�O�҂̂ق�����ɕ\�����邱�Ƃ��ł��܂��D
 
-\subsection{\texttt{month} フィールドを利用した並べ替え}
+\subsection{\texttt{month} �t�B�[���h�𗘗p�������בւ�}
 
-\texttt{month} フィールドの値もソートに利用されます．この性質を利用して，
-本来は月の指定をしない文献に擬似的に月の指定をおこなっておくことで，ソー
-トの順番をコントロールできます．
+\texttt{month} �t�B�[���h�̒l���\�[�g�ɗ��p����܂��D���̐����𗘗p���āC
+�{���͌��̎w������Ȃ������ɋ[���I�Ɍ��̎w��������Ȃ��Ă������ƂŁC�\�[
+�g�̏��Ԃ��R���g���[���ł��܂��D
 
-例えば，\texttt{order} フィールドのところに挙げた二つの文献はどちらも 
-book なので本来は \texttt{month} の指定はしないはずですが，『日本の経済』
-のほうの \texttt{month} に 20，『続・日本の経済』のほうの \texttt{month} 
-に 21 というように指定しておけば(\texttt{order} フィールドは指定していな
-くても）前者を前に表示することができます．数値は \texttt{absorder}，
-\texttt{order} と同様 0-999 を設定でき，指定なしのものは 0 と同じとみなし
-ます．ただし，このように \texttt{month} をソートに利用した場合，擬似的に
-指定された意味のない \texttt{month} の値が参考文献に表示されてしまうこと
-があると思います．このような場合には \texttt{bst.hide.month} に 0 以外を
-指定して月の表示を消してしまうことで対処することができます．
+�Ⴆ�΁C\texttt{order} �t�B�[���h�̂Ƃ���ɋ�������̕����͂ǂ���� 
+book �Ȃ̂Ŗ{���� \texttt{month} �̎w��͂��Ȃ��͂��ł����C�w���{�̌o�ρx
+�̂ق��� \texttt{month} �� 20�C�w���E���{�̌o�ρx�̂ق��� \texttt{month} 
+�� 21 �Ƃ����悤�Ɏw�肵�Ă�����(\texttt{order} �t�B�[���h�͎w�肵�Ă���
+���Ă��j�O�҂�O�ɕ\�����邱�Ƃ��ł��܂��D���l�� \texttt{absorder}�C
+\texttt{order} �Ɠ��l 0-999 ��ݒ�ł��C�w��Ȃ��̂��̂� 0 �Ɠ����Ƃ݂Ȃ�
+�܂��D�������C���̂悤�� \texttt{month} ���\�[�g�ɗ��p�����ꍇ�C�[���I��
+�w�肳�ꂽ�Ӗ��̂Ȃ� \texttt{month} �̒l���Q�l�����ɕ\������Ă��܂�����
+������Ǝv���܂��D���̂悤�ȏꍇ�ɂ� \texttt{bst.hide.month} �� 0 �ȊO��
+�w�肵�Č��̕\���������Ă��܂����ƂőΏ����邱�Ƃ��ł��܂��D
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.hide.month}
 { #1 }
 \end{verbatim}
 \end{screen}
-ただし，全部の文献から「月」の表示が消えちゃいますけど．
+�������C�S���̕�������u���v�̕\�����������Ⴂ�܂����ǁD
 
 
-\section{不具合}
+\section{�s�}
 
-次のような不具合があります．
+���̂悤�ȕs�������܂��D
 
 \begin{itemize}
- \item 私自身が，\texttt{article}, \texttt{book}, \texttt{incollection},
-       \texttt{unpublished} くらいしか使わないので，それ以外のタイプはあまりチェッ
-       クをしていません．このため上手く処理できない可能性が高いです（ある程度は
-       チェックはしていますが）．
- \item \texttt{crossref} エントリーは全部無視するようにしてしまっていま
-       す（\texttt{crossref} エントリーの使い方がよくわからないので）．
+ \item �����g���C\texttt{article}, \texttt{book}, \texttt{incollection},
+       \texttt{unpublished} ���炢�����g��Ȃ��̂ŁC����ȊO�̃^�C�v�͂��܂�`�F�b
+       �N�����Ă��܂���D���̂��ߏ�肭�����ł��Ȃ��\���������ł��i������x��
+       �`�F�b�N�͂��Ă��܂����j�D
+ \item \texttt{crossref} �G���g���[�͑S����������悤�ɂ��Ă��܂��Ă���
+       ���i\texttt{crossref} �G���g���[�̎g�������悭�킩��Ȃ��̂Łj�D
 \end{itemize}
 
-\section{その他}
+\section{���̑�}
 
 \begin{itemize}
- \item この \texttt{jecon.bst} の元になった \texttt{jpolisci.bst} を作成
-       してくださった飯田修さんに感謝します．そもそも \texttt{jecon.bst} 
-       なんて名前を付けてますが，プログラムの重要な部分のほとんどは
-       \texttt{jpolisci.bst} をそのまま利用させてもらっています．
- \item 改変には \texttt{aer.bst}，萩平哲さんのウェブサイト
+ \item ���� \texttt{jecon.bst} �̌��ɂȂ��� \texttt{jpolisci.bst} ���쐬
+       ���Ă����������ѓc�C����Ɋ��ӂ��܂��D�������� \texttt{jecon.bst} 
+       �Ȃ�Ė��O��t���Ă܂����C�v���O�����̏d�v�ȕ����̂قƂ�ǂ�
+       \texttt{jpolisci.bst} �����̂܂ܗ��p�����Ă�����Ă��܂��D
+ \item ���ςɂ� \texttt{aer.bst}�C�����N����̃E�F�u�T�C�g
        \footnote{
-       \url{http://www.med.osaka-u.ac.jp/pub/anes/www/latex/bibtex.html}}，樋
-       口耕一さんによる \texttt{nissya.bst}\footnote{
-       \url{http://koichi.nihon.to/psnl/} より入手可能です．} 等も参考にさせ
-       ていただきました．これらの有益なプログラム，ページを作成してくだ
-       さった方々に感謝します．
- \item この PDF ファイルと一緒に，このファイルの元となる \TeX ファイル 
-      （\texttt{jecon-example.tex}）と文献ファイル 
-      （\texttt{jecon-example.bib}）も配布しているので，\TeX ファイルの書
-       き方，文献の登録の仕方はそちらも参考にしてください．
- \item ここをこうして欲しい，こうしたいという要望がありましたらおっしゃってくださ
-       い．私に直せるようなものだったら直しますので．不具合があるときには，不具合
-       の出る文献のサンプル（bib ファイル），bibtex のログ（blg ファイル）等を送っ
-       てくださると助かります．要望の際も同じようにサンプルがあると助かります（ど
-       ういう文献をどう表示したいのかがわかるもの）．
- \item 連絡は \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}} まで．
- \item \texttt{jecon.bst} は 
-       \url{http://shirotakeda.org/ja/tex-ja/jecon-ja.html} で配布しています．
- \item \texttt{jecon.bst} は GitHub
-       \url{https://github.com/ShiroTakeda/jecon-bst} で開発しています。
+       \url{http://www.med.osaka-u.ac.jp/pub/anes/www/latex/bibtex.html}}�C��
+       ���k�ꂳ��ɂ�� \texttt{nissya.bst}\footnote{
+       \url{http://koichi.nihon.to/psnl/} ������\�ł��D} �����Q�l�ɂ���
+       �Ă��������܂����D�����̗L�v�ȃv���O�����C�y�[�W���쐬���Ă���
+       ���������X�Ɋ��ӂ��܂��D
+ \item ���� PDF �t�@�C���ƈꏏ�ɁC���̃t�@�C���̌��ƂȂ� \TeX �t�@�C�� 
+      �i\texttt{jecon-example.tex}�j�ƕ����t�@�C�� 
+      �i\texttt{jecon-example.bib}�j���z�z���Ă���̂ŁC\TeX �t�@�C���̏�
+       �����C�����̓o�^�̎d���͂�������Q�l�ɂ��Ă��������D
+ \item �������������ė~�����C�����������Ƃ����v�]������܂����炨��������Ă�����
+       ���D���ɒ�����悤�Ȃ��̂������璼���܂��̂ŁD�s�������Ƃ��ɂ́C�s�
+       �̏o�镶���̃T���v���ibib �t�@�C���j�Cbibtex �̃��O�iblg �t�@�C���j���𑗂�
+       �Ă�������Ə�����܂��D�v�]�̍ۂ������悤�ɃT���v��������Ə�����܂��i��
+       �������������ǂ��\���������̂����킩����́j�D
+ \item �A���� \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}} �܂ŁD
+ \item \texttt{jecon.bst} �� 
+       \url{http://shirotakeda.org/ja/tex-ja/jecon-ja.html} �Ŕz�z���Ă��܂��D
+ \item \texttt{jecon.bst} �� GitHub
+       \url{https://github.com/ShiroTakeda/jecon-bst} �ŊJ�����Ă��܂��B
 \end{itemize}
 
 \nocite{*}
 
-%%% BibTeX スタイルファイルの指定．jecon.bst を指定．
+%%% BibTeX �X�^�C���t�@�C���̎w��Djecon.bst ���w��D
 \bibliographystyle{jecon}
 % \bibliographystyle{./jecon}
 % \bibliographystyle{jecon-new}
 
-%% BibTeX データベースファイルの指定．
+%% BibTeX �f�[�^�x�[�X�t�@�C���̎w��D
 %
 \bibliography{jecon-example}
 % \bibliography{./jecon-example}

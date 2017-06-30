@@ -1,7 +1,7 @@
 % jecon.bst: 経済学用 BibTeX style file.
 %
 % First-written:       <2002/11/03>
-% Time-stamp:	       <2017-02-28 14:49:43 st>
+% Time-stamp:	       <2017-06-30 16:57:03 st>
 % Version 5.2
 %
 % これは，飯田修さんによって作成された jpolisci.bst を経済学用に
@@ -27,7 +27,7 @@
 % 変更履歴 (Changelog) は CHANGES.txt ファイルを見てください．
 
 % version 指定
-FUNCTION {jecon.version} { "5.1.1" }
+FUNCTION {jecon.version} { "5.2" }
 
 % Debug mode．0 以外を指定すると様々な情報を表示させることが可能．
 FUNCTION {jecon.debug}
@@ -1062,6 +1062,19 @@ FUNCTION {bst.doi.pre.jp}
 %
 FUNCTION {bst.doi.post.jp}
 { "}" }    % (default)
+
+% URL と DOI の表示方法
+%
+% DOI と URL が両方あるケースの DOI と URL の処理方法
+%
+% #0 -> 両方表示
+% #1 -> URL のみ表示
+% #2 -> DOI のみ表示
+%
+FUNCTION {bst.url.doi}
+{ #0 }    % (default) -> 両方表示
+% { #1 }    % -> URL のみ表示
+% { #2 }    % -> DOI のみ表示
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	邦訳書
@@ -2935,15 +2948,35 @@ FUNCTION {format.volume}
 
 %%% number、page を出力
 FUNCTION {format.number.pages}
-{ format.number format.pages * }
+{ number empty$
+    { format.pages }
+    { format.number format.pages * }
+  if$
+}
 
 %%% volume、page を出力
 FUNCTION {format.volume.pages}
-{ format.volume format.pages * }
+{ volume empty$
+    { format.pages }
+    { format.volume format.pages * }
+  if$
+}
 
 %%% volume、number、page を出力
 FUNCTION {format.volume.number.pages}
-{ format.volume format.number * format.pages * }
+{ volume empty$
+    { number empty$
+        { format.pages }
+        { format.number format.pages * }
+      if$
+    }
+    { number empty$
+        { format.volume format.pages * }
+        { format.volume format.number * format.pages * }
+      if$
+    }
+  if$
+}
 
 % volume, number, page を一緒に処理する関数。
 FUNCTION {format.vol.num.pages}
@@ -3314,6 +3347,26 @@ FUNCTION {format.doi}
   if$
 }
 
+FUNCTION {format.url.doi}
+{ url empty$
+    { format.doi }
+    { doi empty$
+        { format.url }
+        { bst.url.doi #0 =
+            { format.url output.nocomma
+              format.doi }
+            { bst.url.doi #1 =
+                { format.url } 
+                { format.doi }
+              if$
+            }
+          if$
+        }
+      if$
+    }
+  if$
+}
+
 FUNCTION {format.note}
 { note empty$
     { "" }
@@ -3431,8 +3484,7 @@ FUNCTION {article}
     { format.month output.nocomma }
   if$
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
   format.note output.nocomma
   fin.entry
 }
@@ -3467,7 +3519,7 @@ FUNCTION {book}
   if$
 
   format.hoyakusho output.nocomma
-  format.url output.nocomma
+  format.url.doi output.nocomma
   format.doi output.nocomma
 
   format.note output.nocomma
@@ -3484,8 +3536,7 @@ FUNCTION {booklet}
   format.howpublished output.nocomma
   format.address output.nocomma
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3518,8 +3569,7 @@ FUNCTION {inbook}
     'skip$
   if$
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3547,8 +3597,7 @@ FUNCTION {incollection}
     'skip$
   if$
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3576,8 +3625,7 @@ FUNCTION {inproceedings}
     { format.month output.nocomma }
   if$
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3624,8 +3672,7 @@ FUNCTION {manual}
     'skip$
   if$
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3650,8 +3697,7 @@ FUNCTION {mastersthesis}
     'skip$
   if$
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3676,8 +3722,7 @@ FUNCTION {misc}
     { format.month output.nocomma }
   if$
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3703,8 +3748,7 @@ FUNCTION {online}
     { format.month output.nocomma }
   if$
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3734,8 +3778,7 @@ FUNCTION {phdthesis}
     'skip$
   if$
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3763,8 +3806,7 @@ FUNCTION {proceedings}
     'skip$
   if$
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3790,8 +3832,7 @@ FUNCTION {techreport}
     'skip$
   if$
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3817,8 +3858,7 @@ FUNCTION {unpublished}
     }
   if$
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry

@@ -1,12 +1,12 @@
 % Author:	       Shiro Takeda
 % First-written:       <2002/11/02>
-% Time-stamp:	       <2017-02-16 18:08:20 st>
+% Time-stamp:	       <2017-06-29 13:34:29 st>
 %
 %############################## Main #################################
 \documentclass[10pt]{tarticle}
 
 %% natbib.sty を使う。
-\usepackage{natbib}
+\usepackage[longnamesfirst]{natbib}
 \usepackage{mathpazo}
 \usepackage{color}
 \definecolor{MyBrown}{rgb}{0.3,0,0}
@@ -45,13 +45,13 @@ urlcolor=MyGreen%
 \verb|\bibliographystyle| に \verb|jecon-tategaki.bst| を指定したもの。
 \vspace*{1em}
 
-クラスファイルに \texttt{tarticle} クラスを利用している．さらに，プリアンプルで
+クラスファイルに \texttt{tarticle} クラスを利用している。さらに、プリアンプルで
 \begin{verbatim}
         \bibpunct{\hskip-0.5em（}{）\hskip-0.5em}{}{}{}{}
 \end{verbatim}
-と設定し，引用部分の括弧を全角に変更し，さらにスペースを調整している．こ
-うしないと引用部分で半角括弧が利用されるため，少し見た目がぶかっこうにな
-る．
+と設定し、引用部分の括弧を全角に変更し、さらにスペースを調整している。こ
+うしないと引用部分で半角括弧が利用されるため、少し見た目がぶかっこうにな
+る。
 
 また、
 \begin{verbatim}
@@ -60,9 +60,9 @@ urlcolor=MyGreen%
 と設定し、用紙を landscape （横向き）にしている。
 \vspace*{2em}
 
-引用例を4つ．\citet{ishikawa03:_green_gas_emiss_contr_open_econom}，
-\citet{takeda06:_cge_analy_welfar_effec_trade} は英語の論文．
-\citet{oyama99:_mark_stru} と \citet{kuroda97jp:keo} は日本語の論文．
+引用例を4つ。\citet{ishikawa03:_green_gas_emiss_contr_open_econom}、
+\citet{takeda06:_cge_analy_welfar_effec_trade} は英語の論文。
+\citet{oyama99:_mark_stru} と \citet{kuroda97jp:keo} は日本語の論文。
 
 \nocite{*}
 
