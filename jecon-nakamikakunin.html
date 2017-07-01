@@ -55,8 +55,8 @@
 <span class="comment">% jecon.bst: &#32076;&#28168;&#23398;&#29992; BibTeX style file.</span>
 <span class="comment">%</span>
 <span class="comment">% First-written:       &lt;2002/11/03&gt;</span>
-<span class="comment">% Time-stamp:          &lt;2017-02-28 14:31:08 st&gt;</span>
-<span class="comment">% Version 5.2</span>
+<span class="comment">% Time-stamp:          &lt;2017-06-30 22:18:55 st&gt;</span>
+<span class="comment">% Version 5.3</span>
 <span class="comment">%</span>
 <span class="comment">% &#12371;&#12428;&#12399;&#65292;&#39151;&#30000;&#20462;&#12373;&#12435;&#12395;&#12424;&#12387;&#12390;&#20316;&#25104;&#12373;&#12428;&#12383; jpolisci.bst &#12434;&#32076;&#28168;&#23398;&#29992;&#12395;</span>
 <span class="comment">% &#27494;&#30000;&#21490;&#37070;&#12364;&#25913;&#22793;&#12375;&#12383;&#12418;&#12398;&#12391;&#12377;&#65294;</span>
@@ -81,7 +81,7 @@
 <span class="comment">% &#22793;&#26356;&#23653;&#27508; (Changelog) &#12399; CHANGES.txt &#12501;&#12449;&#12452;&#12523;&#12434;&#35211;&#12390;&#12367;&#12384;&#12373;&#12356;&#65294;</span>
 
 <span class="comment">% version &#25351;&#23450;</span>
-<span class="keyword">FUNCTION</span> {<span class="function-name">jecon.version</span>} { <span class="string">"5.1.1"</span> }
+<span class="keyword">FUNCTION</span> {<span class="function-name">jecon.version</span>} { <span class="string">"5.3"</span> }
 
 <span class="comment">% Debug mode&#65294;0 &#20197;&#22806;&#12434;&#25351;&#23450;&#12377;&#12427;&#12392;&#27096;&#12293;&#12394;&#24773;&#22577;&#12434;&#34920;&#31034;&#12373;&#12379;&#12427;&#12371;&#12392;&#12364;&#21487;&#33021;&#65294;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">jecon.debug</span>}
@@ -1113,6 +1113,19 @@
 <span class="comment">%</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">bst.doi.post.jp</span>}
 { <span class="string">"}"</span> }    <span class="comment">% (default)</span>
+
+<span class="comment">% URL &#12392; DOI &#12398;&#34920;&#31034;&#26041;&#27861;</span>
+<span class="comment">%</span>
+<span class="comment">% DOI &#12392; URL &#12364;&#20001;&#26041;&#12354;&#12427;&#12465;&#12540;&#12473;&#12398; DOI &#12392; URL &#12398;&#20966;&#29702;&#26041;&#27861;</span>
+<span class="comment">%</span>
+<span class="comment">% #0 -&gt; &#20001;&#26041;&#34920;&#31034;</span>
+<span class="comment">% #1 -&gt; URL &#12398;&#12415;&#34920;&#31034;</span>
+<span class="comment">% #2 -&gt; DOI &#12398;&#12415;&#34920;&#31034;</span>
+<span class="comment">%</span>
+<span class="keyword">FUNCTION</span> {<span class="function-name">bst.url.doi</span>}
+{ #0 }    <span class="comment">% (default) -&gt; &#20001;&#26041;&#34920;&#31034;</span>
+<span class="comment">% { #1 }    % -&gt; URL &#12398;&#12415;&#34920;&#31034;</span>
+<span class="comment">% { #2 }    % -&gt; DOI &#12398;&#12415;&#34920;&#31034;</span>
 
 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 <span class="comment">%       &#37030;&#35379;&#26360;</span>
@@ -2986,15 +2999,35 @@
 
 <span class="comment">%%% number&#12289;page &#12434;&#20986;&#21147;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">format.number.pages</span>}
-{ format.number format.pages * }
+{ <span class="variable-name">number</span> <span class="builtin">empty$</span>
+    { format.pages }
+    { format.number format.pages * }
+  <span class="builtin">if$</span>
+}
 
 <span class="comment">%%% volume&#12289;page &#12434;&#20986;&#21147;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">format.volume.pages</span>}
-{ format.volume format.pages * }
+{ <span class="variable-name">volume</span> <span class="builtin">empty$</span>
+    { format.pages }
+    { format.volume format.pages * }
+  <span class="builtin">if$</span>
+}
 
 <span class="comment">%%% volume&#12289;number&#12289;page &#12434;&#20986;&#21147;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">format.volume.number.pages</span>}
-{ format.volume format.number * format.pages * }
+{ <span class="variable-name">volume</span> <span class="builtin">empty$</span>
+    { <span class="variable-name">number</span> <span class="builtin">empty$</span>
+        { format.pages }
+        { format.number format.pages * }
+      <span class="builtin">if$</span>
+    }
+    { <span class="variable-name">number</span> <span class="builtin">empty$</span>
+        { format.volume format.pages * }
+        { format.volume format.number * format.pages * }
+      <span class="builtin">if$</span>
+    }
+  <span class="builtin">if$</span>
+}
 
 <span class="comment">% volume, number, page &#12434;&#19968;&#32210;&#12395;&#20966;&#29702;&#12377;&#12427;&#38306;&#25968;&#12290;</span>
 <span class="keyword">FUNCTION</span> {<span class="function-name">format.vol.num.pages</span>}
@@ -3365,6 +3398,26 @@
   <span class="builtin">if$</span>
 }
 
+<span class="keyword">FUNCTION</span> {<span class="function-name">format.url.doi</span>}
+{ <span class="variable-name">url</span> <span class="builtin">empty$</span>
+    { format.doi }
+    { <span class="variable-name">doi</span> <span class="builtin">empty$</span>
+        { format.url }
+        { bst.url.doi #0 =
+            { format.url output.nocomma
+              format.doi }
+            { bst.url.doi #1 =
+                { format.url } 
+                { format.doi }
+              <span class="builtin">if$</span>
+            }
+          <span class="builtin">if$</span>
+        }
+      <span class="builtin">if$</span>
+    }
+  <span class="builtin">if$</span>
+}
+
 <span class="keyword">FUNCTION</span> {<span class="function-name">format.note</span>}
 { <span class="variable-name">note</span> <span class="builtin">empty$</span>
     { <span class="string">""</span> }
@@ -3482,8 +3535,7 @@
     { format.month output.nocomma }
   <span class="builtin">if$</span>
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
   format.note output.nocomma
   fin.entry
 }
@@ -3518,7 +3570,7 @@
   <span class="builtin">if$</span>
 
   format.hoyakusho output.nocomma
-  format.url output.nocomma
+  format.url.doi output.nocomma
   format.doi output.nocomma
 
   format.note output.nocomma
@@ -3535,8 +3587,7 @@
   format.howpublished output.nocomma
   format.address output.nocomma
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3569,8 +3620,7 @@
     '<span class="builtin">skip$</span>
   <span class="builtin">if$</span>
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3598,8 +3648,7 @@
     '<span class="builtin">skip$</span>
   <span class="builtin">if$</span>
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3627,8 +3676,7 @@
     { format.month output.nocomma }
   <span class="builtin">if$</span>
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3675,8 +3723,7 @@
     '<span class="builtin">skip$</span>
   <span class="builtin">if$</span>
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3701,8 +3748,7 @@
     '<span class="builtin">skip$</span>
   <span class="builtin">if$</span>
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3727,8 +3773,7 @@
     { format.month output.nocomma }
   <span class="builtin">if$</span>
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3754,8 +3799,7 @@
     { format.month output.nocomma }
   <span class="builtin">if$</span>
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3785,8 +3829,7 @@
     '<span class="builtin">skip$</span>
   <span class="builtin">if$</span>
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3814,8 +3857,7 @@
     '<span class="builtin">skip$</span>
   <span class="builtin">if$</span>
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3841,8 +3883,7 @@
     '<span class="builtin">skip$</span>
   <span class="builtin">if$</span>
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3868,8 +3909,7 @@
     }
   <span class="builtin">if$</span>
 
-  format.url output.nocomma
-  format.doi output.nocomma
+  format.url.doi output.nocomma
 
   format.note output.nocomma
   fin.entry

@@ -3,13 +3,13 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2017-06-30 21:23:23 st>
+Time-stamp:     <2017-07-01 00:40:30 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
 
-## Ver. 5.3 ()
+## Ver. 5.3 (2017-07-01)
 
 * URL フィールドと DOI フィールドの両方があるときの表示方法の選択をできるように
   修正。`bst.url.doi` という関数の値によって表示を変更する。
