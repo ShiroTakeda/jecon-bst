@@ -20,6 +20,7 @@
 \usepackage{natbib}
 \usepackage{url}
 \usepackage{amsmath,amssymb,amsthm}
+\usepackage{ulem}
 
 %% 色を付ける．
 \usepackage{graphicx}
@@ -69,24 +70,6 @@ urlcolor=MyGreen%
 %########################## Text Starts ##############################
 
 \vspace*{1em}
-
-\textcolor{MyAltColor}{{\Large \textbf{［注］: 2017-02-22}}}
-\begin{itemize}
- \item ユニコード文字を使えるように \texttt{pbibtex} を拡張したプログラムとして
-       \texttt{upbibtex} があり、以下でもこの \texttt{upbibtex} を使います。
- \item 基本的には、\texttt{upbibtex} は \texttt{pbibtex} と同じ動作をするのです
-       が、一つ動作が異なる部分があります\footnote{正確に言うと、
-       \texttt{\$substring} という命令の動作が \texttt{upbibtex} では変わってし
-       まっています。}。
- \item このため、\texttt{pbibtex} では上手く参考文献が出力されていたものが、
-       \texttt{upbibtex} では表示がおかしくなる場合があります。
- \item 例えば、\citet{naikakufu_2011}, \citet{takeda-gtap-2016ja},
-       \citet{chuokankyo06jp:ccs} という文献では、タイトルの後にカンマが二つ続い
-       てしまいます。これは上記の問題のためです。
- \item これは \texttt{upbibtex} の仕様上しょうがないものですので、もし上記のよう
-       な問題が生じるときには、後で \texttt{bbl} ファイルを直接編集するなどして
-       対応してください。
-\end{itemize}
 
 \section{はじめに}
 

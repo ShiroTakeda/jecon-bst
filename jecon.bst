@@ -1,8 +1,8 @@
 % jecon.bst: 経済学用 BibTeX style file.
 %
 % First-written:       <2002/11/03>
-% Time-stamp:	       <2017-07-08 01:26:24 st>
-% Version 5.3.1
+% Time-stamp:	       <2017-08-19 12:14:16 st>
+% Version 5.4
 %
 % これは，飯田修さんによって作成された jpolisci.bst を経済学用に
 % 武田史郎が改変したものです．
@@ -27,7 +27,7 @@
 % 変更履歴 (Changelog) は CHANGES.txt ファイルを見てください．
 
 % version 指定
-FUNCTION {jecon.version} { "5.3.1" }
+FUNCTION {jecon.version} { "5.4" }
 
 % Debug mode．0 以外を指定すると様々な情報を表示させることが可能．
 FUNCTION {jecon.debug}
@@ -1437,18 +1437,35 @@ FUNCTION {period.comma.a.p}
 
 FUNCTION {period.comma.b.p}
 { 'pc :=
-  pc #-1 #3 substring$ ".' " =
-  pc #-1 #3 substring$ ",' " = or
-  pc #-1 #4 substring$ ".'' " = or
-  pc #-1 #4 substring$ ",'' " = or
-  pc #-1 #2 substring$ ".~" = or
-  pc #-1 #2 substring$ ",~" = or
-  pc #-1 #1 substring$ "。" = or
-  pc #-1 #1 substring$ "．" = or
-  pc #-1 #1 substring$ "、" = or
-  pc #-1 #1 substring$ "，" = or
-    { #1 'comma.period.b.p := }
-    { #0 'comma.period.b.p := }
+  bst.use.unicode #0 =
+    { pc #-1 #3 substring$ ".' " =
+      pc #-1 #3 substring$ ",' " = or
+      pc #-1 #4 substring$ ".'' " = or
+      pc #-1 #4 substring$ ",'' " = or
+      pc #-1 #2 substring$ ".~" = or
+      pc #-1 #2 substring$ ",~" = or
+      pc #-1 #1 substring$ "。" = or
+      pc #-1 #1 substring$ "．" = or
+      pc #-1 #1 substring$ "、" = or
+      pc #-1 #1 substring$ "，" = or
+        { #1 'comma.period.b.p := }
+        { #0 'comma.period.b.p := }
+      if$
+    }
+    { pc #-1 #3 substring$ ".' " =
+      pc #-1 #3 substring$ ",' " = or
+      pc #-1 #4 substring$ ".'' " = or
+      pc #-1 #4 substring$ ",'' " = or
+      pc #-1 #2 substring$ ".~" = or
+      pc #-1 #2 substring$ ",~" = or
+      pc #-1 #3 substring$ "。" = or
+      pc #-1 #3 substring$ "．" = or
+      pc #-1 #3 substring$ "、" = or
+      pc #-1 #3 substring$ "，" = or
+        { #1 'comma.period.b.p := }
+        { #0 'comma.period.b.p := }
+      if$
+    }
   if$
 }
 
@@ -1475,12 +1492,23 @@ FUNCTION {remove.pre.comma.period}
       s #1 #1 substring$ "." = or
        { s #2 global.max$ substring$ }
        %% multi-byte character
-       { s #1 #2 substring$ "，" =
-         s #1 #2 substring$ "、" = or
-         s #1 #2 substring$ "。" = or
-         s #1 #2 substring$ "．" = or
-          { s #3 global.max$ substring$ }
-          's
+       { bst.use.unicode #0 =
+           { s #1 #2 substring$ "，" =
+             s #1 #2 substring$ "、" = or
+             s #1 #2 substring$ "。" = or
+             s #1 #2 substring$ "．" = or
+              { s #3 global.max$ substring$ }
+              's
+             if$
+           }
+           { s #1 #3 substring$ "，" =
+             s #1 #3 substring$ "、" = or
+             s #1 #3 substring$ "。" = or
+             s #1 #3 substring$ "．" = or
+              { s #4 global.max$ substring$ }
+              's
+             if$
+           }
          if$
        }
       if$
@@ -2313,12 +2341,23 @@ FUNCTION {remove.irrelevant.kutoten}
 { 's :=
   s empty$
     { "" * }
-    { s #-1 #1 substring$ "、" =
-      s #-1 #1 substring$ "，" = or
-      s #-1 #1 substring$ "。" = or
-      s #-1 #1 substring$ "．" = or
-        { s #-2 global.max$ substring$ "" * }
-        { s }
+    { bst.use.unicode #0 =
+        { s #-1 #1 substring$ "、" =
+          s #-1 #1 substring$ "，" = or
+          s #-1 #1 substring$ "。" = or
+          s #-1 #1 substring$ "．" = or
+            { s #-2 global.max$ substring$ "" * }
+            { s }
+          if$
+        }
+        { s #-1 #3 substring$ "、" =
+          s #-1 #3 substring$ "，" = or
+          s #-1 #3 substring$ "。" = or
+          s #-1 #3 substring$ "．" = or
+            { s #-3 global.max$ substring$ "" * }
+            { s }
+          if$
+        }
       if$
     }
   if$
@@ -2330,12 +2369,23 @@ FUNCTION {remove.irrelevant.pre.kutoten}
 { 's :=
   s empty$
     { "" }
-    { s #1 #4 substring$ "、、" =
-      s #1 #4 substring$ "，，" = or
-      s #1 #4 substring$ "，、" = or
-      s #1 #4 substring$ "、，" = or
-        { s #3 global.max$ substring$ }
-        { s }
+    { bst.use.unicode #0 =
+        { s #1 #4 substring$ "、、" =
+          s #1 #4 substring$ "，，" = or
+          s #1 #4 substring$ "，、" = or
+          s #1 #4 substring$ "、，" = or
+            { s #3 global.max$ substring$ }
+            { s }
+          if$
+        }
+        { s #1 #6 substring$ "、、" =
+          s #1 #6 substring$ "，，" = or
+          s #1 #6 substring$ "，、" = or
+          s #1 #6 substring$ "、，" = or
+            { s #6 global.max$ substring$ }
+            { s }
+          if$
+        }
       if$
     }
   if$
