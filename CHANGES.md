@@ -3,13 +3,13 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2017-08-19 12:08:13 st>
+Time-stamp:     <2017-11-13 11:37:01 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
 
-## Ver. 5.4 (2017-08-19)
+## Ver. 5.4 (2017-11-13)
 
 * `jecon.bst` では upbibtex の利用により unicode 文字も扱える（詳しくは
   `jecon-unicode-xelatex.pdf`）。しかし、pbibtex と upbibtex における
