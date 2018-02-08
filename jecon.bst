@@ -1,7 +1,7 @@
 % jecon.bst: 経済学用 BibTeX style file.
 %
 % First-written:       <2002/11/03>
-% Time-stamp:	       <2017-08-19 12:14:16 st>
+% Time-stamp:	       <2018-02-08 11:49:24 st>
 % Version 5.4
 %
 % これは，飯田修さんによって作成された jpolisci.bst を経済学用に
@@ -2686,17 +2686,17 @@ FUNCTION {format.bvolume}
 { volume empty$
     { "" }
     { is.kanji.entry
-	{ bst.volume.pre.jp volume convert.num * bst.volume.post.jp * }
+	    { bst.volume.pre.jp volume convert.num * bst.volume.post.jp * }
         { bst.volume.pre volume * bst.volume.post * }
       if$
       series empty$
-	'skip$
-	%% series もあるとき
-	{ is.kanji.entry
-	    { bst.series.pre.jp * series convert.num * bst.series.post.jp * }
-	    { " of " * series * bst.series.post * }
-	  if$
-	}
+	     'skip$
+	     %% series もあるとき
+	     { is.kanji.entry
+	        { bst.series.pre.jp * series convert.num * bst.series.post.jp * }
+	        { " of " * series * bst.series.post * }
+	       if$
+	     }
       if$
     }
   if$
