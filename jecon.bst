@@ -173,8 +173,8 @@ FUNCTION {bst.author.name}
 % jauthorにも同じ選択が適用されます。詳しくはjecon-sample.pdfで。
 %
 FUNCTION {bst.sei.mei.order}
-{ #0 }    % (default) 普通の書き方 → author = {武田 史郎} or author = {史郎, 武田}
-% { #1 }    % 逆の書き方 → author = {武田, 史郎} or author = {史郎 武田} 
+% { #0 }    % (default) 普通の書き方 → author = {武田 史郎} or author = {史郎, 武田}
+{ #1 }    % 逆の書き方 → author = {武田, 史郎} or author = {史郎 武田} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
