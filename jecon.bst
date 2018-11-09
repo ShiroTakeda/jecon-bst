@@ -1042,7 +1042,7 @@ FUNCTION {bst.show.doi}
 % DOIの前に付ける文字列 (英語文献用)
 %
 FUNCTION {bst.doi.pre}
-{ ", DOI: \url{http://dx.doi.org/" } % (default)
+{ ", DOI: \href{http://doi.org/" } % (default)
 
 % DOIの後に付ける文字列 (英語文献用)
 %
@@ -1052,7 +1052,7 @@ FUNCTION {bst.doi.post}
 % DOIの前に付ける文字列 (日本語文献用)
 %
 FUNCTION {bst.doi.pre.jp}
-{ "，DOI：\url{http://dx.doi.org/" } % (default)
+{ "，DOI：\href{http://doi.org/" }
 
 % DOIの後に付ける文字列 (日本語文献用)
 %
@@ -3390,8 +3390,8 @@ FUNCTION {format.doi}
 { doi empty$ bst.show.doi not or
     { "" }
     { is.kanji.entry
-        { bst.doi.pre.jp doi * bst.doi.post.jp * }
-        { bst.doi.pre doi * bst.doi.post * }
+        { bst.doi.pre.jp doi * "}{" * doi * bst.doi.post.jp * }
+        { bst.doi.pre * doi "}{" * doi * bst.doi.post * }
       if$
     }
   if$
