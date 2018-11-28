@@ -10,7 +10,10 @@
 %\documentclass[10pt,uplatex]{jsarticle} % jsarticle を利用するケース
 
 \usepackage[utf8]{inputenc}
-
+% \usepackage[LGR,T2A,T1]{fontenc}
+% \usepackage[prefernoncjk]{pxcjkcat}
+% \usepackage[japanese,korean,schinese,tchinese,% CJKな言語
+%     greek,russian,english]{pxbabel}% メインはenglish
 %% 以下は共通の設定
 \usepackage{natbib}
 \usepackage{url}
@@ -48,13 +51,17 @@ urlcolor=MyGreen%
 \begin{document}
 
 % uplatex では以下のコードが必要。これがないと欧文のユニコード文字が間延びする。
-\kcatcode`ç=15% not cjk character
+% \kcatcode`ç=15% not cjk character
 
 \begin{flushleft}
  {\Large \textbf{upLaTeX (\texttt{uplatex}) を利用するケース}}
 \end{flushleft}
 
 \vspace{1em}
+
+% This document contains English, Română, 日本語,
+% \foreignlanguage{greek}{Ελληνικά}, and
+% \foreignlanguage{russian}{русский язык}.
 
 \section{使い方}
 
