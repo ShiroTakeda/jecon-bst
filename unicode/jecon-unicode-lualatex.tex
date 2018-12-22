@@ -2,6 +2,8 @@
 %#BIBTEX upbibtex jecon-unicode-lualatex.aux
 % 
 % このファイルは lualatex でコンパイルすることを前提で作成しています。
+% uplatex や xelatex でコンパイルするにはプリアンプルの設定等を変更する必要があ
+% ります。
 %
 %############################## Main #################################
 
@@ -16,6 +18,7 @@
 \usepackage{natbib}
 \usepackage{url}
 \usepackage{amsmath,amssymb,amsthm}
+\usepackage{ulem}
 
 %% 色を付ける．
 \usepackage{graphicx}
@@ -24,28 +27,38 @@
 \definecolor{MyBlue}{rgb}{0,0,0.3}
 \definecolor{MyRed}{rgb}{0.6,0,0.1}
 \definecolor{MyGreen}{rgb}{0,0.4,0}
-\usepackage[bookmarks=true,%
+\definecolor{MyAltColor}{rgb}{0.6,0,0}
+\usepackage[unicode=true,%
+pdfusetitle=true,%
+bookmarks=true,%
 bookmarksnumbered=true,%
 colorlinks=true,%
 linkcolor=MyBlue,%
 citecolor=MyRed,%
 filecolor=MyBlue,%
-pagecolor=MyBlue,%
 urlcolor=MyGreen%
 ]{hyperref}
 
-%% \BibTeX command を定義．
+%% textwidth等の変更．
+\setlength{\textwidth}{140truemm}
+\setlength{\fullwidth}{\textwidth}
+\setlength{\oddsidemargin}{35truemm}
+\addtolength{\oddsidemargin}{-1truein}
+
 \makeatletter
+%% \BibTeX command を定義．
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \makeatother
 
 %%% title, author, acknowledgement, and date
-\title{\textbf{\texttt{jecon.bst} とユニコード文字}}
+\title{\textbf{\texttt{jecon.bst} とユニコード文字}
+\thanks{このファイルの配布場所: \url{https://github.com/ShiroTakeda/jecon-bst}}
+}
 
-\author{武田史郎\thanks{Email: \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}}}}
+\author{武田史郎\thanks{Email:
+\texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}}}}
 
-% \date{平成28年2月3日}
 \date{\today}
 
 %#####################################################################
@@ -53,39 +66,387 @@ urlcolor=MyGreen%
 %#####################################################################
 \begin{document}
 
-\begin{flushleft}
- {\Large \textbf{LuaLaTeX (\texttt{lualatex}) を利用するケース}}
-\end{flushleft}
+%%% タイトル付ける．
+\maketitle
 
-\vspace{1em}
+%%% 目次を出力
+\tableofcontents
+
+%########################## Text Starts ##############################
+
+\vspace*{1em}
+
+\section{はじめに}
+
+この文書は \textbf{「ユニコード文字を利用している文献を\texttt{jecon.bst} で利用する」}ための解説です．
+\\
+\vspace*{1em}
+
+\noindent \textbf{［注意］} この文書は version 5.0 以降の \texttt{jecon.bst} を前提
+としたものです．古い \texttt{jecon.bst} ではここに書いてあることはできま
+せんから，注意してください．
+
+\vspace*{1em}
+
+ここで「ユニコード文字」と言っているのは，通常の pLaTeX (\texttt{platex})や
+pBibTeX (\texttt{pbibtex}) では直接利用することができない次のような文字のことで
+す．
+\begin{itemize}
+ \item 「草彅剛」の「彅」や「宮﨑あおい」の「﨑」のようにJISの第二水準を
+       越える文字
+       \footnote{\url{https://texwiki.texjp.org/?upTeX\%2CupLaTeX}}．
+ \item 「ò」，「ö」，「ç」，「è」，「é」，「ê」のような非アスキーの欧文の
+       文字\footnote{アスキー文字とは，例えば
+       \url{http://e-words.jp/p/r-ascii.html} に掲載されている128個の文字
+       のことです．}．
+\end{itemize}
+
+「直接利用できない」と言うのは，これらの文字を直接ファイルに書くことはで
+きないという意味です．直接書くということでなければ pLaTeX であっても利用
+することができます．例えば「ò」であれば \verb|\`{o}| という命令によって表
+示できます（実際，多くの人がこの方法を利用していると思います）．また，
+「﨑」であればOTF パッケージを利用して\verb|\UTF{FA11}|と書くことで表示で
+きます．
+
+「ユニコード文字を利用する」というのは上記のような文字を直接文献ファイル
+内で（もちろんその前提として \texttt{tex} ファイルでも）利用することを指
+しており，この文書はそのような場合での \texttt{jecon.bst} の利用方法の解
+説です．
+
+\vspace*{1em}
+
+\noindent \textbf{［注意］} 私はあまり文字コードや \TeX の仕組みに詳しくありません
+（文字コード，文字集合，符号化方式等の概念をよくわかっていません）．文字
+コードについての記述には不正確な記述が多いかもしれませんので注意してくだ
+さい．
+
+\vspace*{1em}
+
+この文書はユニコード文字を \texttt{jecon.bst} で利用する場合の説明です．
+他の \texttt{bst} ファイルを利用する場合や，そもそも BibTeX は使わずに
+\texttt{biblatex} を使うときなどは方法が変わってくると思います．また，本
+格的な多言語化の方法を説明する文書でもありません．「日本語で論文を書くの
+で，引用する文献として日本語と英語の文献を引用する．ただ，少し特殊な文字
+も利用したい」という程度の人のための話です．
+
+
+\section{ユニコード文字を扱える \TeX}
+
+BibTeX でユニコード文字を扱うにはそもそも TeX (LaTeX) がユニコード文字を扱うこと
+ができる必要があります．現在，ユニコード文字を利用できる TeX としては「XeLaTeX」，
+「LuaLaTeX」，そしてpLaTeX を拡張した「upLaTeX」等があります．
+
+このファイルでは \textbf{\texttt{tex} ファイルのコンパイルには LuaLaTeX
+(\texttt{lualatex}) }を利用します．\texttt{lualatex} を選んだのはなんとなくで特
+に理由があるわけではないです．そもそも 3 つの違いがよくわかっていません．また、
+\textbf{BibTeX のコマンドとしては upLaTeX に付属の \texttt{upbibtex} を利用しま
+す}．ユニコード対応の BibTeX としては \texttt{bibtexu} もありますが，ここでは
+\texttt{is.kanji.str\$} 命令がないといけないので，\texttt{upbibtex} でないとだめ
+です．
+
+\vspace*{1em}
+
+\noindent \textbf{［注意］} pLaTeX でも \verb|-kanji=utf-8| といオプションを付け
+て実行することで，ユニコード（UTF-8）を扱えるという説明がされることがありますが，
+これはファイルの文字コードとしてのユニコード（UTF-8等）を扱えるということであり，
+ユニコード文字を扱えるということではないです．
+
+\section{以前の \texttt{jecon.bst}の問題}
+\label{jecon-problem}
+
+Version 5.0 より前の \texttt{jecon.bst} ではユニコード文字の利用を全く想
+定していなかったので，文献内でユニコード文字を使うといろいろ問題が生じま
+した．ただ必ず問題が起こるというわけではなく，特に問題なく使える場合もあ
+ります．どういうときに問題が生じるかを説明しておきます．
+
+\vspace*{1em}
+
+まず，pLaTeX に付属の \texttt{pbibtex} コマンドはそもそもユニコード文字を
+適切に処理できませんから，BibTeX のコマンドとして \texttt{pbibtex} を利用
+するとまともな出力になりません．具体的にはユニコード文字を書いた部分は抜
+け落ちる（消える）か，文字化けしてしまうと思います．
+
+これに対し，ユニコード文字に対応した upLaTeX 付属の \texttt{upbibtex} コマンドを
+利用すればユニコード文字が抜け落ちたり，文字化けしたりという問題はなくなります．
+さらに，ユニコード文字と言っても，漢字のみを文献で利用している場合には，「これま
+での \texttt{jecon.bst} + \texttt{upbibtex} + \texttt{uplatex}」という組み合せで，
+ユニコード文字を使っていないときと同様に上手く処理できます．つまり，ユニコード文
+字と言っても漢字のみを利用しているときには，単に \texttt{pbibtex}の代わりに
+\texttt{upbibtex} （そして，\texttt{platex}の代わりに \texttt{uplatex}）を用いれ
+ばいいだけです．
+
+\textbf{問題があるのは，欧文の文献でユニコード文字，つまり，「ò」，「ö」，「ç」，
+「è」，「é」，「ê」のような文字を利用している場合です}．この場合に「これまでの
+\texttt{jecon.bst} + \texttt{upbibtex}」で処理をしようとすると，その文献を日本語
+の文献として処理してしまうという問題が生じます．\texttt{upbibtex} には日本語が含
+まれるかどうかを判断するための\texttt{is.kanji.str\$} という命令がありますが，そ
+れが「ò」のような文字も日本語として判断してしまうためです
+\footnote{\texttt{is.kanji.str\$}は名前からすると漢字か漢字じゃないかを判断する
+命令のように見えますが，厳密にはアスキー文字か非アスキー文字かを判断しているよう
+です．ですので，「ò」と漢字はどちらも非アスキー文字で区別できません．}．
+
+\vspace*{1em}
+
+以下では，文献の中で欧文のユニコード文字（「ò」，「ö」，「ç」，「è」，「é」，
+「ê」等）を利用しているときでも適切に扱うための手順を説明します．
 
 \section{使い方}
 
-\subsection{TeX ファイルの書き方}
+\subsection{\texttt{bib} ファイル}
 
+まず，\texttt{bib} ファイルの書き方を説明します．
+\vspace*{1em}
+
+\textbf{その1：\texttt{author} 名等の書き方}
 \begin{itemize}
- \item このファイル (\texttt{jecon-unicode-lualatex.tex}) を参考にしてください。
- \item \texttt{bib} ファイルの書き方、\texttt{jecon.bst} の使い方は
-       \texttt{jecon-unicode-xelatex.pdf} を見てください。
-\end{itemize}
-
-\subsection{コンパイル}
-
-\begin{itemize}
- \item LuaLaTeX でのコンパイル。
+ \item まず，\texttt{bib} ファイルで \texttt{author} 等を書くときに常に
+       \textbf{「\texttt{姓,\ 名}」という形式}で書いてください．
+ \item \texttt{bib} ファイルで人名を書くときに日本語の文献では
 \begin{verbatim}
-lualatex jecon-unicode-lualatex.tex
-upbibtex jecon-unicode-lualatex
-lualatex jecon-unicode-lualatex.tex               
-lualatex jecon-unicode-lualatex.tex
+        author = {伊藤 元重 and 大山 道広}
 \end{verbatim}
- \item つまり、\TeX のコマンドとしては \texttt{lualatex} を、BibTeX のコマンドと
-       しては \texttt{upbibtex} を利用します。
+       のように「\verb|姓 名|」という形式で書くことが普通ですが，英語の文
+       献と同様の形式（「\verb|姓, 名|」）で書いてください
+       \footnote{「\texttt{名\ 姓}」も可能です．}．つまり，次のように指
+       定してください．
+\begin{verbatim}
+        author = {伊藤, 元重 and 大山, 道広}
+\end{verbatim}
+       もし author が「P.A.サミュエルソン」なら次のようにします．
+\begin{verbatim}
+        author = {サミュエルソン, P.A.}
+\end{verbatim}
+ \item \texttt{author} 名だけではなく，人名を指定する全てのフィールド
+       （\texttt{editor}，\texttt{yomi}，\texttt{translator}等）で同じよ
+       うに指定してください．
 \end{itemize}
+
+\vspace*{1em}
+
+\textbf{その2：\texttt{language} フィールドの追加}
+\begin{itemize}
+ \item \textbf{日本語の文献には必ず \texttt{language} フィールドというフィールド
+       を追加し，その値に「\texttt{ja}」（あるいは「日本語」）を指定してください．}
+       \verb|language = {ja}| （あるいは，\verb|language = {日本語}|）というよう
+       にです\footnote{「\texttt{ja}」 という指定でも，「日本語」でもどちらでも
+       いいのですが，以下の説明では「\texttt{ja}」という指定を使うものとして説明
+       します．}．
+ \item 「日本語の文献」とは中身が日本語で書かれた文献のことです．外国人が
+       書いたものでも，邦訳書は日本語の文献です．
+ \item \texttt{language} フィールドの値が \texttt{ja} のときに
+       \texttt{jecon.bst} は日本語の文献と判断します．よって，
+       \texttt{language} フィールドが適切に指定されていないと適切な処理が
+       おこなわれません．
+ \item \textbf{［注意］} \texttt{language} フィールドの値が \texttt{ja} なら日本
+       語文献と判断するというルールは単に私が勝手に決めたルールであって，一般的
+       なルールではないです．\texttt{language} というフィールドが Mendeley や
+       Zotero 等の文献管理ソフトにあらかじめ存在しているフィールドなので，それじゃ
+       これを使おうかと思っただけです．別の名前のフィールドを使ってもいいのです
+       が，その場合には \texttt{jecon.bst} を書き換える必要があります．
+\end{itemize}
+
+\vspace*{1em}
+
+\textbf{記入例}：以下が文献エントリーの記入例です．
+\begin{verbatim}
+        @Book{ito85:_inte_trad,
+          author       = {伊藤, 元重 and 大山, 道広},
+          title        = {国際貿易},
+          publisher    = {岩波書店},
+          year         = 1985,
+          series       = {モダン・エコノミクス 14},
+          language     = {ja},
+          yomi         = {いとう, もとしげ and おおやま, みちひろ}
+        }
+\end{verbatim}
+
+このファイルで \texttt{bib} ファイルとして利用している
+\texttt{unicode-example.bib} と \texttt{jecon-example-reverse.bib} の二つも書き方
+の参考にしてください．\texttt{unicode-example.bib} の方でユニコード文字を利用し
+ています．
+
+\subsection{\texttt{jecon.bst} ファイルの設定}
+
+\texttt{jecon.bst} の方では「\texttt{bst.use.unicode} 関数」を以下のように書き換えます．
+\begin{verbatim}
+        bst.use.unicode
+        { #1 }
+\end{verbatim}
+
+ユニコード文字を扱いたいときにはこのように \texttt{bst.use.unicode} に非ゼロを設
+定します．ユニコード文字を利用する場合には，\BibTeX{} のコマンドとして，
+\texttt{pbibtex.exe} ではなく，\texttt{upbibtex.exe} を利用することになります．
+しかし，\texttt{pbibtex.exe} と \texttt{upbibtex.exe} の処理が一部異なります．こ
+れに対応するための設定が上の設定です\footnote{具体的には，\texttt{pbibtex.exe}
+と\texttt{upbibtex.exe} で \texttt{\$substring} の処理が異なることへの対処です．}．
+ 
+\vspace*{1em}
+
+\texttt{jecon.bst} に上の修正を加え，さらに \texttt{bst.use.bysame} を以下のよう
+に書き換えたものが，このファイルで利用している \texttt{jecon-unicode.bst}です
+（注：\texttt{bst.use.bysame} は書き換える必要はないです）．
+\begin{verbatim}
+        bst.use.bysame
+        { #2 }
+\end{verbatim}
+
+\subsection{\texttt{tex} ファイルの書き方}
+
+\begin{itemize}
+ \item プリアンプルの設定
+       \begin{itemize}
+        \item このファイル (\texttt{jecon-unicode-lualatex.tex}) は LuaLaTeX
+              (\texttt{lualatex}) を利用することを前提としています．プリアンプル
+              の設定も \texttt{lualatex} でコンパイルすることを前提として記述され
+              ています．
+        \item LuaLaTeX を利用したい人はこのファイルを読んで書き方の参考にしてく
+              ださい．
+       \end{itemize}
+ \item \texttt{bibliographystyle} や \texttt{bibliography} の指定
+       \begin{itemize}
+        \item \texttt{bibliographystyle} や \texttt{bibliography} の指定は普通と同じよ
+       うにすればよいです．
+        \item このファイルでは以下の設定にしています．
+\begin{verbatim}
+        \bibliographystyle{jecon-unicode}       
+        \bibliographystyle{../jecon-example-reverse,unicode-example}        
+\end{verbatim}
+       つまり，\texttt{bst} ファイルには \texttt{jecon-unicode.bst} を，
+              \texttt{bib} ファイルには \texttt{unicode-example.bib} と
+              \texttt{jecon-example-reverse.bib} の二つを指定しています．後者
+              のファイルは一個上のフォルダに置いてあるものを利用するので，
+              「\texttt{../}」を付けています\footnote{「\texttt{../}」は一個上の
+              フォルダを表す記号です．}．このファイルも同じフォルダに置くなら単
+              純に以下のように書けばよいです．
+\begin{verbatim}
+        \bibliographystyle{jecon-example-reverse,unicode-example}        
+\end{verbatim}
+       \end{itemize}
+\end{itemize}
+
+\vspace*{1em}
+
+\textbf{upLaTeX や LuaLaTeX を使いたいとき}
+\begin{itemize}
+        \item プリアンプルさえ書き換えれば upLaTeX や LuaLaTeX でも同様にコンパ
+              イルできると思います．
+        \item プリアンプルの書き方については，このファイルと一緒に配布されている
+              \texttt{jecon-unicode-uplatex.tex} や
+              \texttt{jecon-unicode-lualatex.tex} を参考にしてください．
+\end{itemize}
+
+\subsection{コンパイルの方法}
+
+\begin{itemize}
+ \item このファイルをコンパイルするときには以下の2つのファ
+       イルを同じフォルダに置いてください．
+       \begin{itemize}
+        \item \texttt{jecon-unicode.bst}
+        \item \texttt{unicode-example.bib}
+       \end{itemize}
+ \item また，\texttt{jecon-example-reverse.bib} というファイルを一個上の階層の
+       フォルダに置いてください．
+ \item コンパイルはコマンドラインであれば次のようにおこないます．
+\begin{verbatim}
+        lualatex jecon-unicode-lualatex.tex
+        upbibtex jecon-unicode-lualatex
+        lualatex jecon-unicode-lualatex.tex               
+        lualatex jecon-unicode-lualatex.tex
+\end{verbatim}
+       \TeX のコマンドとしては \texttt{lualatex} を，BibTeX のコマンドとしては
+       \texttt{upbibtex} を利用し，\texttt{lualatex} を1回，次に
+       \texttt{upbibtex} を1回，そして \texttt{lualatex} をさらに2回実行するとい
+       うことです．
+\end{itemize}
+
+\subsection{ユニコード文字を利用するときの \texttt{jecon.bst} の動作について}
+
+以下は \texttt{jecon.bst} がどういうように動作しているかについての説明で
+す．別に知らなくてかまいません．
+
+\vspace*{1em}
+
+第 \ref{jecon-problem} 節で書きましたが，\texttt{upbibtex} では
+\texttt{is.kanji.str\$} という命令によってその文字が日本語かどうかを判別するので
+すが，「ò」，「ö」，「ç」，「è」，「é」，のような文字も日本語として判断してしま
+います．
+
+このようにユニコード文字が含まれるケースでは \texttt{is.kanji.str\$} とい
+う命令で日本語か日本語じゃないかを正しく判断することができないため，
+\texttt{jecon.bst} では \texttt{language} フィールドを利用して判断をしま
+す．具体的には，その文献の \texttt{language} フィールドに \texttt{ja} と
+いう値が指定されていれば日本語の文献（なければ英語の文献）というように判
+断します．
+
+ただ，日本語の文献であっても（つまり，\texttt{language} に \texttt{ja} が
+指定されていても）著者名がアルファベットで指定される文献がありますので，
+著者名の部分についてはさらに日本語で記述されているか，アルファベットで記
+述されているかを自動で判断します．ただし，この判断の仕組みが完全ではない
+ので文献によっては判断を間違えます．
+
+例えば，文献の中に \citet{sample-test} という文献があります（これは例のた
+めにつくった架空の文献です）．この文献は
+\begin{verbatim}
+ @article{sample-test,
+   title        = {サンプルの論文：日本語のタイトル},
+   author       = {Ôö, Caaaaa and Smith, James},
+   journal      = {経済学の雑誌},
+   volume       = 0909,
+   number       = 909,
+   pages        = {1--1111},
+   year         = 5555,
+   language     = {ja}
+ }
+\end{verbatim}
+というように登録されています．\texttt{language} に\texttt{ja} が指定され
+ていますので日本語の文献として処理されますが，著者名については「Ôö,
+Caaaaa and Smith, James」のようにアルファベットなので，本来著者名の扱いだ
+けは英語の著者名と同じようにすることになっています．よって，引用部分では
+「Ôö and Smith (5555)」のように表示されないといけないのですが，実際には区
+切文字に日本語用の「・」が利用されており，日本語の著者名として扱われてし
+まっています．
+
+これは著者名が日本語かアルファベットかを判断する方法が不完全なためです．
+具体的に言うと，今使っている判断基準では第一著者の「姓」の一番最初の文字
+と一番最後の文字がともに非アスキー文字であると日本語で記述されていると判
+断します．この文献の場合「Ôö」が第一著者の姓ですが，一番最初の文字（つま
+り，Ô）も一番後の文字（つまり，ö）もどちらも非アスキー文字ですので，日本
+語名と判断します．
+
+もう少しちゃんとした判断基準にすれば正確な判断ができると思いますが，多く
+のケースでは上手く判断できていますし（姓の一番最初と一番最後の文字がどち
+らも非アスキー文字のアルファベット名はめったにないです）\footnote{アルファ
+ベット名といっても，ローマ字ではなくギリシャ文字やキリル文字を利用してい
+るときは別ですが．}，複雑なコードを書くのが面倒なので放置しています．
+
+同じように日本語文献ですが，著者名はアルファベットのものとして
+\citet{Ryza2016} がありますが，こちらについては著者名はアルファベットとし
+て正常に扱われています．
 
 \section{例}
 
 \input{unicode-example.tex}
+
+\section{不具合・問題}
+
+\begin{itemize}
+ \item 本来，ユニコード文字と言ったら，ローマ字，日本の漢字はもちろん，中国・台
+       湾の漢字，ハングル，ギリシャ文字，キリル文字，アラビア文字等，様々な文字
+       が対象になるのでしょうが，\texttt{jecon.bst} では日本の文字（漢字）とロー
+       マ字くらいしか考慮していないです．他の文字を利用するといろいろ問題が生じ
+       ると思います．
+\end{itemize}
+
+
+\section{その他}
+
+\begin{itemize}
+ \item \citet{120005614155} と \citet{120005678435} は XeLaTeX や BibTeX の使い
+       方について解説しています．XeLaTeX を利用したい人には参考になると思います．
+       私も参考にさせていただきました．
+\end{itemize}
+
+\vspace*{2em}
 
 \nocite{*}
 
@@ -94,8 +455,8 @@ lualatex jecon-unicode-lualatex.tex
 
 %% BibTeX データベースファイルの指定．
 %
-% jecon-example-reverse.bib は一個上のフォルダにあるものを利用する。
-\bibliography{../jecon-example-reverse,unicode-example}
+% jecon-example.bib は一個上のフォルダにあるものを利用する．
+\bibliography{../jecon-example,unicode-example}
 
 \end{document}
 %#####################################################################
@@ -107,5 +468,3 @@ lualatex jecon-unicode-lualatex.tex
 % fill-column: 80
 % coding: utf-8-dos
 % End:
-
-
