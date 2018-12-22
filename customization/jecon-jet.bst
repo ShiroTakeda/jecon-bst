@@ -3,7 +3,7 @@
 % Author: Shiro Takeda
 % Maintainer: Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2018-11-29 00:08:19 st>
+% Time-stamp: <2018-12-22 16:36:47 st>
 % Version 5.5
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -191,14 +191,17 @@ FUNCTION {bst.author.name}
 
 % bibファイルにおける日本人名の記述方法の選択。
 %
-% 普通のbibファイルでは日本人名は「author = {姓 名}」という書き方をする。しかし、
-% 一部の文献管理ソフトは日本人名を「author = {姓, 名}」という形式でbibファイルに
-% 出力する。bibファイルがこのどちらの形式で記述されているかの選択。editor、yomi、
-% jauthorにも同じ選択が適用されます。詳しくはjecon-sample.pdfで。
+% 普通のbibファイルではauthorフィールドで日本人名は「author = {姓 名}」という書
+% き方をする。しかし、一部の文献管理ソフト、データベースでは日本人名も外国人名と
+% 同様に「author = {姓, 名}」という形式で扱っている。この関数でどちらの形式で扱
+% うかを決める。editor、yomi、jauthorにも同じ選択が適用されます。詳しくは
+% jecon-sample.pdfを見てください。
+%
+% 注：ver.5.5からデフォールトの設定を「author = {姓, 名}」に変更しました。
 %
 FUNCTION {bst.sei.mei.order}
-{ #0 }    % (default) 普通の書き方 → author = {武田 史郎} or author = {史郎, 武田}
-% { #1 }    % 逆の書き方 → author = {武田, 史郎} or author = {史郎 武田} 
+{ #1 }    % (default) → author = {武田, 史郎} or author = {史郎 武田} 
+% { #0 }    % 昔からの普通の書き方 → author = {武田 史郎} or author = {史郎, 武田}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -302,9 +305,9 @@ FUNCTION {bst.number.index.bibhang.hund}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% ユニコード文字を利用するときには非ゼロにする。
-% 使い方については「jecon_unicode_xelatex.pdf」を見てください。
-% 
+% ユニコード文字を利用するとき（pbibtex ではなく、upbibtex を利用するとき）には
+% 非ゼロにする。使い方については「jecon_unicode_lualatex.pdf」を見てください。
+%
 FUNCTION {bst.use.unicode}
 { #0 }    % Not use unicode font (default)
 % { #1 }    % Use unicode font
@@ -1094,7 +1097,7 @@ FUNCTION {bst.doi.post}
 % DOIの前に付ける文字列 (日本語文献用)
 %
 FUNCTION {bst.doi.pre.jp}
-{ ", DOI: \href{http://dx.doi.org/" doi * "}{" * } % (default)
+{ "，DOI: \href{http://dx.doi.org/" doi * "}{" * } % (default)
 
 % DOIの後に付ける文字列 (日本語文献用)
 %

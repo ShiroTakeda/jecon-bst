@@ -9,12 +9,8 @@
 \documentclass[a4j,10pt]{ujarticle}
 %\documentclass[10pt,uplatex]{jsarticle} % jsarticle を利用するケース
 
-\usepackage[utf8]{inputenc}
-% \usepackage[LGR,T2A,T1]{fontenc}
-% \usepackage[prefernoncjk]{pxcjkcat}
-% \usepackage[japanese,korean,schinese,tchinese,% CJKな言語
-%     greek,russian,english]{pxbabel}% メインはenglish
-%% 以下は共通の設定
+\usepackage[T1]{fontenc}
+
 \usepackage{natbib}
 \usepackage{url}
 \usepackage{amsmath,amssymb,amsthm}
@@ -70,7 +66,7 @@ urlcolor=MyGreen%
 \begin{itemize}
  \item このファイル (\texttt{jecon-unicode-uplatex.tex}) を参考にしてください。
  \item \texttt{bib} ファイルの書き方、\texttt{jecon.bst} の使い方は
-       \texttt{jecon-unicode-xelatex.pdf} を見てください。
+       \texttt{jecon-unicode-lualatex.pdf} を見てください。
 \end{itemize}
 
 \subsection{コンパイル}
@@ -102,7 +98,7 @@ dvipdfmx jecon-unicode-uplatex.dvi
 %% BibTeX データベースファイルの指定．
 %
 % jecon-example-reverse.bib は一個上のフォルダにあるものを利用する。
-\bibliography{../jecon-example-reverse,unicode-example}
+\bibliography{../jecon-example,unicode-example}
 
 \end{document}
 %#####################################################################
