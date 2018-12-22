@@ -3,15 +3,19 @@ Filename:       README.md
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2017-02-16 18:33:03 st>
+Time-stamp:     <2018-12-23 00:42:02 st>
 -->
 
 jecon.bst
 ==============================
 
-jecon.bst (経済学用のBibTeX style file) です。
+jecon.bst は経済学用のBibTeXスタイルファイルです。jecon.bst を使うと次のようなことができます。
 
-<http://shirotakeda.org/ja/tex-ja/jecon-ja.html>
+* natbib.sty と組み合わせることで「著者名 (年)」形式で引用可能です。
+* 経済学でよく利用されるような reference 形式を BibTeX により作成することができます。
+* 英語の文献だけでなく、日本語の文献も適切に処理できます。
+* 他の BibTeX 用のスタイルファイルよりも表示形式のカスタマイズが簡単にできます。
+
 
 ## ファイル
 
