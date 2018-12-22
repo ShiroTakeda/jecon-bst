@@ -3,7 +3,7 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2018-11-28 23:49:04 st>
+Time-stamp:     <2018-12-21 12:32:42 st>
 -->
 
 jecon.bst の変更履歴．
@@ -13,6 +13,14 @@ jecon.bst の変更履歴．
 
 * `bst.doi.pre`と`bst.doi.pre.jp`の定義を少し変更。
 
+* `bst.sei.mei.order`のデフォールト値を `#1` に変更。つまり、bibファイルでは日本
+  人であっても「{姓,名}」という書き方で指定するということ。これは最近の文献デー
+  タベースや文献管理ソフトで、日本人であっても外国人と同様の扱いをしているものが
+  多いため。昔からの伝統的な書き方で指定したければ、`bst.sei.mei.order`に `#0`
+  を指定すればよい。
+  
+ * `bst.url.doi` のデフォールト値を `#2` に変更。DOI と URLの両方があるときには、
+   DOIのみを表示するという設定。
 
 
 ## Ver. 5.4 (2017-11-13)
