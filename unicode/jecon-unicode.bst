@@ -3,7 +3,7 @@
 % Author: Shiro Takeda
 % Maintainer: Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2018-12-22 15:46:46 st>
+% Time-stamp: <2018-12-26 23:35:48 st>
 % Version 5.5
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -3286,7 +3286,7 @@ FUNCTION {format.phd}
 { is.kanji.entry
     { bst.phdthesis.jp }
     { bst.phdthesis }
-   if$
+  if$
 }
 
 %%% mastersthesis の整形
