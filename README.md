@@ -3,7 +3,7 @@ Filename:       README.md
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2018-12-23 00:42:02 st>
+Time-stamp:     <2018-12-28 22:07:16 st>
 -->
 
 jecon.bst
@@ -25,7 +25,7 @@ jecon.bst は経済学用のBibTeXスタイルファイルです。jecon.bst を
 | `jecon-example.tex`                      | 使い方等の説明をしたファイルです。                           |
 | [`jecon-example.pdf`](jecon-example.pdf) | `jecon-example.tex` をPDFにしたものです。                    |
 | `jecon-example.bib`                      | 文献のファイルです。                                         |
-| `jecon-example-reverse.bib`              | 文献のファイルです。                                         |
+| `jecon-example-old.bib`                  | 文献のファイルです。                                         |
 | `unicode`                                | ユニコード文字の利用について説明したファイルがあるフォルダ。 |
 | `customization`                          | カスタマイズの例を置いてあるフォルダ。                       |
 | [`CHANGES.md`](CHANGES.md)               | 変更点を説明したファイルです。                               |

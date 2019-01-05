@@ -3,13 +3,19 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2018-12-21 12:32:42 st>
+Time-stamp:     <2019-01-05 10:47:19 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
 
-## Ver. 5.5 (?)
+## Ver. 5.5.1
+
+* タイポの修正
+
+
+
+## Ver. 5.5
 
 * `bst.doi.pre`と`bst.doi.pre.jp`の定義を少し変更。
 
