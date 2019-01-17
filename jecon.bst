@@ -1,34 +1,40 @@
-% jecon.bst: 経済学用 BibTeX style file.
+%% jecon.bst: 経済学用 BibTeX style file.
 %
 % Author: Shiro Takeda
 % Maintainer: Shiro Takeda
+% Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2019-01-04 22:38:39 st>
-% Version 5.5
+% Time-stamp: <2019-01-17 17:46:54 st>
+% Version 5.6
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
 
-% これは，飯田修さんによって作成された jpolisci.bst を経済学用に
-% 武田史郎が改変したものです．
-% 改変には
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
 %
-% aer.bst, jfm.bst, jplain.bst
-% 萩平哲さんによる <http://www.med.osaka-u.ac.jp/pub/anes/www/html/manual/bibtex.html>
-% 樋口耕一さんによる nissya.bst <http://koichi.nihon.to/psnl/>
-%
-% 等を参考にさせていただきました。これらの有益なプログラム、ページを作成してくだ
-% さった方々に感謝します。
-%
-% 元の jpolisci.bst の著作権は飯田さんにあります．わたしが改変した部分の著作権は
-% どうでもいいです．好きなように扱ってください．
-%
-% オリジナルの jpolisci.bst は，<http://www.bol.ucla.edu/~oiida/jpolisci/> で入手
-% することができます．(注：2006年現在ではもうこのページは存在しないようです．どこ
-% で入手できるかはわかりません)．
-%
-% コメント，要望は武田史郎まで．
-%
-% 変更履歴 (Changelog) は CHANGES.txt ファイルを見てください．
+% This work has the LPPL maintenance status "maintained".
+% 
+% The Current Maintainer of this work is Shiro Takeda.
+
+%% Main features of econ.bst.
+
+% "jecon.bst"は（主に）経済学用の BibTeX スタイルファイルです。以下のような特徴
+% があります。
+
+% 1) 「著者（年）」形式（author-year format) で引用できます。
+% 2) 経済学でよく利用されるような参考文献の形式を実現できます（ただし、特定の雑
+%    誌向けというわけではないです）。
+% 3) 形式のカスタマイズを簡単できるようにしています。
+
+% バグ報告、要望は shiro.takeda@gmail.com までお願いします。
+
+% 変更履歴については CHANGES.md ファイルを見てください。
+
 
 % version 指定
 FUNCTION {jecon.version} { "5.5" }
@@ -37,72 +43,6 @@ FUNCTION {jecon.version} { "5.5" }
 FUNCTION {jecon.debug}
 { #0 }    % Debug mode off.
 % { #1 }    % Debug mode on.
-
-% 以下は元の jpolisci.bst のヘッダー部分です．
-%
-%%%%%% ここから Original header.
-%
-% JPOLISCI: a bibliography style for papers in political sicence
-%           and other fields that cite Japanese literature.
-%           Vertical writing (tate-gaki) compatible.
-
-        % Version 20000910 for JBibTeX versions 0.30 or later,
-        % and pLaTeX2e or later.
-        % Copyright (C) 2000, all rights reserved.
-        %
-        % This file was derived from jbtxbst.doc.
-        %
-        % Copying of this file is authorized only if either
-        % (1) you make absolutely no changes to your copy, including name, or
-        % (2) if you do make changes, you name it something other than
-        % jbtxbst.doc, jplain.bst, junsrt.bst, jalpha.bst, jabbrv.bst,
-        % tipsj.bst, jipsj.bst, tieice.bst, jname.bst, jorsj.bst, jglsj.bst,
-        % seg.bst, jpolisci.bst.
-        %
-        % This restriction helps ensure that all standard styles are identical.
-        % The file jbtxbst.doc has the documentation for this style.
-        %
-
-        % Author:
-        %
-        % 飯田修 Osamu Iida
-        % email: oiida@newmail.net
-        % URL  : http://www.bol.ucla.edu/~oiida/jpolisci/ (in Japanese)
-        %
-        % Bug reports, technical suggestions and any other comments
-        % will be appreciated.
-        % 
-
-        % Acknowledgement:
-        %
-        % The following files were referred to while creating this file:
-        %
-        %   jglsj.bst  (by 千葉智章 Tomoaki Chiba)
-        %     Function "format.lab.name" in jpolisci.bst derived from
-        %     it with small modifications only. The author appreciates it.
-        %
-        %   seg.bst (by Martin Karrenbach)
-        %     A method for making two sorts of labels is based on this
-        %     file's feats.
-        %
-        %   jalpha.bst (by 松井正一 Shoichi Matsui)
-        %     jpolisci.bst principally owes its functionality to it.
-        %
-        %   藤田眞作『続 LaTeX2e 階梯・縦組編』（アジソン・ウェスレイ、1998 年）。
-        %
-        % Friends in BBSes at IR-web <http://pws.prserv.net/oi/ -- now
-        % obsolete> and KH's Web Site <http://home.att.ne.jp/wind/polisci/>
-        % gave me titles of Japanese political science journals which are
-        % included in MACROs.
-
-        % This file is distributed with absolutely no warranty.
-        % The author doesn't assume any kind of responsibility for
-        % any inconvenience caused by using this file.
-
-        % Last modified: 2000/12/05
-
-%%%%%% Original header ここまで。
-%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%      用語

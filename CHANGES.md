@@ -3,11 +3,17 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2019-01-05 10:47:19 st>
+Time-stamp:     <2019-01-17 17:45:28 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
+
+## Ver. 5.6
+
+* ライセンスの変更。ライセンスを「the LaTeX Project Public License」に変更しまし
+  た。
+
 
 ## Ver. 5.5.1
 
