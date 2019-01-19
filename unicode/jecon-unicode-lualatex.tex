@@ -1,5 +1,5 @@
 %#!lualatex
-%#BIBTEX upbibtex jecon-unicode-lualatex.aux
+%#BIBTEX upbibtex jecon-unicode-lualatex
 % 
 % このファイルは lualatex でコンパイルすることを前提で作成しています。
 % uplatex や xelatex でコンパイルするにはプリアンプルの設定等を変更する必要があ
@@ -11,8 +11,14 @@
 \documentclass{ltjsarticle}
 
 %% 以下は lualatex 用の設定。
-\usepackage{fontspec}
+\usepackage[no-math]{fontspec}
 \usepackage{luatexja-fontspec}
+\usepackage{luatexja-preset}
+% \usepackage[deluxe,ipa]{luatexja-preset}
+% \usepackage[ms]{luatexja-preset}
+% \usepackage[sourcehan-jp]{luatexja-preset}
+% \usepackage[deluxe,sourcehan-jp]{luatexja-preset}
+% \usepackage[deluxe,yu-win10]{luatexja-preset}
 
 %% 以下は共通の設定
 \usepackage{natbib}
@@ -78,7 +84,8 @@ urlcolor=MyGreen%
 
 \section{はじめに}
 
-この文書は \textbf{「ユニコード文字を利用している文献を\texttt{jecon.bst} で利用する」}ための解説です．
+この文書は \textbf{「ユニコード文字を利用している文献を\texttt{jecon.bst} で利用
+する」}ための解説です．
 \\
 \vspace*{1em}
 
@@ -88,9 +95,9 @@ urlcolor=MyGreen%
 
 \vspace*{1em}
 
-ここで「ユニコード文字」と言っているのは，通常の pLaTeX (\texttt{platex})や
-pBibTeX (\texttt{pbibtex}) では直接利用することができない次のような文字のことで
-す．
+ここで\textbf{「ユニコード文字」}と言っているのは，通常の pLaTeX
+(\texttt{platex})やpBibTeX (\texttt{pbibtex}) では直接利用することができない次の
+ような文字のことです．
 \begin{itemize}
  \item 「草彅剛」の「彅」や「宮﨑あおい」の「﨑」のようにJISの第二水準を
        越える文字
@@ -101,33 +108,30 @@ pBibTeX (\texttt{pbibtex}) では直接利用することができない次の�
        のことです．}．
 \end{itemize}
 
-「直接利用できない」と言うのは，これらの文字を直接ファイルに書くことはで
-きないという意味です．直接書くということでなければ pLaTeX であっても利用
-することができます．例えば「ò」であれば \verb|\`{o}| という命令によって表
-示できます（実際，多くの人がこの方法を利用していると思います）．また，
-「﨑」であればOTF パッケージを利用して\verb|\UTF{FA11}|と書くことで表示で
-きます．
+「直接利用できない」と言うのは，\textbf{これらの文字を直接ファイルに書くことはで
+きない}という意味です．直接書くということでなければ pLaTeX であっても利用するこ
+とができます．例えば「ò」であれば \verb|\`{o}| という命令によって表示できます
+（実際，多くの人がこの方法を利用していると思います）．また，「﨑」であればOTF パッ
+ケージを利用して\verb|\UTF{FA11}|と書くことで表示できます．
 
-「ユニコード文字を利用する」というのは上記のような文字を直接文献ファイル
-内で（もちろんその前提として \texttt{tex} ファイルでも）利用することを指
-しており，この文書はそのような場合での \texttt{jecon.bst} の利用方法の解
-説です．
+「ユニコード文字を利用する」というのは上記のような文字を直接文献ファイル内で（も
+ちろんその前提として \texttt{tex} ファイルでも）利用することを指しており，この文
+書はそのような場合での \texttt{jecon.bst} の利用方法の解説です．
 
 \vspace*{1em}
 
-\noindent \textbf{［注意］} 私はあまり文字コードや \TeX の仕組みに詳しくありません
-（文字コード，文字集合，符号化方式等の概念をよくわかっていません）．文字
-コードについての記述には不正確な記述が多いかもしれませんので注意してくだ
-さい．
+\noindent \textbf{［注意］} 私はあまり文字コードや \TeX の仕組みに詳しくありませ
+ん（文字コード，文字集合，符号化方式等の概念をよくわかっていません）．文字コード
+についての記述には不正確な記述が多いかもしれませんので注意してください．
 
 \vspace*{1em}
 
-この文書はユニコード文字を \texttt{jecon.bst} で利用する場合の説明です．
-他の \texttt{bst} ファイルを利用する場合や，そもそも BibTeX は使わずに
-\texttt{biblatex} を使うときなどは方法が変わってくると思います．また，本
-格的な多言語化の方法を説明する文書でもありません．「日本語で論文を書くの
-で，引用する文献として日本語と英語の文献を引用する．ただ，少し特殊な文字
-も利用したい」という程度の人のための話です．
+この文書はユニコード文字を \texttt{jecon.bst} で利用する場合の説明です．他の
+\texttt{bst} ファイルを利用する場合や，そもそも BibTeX は使わずに
+\texttt{biblatex} を使うときなどは方法が変わってくると思います．また，本格的な多
+言語化の方法を説明する文書でもありません．「日本語で論文を書くので，引用する文献
+として日本語と英語の文献を引用する．ただ，少し特殊な文字も利用したい」という程度
+の人のための話です．
 
 
 \section{ユニコード文字を扱える \TeX}

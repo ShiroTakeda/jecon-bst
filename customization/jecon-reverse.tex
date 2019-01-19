@@ -1,6 +1,9 @@
+%%#!platex -kanji=uft-8
+%%#BIBTEX pbibtex -kanji=utf-8 jecon-reverse
+
 % Author:	       Shiro Takeda
 % First-written:       <2014/01/23>
-% Time-stamp:	       <2018-11-29 11:05:21 st>
+% Time-stamp:	       <2019-01-18 15:59:26 st>
 %
 %############################## Main #################################
 \documentclass[10pt]{jarticle}
@@ -37,9 +40,13 @@ urlcolor=MyGreen%
 \verb|\bibliographystyle|に\verb|jecon-reverse.bst|を指定し、
 \verb|\bibliography|に\verb|jecon-example-old.bib|を指定。
 \vspace{1em}\\
-普通、\verb|bib|ファイルでは日本人名は「姓 名」という形で名前を指定する。
-\verb|jecon-example-reverse.bib|では日本人名についても外国人名と同じように「姓,
-名」という形式で指定している。そのような\verb|bib|ファイルでも適切扱う設定にしているのが、\verb|jecon-reverse.bst|。
+
+普通、\verb|bib|ファイルでは日本人名は「姓 名」という形で名前を指定するが、
+\verb|jeco.bst| では日本人名についても外国人名と同じように「姓, 名」という形式で
+指定する必要がある。ただし、これまでの伝統的な記述方法も使えるようになっている。
+\verb|jecon-example-old.bib|では通常の bib ファイルのように「姓 名」という形式で
+著者名が記述されている。そのような \verb|bib|ファイルでも適切扱う設定にしている
+のが、\verb|jecon-reverse.bst|。
 \vspace{1em}\\
 
 \input{cited-part}

@@ -3,7 +3,7 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2019-01-17 17:45:28 st>
+Time-stamp:     <2019-01-18 16:03:28 st>
 -->
 
 jecon.bst の変更履歴．
@@ -13,7 +13,10 @@ jecon.bst の変更履歴．
 
 * ライセンスの変更。ライセンスを「the LaTeX Project Public License」に変更しまし
   た。
-
+  
+* `bst.dashify.off` のデフォールトの設定を `#0` に変更。つまり、page 番号におけ
+  る "-" を "--" に修正するという動作をデフォールトに。
+  
 
 ## Ver. 5.5.1
 
