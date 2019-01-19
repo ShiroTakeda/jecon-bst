@@ -4,7 +4,7 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2019-01-18 14:30:19 st>
+% Time-stamp: <2019-01-19 16:02:05 st>
 % Version 5.6
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -29,7 +29,7 @@
 % 1) 「著者名（年）」形式（author-year format) で引用できます。
 % 2) 経済学でよく利用されるような参考文献の形式を実現できます（ただし、特定の雑
 %    誌向けというわけではないです）。
-* 3) 英語の文献だけでなく、日本語の文献も適切に処理できます。
+% 3) 英語の文献だけでなく、日本語の文献も適切に処理できます。
 % 4) 他の BibTeX 用のスタイルファイルよりも表示形式のカスタマイズが簡単にできます。
 
 % バグ報告、要望は shiro.takeda@gmail.com までお願いします。
