@@ -3,7 +3,7 @@ Filename:       README.md
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2019-01-22 10:49:38 st>
+Time-stamp:     <2019-01-22 14:07:33 st>
 -->
 
 jecon.bst
@@ -13,24 +13,24 @@ jecon.bst
 
 * 「著者（年）」形式（author-year format) で引用できます。
 *  経済学でよく利用されるような参考文献（reference）の形式を実現できます（ただし、
-   特定の雑誌向けというわけではないです）。 
+  特定の雑誌向けというわけではないです）。
 * 英語の文献だけでなく、日本語の文献も適切に処理できます。
 * 他の BibTeX 用のスタイルファイルよりも表示形式のカスタマイズが簡単にできます。
 
 
 ## ファイル
 
-| ファイル                                 | 説明                                                         |
-|:-----------------------------------------|:-------------------------------------------------------------|
-| `jecon.bst`                              | これが bst ファイルです。                                    |
-| `jecon-example.tex`                      | 使い方等の説明をしたファイルです。                           |
+| ファイル                                    | 説明                                                         |
+|:--------------------------------------------|:-------------------------------------------------------------|
+| `jecon.bst`                                 | これが bst ファイルです。                                    |
+| `jecon-example.tex`                         | 使い方等の説明をしたファイルです。                           |
 | [`jecon-example.pdf`](jecon-example.pdf) | `jecon-example.tex` をPDFにしたものです。                    |
-| `jecon-example.bib`                      | 文献のファイルです。                                         |
-| `jecon-example-old.bib`                  | 文献のファイルです。                                         |
-| `unicode`                                | ユニコード文字の利用について説明したファイルがあるフォルダ。 |
-| `customization`                          | カスタマイズの例を置いてあるフォルダ。                       |
-| [`CHANGES.md`](CHANGES.md)               | 変更点を説明したファイルです。                               |
-| `README.md`                              | このファイルです。                                           |
+| `jecon-example.bib`                         | 文献のファイルです。                                         |
+| `jecon-example-old.bib`                     | 文献のファイルです。                                         |
+| `unicode`                                   | ユニコード文字の利用について説明したファイルがあるフォルダ。 |
+| `customization`                             | カスタマイズの例を置いてあるフォルダ。                       |
+| [`CHANGES.md`](CHANGES.md)                | 変更点を説明したファイルです。                               |
+| `README.md`                                 | このファイルです。                                           |
 
 ## 注
 

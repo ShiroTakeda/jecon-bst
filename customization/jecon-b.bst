@@ -4,7 +4,7 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2019-01-19 16:01:36 st>
+% Time-stamp: <2019-01-22 14:11:21 st>
 % Version 5.6
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -1103,8 +1103,8 @@ FUNCTION {bst.touten.jp}
 %	
 % 0 以外を指定すれば，page を繋ぐ "-" を "--" に変更しない．
 FUNCTION {bst.dashify.off}
-% { #0 }
-{ #1 }	  % (default)
+{ #0 }	  % (default)
+% { #1 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
