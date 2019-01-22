@@ -3,7 +3,7 @@ Filename:       README.md
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2019-01-18 14:16:52 st>
+Time-stamp:     <2019-01-22 10:45:29 st>
 -->
 
 jecon.bst
@@ -31,6 +31,14 @@ jecon.bst
 | `customization`                          | カスタマイズの例を置いてあるフォルダ。                       |
 | [`CHANGES.md`](CHANGES.md)               | 変更点を説明したファイルです。                               |
 | `README.md`                              | このファイルです。                                           |
+
+## 注
+
+`bst.sei.mei.order`のデフォールト値を `#1` に変更しました。これは bibファイルにおいて日本
+人であっても「{姓,名}」という書き方で指定するということを意味します。これは最近の文献デー
+タベースや文献管理ソフトで、日本人であっても外国人と同様の扱いをしているものが多いためです。
+昔からの伝統的な書き方で指定したければ、`bst.sei.mei.order`に `#0`を指定してください。
+
 
 
 <!--
