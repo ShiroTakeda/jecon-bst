@@ -1010,7 +1010,7 @@ FUNCTION {bst.show.doi}
 % DOIの前に付ける文字列 (英語文献用)
 %
 FUNCTION {bst.doi.pre}
-{ ", DOI: \href{http://doi.org/" } % (default)
+{ ", DOI: \href{http://dx.doi.org/" doi * "}{" * } % (default)
 
 % DOIの後に付ける文字列 (英語文献用)
 %
@@ -1020,7 +1020,7 @@ FUNCTION {bst.doi.post}
 % DOIの前に付ける文字列 (日本語文献用)
 %
 FUNCTION {bst.doi.pre.jp}
-{ "，DOI：\href{http://doi.org/" }
+{ "，DOI: \href{http://dx.doi.org/" doi * "}{" * } % (default)
 
 % DOIの後に付ける文字列 (日本語文献用)
 %
@@ -1036,9 +1036,9 @@ FUNCTION {bst.doi.post.jp}
 % #2 -> DOI のみ表示
 %
 FUNCTION {bst.url.doi}
-% { #0 }    % (default) -> 両方表示
+{ #0 }    % (default) -> 両方表示
 % { #1 }    % -> URL のみ表示
-{ #2 }	  % -> DOI のみ表示
+% { #2 }	  % -> DOI のみ表示
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	邦訳書
@@ -3336,8 +3336,8 @@ FUNCTION {format.doi}
 { doi empty$ bst.show.doi not or
     { "" }
     { is.kanji.entry
-        { bst.doi.pre.jp doi * "}{" * doi * bst.doi.post.jp * }
-        { bst.doi.pre * doi "}{" * doi * bst.doi.post * }
+	{ bst.doi.pre.jp doi * bst.doi.post.jp * }
+	{ bst.doi.pre doi * bst.doi.post * }
       if$
     }
   if$
@@ -3516,7 +3516,6 @@ FUNCTION {book}
 
   format.hoyakusho output.nocomma
   format.url.doi output.nocomma
-  format.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
