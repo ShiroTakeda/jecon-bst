@@ -15,8 +15,12 @@ jecon.bst (経済学用のBibTeX style file) の私家修正版です。
 本家: <http://shirotakeda.org/ja/tex-ja/jecon-ja.html>
 
 本家との違い:
-* DOI の表記から, `http:/dx.doi.org/` を省略しました.
-  + リンクをフルで表記するのは冗長なためです. また, `dx.doi.org` を `doi.org` に変更しています.
+* book エントリについて, 邦訳書情報, DOI の表示順だったものを逆に. 
+* DOI のリンクを `dx.doi.org` から `doi.org` に変更.
+* arXiv へのリンクも表示するように.
+	+ bib ファイルに `eprinttype={arxiv}`, `archivePrefix={arXiv}`, `eprint={19xx.xxxx}` と書けば表示.
+	+ DOI/URL の表示オプションを廃止し, 常に DOI > ArXiv > URL の優先順位で表示させるように変更.
+* URL について, 長いものは見づらいのでデフォルトで短縮するように変更
 
 ## ファイル
 
