@@ -3516,7 +3516,6 @@ FUNCTION {book}
 
   format.hoyakusho output.nocomma
   format.url.doi output.nocomma
-  format.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
