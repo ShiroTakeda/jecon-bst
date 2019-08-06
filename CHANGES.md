@@ -3,13 +3,17 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2019-01-22 10:52:24 st>
+Time-stamp:     <2019-08-06 22:17:20 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
 
 ## 変更点（上が新しい）
+
+* 2019-08-06: Book で DOI が連続して2回表示されるバグを修正。
+
+* 2019-02-06: incolletion タイプで、巻、版、章、ページ数の情報を出版社の情報の前に変更。
 
 * 2019-01-22: ライセンスの変更。ライセンスを「the LaTeX Project Public License」
   に変更しました。
