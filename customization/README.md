@@ -2,7 +2,7 @@
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2016-03-16>
-Time-stamp:     <2019-10-14 22:54:36 st>
+Time-stamp:     <2019-10-14 22:57:20 st>
 -->
 
 このフォルダの説明
@@ -15,7 +15,7 @@ Time-stamp:     <2019-10-14 22:54:36 st>
 
 | bst ファイル         | PDFファイル                                | 説明                                                                  |
 |:---------------------|:-------------------------------------------|:----------------------------------------------------------------------|
-| `jecon.bst`          |                                            | そのままの `jecon.bst`。                                              |
+| `jecon.bst`          | [`jecon-default.pdf`](jecon-default.pdf)   | そのままの `jecon.bst`。                                              |
 | `jecon-a.bst`        | [`jecon-a.pdf`](jecon-a.pdf)               | 括弧などの装飾をできるだけなくしたもの。                              |
 | `jecon-b.bst`        | [`jecon-b.pdf`](jecon-b.pdf)               | いろいろ変えてみたもの。                                              |
 | `jecon-tategaki.bst` | [`jecon-tategaki.pdf`](jecon-tategaki.pdf) | 数字を漢数字にして、縦書きにしたもの。                                |
