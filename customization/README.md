@@ -2,7 +2,7 @@
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2016-03-16>
-Time-stamp:     <2019-10-14 21:56:09 st>
+Time-stamp:     <2019-10-14 22:54:36 st>
 -->
 
 このフォルダの説明
@@ -13,14 +13,14 @@ Time-stamp:     <2019-10-14 21:56:09 st>
 
 ## ファイル
 
-| bst ファイル         | 説明                                                    |
-|:---------------------|:--------------------------------------------------------|
-| `jecon.bst`          | そのままの `jecon.bst`。                                |
-| `jecon-a.bst`        | 括弧などの装飾をできるだけなくしたもの。                |
-| `jecon-b.bst`        | いろいろ変えてみたもの。                                |
-| `jecon-tategaki.bst` | 数字を漢数字にして、縦書きにしたもの。                  |
-| `jecon-no-sort.bst`  | 引用順にそのまま並べる形式。                            |
-| `jecon-reverse.bst`  | 日本語の著者名の姓名の順序が普通の順序のbibファイルを処理するケース。   |
+| bst ファイル         | PDFファイル                                | 説明                                                                  |
+|:---------------------|:-------------------------------------------|:----------------------------------------------------------------------|
+| `jecon.bst`          |                                            | そのままの `jecon.bst`。                                              |
+| `jecon-a.bst`        | [`jecon-a.pdf`](jecon-a.pdf)               | 括弧などの装飾をできるだけなくしたもの。                              |
+| `jecon-b.bst`        | [`jecon-b.pdf`](jecon-b.pdf)               | いろいろ変えてみたもの。                                              |
+| `jecon-tategaki.bst` | [`jecon-tategaki.pdf`](jecon-tategaki.pdf) | 数字を漢数字にして、縦書きにしたもの。                                |
+| `jecon-no-sort.bst`  | [`jecon-no-sort.pdf`](jecon-no-sort.pdf)   | 引用順にそのまま並べる形式。                                          |
+| `jecon-reverse.bst`  | [`jecon-reverse.pdf`](jecon-reverse.pdf)   | 日本語の著者名の姓名の順序が普通の順序のbibファイルを処理するケース。 |
 
 
 

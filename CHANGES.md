@@ -3,13 +3,15 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2019-10-14 22:50:22 st>
+Time-stamp:     <2019-10-14 22:55:18 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
 
 ## 変更点（上が新しい）
+
+* 2019-10-14: customization/README.md の修正。
 
 * 2019-10-14: README.md の説明を修正。
 
