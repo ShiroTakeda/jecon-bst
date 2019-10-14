@@ -4,7 +4,7 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2019-01-18 16:49:20 st>
+% Time-stamp: <2019-10-14 21:45:36 st>
 % Version 5.6
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -1010,22 +1010,22 @@ FUNCTION {bst.show.doi}
 % DOIの前に付ける文字列 (英語文献用)
 %
 FUNCTION {bst.doi.pre}
-{ ", DOI: \href{http://dx.doi.org/" doi * "}{" * } % (default)
+{ ", DOI: \href{http://dx.doi.org/" doi * "}{\urlstyle{rm} \nolinkurl{" * } % (default)
 
 % DOIの後に付ける文字列 (英語文献用)
 %
 FUNCTION {bst.doi.post}
-{ "}" }	   % (default)
+{ "}}" }	   % (default)
 
 % DOIの前に付ける文字列 (日本語文献用)
 %
 FUNCTION {bst.doi.pre.jp}
-{ "，DOI: \href{http://dx.doi.org/" doi * "}{" * } % (default)
+{ "，DOI: \href{http://dx.doi.org/" doi * "}{\urlstyle{rm} \nolinkurl{" * } % (default)
 
 % DOIの後に付ける文字列 (日本語文献用)
 %
 FUNCTION {bst.doi.post.jp}
-{ "}" }	   % (default)
+{ "}}" }	   % (default)
 
 % URL と DOI の表示方法
 %
@@ -3516,7 +3516,6 @@ FUNCTION {book}
 
   format.hoyakusho output.nocomma
   format.url.doi output.nocomma
-  format.doi output.nocomma
 
   format.note output.nocomma
   fin.entry
@@ -3584,9 +3583,9 @@ FUNCTION {incollection}
 
   format.in.ed.booktitle "booktitle" output.check.nocomma
   format.bvolume output.nocomma
-  output.address.organization.publisher
   format.edition output.nocomma
   format.chapter.pages output.nocomma
+  output.address.organization.publisher
 
   bst.year.position #0 = not
     { format.year "year" output.check.nocomma }
