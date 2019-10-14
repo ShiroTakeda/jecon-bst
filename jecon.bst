@@ -1010,22 +1010,22 @@ FUNCTION {bst.show.doi}
 % DOIの前に付ける文字列 (英語文献用)
 %
 FUNCTION {bst.doi.pre}
-{ ", DOI: \href{http://dx.doi.org/" doi * "}{" * } % (default)
+{ ", DOI: \href{http://dx.doi.org/" doi * "}{\urlstyle{rm} \nolinkurl{" * } % (default)
 
 % DOIの後に付ける文字列 (英語文献用)
 %
 FUNCTION {bst.doi.post}
-{ "}" }	   % (default)
+{ "}}" }	   % (default)
 
 % DOIの前に付ける文字列 (日本語文献用)
 %
 FUNCTION {bst.doi.pre.jp}
-{ "，DOI: \href{http://dx.doi.org/" doi * "}{" * } % (default)
+{ "，DOI: \href{http://dx.doi.org/" doi * "}{\urlstyle{rm} \nolinkurl{" * } % (default)
 
 % DOIの後に付ける文字列 (日本語文献用)
 %
 FUNCTION {bst.doi.post.jp}
-{ "}" }	   % (default)
+{ "}}" }	   % (default)
 
 % URL と DOI の表示方法
 %

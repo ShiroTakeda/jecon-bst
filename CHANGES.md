@@ -3,13 +3,17 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2019-08-06 22:17:20 st>
+Time-stamp:     <2019-10-14 20:59:23 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
 
 ## 変更点（上が新しい）
+
+* 2019-10-14: 目次に参考文献が表示されるように修正。
+
+* 2019-10-14: DOI に TeX の制御文字が含まれるとエラーになる問題への対処。
 
 * 2019-08-06: Book で DOI が連続して2回表示されるバグを修正。
 
