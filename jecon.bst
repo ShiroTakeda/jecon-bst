@@ -1081,6 +1081,7 @@ FUNCTION {bst.harvarditem.off}
 FUNCTION {bst.thebibliography.begin}
 {
   "" write$ newline$
+  "\makeatletter\@ifundefined{ifNAT@openbib}{\@latex@error{Package 'natbib' is not loaded! \MessageBreak Please load Package 'hyperref' or 'pxjahyper', 'url' package if necessary.}\@ehc}{}\relax\makeatother" write$ newline$
   "\begin{thebibliography}{xxx}" write$ newline$
   "" write$ newline$
 }
