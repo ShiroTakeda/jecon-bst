@@ -4,7 +4,7 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2019-10-14 21:43:42 st>
+% Time-stamp: <2020-01-31 22:58:23 st>
 % Version 5.6
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -1081,6 +1081,7 @@ FUNCTION {bst.harvarditem.off}
 FUNCTION {bst.thebibliography.begin}
 {
   "" write$ newline$
+  "\makeatletter\@ifundefined{ifNAT@openbib}{\@latex@error{Package 'natbib' is not loaded! Please load Package 'natbib' in your preamble.\MessageBreak Additionally, if you use url field in your bib record entry, please also load Package 'hyperref' or 'pxjahyper', 'url' package.}\@ehc}{}\relax\makeatother" write$ newline$
   "\begin{thebibliography}{xxx}" write$ newline$
   "" write$ newline$
 }
