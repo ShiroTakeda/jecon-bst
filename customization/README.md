@@ -2,7 +2,7 @@
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2016-03-16>
-Time-stamp:     <2019-10-14 22:57:20 st>
+Time-stamp:     <2020-03-04 22:27:13 st>
 -->
 
 このフォルダの説明
@@ -21,6 +21,7 @@ Time-stamp:     <2019-10-14 22:57:20 st>
 | `jecon-tategaki.bst` | [`jecon-tategaki.pdf`](jecon-tategaki.pdf) | 数字を漢数字にして、縦書きにしたもの。                                |
 | `jecon-no-sort.bst`  | [`jecon-no-sort.pdf`](jecon-no-sort.pdf)   | 引用順にそのまま並べる形式。                                          |
 | `jecon-reverse.bst`  | [`jecon-reverse.pdf`](jecon-reverse.pdf)   | 日本語の著者名の姓名の順序が普通の順序のbibファイルを処理するケース。 |
+|                      | [`jecon-number.pdf`](jecon-number.pdf)     | 「著者名（年）」ではなく、番号で引用するケース。                      |
 
 
 
