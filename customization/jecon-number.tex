@@ -1,0 +1,93 @@
+%%#!platex -kanji=uft-8
+%%#BIBTEX pbibtex -kanji=utf-8 jecon-number
+
+% Author:	       Shiro Takeda
+% First-written:       <2002/11/02>
+% Time-stamp:	       <2020-03-04 22:19:57 st>
+%
+%############################## Main #################################
+\documentclass[10pt]{jarticle}
+
+%% natbib.sty を使う。
+\usepackage[numbers]{natbib}
+\usepackage{newtxtext,newtxmath}
+\usepackage{color}
+\definecolor{MyBrown}{rgb}{0.3,0,0}
+\definecolor{MyBlue}{rgb}{0,0,0.3}
+\definecolor{MyRed}{rgb}{0.6,0,0.1}
+\definecolor{MyGreen}{rgb}{0,0.4,0}
+\usepackage[dvipdfm,
+bookmarks=true,%
+bookmarksnumbered=true,%
+colorlinks=true,%
+linkcolor=MyBlue,%
+citecolor=MyRed,%
+filecolor=MyBlue,%
+pagecolor=MyBlue,%
+urlcolor=MyGreen%
+]{hyperref}
+
+\setlength{\topmargin}{-20pt} 
+\setlength{\textheight}{648pt}
+\setlength{\oddsidemargin}{15pt}
+\setlength{\textwidth}{440pt}
+
+% \cicet 命令が \citep 命令と同じになるように再定義。
+\renewcommand{\citet}[1]{\citep{#1}}
+
+%#####################################################################
+%######################### Document Starts ###########################
+%#####################################################################
+\begin{document}
+
+\verb|natbib.sty|の番号モードにより、番号での引用をおこなっているもの。
+\vspace*{1em}
+
+\texttt{natbib.sty} の番号モードを利用するため次のような設定にしている。
+\begin{itemize}
+ \item まず、\texttt{natbib.sty} を ``\texttt{numbers}''オプション付きで読み込ん
+       でいる\\
+       \verb|\usepackage[numbers]{natbib}|
+ \item bst ファイルには ``\verb|jecon-no-sort.bst|'' を利用している。この bstファ
+       イルではレファレンスは引用順に並べられる。
+ \item \verb|\citet| 命令の代わりに \verb|\citep| 命令で引用している\\
+       注：厳密には、\texttt{citep} 命令と同じ機能になるように再定義した \texttt{citet} 命令を利用している。
+\end{itemize}
+
+\vspace{1em}
+
+\input{cited-part}
+
+\vspace{1em}
+
+このようなまとめての引用も可能。 → \citet{40020418914,
+yamazaki13:_japan,
+takeda2013jecon,
+Takeda2012a,
+takeda2012_cge,
+Takeda2014a,
+takeda2019a,
+40018847518}
+
+\nocite{*}
+
+%% BibTeX スタイルファイルの指定。
+%
+% jecon-no-sort.bst を指定。
+\bibliographystyle{jecon-no-sort}
+
+%% BibTeX データベースファイルの指定。
+%
+% 一個上のフォルダにある jecon-example.bib を指定。
+\bibliography{../jecon-example}
+
+\end{document}
+
+%#####################################################################
+%######################### Document Ends #############################
+%#####################################################################
+% </pre></body></html>
+% --------------------
+% Local Variables:
+% fill-column: 80
+% End:
