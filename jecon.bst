@@ -4,7 +4,7 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2020-03-26 12:45:41 st>
+% Time-stamp: <2020-03-28 22:16:30 st>
 % Version 5.7
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -2150,7 +2150,7 @@ FUNCTION {format.editors}
       extra.label.bysame "bysame" =
 	% Yes なら bysame.check に 1 を代入し、bysame を挿入
 	{ #1 'bysame.check :=
- 	  editor insert.bysame }
+	  editor insert.bysame }
 	{ editor s remove.ss.period.auth }
       if$
       editor num.names$ #1 >
