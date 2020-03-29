@@ -3,13 +3,15 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2020-03-04 22:22:37 st>
+Time-stamp:     <2020-03-29 22:54:02 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
 
 ## 変更点（上が新しい）
+
+* 2020-03-29: 「編」や「ed.」が出ないというバグの修正。
 
 * 2020-03-04: カスタマイズのサンプルの jecon-number.tex を追加。「著者（年）」で
   はなく、番号での引用をおこなっている例。これは natbib package のオプションによ
