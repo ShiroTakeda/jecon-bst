@@ -4,8 +4,8 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2020-03-29 22:51:47 st>
-% Version 5.7
+% Time-stamp: <2020-06-21 11:48:49 st>
+% Version 6.0
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
 
@@ -38,7 +38,7 @@
 
 
 % version 指定
-FUNCTION {jecon.version} { "5.7" }
+FUNCTION {jecon.version} { "6.0" }
 
 % Debug mode．0 以外を指定すると様々な情報を表示させることが可能．
 FUNCTION {jecon.debug}
@@ -416,6 +416,19 @@ FUNCTION {bst.cite.and.jp}
 FUNCTION {bst.and.others.num}
 { #3 }	  % 3人以上なら省略する。(default)
 % { #4 }
+
+% 著者数がある値より大きい場合には、参考文献部分で著者の一部の名前しか表示されな
+% い。具体的には、著者数が N1 より大きい場合には、著者の中の最初の N2 人の名前だ
+% けが表示される（他の著者は et al.で省略される）
+% 
+% 次の関数により N1 の値を設定する。
+FUNCTION {bst.max.author.num}
+{ #8 }    % とりあえず8人より多い場合に設定 (default).
+
+% 次の関数により N2 の値を設定する。
+FUNCTION {bst.max.author.num.display}
+{ #3 }    % (default)
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%	author 名を略す際の文字列
@@ -1220,7 +1233,7 @@ STRINGS { item.type }
 STRINGS { tempa tempb tempc }
 
 %% 整数型大域変数
-INTEGERS { nameptr namesleft numnames  alphabet.in.author name.num }
+INTEGERS { nameptr namesleft numnames  alphabet.in.author name.num numtrunc }
 INTEGERS { bysame.check }
 INTEGERS { multiresult }
 INTEGERS { index }
@@ -1704,296 +1717,208 @@ FUNCTION {count.number.of.letters}
 }
 
 %%% name を処理する関数
+%
+% format.names は二つの引数をとる。
+%    Name1 Name2 format.names
+% Name2: これは普通の名前が入る (authorフィールドの中身など）。
+% Name1: これは普通の名前か、bysame が入る。
+% bysame は使わない部分では Name2 を二回使えばよい。
+%    Name2 Name2 format.names
+%
+% 変数
+% nameptr: これは著者番号（何番目の著者かを表す）
+% numnames: これは著者数
+% namesleft: これはまだ処理されていない著者の数
+% numtrunc: これには bst.max.author.num.display の値を入れる
+% 
 FUNCTION {format.names}
-{ 's :=
-  % nameptr に 1 を代入
-  #1 'nameptr :=
-  % numnames に author (editor) の数を代入
-  s num.names$ 'numnames :=
-  numnames 'namesleft :=
-  % namesleft が 0 より大なら繰り返し (while)
-  { namesleft #0 > }
-    % s に日本語含むか？
-    { s check.kanji.str
-	% 日本語含むケースの処理
-	{ nameptr 'name.num :=
-	  s set.alphabet.in.author
-	  alphabet.in.author #0 =
-	    % first nameが日本語のケース（日本人名ということ）
+{ 'sss :=  % こちらに省略されていない名前
+  's :=    % こちらに省略された名前
 
-	    % 注：日本語の author は "姓 名" の順で指定されるが、bst では
-	    % 順番通りに姓＝first name、名＝last name として扱われる。
-	    { bst.sei.mei.order #0 =
-		{ s nameptr "{ff}" format.name$ 'ss :=
-		  s nameptr "{ll}" format.name$ 'tt := }
-		% 普通と逆順のケース
-		{ s nameptr "{ll}" format.name$ 'ss :=
-		  s nameptr "{ff}" format.name$ 'tt := }
-	      if$
-	      ss "" =
-		%% 姓のみのケースはそのまま
-		{ tt 't := }
-		%% 姓・名ともにあるケース
-		{ ss count.number.of.letters "1" =
-		  tt count.number.of.letters "1" = or
-		    { ss bst.sei.mei.one.jp * tt * 't := }
-		    { ss bst.sei.mei.two.jp * tt * 't := }
-		  if$
-		}
-	      if$
-	    }
-	    % first name が alphabet のケース (つまり、カタカナの外国人名)
-	    { nameptr #1 =
-	       % first author のケース (last name - first name の order)
-	       { bst.author.name #0 =
-		 bst.author.name #1 = or
-		   % Last name - first name
-		   { s nameptr "{ll}" format.name$ 'ss :=
-		     s nameptr "{ff}" format.name$ 'tt :=
-		     ss bst.touten.jp * tt * 't := }
-		   % First name - Last name
-		   { s nameptr "{ff~}{ll}" format.name$ 't := }
-		 if$
-	       }
-	       % first author 以外のケース (first name - last name の order)
-	       { bst.author.name #0 =
-		 bst.author.name #2 = or
-		   % First name - Last name
-		   { s nameptr "{ff~}{ll}" format.name$ 't := }
-		   % Last name - First name
-		   { s nameptr "{ll}" format.name$ 'ss :=
-		     s nameptr "{ff}" format.name$ 'tt :=
-		     ss bst.touten.jp * tt * 't := }
-		 if$
-	       }
-	      if$
-	    }
-	  if$
-	}
-	% author に日本語含まないケースの処理
-	{ nameptr #1 =
-	   % 一番目の author
-	   { bst.author.name #0 =
-	     bst.author.name #1 =
-	     or
-		{ bst.first.name.initial #0 = 
-		   { s nameptr "{vv~}{ll}{, ff}{, jj}" format.name$ 't := }
-		   { s nameptr "{vv~}{ll}{, f.}{, jj}" format.name$ 't := }
-		  if$
-		}
-		{ bst.first.name.initial #0 = 
-		   { s nameptr "{ff~}{vv~}{ll}{, jj}" format.name$ 't := }
-		   { s nameptr "{f.~}{vv~}{ll}{, jj}" format.name$ 't := }
-		  if$
-		}
-	     if$
-	   }
-	   % 二番目以降の author
-	   { bst.author.name #0 =
-	     bst.author.name #2 =
-	     or
-		{ bst.first.name.initial #0 = 
-		   { s nameptr "{ff~}{vv~}{ll}{, jj}" format.name$ 't := }
-		   { s nameptr "{f.~}{vv~}{ll}{, jj}" format.name$ 't := }
-		 if$
-		}
-		{ bst.first.name.initial #0 = 
-		   { s nameptr "{vv~}{ll}{, ff}{, jj}" format.name$ 't := }
-		   { s nameptr "{vv~}{ll}{, f.}{, jj}" format.name$ 't := }
-		 if$
-		}
-	     if$
-	   }
-	  if$
-	}
-      if$
-      nameptr #1 >
-	% 二番目以降の author のケースでの処理
-	{ namesleft #1 >
-	    { s check.kanji.str
-		{ bst.and.jp  * t * }
-		{ ", " * t * }
-	      if$
-	    }
-	    { t "others" =
-		{ s check.kanji.str
-		    { bst.and.others.jp * }
-		    { bst.and.others * }
-		  if$
-		}
-		{ s check.kanji.str
-		    { bst.and.jp * t * }
-		    { numnames #2 =
-			{ bst.and * t * }
-			{ bst.ands * t * }
-		      if$
-		    }
-		   if$
-		}
-	      if$
-	    }
-	  if$
-	}
-	't
-      if$
-      nameptr #1 + 'nameptr :=
-      namesleft #1 - 'namesleft :=
-    }
-  while$
-}
-
-%%% name を処理する関数
-FUNCTION {format.names.alt}
-{ 'sss :=  % 省略されていない名前
-  's :=	 % 省略された名前
-%   "abbreviated (s) = \texttt{" s * "}\\" * write$ 
-%   "full (sss) = \texttt{" sss * "}\\" * write$ 
-  jecon.debug #0 = not % for debug
-     { "abbreviated (s) = \texttt{" s * "}\\" * write$ 
-       "full (sss) = \texttt{" sss * "}\\" * write$ }
-     'skip$
+  s "xxx" =
+    { sss 's := }
+    'skip$
   if$
-  % nameptr に 1 を代入
+
+  % nameptr に 1（初期値） を代入
   #1 'nameptr :=
-  % numnames に author (editor) の数を代入
+  % numnames に著者数を代入
   s num.names$ 'numnames :=
   numnames 'namesleft :=
-  % namesleft が 0 より大なら繰り返し (while)
-  { namesleft #0 > }
-    % s に日本語含むか？
-    { sss check.kanji.str
-	% 日本語含むケースの処理
-	{ nameptr 'name.num :=
-	  s set.alphabet.in.author
-	  alphabet.in.author #0 =
-	    % first nameが日本語のケース（日本人名ということ）
 
-	    % 注：日本語の author は "姓 名" の順で指定されるが、bst では
-	    % 順番通りに姓＝first name、名＝last name として扱われる。
-	    { bst.sei.mei.order #0 =
-		{ s nameptr "{ff}" format.name$ 'ss :=
-		  s nameptr "{ll}" format.name$ 'tt := }
-		% 普通と逆順のケース
-		{ s nameptr "{ll}" format.name$ 'ss :=
-		  s nameptr "{ff}" format.name$ 'tt := }
-	      if$
-	      ss "" =
-		%% 姓のみのケースはそのまま
-		{ tt 't := }
-		%% 姓・名ともにあるケース
-		{ ss count.number.of.letters "1" =
-		  tt count.number.of.letters "1" = or
-		    { ss bst.sei.mei.one.jp * tt * 't := }
-		    { ss bst.sei.mei.two.jp * tt * 't := }
-		  if$
-		}
-	      if$
-	    }
-	    % first name が alphabet のケース (つまり、カタカナの外国人名)
-	    { nameptr #1 =
-	       % first author のケース (last name - first name の order)
-	       { bst.author.name #0 =
-		 bst.author.name #1 = or
-		   % Last name - first name
-		   { s nameptr "{ll}" format.name$ 'ss :=
-		     s nameptr "{ff}" format.name$ 'tt :=
-		     ss bst.touten.jp * tt * 't := }
-		   % First name - Last name
-		   { s nameptr "{ff~}{ll}" format.name$ 't := }
-		 if$
-	       }
-	       % first author 以外のケース (first name - last name の order)
-	       { bst.author.name #0 =
-		 bst.author.name #2 = or
-		   % First name - Last name
-		   { s nameptr "{ff~}{ll}" format.name$ 't := }
-		   % Last name - First name
-		   { s nameptr "{ll}" format.name$ 'ss :=
-		     s nameptr "{ff}" format.name$ 'tt :=
-		     ss bst.touten.jp * tt * 't := }
-		 if$
-	       }
-	      if$
-	    }
-	  if$
-	}
-	% author に日本語含まないケースの処理
-	{ nameptr #1 =
-	   % 一番目の author
-	   { bst.author.name #0 =
-	     bst.author.name #1 =
-	     or
-		{ bst.first.name.initial #0 = 
-		   { s nameptr "{vv~}{ll}{, ff}{, jj}" format.name$ 't := }
-		   { s nameptr "{vv~}{ll}{, f.}{, jj}" format.name$ 't := }
-		  if$
-		}
-		{ bst.first.name.initial #0 = 
-		   { s nameptr "{ff~}{vv~}{ll}{, jj}" format.name$ 't := }
-		   { s nameptr "{f.~}{vv~}{ll}{, jj}" format.name$ 't := }
-		  if$
-		}
-	     if$
-	   }
-	   % 二番目以降の author
-	   { bst.author.name #0 =
-	     bst.author.name #2 =
-	     or
-		{ bst.first.name.initial #0 = 
-		   { s nameptr "{ff~}{vv~}{ll}{, jj}" format.name$ 't := }
-		   { s nameptr "{f.~}{vv~}{ll}{, jj}" format.name$ 't := }
-		 if$
-		}
-		{ bst.first.name.initial #0 = 
-		   { s nameptr "{vv~}{ll}{, ff}{, jj}" format.name$ 't := }
-		   { s nameptr "{vv~}{ll}{, f.}{, jj}" format.name$ 't := }
-		 if$
-		}
-	     if$
-	   }
-	  if$
-	}
-      if$
-      nameptr #1 >
-	% 二番目以降の author のケースでの処理
-	{ namesleft #1 >
-	    { sss check.kanji.str
-		{ bst.and.jp  * t * }
-		{ ", " * t * }
-	      if$
-	    }
-	    { t "others" =
-		{ s check.kanji.str
-		    { bst.and.others.jp * }
-		    { bst.and.others * }
-		  if$
-		}
-		{ sss check.kanji.str
-		    { bst.and.jp * t * }
-		    { numnames #2 =
-			{ bst.and * t * }
-			{ bst.ands * t * }
-		      if$
-		    }
-		   if$
-		}
-	      if$
-	    }
-	  if$
-	}
-	't
-      if$
-      nameptr #1 + 'nameptr :=
-      namesleft #1 - 'namesleft :=
-    }
-  while$
+  numnames bst.max.author.num >
+    % If numnames > bst.max.author.num
+    { bst.max.author.num.display 'numtrunc := }
+    { #0 'numtrunc := }
+  if$
+
+  % namesleft > 0 なら繰り返し (while) --- 繰り返し開始
+  { namesleft #0 > }
+
+  { 
+
+    % Block A starts
+    sss check.kanji.str
+
+      % A-1: 日本語含むケースの処理
+      { nameptr 'name.num :=		% name.num は次の行の set.alphabet.in.author で利用。
+        s set.alphabet.in.author 
+        alphabet.in.author #0 =
+
+          % A-1-1: first nameが日本語のケース（日本人名ということ）
+          { bst.sei.mei.order #0 =
+              % 姓名が普通の順番（名 → 姓）のケース
+              { s nameptr "{ff}" format.name$ 'ss :=
+                s nameptr "{ll}" format.name$ 'tt := }
+              % 普通と逆順（姓 → 名）のケース
+              { s nameptr "{ll}" format.name$ 'ss :=
+                s nameptr "{ff}" format.name$ 'tt := }
+            if$
+
+            ss "" =
+              %% 姓のみのケースはそのまま
+              { tt 't := }
+              %% 姓・名ともにあるケース
+              { ss count.number.of.letters "1" =
+                tt count.number.of.letters "1" = or
+                  { ss bst.sei.mei.one.jp * tt * 't := }
+                  { ss bst.sei.mei.two.jp * tt * 't := }
+                if$
+              }
+            if$
+          }
+
+          % A-1-2: first name が alphabet のケース (つまり、カタカナの外国人名)
+          { nameptr #1 =
+
+             % A-1-2-1: first author のケース (last name - first name の order)
+             { bst.author.name #0 =
+               bst.author.name #1 = or
+                 % Last name - first name
+                 { s nameptr "{ll}" format.name$ 'ss :=
+                   s nameptr "{ff}" format.name$ 'tt :=
+                   ss bst.touten.jp * tt * 't := }
+                 % First name - Last name
+                 { s nameptr "{ff~}{ll}" format.name$ 't := }
+               if$
+             }
+             % A-1-2-2: first author 以外のケース (first name - last name の order)
+             { bst.author.name #0 =
+               bst.author.name #2 = or
+                 % First name - Last name
+                 { s nameptr "{ff~}{ll}" format.name$ 't := }
+                 % Last name - First name
+                 { s nameptr "{ll}" format.name$ 'ss :=
+                   s nameptr "{ff}" format.name$ 'tt :=
+                   ss bst.touten.jp * tt * 't := }
+               if$
+             }
+            if$
+          }
+        if$
+      }
+
+      % A-2: author に日本語含まないケースの処理
+      { nameptr #1 =
+
+         % A-2-1: 一番目の author
+         { bst.author.name #0 =
+           bst.author.name #1 = or
+             { bst.first.name.initial #0 = 
+                { s nameptr "{vv~}{ll}{, ff}{, jj}" format.name$ 't := }
+                { s nameptr "{vv~}{ll}{, f.}{, jj}" format.name$ 't := }
+               if$
+             }
+             { bst.first.name.initial #0 = 
+                { s nameptr "{ff~}{vv~}{ll}{, jj}" format.name$ 't := }
+                { s nameptr "{f.~}{vv~}{ll}{, jj}" format.name$ 't := }
+               if$
+             }
+           if$
+         }
+         % A-2-2: 二番目以降の author
+         { bst.author.name #0 =
+           bst.author.name #2 = or
+             { bst.first.name.initial #0 = 
+                { s nameptr "{ff~}{vv~}{ll}{, jj}" format.name$ 't := }
+                { s nameptr "{f.~}{vv~}{ll}{, jj}" format.name$ 't := }
+              if$
+             }
+             { bst.first.name.initial #0 = 
+                { s nameptr "{vv~}{ll}{, ff}{, jj}" format.name$ 't := }
+                { s nameptr "{vv~}{ll}{, f.}{, jj}" format.name$ 't := }
+              if$
+             }
+           if$
+         }
+        if$
+      }
+    if$
+    % Block A ends
+
+    % Block B starts
+    nameptr #1 >
+
+      % B-1: 二番目以降の author のケースでの処理
+      {
+
+	nameptr #1 - numtrunc =
+          % If nameptr - 1 = numtrunc
+	  { #1 'namesleft := 
+	    "others" 't := }
+	  'skip$
+	if$
+
+        namesleft #1 >
+
+          % B-1-1: 最後の著者じゃないケース
+          { sss check.kanji.str
+              { bst.and.jp  * t * }
+              { ", " * t * }
+            if$
+          }
+
+          % B-1-2: 最後の著者のケース
+          { t "others" =
+
+              % B-1-2-1: 最後の著者 = others のケース
+              { s check.kanji.str
+                  { bst.and.others.jp * }
+                  { bst.and.others * }
+                if$
+              }
+
+              % B-1-2-2: 最後の著者が others ではないケース
+              { sss check.kanji.str
+                  { bst.and.jp * t * }
+                  { numnames #2 =
+                      % author が二人のケース
+                      { bst.and * t * }
+                      % author が3人以上のケース
+                      { bst.ands * t * }
+                    if$
+                  }
+                 if$
+              }
+            if$
+          }
+        if$
+      }
+
+      % B-2: 一番目の author なら何もなし。
+      't
+    if$
+    nameptr #1 + 'nameptr :=    	% nameptr を 1 増やす。
+    namesleft #1 - 'namesleft :=        % nameslest を 1 減らす。
+  }
+  while$  % 繰り返し終わり
 }
 
 % remove successive periods (commas) from author
 FUNCTION {remove.ss.period.auth}
 { 's := % こちらは bysame で省略された名前
   'tempc :=  % こちらは元の author (or editor) 名
-  s tempc format.names.alt 'tempa :=
+  s tempc format.names 'tempa :=
   % For debug
   jecon.debug #0 = not % for debug
      { "tempa = \texttt{" tempa * "}\\" * write$ }
@@ -2183,8 +2108,8 @@ FUNCTION {format.authors.alt}
 	% Yes なら bysame を挿入
 	{ author insert.bysame }
 	{ author check.kanji.str
-	    { bst.author.pre.jp author format.names * bst.author.post.jp * }
-	    { bst.author.pre author format.names * bst.author.post * }
+	    { bst.author.pre.jp "xxx" author format.names * bst.author.post.jp * }
+	    { bst.author.pre "xxx" author format.names * bst.author.post * }
 	  if$
 	}
       if$
@@ -2202,8 +2127,8 @@ FUNCTION {format.editors.alt}
 	{ #1 'bysame.check :=
 	  editor insert.bysame }
 	{ editor check.kanji.str
-	    { bst.author.pre.jp editor format.names * }
-	    { bst.author.pre editor format.names * bst.author.post * }
+	    { bst.author.pre.jp "xxx" editor format.names * }
+	    { bst.author.pre "xxx" editor format.names * bst.author.post * }
 	  if$
 	}
       if$
@@ -2215,7 +2140,7 @@ FUNCTION {format.editors.alt}
 FUNCTION {format.editors.x}
 { editor empty$
     { "" }
-    { editor format.names 
+    { "xxx" editor format.names 
       editor num.names$ #1 >
 	{ editor check.kanji.str
 	    { bst.editor.jp * }
@@ -3046,13 +2971,13 @@ FUNCTION {format.translator}
 { kanyaku empty$
    { translator empty$
       { "" }
-      { bst.translator.pre.jp translator format.names * bst.translator.post.jp * }
+      { bst.translator.pre.jp "xxx" translator format.names * bst.translator.post.jp * }
     if$
    }
    { translator empty$
-      { bst.kanyaku.pre.jp kanyaku format.names * bst.kanyaku.post.jp * }
-      { bst.kanyaku.pre.jp kanyaku format.names * bst.kanyaku.post.jp * 
-	bst.translator.pre.jp * translator format.names * bst.translator.post.jp * }
+      { bst.kanyaku.pre.jp "xxx" kanyaku format.names * bst.kanyaku.post.jp * }
+      { bst.kanyaku.pre.jp "xxx" kanyaku format.names * bst.kanyaku.post.jp * 
+	bst.translator.pre.jp * "xxx" translator format.names * bst.translator.post.jp * }
      if$
    }
   if$
@@ -3266,13 +3191,13 @@ FUNCTION {format.hoyakusho}
       jauthor empty$
 	{ jkanyaku empty$
 	    { "" * }
-	    { jkanyaku format.names * "監訳" * }
+	    { "xxx" jkanyaku format.names * "監訳" * }
 	  if$
 	}
-	{ jauthor format.names * "訳" *
+	{ "xxx" jauthor format.names * "訳" *
 	  jkanyaku empty$
 	    { "" * }
-	    { bst.touten.jp * jkanyaku format.names * "監訳" * }
+	    { bst.touten.jp * "xxx" jkanyaku format.names * "監訳" * }
 	  if$
 	}
       if$
@@ -4436,6 +4361,15 @@ FUNCTION {calc.flabel}
     }
   if$
   'flabel :=
+  author empty$
+    'skip$
+    { author num.names$ 'numnames :=
+      numnames bst.max.author.num >
+        { alabel 'flabel := }
+        'skip$
+      if$
+    }
+  if$
   % For debug
   jecon.debug #0 = not
     { "flabel = ``\texttt{" write$

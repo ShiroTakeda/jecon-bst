@@ -1,0 +1,113 @@
+%%#!platex -kanji=uft-8
+%%#BIBTEX upbibtex -kanji=utf-8 jecon-many-authors
+
+% Author:	       Shiro Takeda
+% First-written:       <2002/11/02>
+% Time-stamp:	       <2020-06-23 13:31:53 st>
+%
+%############################## Main #################################
+\documentclass[10pt]{jarticle}
+
+%% natbib.sty を使う。
+\usepackage{natbib}
+\usepackage{newtxtext,newtxmath}
+\usepackage{color}
+\definecolor{MyBrown}{rgb}{0.3,0,0}
+\definecolor{MyBlue}{rgb}{0,0,0.3}
+\definecolor{MyRed}{rgb}{0.6,0,0.1}
+\definecolor{MyGreen}{rgb}{0,0.4,0}
+\usepackage[dvipdfm,
+bookmarks=true,%
+bookmarksnumbered=true,%
+colorlinks=true,%
+linkcolor=MyBlue,%
+citecolor=MyRed,%
+filecolor=MyBlue,%
+pagecolor=MyBlue,%
+urlcolor=MyGreen%
+]{hyperref}
+\usepackage{ascmac}	% required for `\screen' (yatex added)
+
+\setlength{\topmargin}{-20pt} 
+\setlength{\textheight}{648pt}
+\setlength{\oddsidemargin}{15pt}
+\setlength{\textwidth}{440pt}
+
+%#####################################################################
+%######################### Document Starts ###########################
+%#####################################################################
+\begin{document}
+
+非常に多くの著者がいる文献を引用しているケース。
+\vspace*{1em} \\
+
+\textbf{多くの著者がいる場合のルール}
+\begin{itemize}
+ \item N1 人以上の著者がいる場合には、参考文献部分において最初の N2 人の著者名の
+       み表示し、残りは「et al.」や「他」で省略する。
+ \item N1 は ``\texttt{bst.max.author.num}''で設定、N2 は
+       ``\texttt{bst.max.author.num.display}'' で設定。
+ \item デフォールトの設定では、N1 = 8、N2 = 3 になっています。
+\end{itemize}
+
+\vspace*{1em}
+
+\textbf{注}
+\begin{itemize}
+ \item TeX Live 2019 の pbibtex では著者数が非常に多い文献は処理できないよ
+       うです。このファイルに pbibtex を実行すると以下のようなエラーが生じます。
+ \item TeX Live 2020 の pbibtex では正常に処理できます。
+\end{itemize}
+
+\small       
+\begin{screen}
+\begin{verbatim}
+Call `pbibtex -kanji=utf8 jecon-many-authors'
+This is pBibTeX, Version 0.99d-j0.33 (utf8.euc) (TeX Live 2019/W32TeX)
+The top-level auxiliary file: jecon-many-authors.aux
+The style file: ../jecon.bst
+Database file #1: bib_with_many_authors.bib
+Your field is more than 20000 characters---line 390 of file bib_with_many_authors.bib
+ :                   and N. Omodei and M. Orienti and E. Orlando and J. 
+ :                                                                      F. Ormes
+I'm skipping whatever remains of this entry
+\end{verbatim}
+\end{screen}
+\normalsize
+
+\vspace*{1em}
+
+\textbf{文献の例}
+\begin{itemize}
+ \item \citet{haigan_2019},
+       \citet{130004469434},
+       \citet{Abbott_2016},
+       \citet{Aad_20121}.
+       \begin{itemize}
+        \item \citet{Abbott_2016}, \citet{Aad_20121} の二つはどちらも著者数が
+              1000名を越えています。
+       \end{itemize}
+ \item \verb|\bibliographystyle| にはデフォールトの \verb|jecon.bst| を指定。
+ \item \verb|\bibliography| には \verb|bib_with_many_authors.bib| を指定。
+\end{itemize}
+
+%% BibTeX スタイルファイルの指定。
+%
+% 一個上のフォルダにある jecon.bst を指定。
+\bibliographystyle{../jecon}
+
+%% BibTeX データベースファイルの指定。
+%
+% 同じフォルダにある bib_with_many_authors.bib を指定。
+\bibliography{bib_with_many_authors}
+
+\end{document}
+
+%#####################################################################
+%######################### Document Ends #############################
+%#####################################################################
+% </pre></body></html>
+% --------------------
+% Local Variables:
+% fill-column: 80
+% End:

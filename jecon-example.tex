@@ -5,7 +5,7 @@
 %% Author:              Shiro Takeda
 %% e-mail               <shiro.takeda@gmail.com>
 %% First-written:       <2002/11/02>
-%% Time-stamp:          <2020-03-26 12:46:01 st>
+%% Time-stamp:          <2020-06-23 13:26:52 st>
 %%
 %% jecon.bst の使い方を説明するファイル
 %%
@@ -81,7 +81,7 @@ urlcolor=MyGreen%
 \makeatother
 
 %%% title, author, acknowledgement, and date
-\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 5.7)
+\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 6.0)
 \thanks{このファイルの配布場所: \url{https://github.com/ShiroTakeda/jecon-bst}}
 }
 
@@ -1144,6 +1144,62 @@ FUNCTION {bst.journal.pre}
 います．これは少しおかしいので，このようにピリオド，カンマが連続するような場合に
 は後側を省略するという処理をおこなっています．上の例では，「.'',」 ではなく「.''」
 にするということです．同じことは 「.,」，「..」，「.',」等にも適用されます．
+
+\subsubsection{著者数が非常に多いケース}
+
+経済学の研究論文ではあまりないと思いますが、分野によっては論文の著者数が数百人、
+数千人になる場合があるようです。当然ですが、そのような場合に、著者名を全て参考文
+献に掲載することはできません。そのようなときの対処方法としては、bib データにおけ
+る author フィールドの部分を自分で書き換えるという方法があります。具体的には、以
+下のように「\texttt{and others}」で置き換えてしまうという方法があります。
+\begin{screen}
+\begin{verbatim}
+author = {Alpha, X. and Beta, X. and others}
+\end{verbatim}
+\end{screen}
+こうしておくと、参考文献部分では
+\begin{screen}
+\begin{verbatim}
+Alpha, X., Beta, X. et al.(2020) "The economics ...",...
+\end{verbatim}
+\end{screen}
+というように処理されます。
+
+これでも一応対応できますが、この方法では著者数が多い論文を引用しようとするたびに
+自分で bib ファイル（データベース）を書き換える必要があり、少し面倒です。そこで、
+\texttt{jecon.bst} では、著者数が多い論文に対しては以下のように処理するようにし
+ています\footnote{この処理には \texttt{aasjournal.bst}（American Astronomical
+Society Journal用の bst ファイル）を参考にしました。\texttt{aasjournal.bst} で
+はこのように著者数が多いときには著者名を省略する処理がおこなわれます。}。
+\begin{screen}
+\begin{itemize}
+ \item N1 人以上の著者がいる場合には、参考文献部分において最初の N2 人の著者名の
+       み表示し、残りは「et al.」や「他」で省略する。
+\end{itemize}
+\end{screen}
+このような処理をするため自分で bib ファイルを書き換える必要はありません。N1 と
+N2 の数値ですが、
+\begin{itemize}
+ \item N1: ``\texttt{bst.max.author.num}''で設定（デフォールト値は 8）
+ \item N2: ``\texttt{bst.max.author.num.display}'' で設定（デフォールト値は 3）
+\end{itemize}
+しています。もちろん自分で数を変更できます。
+
+このファイルでは以下の 3 つの文献がこの処理の対象になっています。
+\begin{itemize}
+ \item \citet{doi:10.1175/2009BAMS2778.1}, \citet{doi:10.1175/2009BAMS2778.1}, \citet{Li_2018}
+\end{itemize}
+
+また、\texttt{customization} フォルダの \texttt{jecon-many-authors.tex} ではもっ
+と著者数が多い文献を扱っていますので、そちらも参考にしてください。
+
+\vspace*{1em}
+
+\noindent \textbf{［注］} 上で説明したのは参考文献部分での処理です。著者数が N1
+ より大のときには、引用部分では常に「Alpha et al.」のように「第一著者 + et al.」
+ で省略されます。日本語文献の場合は「et al.」ではなく、「他」になります。
+
+\vspace*{1em}
 
 
 \subsection{特殊なフィールド}
