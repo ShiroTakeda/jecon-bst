@@ -3,13 +3,15 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2020-06-23 13:32:57 st>
+Time-stamp:     <2020-06-29 23:02:54 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
 
 ## 変更点（上が新しい）
+
+## Ver. 6.0
 
 * 2020-06-23: 著者数が非常に多いときの処理の変更。
 
