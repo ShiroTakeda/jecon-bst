@@ -385,9 +385,8 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 \subsubsection{邦訳書の情報も付ける場合} \label{sec:hoyakusho}
 
 また book に関しては，以下のように \texttt{jauthor}，\texttt{jkanyaku}，
-\texttt{jtitle}，\texttt{jpublisher}，\texttt{jyear} を指定することで邦訳書の情
-報を付け加えることができます（これは \texttt{jpolisci.bst} の機能をそのまま使わ
-せていただいています）．以下の指定が参考文献部分にどう反映されるかは，後の参考文
+\texttt{jtitle}，\texttt{jpublisher}，\texttt{jyear}, \texttt{jnote} を指定することで邦訳書の情
+報を付け加えることができます（これは \texttt{jpolisci.bst} の機能に \texttt{jnote} を新たに追加させていただいています）．以下の指定が参考文献部分にどう反映されるかは，後の参考文
 献部分を見て確認してください．\\
 
 \begin{screen}
@@ -398,10 +397,12 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
   publisher =    {MIT Press},
   address =      {Cambridge, MA},
   year =         1999,
+  note =         {紹介ページ: \url{https://mitpress.mit.edu/books/spatial-economy}},
   jauthor =      {小出, 博之},
   jtitle =       {空間経済学},
   jpublisher =   {東洋経済新報社},
-  jyear =        2000
+  jyear =        2000,
+  jnote =        {和訳紹介ページ: \url{https://str.toyokeizai.net/books/9784492312858/}}
 }
  \end{verbatim}
 \end{screen}
