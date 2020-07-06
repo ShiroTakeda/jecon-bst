@@ -3187,13 +3187,13 @@ FUNCTION {format.hoyakusho}
       jauthor empty$
 	{ jkanyaku empty$
 	    { "" * }
-	    { jkanyaku format.names * "監訳" * }
+	    { "xxx" jkanyaku format.names * "監訳" * }
 	  if$
 	}
-	{ jauthor format.names * "訳" *
+	{ "xxx" jauthor format.names * "訳" *
 	  jkanyaku empty$
 	    { "" * }
-	    { bst.touten.jp * jkanyaku format.names * "監訳" * }
+	    { bst.touten.jp * "xxx" jkanyaku format.names * "監訳" * }
 	  if$
 	}
       if$
