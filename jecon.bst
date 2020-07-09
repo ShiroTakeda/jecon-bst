@@ -63,7 +63,7 @@ ENTRY
     school series title type url volume year yomi language
 
     % 以下は普通の bst ファイルでは利用されないフィールド
-    jauthor jkanyaku jtitle jpublisher jyear
+    jauthor jkanyaku jtitle jpublisher jyear jnote
     order absorder translator kanyaku nameorder
   }
 
@@ -3175,7 +3175,8 @@ FUNCTION {format.hoyakusho}
   jtitle empty$
   jpublisher empty$
   jyear empty$
-  and and and and
+  jnote empty$
+  and and and and and
     { "" }
     {
       is.kanji.entry
@@ -3206,11 +3207,14 @@ FUNCTION {format.hoyakusho}
       if$
       jyear empty$
 	{ "" * }
-	{ "" * jyear convert.year.kanji * "年" * }
+	{ "" * jyear convert.year.kanji * "年" * bst.touten.jp * }
+      if$ jnote empty$
+    { "" * }
+    { "" * jnote *}
       if$
       remove.irrelevant.kutoten bst.hoyakusho.post.jp *
     }
- if$
+     if$
 }
 
 FUNCTION {format.url}
@@ -3419,11 +3423,10 @@ FUNCTION {book}
     { format.year "year" output.check.nocomma }
     'skip$
   if$
-
-  format.hoyakusho output.nocomma
+  
   format.url.doi output.nocomma
-
   format.note output.nocomma
+  format.hoyakusho output.nocomma
   fin.entry
 }
 
