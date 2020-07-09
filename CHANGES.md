@@ -3,13 +3,21 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2020-06-29 23:02:54 st>
+Time-stamp:     <2020-07-10 00:16:22 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
 
 ## 変更点（上が新しい）
+
+## Ver. 6.1
+
+* 2020-07-10: 邦訳書情報のノート用のフィールド `jnote` を追加。また、邦訳書情報
+  を最後に持ってくるように位置を修正。詳しくは `jecon-example.pdf` の「邦訳書の
+  情報も付ける場合」という節を見てください。
+
+
 
 ## Ver. 6.0
 
