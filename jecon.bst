@@ -4,7 +4,7 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2020-06-21 11:51:29 st>
+% Time-stamp: <2020-07-10 16:58:13 st>
 % Version 6.0
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -1715,10 +1715,12 @@ FUNCTION {count.number.of.letters}
 %
 % format.names は二つの引数をとる。
 %    Name1 Name2 format.names
+%
 % Name2: これは普通の名前が入る (authorフィールドの中身など）。
 % Name1: これは普通の名前か、bysame が入る。
-% bysame は使わない部分では Name2 を二回使えばよい。
-%    Name2 Name2 format.names
+%
+% bysame は使わない部分では以下のようにする。
+%    "xxx" Name2 format.names
 %
 % 変数
 % nameptr: これは著者番号（何番目の著者かを表す）
@@ -3208,13 +3210,14 @@ FUNCTION {format.hoyakusho}
       jyear empty$
 	{ "" * }
 	{ "" * jyear convert.year.kanji * "年" * bst.touten.jp * }
-      if$ jnote empty$
-    { "" * }
-    { "" * jnote *}
+      if$
+      jnote empty$
+        { "" * }
+        { "" * jnote *}
       if$
       remove.irrelevant.kutoten bst.hoyakusho.post.jp *
     }
-     if$
+  if$
 }
 
 FUNCTION {format.url}
