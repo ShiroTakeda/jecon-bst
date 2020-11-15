@@ -4,8 +4,8 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2020-07-26 21:39:17 st>
-% Version 6.1
+% Time-stamp: <2020-11-15 17:30:44 st>
+% Version 6.2
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
 
@@ -38,7 +38,7 @@
 
 
 % version 指定
-FUNCTION {jecon.version} { "6.0" }
+FUNCTION {jecon.version} { "6.2" }
 
 % Debug mode．0 以外を指定すると様々な情報を表示させることが可能．
 FUNCTION {jecon.debug}
@@ -1231,6 +1231,7 @@ STRINGS { last.sort.label next.extra this.author prev.author prev.author.jecon }
 STRINGS { hang }
 STRINGS { item.type }
 STRINGS { tempa tempb tempc }
+STRINGS { templang }
 
 %% 整数型大域変数
 INTEGERS { nameptr namesleft numnames  alphabet.in.author name.num numtrunc }
@@ -2687,8 +2688,62 @@ FUNCTION {convert.edition}
   if$
 }
 
-% 日本語文献の場合には英語の月を数字に変換する。
+% jan -> January というような変換
 FUNCTION {convert.month}
+{ 't :=
+  t "l" change.case$ 'tt := 
+  tt "jan" =
+    { "January" }
+    { tt "feb" =
+	{ "February" }
+	{ tt "mar" =
+	    { "March" }
+	    { tt "apr" =
+		{ "April" }
+		{ tt "may" =
+		    { "May" }
+		    { tt "jun" =
+			{ "Jun" }
+			{ tt "jul" =
+			    { "July" }
+			    { tt "aug" =
+				{ "August" }
+				{ tt "sep" =
+				    { "September" }
+				    { tt "oct" =
+					{ "October" }
+					{ tt "nov" =
+					    { "November" }
+					    { tt "dec" =
+						{ "December" }
+						't
+					    if$
+					    }
+					if$
+					}
+				    if$
+				    }
+				if$
+				}
+			    if$
+			    }
+			if$
+			}
+		    if$
+		    }
+		if$
+		}
+	    if$
+	    }
+	if$
+	}
+    if$
+    }
+  if$
+}
+
+% 日本語文献の場合には英語の月を数字に変換する。
+FUNCTION {convert.month.kanji}
 { 't := 
   t "January" =
     { "1" }
@@ -2763,8 +2818,8 @@ FUNCTION {format.month}
   bst.hide.month #0 = not or
     { "" }
     { is.kanji.entry
-	{ bst.month.pre.jp month convert.month convert.num * bst.month.post.jp * }
-	{ bst.month.pre month * bst.month.post * }
+	{ bst.month.pre.jp month convert.month convert.month.kanji convert.num * bst.month.post.jp * }
+	{ bst.month.pre month convert.month * bst.month.post * }
       if$
     }
   if$
@@ -3823,8 +3878,14 @@ FUNCTION {set.is.kanji.entry.auto}
 FUNCTION {set.is.kanji.entry.manual}
 { language empty$
     { #0 'is.kanji.entry := }
-    { language "ja" =
-      language "日本語" = or
+    { language "l" change.case$ 'templang :=
+      templang "chn" =
+      templang "cn" = or
+      templang "kor" = or
+      templang "ko" = or
+      templang "ja" = or
+      templang "jpn" = or
+      templang "日本語" = or
        { #1 'is.kanji.entry := }
        { #0 'is.kanji.entry := }
       if$
