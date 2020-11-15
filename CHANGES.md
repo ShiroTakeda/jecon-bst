@@ -3,7 +3,7 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2020-11-01 21:08:39 st>
+Time-stamp:     <2020-11-15 17:28:28 st>
 -->
 
 jecon.bst の変更履歴．
@@ -12,6 +12,8 @@ jecon.bst の変更履歴．
 ## 変更点（上が新しい）
 
 ## Ver. 6.2
+
+* 2020-11-15: ユニコード文字用の修正。
 
 * 2020-11-01: month の指定では省略形（jan, febなど）が利用できるが、その指摘は
 
