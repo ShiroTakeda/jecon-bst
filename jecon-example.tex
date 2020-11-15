@@ -5,7 +5,7 @@
 %% Author:              Shiro Takeda
 %% e-mail               <shiro.takeda@gmail.com>
 %% First-written:       <2002/11/02>
-%% Time-stamp:          <2020-11-01 21:53:21 st>
+%% Time-stamp:          <2020-11-15 17:15:21 st>
 %%
 %% jecon.bst の使い方を説明するファイル
 %%
@@ -42,7 +42,7 @@ urlcolor=MyGreen%
 ]{hyperref}
 
 %% dvipdfmx で PDF に修正したときにしおりが文字化けしないようにするための設定．
-% \AtBeginDvi{\special{pdf:tounicode 90ms-RKSJ-UCS2}}%SJIS
+\AtBeginDvi{\special{pdf:tounicode 90ms-RKSJ-UCS2}}%SJIS
 
 %% \BibTeX command を定義．
 \makeatletter
@@ -81,7 +81,7 @@ urlcolor=MyGreen%
 \makeatother
 
 %%% title, author, acknowledgement, and date
-\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 6.1)
+\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 6.2)
 \thanks{このファイルの配布場所: \url{https://github.com/ShiroTakeda/jecon-bst}}
 }
 
