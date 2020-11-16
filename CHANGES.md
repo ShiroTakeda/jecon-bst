@@ -3,7 +3,7 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2020-11-15 17:28:28 st>
+Time-stamp:     <2020-11-16 11:10:58 st>
 -->
 
 jecon.bst の変更履歴．
@@ -13,9 +13,10 @@ jecon.bst の変更履歴．
 
 ## Ver. 6.2
 
-* 2020-11-15: ユニコード文字用の修正。
+* 2020-11-15: ユニコード文字用の修正。日本語、中国語、韓国語を同時に利用している
+  サンプルのファイル "jecon-unicode-lualatex-cjk.tex" を追加。
 
-* 2020-11-01: month の指定では省略形（jan, febなど）が利用できるが、その指摘は
+* 2020-11-01: month の指定では省略形（jan, febなど）が利用できるが、その指定は
 
   month = jan
   
@@ -23,7 +24,7 @@ jecon.bst の変更履歴．
   
   month = "jan"
   
-  と指定されていても、Janurary に変換するように修正した。
+  のように指定されていても、Janurary に変換するように修正した。
   
   
 
