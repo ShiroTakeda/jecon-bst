@@ -1,13 +1,14 @@
-%#!uplatex
+%#!uplatex 
 %#BIBTEX upbibtex jecon-unicode-uplatex.aux
 % 
 % このファイルは uplatex でコンパイルすることを前提で作成しています。
 %
 %############################## Main #################################
 
-%% 以下は uplatex 用の設定。
-\documentclass[a4j,10pt]{ujarticle}
-%\documentclass[10pt,uplatex]{jsarticle} % jsarticle を利用するケース
+\RequirePackage{plautopatch}
+
+%% jsarticle クラスを利用。
+\documentclass[uplatex,dvipdfmx]{jsarticle}
 
 \usepackage[T1]{fontenc}
 
@@ -34,12 +35,6 @@ urlcolor=MyGreen%
 
 % 以下の命令を入れておかないと \DH が定義されていないというエラーとなる。
 \renewcommand{\DH}{\fontencoding{T1}\selectfont{\symbol{240}}}
-
-%% \BibTeX command を定義．
-\makeatletter
-\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
-\makeatother
 
 %#####################################################################
 %######################### Document Starts ###########################
