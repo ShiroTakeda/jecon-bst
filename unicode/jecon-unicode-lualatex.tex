@@ -7,8 +7,8 @@
 %
 %############################## Main #################################
 
-%% 以下は lualatex 用の設定。
-\documentclass{ltjsarticle}
+%% jlreq クラスを利用
+\documentclass[article]{jlreq}
 
 %% 以下は lualatex 用の設定。
 \usepackage[no-math]{fontspec}
@@ -44,15 +44,9 @@ filecolor=MyBlue,%
 urlcolor=MyGreen%
 ]{hyperref}
 
-%% textwidth等の変更．
-\setlength{\textwidth}{140truemm}
-\setlength{\fullwidth}{\textwidth}
-\setlength{\oddsidemargin}{35truemm}
-\addtolength{\oddsidemargin}{-1truein}
-
 \makeatletter
 %% \BibTeX command を定義．
-\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+\newcommand{\BibTeX}{\textrm{B\kern-.05em\textsc{i\kern-.025em b}\kern-.08em%
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \makeatother
 
