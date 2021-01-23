@@ -8,14 +8,14 @@
 
 % クラスファイルに jlreq を利用。
 % pLaTeX でコンパイル。
-\RequirePackage{plautopatch}
+% \RequirePackage{plautopatch}
 \documentclass[article,tate,dvipdfmx]{jlreq}
 
 \usepackage{bxjalipsum}
 
 %% natbib.sty を使う。
 \usepackage[longnamesfirst]{natbib}
-% \usepackage{newtxtext,newtxmath}
+\usepackage{newtxtext,newtxmath}
 \usepackage{color}
 \definecolor{MyBrown}{rgb}{0.3,0,0}
 \definecolor{MyBlue}{rgb}{0,0,0.3}
@@ -31,15 +31,7 @@ filecolor=MyBlue,%
 urlcolor=MyGreen%
 ]{hyperref}
 
-\setlength{\topmargin}{-20pt} 
-\setlength{\textheight}{648pt}
-\setlength{\oddsidemargin}{15pt}
-\setlength{\textwidth}{440pt}
-
 \bibpunct{\hskip-0.5em（}{）\hskip-0.5em}{}{}{}{}
-
-% dvipdfmx の縦書き用オプション
-\AtBeginDvi{\special{landscape}}
 
 %#####################################################################
 %######################### Document Starts ###########################
@@ -62,12 +54,7 @@ urlcolor=MyGreen%
 うしないと引用部分で半角括弧が利用されるため、少し見た目がぶかっこうにな
 る。
 
-また、
-\begin{verbatim}
-        \AtBeginDvi{\special{landscape}}
-\end{verbatim}
-と設定し、用紙を landscape （横向き）にしている。
-\vspace*{2em}
+\vspace*{1em}
 
 引用例を4つ。\citet{ishikawa03:_green_gas_emiss_contr_open_econom}、
 \citet{takeda06:_cge_analy_welfar_effec_trade} は英語の論文。
