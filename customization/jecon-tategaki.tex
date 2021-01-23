@@ -3,14 +3,19 @@
 
 % Author:	       Shiro Takeda
 % First-written:       <2002/11/02>
-% Time-stamp:	       <2021-01-23 14:53:50 st>
 %
 %############################## Main #################################
-\documentclass[10pt]{tarticle}
+
+% クラスファイルに jlreq を利用。
+% pLaTeX でコンパイル。
+\RequirePackage{plautopatch}
+\documentclass[article,tate,dvipdfmx]{jlreq}
+
+\usepackage{bxjalipsum}
 
 %% natbib.sty を使う。
 \usepackage[longnamesfirst]{natbib}
-\usepackage{newtxtext,newtxmath}
+% \usepackage{newtxtext,newtxmath}
 \usepackage{color}
 \definecolor{MyBrown}{rgb}{0.3,0,0}
 \definecolor{MyBlue}{rgb}{0,0,0.3}
@@ -36,9 +41,6 @@ urlcolor=MyGreen%
 % dvipdfmx の縦書き用オプション
 \AtBeginDvi{\special{landscape}}
 
-% \DeclareFontShape{JY1}{mc}{m}{n}{<-> s * [0.961] jis}{}
-% \DeclareFontShape{JY1}{gt}{m}{n}{<-> s * [0.961] jisg}{}
-
 %#####################################################################
 %######################### Document Starts ###########################
 %#####################################################################
@@ -47,7 +49,12 @@ urlcolor=MyGreen%
 \verb|\bibliographystyle| に \verb|jecon-tategaki.bst| を指定したもの。
 \vspace*{1em}
 
-クラスファイルに \texttt{tarticle} クラスを利用している。さらに、プリアンプルで
+クラスファイルに \texttt{jlreq} クラスを利用し、\texttt{platex} でコンパイルして
+います（途中でエラーが出ますが、無視してコンパイルしてください）。
+
+\vspace*{1em}
+
+また、プリアンプルで
 \begin{verbatim}
         \bibpunct{\hskip-0.5em（}{）\hskip-0.5em}{}{}{}{}
 \end{verbatim}
@@ -64,7 +71,7 @@ urlcolor=MyGreen%
 
 引用例を4つ。\citet{ishikawa03:_green_gas_emiss_contr_open_econom}、
 \citet{takeda06:_cge_analy_welfar_effec_trade} は英語の論文。
-\citet{oyama99:_mark_stru} と \citet{kuroda97jp:keo} は日本語の論文。
+\citet{oyama99:_mark_stru}  \citet{kuroda97jp:keo} は日本語の論文。
 
 \nocite{*}
 
