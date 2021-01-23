@@ -4,8 +4,8 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2020-11-15 17:31:51 st>
-% Version 6.2
+% Time-stamp: <2021-01-23 14:41:43 st>
+% Version 6.2.1
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
 
@@ -38,7 +38,7 @@
 
 
 % version 指定
-FUNCTION {jecon.version} { "6.2" }
+FUNCTION {jecon.version} { "6.2.1" }
 
 % Debug mode．0 以外を指定すると様々な情報を表示させることが可能．
 FUNCTION {jecon.debug}
@@ -1645,21 +1645,15 @@ FUNCTION {check.kanji.str.sub}
   kan.ln #-1 #1 substring$ is.kanji.str$ 'l2 := % l2		<- Last name の最後の1文字目
   kan.fn #-1 #1 substring$ is.kanji.str$ 'f2 := % f2		<- First name の最後の1文字目
 
-  is.kanji.entry #0 =
-     % そもそも is.kanji.entry が 0 なら 0 を返す。
-     { #0 'kan.p := }
-     { l1 #0 = f1 #0 = and l2 #0 = and f2 #0 = and
-	% 最初の1文字目、最後の1文字目がどれもアスキーなら 0 
-	{ #0 'kan.p := }
-	{ l1 #0 = l2 #0 = and
-	  f1 #0 = f2 #0 = or and
-	    % 
-	    { #0 'kan.p := }
-	    { #1 'kan.p := }
-	  if$
-	}
+  l1 #0 = f1 #0 = and l2 #0 = and f2 #0 = and
+  % Last name と First name の最初の1文字目、最後の1文字目がどれもアスキーなら 0 
+    { #0 'kan.p := }
+    { l1 #0 = l2 #0 = and
+      f1 #0 = f2 #0 = or and
+        { #0 'kan.p := }
+	{ #1 'kan.p := }
       if$
-     }
+    }
   if$
   kan.p
 }
@@ -2248,7 +2242,7 @@ FUNCTION {remove.irrelevant.kutoten}
 	  s #-1 #3 substring$ "，" = or
 	  s #-1 #3 substring$ "。" = or
 	  s #-1 #3 substring$ "．" = or
-	    { s #-3 global.max$ substring$ "" * }
+ 	    { s #-6 global.max$ substring$ "" * }
 	    { s }
 	  if$
 	}
