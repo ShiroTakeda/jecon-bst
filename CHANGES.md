@@ -3,13 +3,20 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2020-12-29 20:58:32 st>
+Time-stamp:     <2021-01-23 16:30:42 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
 
 ## 変更点（上が新しい）
+
+## Ver. 6.2.1
+
+* 2021-01-23: クラスファイルの変更。jlreq や jsarticle に変更。
+
+* 2021-01-23: 英語文献に翻訳書情報を付ける際のバグを修正。
+
 
 ## Ver. 6.2
 
