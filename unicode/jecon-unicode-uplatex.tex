@@ -5,6 +5,7 @@
 %
 %############################## Main #################################
 
+% uplatex でコンパイルするので、plautopatch パッケージを読み込む。
 \RequirePackage{plautopatch}
 
 %% jsarticle クラスを利用。
@@ -16,6 +17,8 @@
 \usepackage{url}
 \usepackage{amsmath,amssymb,amsthm}
 
+%% Font を変更 → Times系に．
+\usepackage{newtxtext,newtxmath}
 %% 色を付ける．
 \usepackage{graphicx}
 \usepackage{color}
@@ -33,25 +36,18 @@ urlcolor=MyGreen%
 ]{hyperref}
 
 % 以下の命令を入れておかないと \DH が定義されていないというエラーとなる。
-\renewcommand{\DH}{\fontencoding{T1}\selectfont{\symbol{240}}}
+% \renewcommand{\DH}{\fontencoding{T1}\selectfont{\symbol{240}}}
 
 %#####################################################################
 %######################### Document Starts ###########################
 %#####################################################################
 \begin{document}
 
-% uplatex では以下のコードが必要。これがないと欧文のユニコード文字が間延びする。
-% \kcatcode`ç=15% not cjk character
-
 \begin{flushleft}
  {\Large \textbf{upLaTeX (\texttt{uplatex}) を利用するケース}}
 \end{flushleft}
 
 \vspace{1em}
-
-% This document contains English, Română, 日本語,
-% \foreignlanguage{greek}{Ελληνικά}, and
-% \foreignlanguage{russian}{русский язык}.
 
 \section{使い方}
 
