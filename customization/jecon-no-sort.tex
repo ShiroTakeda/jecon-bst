@@ -3,10 +3,12 @@
 
 % Author:	       Shiro Takeda
 % First-written:       <2002/11/02>
-% Time-stamp:	       <2021-01-23 14:54:04 st>
 %
 %############################## Main #################################
-\documentclass[10pt]{jarticle}
+% クラスファイル → jsarticle を利用。
+% jsarticle ではエンジンを指定する → ここでは platex でコンパイル。
+\RequirePackage{plautopatch}
+\documentclass[platex]{jsarticle}
 
 %% natbib.sty を使う。
 \usepackage{natbib}
@@ -25,11 +27,6 @@ citecolor=MyRed,%
 filecolor=MyBlue,%
 urlcolor=MyGreen%
 ]{hyperref}
-
-\setlength{\topmargin}{-20pt} 
-\setlength{\textheight}{648pt}
-\setlength{\oddsidemargin}{15pt}
-\setlength{\textwidth}{440pt}
 
 %#####################################################################
 %######################### Document Starts ###########################
