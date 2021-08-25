@@ -14,7 +14,8 @@
 % jsarticle ではエンジンを指定する → ここでは platex でコンパイル。
 % platex を使う場合は plautopatch パッケージを読み込んでおく。
 \RequirePackage{plautopatch}
-\documentclass[platex]{jsarticle}
+\documentclass[dvipdfmx, platex]{jsarticle} % for platex
+% \documentclass[dvipdfmx, uplatex]{jsarticle} % for uplatex
 
 %% natbib.sty を使う．
 \usepackage{natbib}
