@@ -4,8 +4,8 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2021-01-23 14:41:18 st>
-% Version 6.2.1
+% Time-stamp: <2021-09-12 15:53:15 st>
+% Version 6.3
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
 
@@ -38,7 +38,7 @@
 
 
 % version 指定
-FUNCTION {jecon.version} { "6.2.1" }
+FUNCTION {jecon.version} { "6.3" }
 
 % Debug mode．0 以外を指定すると様々な情報を表示させることが可能．
 FUNCTION {jecon.debug}
@@ -60,7 +60,7 @@ ENTRY
   %%% 文献フィールドの宣言
   { access address author booktitle chapter doi edition editor howpublished
     institution journal key month note number organization pages publisher
-    school series title type url volume year yomi language
+    school series title type url volume year yomi language langid
 
     % 以下は普通の bst ファイルでは利用されないフィールド
     jauthor jkanyaku jtitle jpublisher jyear jnote
@@ -71,7 +71,7 @@ ENTRY
   % た値を持つ変数のこと．
 
   %% これは entry 別の整数型変数 (整数型エントリ変数)
-  { is.kanji.entry is.kanji.entry.two order.cited is.kanji.entry.author }
+  { is.kanji.entry order.cited is.kanji.entry.author }
 
   %% これは entry 別の文字列型変数 (文字列型エントリ変数)
   { label cyear flabel alabel extra.label sort.label sort.label.abb
@@ -245,12 +245,16 @@ FUNCTION {bst.number.index.bibhang.hund}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% ユニコード文字を利用するとき（pbibtex ではなく、upbibtex を利用するとき）には
-% 非ゼロにする。使い方については「jecon_unicode_lualatex.pdf」を見てください。
+% (u)pbibtex のバージョンの設定
 %
-FUNCTION {bst.use.unicode}
-{ #0 }	  % Not use unicode font (default)
-% { #1 }    % Use unicode font
+% TeX Live 2021 以降の upbibtex を利用 -> #0 を設定（default）
+% TeX Live 2020 までの upbibtex を利用 -> #1 を設定
+% pbibtex を利用 -> #2 を設定
+%
+FUNCTION {bst.pbibtex.version}
+{ #0 }	  % TeX Live 2021 以降の upbibtex を利用（default）
+% { #1 }   % TeX Live 2020 までの upbibtex を利用
+% { #2 }   % pbibtex を利用
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1398,7 +1402,7 @@ FUNCTION {period.comma.a.p}
 
 FUNCTION {period.comma.b.p}
 { 'pc :=
-  bst.use.unicode #0 =
+  bst.pbibtex.version #2 =
     { pc #-1 #3 substring$ ".' " =
       pc #-1 #3 substring$ ",' " = or
       pc #-1 #4 substring$ ".'' " = or
@@ -1453,7 +1457,7 @@ FUNCTION {remove.pre.comma.period}
       s #1 #1 substring$ "." = or
        { s #2 global.max$ substring$ }
        %% multi-byte character
-       { bst.use.unicode #0 =
+       { bst.pbibtex.version #2 =
 	   { s #1 #2 substring$ "，" =
 	     s #1 #2 substring$ "、" = or
 	     s #1 #2 substring$ "。" = or
@@ -1623,7 +1627,8 @@ FUNCTION {check.kanji.str}
 { 'zzz :=
   zzz empty$
     { #1 }
-    { bst.use.unicode #0 =
+    { bst.pbibtex.version #0 =
+      bst.pbibtex.version #2 = or
        { zzz is.kanji.str$ }
        { zzz check.kanji.str.sub }
       if$
@@ -1943,7 +1948,8 @@ FUNCTION {remove.ss.period.auth}
 
 FUNCTION {insert.bysame}
 { 'zz := 
-  bst.use.unicode #0 = 
+  bst.pbibtex.version #0 =
+  bst.pbibtex.version #2 = or
     { is.kanji.entry.author
        { " \bysamejp{} " }
        { " \bysame{} " }
@@ -2190,7 +2196,7 @@ FUNCTION {remove.irrelevant.kutoten}
 { 's :=
   s empty$
     { "" * }
-    { bst.use.unicode #0 =
+    { bst.pbibtex.version #2 =
 	{ s #-1 #1 substring$ "、" =
 	  s #-1 #1 substring$ "，" = or
 	  s #-1 #1 substring$ "。" = or
@@ -2218,7 +2224,7 @@ FUNCTION {remove.irrelevant.pre.kutoten}
 { 's :=
   s empty$
     { "" }
-    { bst.use.unicode #0 =
+    { bst.pbibtex.version #2 =
 	{ s #1 #4 substring$ "、、" =
 	  s #1 #4 substring$ "，，" = or
 	  s #1 #4 substring$ "，、" = or
@@ -3842,7 +3848,7 @@ MACRO {dec} {"December"}
 %%% エントリを読み込む
 READ
 
-%%% エントリーが日本語文献か判断するための関数
+%%% author or editor が日本語かどうかを判断するための関数
 FUNCTION {set.is.kanji.entry.author}
 {
   author    field.or.null is.kanji.str$
@@ -3850,63 +3856,40 @@ FUNCTION {set.is.kanji.entry.author}
   'is.kanji.entry.author :=
 }
 
-%%% エントリーが日本語文献か判断するための関数 (yomi は除く)
-FUNCTION {set.is.kanji.entry.auto}
-{
-  author    field.or.null is.kanji.str$
-  title	    field.or.null is.kanji.str$ or
-  editor    field.or.null is.kanji.str$ or
-  journal   field.or.null is.kanji.str$ or
-  booktitle field.or.null is.kanji.str$ or
-  series    field.or.null is.kanji.str$ or
-  'is.kanji.entry :=
-}
-
-%%% エントリーが日本語文献か判断するための関数。language フィールドに「ja」が入っ
-%%% ていれば日本語文献。
-FUNCTION {set.is.kanji.entry.manual}
-{ language empty$
+%%% エントリーが日本語文献か判断するための関数。
+FUNCTION {set.is.kanji.entry}
+%% まず、langid (or language) フィールドで判断
+{ langid empty$
+  language empty$ and
     { #0 'is.kanji.entry := }
-    { language "l" change.case$ 'templang :=
-      templang "chn" =
-      templang "cn" = or
-      templang "kor" = or
-      templang "ko" = or
-      templang "ja" = or
-      templang "jpn" = or
-      templang "日本語" = or
-       { #1 'is.kanji.entry := }
-       { #0 'is.kanji.entry := }
+    { langid empty$
+        { language "l" change.case$ 'templang := }
+        { langid "l" change.case$ 'templang := }
+      if$
+      templang "japanese" =
+      templang "chinese" = or
+      templang "korean" = or
+        { #1 'is.kanji.entry := }
+        { #0 'is.kanji.entry := }
       if$
     }
   if$
-}
-
-FUNCTION {set.is.kanji.entry}
-{ set.is.kanji.entry.auto
-  bst.use.unicode #0 =
+  %% 次にフィールドの値で自動判別
+  is.kanji.entry
+  bst.pbibtex.version #1 = not and
     'skip$
-    { set.is.kanji.entry.manual }
+    { author	field.or.null is.kanji.str$
+      title 	field.or.null is.kanji.str$ or
+      editor	field.or.null is.kanji.str$ or
+      journal	field.or.null is.kanji.str$ or
+      booktitle field.or.null is.kanji.str$ or
+      'is.kanji.entry := }
   if$
-}
-
-%%% エントリーが日本語文献か判断するための関数 (yomi も含めて)
-FUNCTION {set.is.kanji.entry.two}
-{
-  author    field.or.null is.kanji.str$
-  title	    field.or.null is.kanji.str$ or
-  editor    field.or.null is.kanji.str$ or
-  journal   field.or.null is.kanji.str$ or
-  booktitle field.or.null is.kanji.str$ or
-  series    field.or.null is.kanji.str$ or
-  yomi	    field.or.null is.kanji.str$ or
-  'is.kanji.entry.two :=
 }
 
 %%% 全てのエントリーに対し実行
 ITERATE {set.is.kanji.entry.author}
 ITERATE {set.is.kanji.entry}
-ITERATE {set.is.kanji.entry.two}
 
 %%% 引用順を保持する変数
 INTEGERS { order.num }
@@ -4700,7 +4683,7 @@ FUNCTION {presort.two}
   if$
   bst.sort.year #0 = not
     %% year をキーとして並べるための設定．
-    { is.kanji.entry.two
+    { is.kanji.entry
 	%% 日本語文献
 	{ year convert.year * }
 	%% 英語文献

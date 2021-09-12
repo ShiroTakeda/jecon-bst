@@ -1,15 +1,18 @@
-%%#!platex -kanji=uft-8
-%%#BIBTEX pbibtex -kanji=utf-8 jecon-reverse
+%#!lualatex
+%#BIBTEX upbibtex jecon-reverse
 
 % Author:	       Shiro Takeda
 % First-written:       <2014/01/23>
 %
 %############################## Main #################################
-% クラスファイル → jsarticle を利用。
-% jsarticle ではエンジンを指定する → ここでは platex でコンパイル。
-% platex を使う場合は plautopatch パッケージを読み込んでおく。
-\RequirePackage{plautopatch}
-\documentclass[platex]{jsarticle}
+
+%% jlreq クラスを利用
+\documentclass[article]{jlreq}
+
+%% 以下は lualatex 用の設定。
+\usepackage[no-math]{fontspec}
+\usepackage{luatexja-fontspec}
+\usepackage{luatexja-preset}
 
 %% natbib.sty を使う。
 \usepackage{natbib}
@@ -19,7 +22,7 @@
 \definecolor{MyBlue}{rgb}{0,0,0.3}
 \definecolor{MyRed}{rgb}{0.6,0,0.1}
 \definecolor{MyGreen}{rgb}{0,0.4,0}
-\usepackage[dvipdfm,
+\usepackage[%
 bookmarks=true,%
 bookmarksnumbered=true,%
 colorlinks=true,%
@@ -39,7 +42,7 @@ urlcolor=MyGreen%
 \vspace{1em}\\
 
 普通、\verb|bib|ファイルでは日本人名は「姓 名」という形で名前を指定するが、
-\verb|jeco.bst| では日本人名についても外国人名と同じように「姓, 名」という形式で
+\verb|jecon.bst| では日本人名についても外国人名と同じように「姓, 名」という形式で
 指定する必要がある。ただし、これまでの伝統的な記述方法も使えるようになっている。
 \verb|jecon-example-old.bib|では通常の bib ファイルのように「姓 名」という形式で
 著者名が記述されている。そのような \verb|bib|ファイルでも適切扱う設定にしている

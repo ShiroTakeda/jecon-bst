@@ -1,0 +1,154 @@
+%#!lualatex
+%#BIBTEX upbibtex jecon-cjk
+% 
+% Author:	       Shiro Takeda
+% First-written:       <2021-09-12>
+%
+%############################## Main #################################
+
+%% jlreq クラスを利用
+\documentclass[article]{jlreq}
+
+%% 以下は lualatex 用の設定。
+\usepackage[no-math]{fontspec}
+\usepackage{luatexja-fontspec}
+
+% フォントに「源ノ角ゴシックCJK」と「源ノ明朝CJK」を利用
+\usepackage[sourcehan]{luatexja-preset}
+
+%% 以下は共通の設定
+\usepackage[longnamesfirst]{natbib}
+\usepackage{url}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{ulem}
+
+%% Font を変更 → Times系に．
+\usepackage{newtxtext,newtxmath}
+%% 色を付ける．
+\usepackage{graphicx}
+\usepackage{color}
+\definecolor{MyBrown}{rgb}{0.3,0,0}
+\definecolor{MyBlue}{rgb}{0,0,0.3}
+\definecolor{MyRed}{rgb}{0.6,0,0.1}
+\definecolor{MyGreen}{rgb}{0,0.4,0}
+\definecolor{MyAltColor}{rgb}{0.6,0,0}
+\usepackage[unicode=true,%
+pdfusetitle=true,%
+bookmarks=true,%
+bookmarksnumbered=true,%
+colorlinks=true,%
+linkcolor=MyBlue,%
+citecolor=MyRed,%
+filecolor=MyBlue,%
+urlcolor=MyGreen%
+]{hyperref}
+
+\makeatletter
+%% \BibTeX command を定義．
+\newcommand{\BibTeX}{\textrm{B\kern-.05em\textsc{i\kern-.025em b}\kern-.08em%
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\makeatother
+
+%%% title, author, acknowledgement, and date
+\title{\textbf{LuaLaTeX + 「源ノ角ゴシックCJK」+「源ノ明
+ 朝CJK」で日中韓の文字の混在}
+\thanks{このファイルの配布場所: \url{https://github.com/ShiroTakeda/jecon-bst}}
+}
+
+\author{武田史郎\thanks{Email:
+\texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}}}}
+
+\date{\today}
+
+%#####################################################################
+%######################### Document Starts ###########################
+%#####################################################################
+\begin{document}
+
+% \maketitle
+
+\begin{flushleft}
+{\Large \textbf{LuaLaTeX + 「源ノ角ゴシックCJK」+「源ノ明
+ 朝CJK」で日中韓の文字の混在}} 
+\end{flushleft}
+
+\vspace*{1em}
+
+このファイルでは「源ノ角ゴシックCJK」と「源ノ明朝CJK」のフォントの利用を前提とし
+ています。
+\begin{itemize}
+ \item \url{https://github.com/adobe-fonts} の「source-han-serif」（こちらが明朝）
+       と「source-han-sans」（こちらがゴシック）からダウンロードして、インストール
+       できます。
+\end{itemize}
+
+\section{引用例}
+\begin{itemize}
+ \item \citet{zhang_IO_2009}: 『教育－经济投入占用产出模型研究』
+ \item \citet{40022221997}: 「关于用于句末的``期待''」
+ \item \citet{40022198771}: 「浅析日本景点中文介绍中翻译的误区 : 以日本古城堡相关词汇为例」
+ \item \citet{40022308104}: 「미시통계자료를 리용한 행동경제학의 실증분석과 재일조선인연구에로의 적용가능성」
+ \item \citet{gwon-osang-env-econ-2020}: 『환경경제학 개정판 4판』
+ \item \citet{Seong-Tae_Kim_2011}: 「한국의 산업별 생산의 대체탄력성 추정」
+ \item \citet{arimura-takeda-energy-2017}: 『节能与排放量交易的经济分析：日本企业和家庭的现状』
+ \item \citet{Stern_2016:chn}: 『尚待何时？应对气候变化的逻辑、紧迫性和前景』
+ \item \citet{china-io-2007}: 『中国2007年投入产出表』
+ \item \citet{Stokey2004}: ``Global Sourcing''
+ \item \citet{Bohringer2006}: ``Computable General Equilibrium Models for
+       Sustainability Impact Assessment: Status Quo and Prospects''
+ \item \citet{内田90}: 『冥途・旅順入城式』
+ \item \citet{120005614155}: 「学術研究のためのオープンソース・ソフトウェア (1)
+       XELATEX（靎見誠良教授退職記念号）」
+\end{itemize}
+
+\section{問題点}
+
+問題その1
+\begin{itemize}
+ \item 日本語の文献については、\texttt{yomi} フィールドによって著者名の読みを指
+       定しています（ひらがなで）。これにより、日本人著者の文献は「五十音順」
+       に並びます。
+ \item しかし、中国語、韓国語の文献については著者名の読みを指定していないので、
+       順序は「五十音順」にはならないです（たぶん、著者名の文字の文字コード順で
+       す）。
+\end{itemize}
+
+問題その2
+\begin{itemize}
+ \item 中国語、韓国語の文献については、日本語文献と同じような見た目になるように
+       しています。
+ \item 姓名は「姓→名」の順。論文タイトルは「」、書籍のタイトルは『』で囲む。
+ \item ですので、あくまで日本語の論文で中国語、韓国語の文献を引用するという前提
+       です。
+\end{itemize}
+
+問題その3
+\begin{itemize}
+ \item それと韓国語については全く理解できないため、例として利用している文献もお
+       かしくなっているかもしれません。適当にネットで検索して出てきた文献を使っ
+       ています。名前の姓と名の区切も全くわからないので、ハングルの最初の一文字
+       を姓として扱っています。
+\end{itemize}
+
+\nocite{*}
+
+%%% BibTeX スタイルファイルの指定．jecon-unicode.bst を指定．
+\bibliographystyle{../jecon}
+
+%% BibTeX データベースファイルの指定．
+%
+% jecon-example.bib は一個上のフォルダにあるものを利用する．
+\bibliography{../jecon-example-unicode,multi-lang}
+
+
+\end{document}
+%#####################################################################
+%######################### Document Ends #############################
+%#####################################################################
+
+% --------------------
+% Local Variables:
+% fill-column: 80
+% coding: utf-8-dos
+% End:
+

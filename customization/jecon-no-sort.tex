@@ -1,15 +1,18 @@
-%%#!platex -kanji=uft-8
-%%#BIBTEX pbibtex -kanji=utf-8 jecon-no-sort
+%#!lualatex
+%#BIBTEX upbibtex jecon-no-sort
 
 % Author:	       Shiro Takeda
 % First-written:       <2002/11/02>
 %
 %############################## Main #################################
-% クラスファイル → jsarticle を利用。
-% jsarticle ではエンジンを指定する → ここでは platex でコンパイル。
-% platex を使う場合は plautopatch パッケージを読み込んでおく。
-\RequirePackage{plautopatch}
-\documentclass[platex]{jsarticle}
+
+%% jlreq クラスを利用
+\documentclass[article]{jlreq}
+
+%% 以下は lualatex 用の設定。
+\usepackage[no-math]{fontspec}
+\usepackage{luatexja-fontspec}
+\usepackage{luatexja-preset}
 
 %% natbib.sty を使う。
 \usepackage{natbib}
@@ -19,7 +22,7 @@
 \definecolor{MyBlue}{rgb}{0,0,0.3}
 \definecolor{MyRed}{rgb}{0.6,0,0.1}
 \definecolor{MyGreen}{rgb}{0,0.4,0}
-\usepackage[dvipdfm,
+\usepackage[%
 bookmarks=true,%
 bookmarksnumbered=true,%
 colorlinks=true,%
@@ -40,6 +43,8 @@ urlcolor=MyGreen%
 
 \input{cited-part}
 
+\input{cited-part-unicode}
+
 \nocite{*}
 
 %% BibTeX スタイルファイルの指定。
@@ -47,8 +52,8 @@ urlcolor=MyGreen%
 
 %% BibTeX データベースファイルの指定。
 %
-% 一個上のフォルダにある jecon-example.bib を指定。
-\bibliography{../jecon-example}
+% 一個上のフォルダにある jecon-example.bib, jecon-example-unicode.bib を指定。
+\bibliography{../jecon-example,../jecon-example-unicode}
 
 \end{document}
 

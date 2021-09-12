@@ -1,5 +1,5 @@
-%%#!platex -kanji=uft-8
-%%#BIBTEX pbibtex -kanji=utf-8 jecon-tategaki
+%%#!lualatex
+%%#BIBTEX upbibtex jecon-tategaki
 
 % Author:	       Shiro Takeda
 % First-written:       <2002/11/02>
@@ -7,12 +7,15 @@
 %############################## Main #################################
 
 % クラスファイルに jlreq を利用。
-% pLaTeX でコンパイル。
-% platex を使う場合は plautopatch パッケージを読み込んでおく。
-\RequirePackage{plautopatch}
-\documentclass[article,tate,dvipdfmx]{jlreq}
+% upLaTeX でコンパイルする。
+% uplatex を使う場合は plautopatch パッケージを読み込んでおく。
 
-\usepackage{bxjalipsum}
+\documentclass[article,tate,landscape]{jlreq}
+
+%% 以下は lualatex 用の設定。
+\usepackage[no-math]{fontspec}
+\usepackage{luatexja-fontspec}
+\usepackage{luatexja-preset}
 
 %% natbib.sty を使う。
 \usepackage[longnamesfirst]{natbib}
@@ -22,7 +25,7 @@
 \definecolor{MyBlue}{rgb}{0,0,0.3}
 \definecolor{MyRed}{rgb}{0.6,0,0.1}
 \definecolor{MyGreen}{rgb}{0,0.4,0}
-\usepackage[dvipdfm,
+\usepackage[%
 bookmarks=true,%
 bookmarksnumbered=true,%
 colorlinks=true,%
@@ -42,8 +45,8 @@ urlcolor=MyGreen%
 \verb|\bibliographystyle| に \verb|jecon-tategaki.bst| を指定したもの。
 \vspace*{1em}
 
-クラスファイルに \texttt{jlreq} クラスを利用し、\texttt{platex} でコンパイルして
-います（途中でエラーが出ますが、無視してコンパイルしてください）。
+クラスファイルに \texttt{jlreq} クラスを利用し、LaTeX エンジンに
+\texttt{lualatex}、BibTeX エンジンに \texttt{upbibtex} を使っています。
 
 \vspace*{1em}
 
@@ -68,8 +71,8 @@ urlcolor=MyGreen%
 
 %% BibTeX データベースファイルの指定。
 %
-% 一個上のフォルダにある jecon-example.bib を指定。
-\bibliography{../jecon-example}
+% 一個上のフォルダにある jecon-example.bib, jecon-example-unicode.bib を指定。
+\bibliography{../jecon-example,../jecon-example-unicode}
 
 \end{document}
 

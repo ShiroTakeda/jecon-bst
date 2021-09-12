@@ -4,7 +4,7 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2021-09-12 15:53:45 st>
+% Time-stamp: <2021-09-12 15:09:56 st>
 % Version 6.3
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -141,8 +141,8 @@ FUNCTION {bst.author.name}
 % 注：ver.5.5からデフォールトの設定を「author = {姓, 名}」に変更しました。
 %
 FUNCTION {bst.sei.mei.order}
-% { #1 }    % (default) → author = {武田, 史郎} or author = {史郎 武田} 
-{ #0 }	  % 昔からの普通の書き方 → author = {武田 史郎} or author = {史郎, 武田}
+{ #1 }	  % (default) → author = {武田, 史郎} or author = {史郎 武田} 
+% { #0 }    % 昔からの普通の書き方 → author = {武田 史郎} or author = {史郎, 武田}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -252,9 +252,9 @@ FUNCTION {bst.number.index.bibhang.hund}
 % pbibtex を利用 -> #2 を設定
 %
 FUNCTION {bst.pbibtex.version}
-{ #0 }	  % TeX Live 2021 以降の upbibtex を利用（default）
+% { #0 }	  % TeX Live 2021 以降の upbibtex を利用（default）
 % { #1 }   % TeX Live 2020 までの upbibtex を利用
-% { #2 }   % pbibtex を利用
+{ #2 }   % pbibtex を利用
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

@@ -1,28 +1,25 @@
-%#!lualatex
-%#BIBTEX upbibtex jecon-a
+%%#!platex -kanji=uft-8
+%%#BIBTEX pbibtex -kanji=utf-8 jecon-use-pbibtex
 
 % Author:	       Shiro Takeda
 % First-written:       <2002/11/02>
 %
 %############################## Main #################################
-
-%% jlreq クラスを利用
-\documentclass[article]{jlreq}
-
-%% 以下は lualatex 用の設定。
-\usepackage[no-math]{fontspec}
-\usepackage{luatexja-fontspec}
-\usepackage{luatexja-preset}
+% クラスファイル → jsarticle を利用。
+% jsarticle ではエンジンを指定する → ここでは platex でコンパイル。
+% platex を使う場合は plautopatch パッケージを読み込んでおく。
+\RequirePackage{plautopatch}
+\documentclass[platex]{jsarticle}
 
 %% natbib.sty を使う。
-\usepackage[longnamesfirst]{natbib}
+\usepackage{natbib}
 \usepackage{newtxtext,newtxmath}
 \usepackage{color}
 \definecolor{MyBrown}{rgb}{0.3,0,0}
 \definecolor{MyBlue}{rgb}{0,0,0.3}
 \definecolor{MyRed}{rgb}{0.6,0,0.1}
 \definecolor{MyGreen}{rgb}{0,0.4,0}
-\usepackage[%
+\usepackage[dvipdfm,
 bookmarks=true,%
 bookmarksnumbered=true,%
 colorlinks=true,%
@@ -37,22 +34,29 @@ urlcolor=MyGreen%
 %#####################################################################
 \begin{document}
 
-\verb|\bibliographystyle| に \verb|jecon-a.bst| を指定したもの。
-\vspace{1em}\\
+これは \LaTeX のエンジンとして \texttt{platex}、\BibTeX のエンジンとして
+\texttt{pbibtex} を使うケース。
+\begin{itemize}
+ \item \verb|\bibliographystyle| には \verb|jecon-pbibtex.bst| を指定している。
+ \item ユニコード文字を含む文献は利用していない。
+\end{itemize}
+
+
+\vspace{1em}
 
 \input{cited-part}
-
-\input{cited-part-unicode}
 
 \nocite{*}
 
 %% BibTeX スタイルファイルの指定。
-\bibliographystyle{jecon-a}
+%
+% 一個上のフォルダにある jecon.bst を指定。
+\bibliographystyle{jecon-pbibtex}
 
 %% BibTeX データベースファイルの指定。
 %
-% 一個上のフォルダにある jecon-example.bib, jecon-example-unicode.bib を指定。
-\bibliography{../jecon-example,../jecon-example-unicode}
+% 一個上のフォルダにある jecon-example.bib を指定。
+\bibliography{../jecon-example}
 
 \end{document}
 
