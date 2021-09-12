@@ -2,7 +2,7 @@
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2016-03-16>
-Time-stamp:     <2021-09-12 16:06:17 st>
+Time-stamp:     <2021-09-12 19:24:07 st>
 -->
 
 このフォルダの説明
@@ -14,19 +14,18 @@ Time-stamp:     <2021-09-12 16:06:17 st>
 
 ## ファイル
 
-| bst ファイル         | PDFファイル                                        | 説明                                                                  |
-|:---------------------|:---------------------------------------------------|:----------------------------------------------------------------------|
-| `jecon.bst`          | [`jecon-default.pdf`](jecon-default.pdf)           | そのままの `jecon.bst`。                                              |
-| `jecon-a.bst`        | [`jecon-a.pdf`](jecon-a.pdf)                       | 括弧などの装飾をできるだけなくしたもの。                              |
-| `jecon-b.bst`        | [`jecon-b.pdf`](jecon-b.pdf)                       | いろいろ変えてみたもの。                                              |
-| `jecon-tategaki.bst` | [`jecon-tategaki.pdf`](jecon-tategaki.pdf)         | 数字を漢数字にして、縦書きにしたもの。                                |
-| `jecon-no-sort.bst`  | [`jecon-no-sort.pdf`](jecon-no-sort.pdf)           | 引用順にそのまま並べる形式。                                          |
-| `jecon-reverse.bst`  | [`jecon-reverse.pdf`](jecon-reverse.pdf)           | 日本語の著者名の姓名の順序が普通の順序のbibファイルを処理するケース。 |
-|                      | [`jecon-number.pdf`](jecon-number.pdf)             | 「著者名（年）」ではなく、番号で引用するケース。                      |
-|                      | [`jecon-many-authors.pdf`](jecon-many-authors.pdf) | 著者数が非常に多いケース                                              |
-|                      | [`jecon-cjk.pdf`](jecon-cjk.pdf)                   | 「源ノ角ゴシックCJK」+「源ノ明朝CJK」で日中韓の文字の混在             |
-|                      | [`jecon-use-pbibtex.pdf`](jecon-use-pbibtex.pdf)   | LaTex エンジンに platex、BibTeX エンジンに pbibtex を使うもの         |
-
+| bst ファイル         | LaTeX ファイル                                     | PDFファイル                                        | 説明                                                                  |
+|:---------------------|:---------------------------------------------------|:---------------------------------------------------|:----------------------------------------------------------------------|
+| `jecon.bst`          | [`jecon-default.tex`](jecon-default.tex)           | [`jecon-default.pdf`](jecon-default.pdf)           | そのままの `jecon.bst` を利用したもの。                               |
+| `jecon-a.bst`        | [`jecon-a.tex`](jecon-a.tex)                       | [`jecon-a.pdf`](jecon-a.pdf)                       | 括弧などの装飾をできるだけなくしたもの。                              |
+| `jecon-b.bst`        | [`jecon-b.tex`](jecon-b.tex)                       | [`jecon-b.pdf`](jecon-b.pdf)                       | いろいろ変えてみたもの。                                              |
+| `jecon-tategaki.bst` | [`jecon-tategaki.tex`](jecon-tategaki.tex)         | [`jecon-tategaki.pdf`](jecon-tategaki.pdf)         | 数字を漢数字にして、縦書きにしたもの。                                |
+| `jecon-no-sort.bst`  | [`jecon-no-sort.tex`](jecon-no-sort.tex)           | [`jecon-no-sort.pdf`](jecon-no-sort.pdf)           | 引用順にそのまま並べる形式。                                          |
+| `jecon-reverse.bst`  | [`jecon-reverse.tex`](jecon-reverse.tex)           | [`jecon-reverse.pdf`](jecon-reverse.pdf)           | 日本語の著者名の姓名の順序が普通の順序のbibファイルを処理するケース。 |
+|                      | [`jecon-number.tex`](jecon-number.tex)             | [`jecon-number.pdf`](jecon-number.pdf)             | 「著者名（年）」ではなく、番号で引用するケース。                      |
+|                      | [`jecon-many-authors.tex`](jecon-many-authors.tex) | [`jecon-many-authors.pdf`](jecon-many-authors.pdf) | 著者数が非常に多いケース。                                            |
+|                      | [`jecon-cjk.tex`](jecon-cjk.tex)                   | [`jecon-cjk.pdf`](jecon-cjk.pdf)                   | 「源ノ角ゴシックCJK」+「源ノ明朝CJK」で日中韓の文字を混在させたもの   |
+|                      | [`jecon-use-pbibtex.tex`](jecon-use-pbibtex.tex)   | [`jecon-use-pbibtex.pdf`](jecon-use-pbibtex.pdf)   | LaTex エンジンに platex、BibTeX エンジンに pbibtex を使うもの。       |
 
 
 <!--
