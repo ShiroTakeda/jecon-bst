@@ -3,7 +3,7 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2021-09-12 16:06:31 st>
+Time-stamp:     <2021-09-12 19:31:11 st>
 -->
 
 jecon.bst の変更履歴．
@@ -13,16 +13,25 @@ jecon.bst の変更履歴．
 
 ## Ver. 6.3
 
-* 2021-09-12: jecon-exapmle.tex の LaTeX のエンジンとして lualatex を使うように
-  修正。同時にサンプルの文献としてユニコード文字を含んだ文献を含めるようにした。
+* 2021-09-12: jecon-exapmle.tex をコンパイルする際に、LaTeX のエンジンとして
+  lualatex、BibTeX エンジンとして upbibtex を使うように修正。
+  
+  ただし、これは platex や pbibtex は使えないということではないです（プリアンプ
+  ルなどを書き換えれば (u)platex、xelatex などでもコンパイル可能です）
+  
+  同時にサンプルの文献としてユニコード文字を含んだ文献を含めるようにした。クラス
+  ファイルには jlreq を利用しています。
   
 * 2021-09-12: jecon.bst も upbibtex を利用するという前提に修正。
 
   ただし、（TeX Live 2020までの）古い upbibtex、あるいは pbibtex を使うための設
-  定として `bst.pbibtex.version` という関数を追加した。`bst.use.unicode` は除去。
+  定として `bst.pbibtex.version` という関数を追加した。詳しくは
+  `jecon-exapmle.pdf` の「BibTeXエンジンの選択」という節を参照。これに伴ない
+  bst.use.unicode` は除去。
   
 * 2021-09-12: 以上の変更に伴ないこれまでユニコード文字を使うための説明を含んでい
-  た unicode フォルダを除去した。
+  た unicode フォルダを除去した。代わりに customize フォルダに `jecon-cjk.tex`
+  というサンプルを追加。これは日本語、中国語、韓国語の文献を混在させたケース。
   
 * 2021-09-12: customize フォルダの中のファイルも上の変更に合せてアップデート。
 
