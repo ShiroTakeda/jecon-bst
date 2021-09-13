@@ -3,7 +3,7 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2021-09-13 10:32:54 st>
+Time-stamp:     <2021-09-13 12:21:33 st>
 -->
 
 jecon.bst の変更履歴．
@@ -25,9 +25,9 @@ jecon.bst の変更履歴．
 * 2021-09-12: jecon.bst も upbibtex を利用するという前提に修正。
 
   ただし、（TeX Live 2020までの）古い upbibtex、あるいは pbibtex を使うための設
-  定として `bst.pbibtex.version` という関数を追加した。詳しくは
-  `jecon-exapmle.pdf` の「BibTeXエンジンの選択」という節を参照。これに伴ない
-  `bst.use.unicode` は除去。
+  定として `bst.pbibtex.version` という関数を追加した。古い upbibtex、あるいは
+  pbibtex を利用したいときには、`jecon-exapmle.pdf` の「BibTeXエンジンの選択」と
+  いう節を参照。これに伴ない`bst.use.unicode` は除去。
   
   platex + pbibtex を使うサンプル（jecon-use-pbibtex.tex）を customize フォルダ
   に追加。
