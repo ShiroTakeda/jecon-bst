@@ -3,7 +3,7 @@ Filename:       README.md
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2021-09-12 19:21:29 st>
+Time-stamp:     <2021-09-13 10:01:43 st>
 -->
 
 jecon.bst
@@ -20,17 +20,17 @@ jecon.bst
 
 ## ファイル
 
-| ファイル                                 | 説明                                                         |
-|:-----------------------------------------|:-------------------------------------------------------------|
-| `jecon.bst`                              | これが bst ファイルです。                                    |
-| [`jecon-example.pdf`](jecon-example.pdf) | 使い方などを書いたファイルです。まずこれを読んでください。   |
-| `jecon-example.tex`                      | `jecon-example.pdf` の元の LaTeX のファイル。                |
-| `jecon-example.bib`                      | 文献のファイルです。                                         |
-| `jecon-example-unicode.bib`              | 文献のファイルです（ユニコード文字を含むもの）。             |
-| `jecon-example-old.bib`                  | 文献のファイルです。                                         |
-| [`customization`](customization)         | カスタマイズの例を置いてあるフォルダです。                   |
-| [`CHANGES.md`](CHANGES.md)               | 変更点を説明したファイルです。                               |
-| `README.md`                              | このファイルです。                                           |
+| ファイル                                 | 説明                                                       |
+|:-----------------------------------------|:-----------------------------------------------------------|
+| `jecon.bst`                              | これが bst ファイルです。                                  |
+| [`jecon-example.pdf`](jecon-example.pdf) | 使い方などを書いたファイルです。まずこれを読んでください。 |
+| `jecon-example.tex`                      | `jecon-example.pdf` の元の LaTeX のファイル。              |
+| `jecon-example.bib`                      | 文献のファイルです。                                       |
+| `jecon-example-unicode.bib`              | 文献のファイルです（ユニコード文字を含むもの）。           |
+| `jecon-example-old.bib`                  | 文献のファイルです（姓名の順序が昔の形式）。               |
+| [`customization`](customization)         | カスタマイズの例を置いてあるフォルダです。                 |
+| [`CHANGES.md`](CHANGES.md)               | 変更点を説明したファイルです。                             |
+| `README.md`                              | このファイルです。                                         |
 
 ## 注
 
