@@ -3,3 +3,9 @@ jecon-example-unicode-alt.bib
 *.org
 unicode/
 jecon-example-alt.pdf
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
