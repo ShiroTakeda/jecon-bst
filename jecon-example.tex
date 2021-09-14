@@ -770,8 +770,10 @@ FUNCTION {bst.sei.mei.order}
 
 \BibTeX は、\texttt{pbibtex} か \texttt{upbibtex}か、また、\texttt{upbibtex} の
 どのバージョンかによって、\texttt{bst} ファイル内で利用されている
-\texttt{is.kanji.str\$}、\texttt{substring\$} という命令の動作が変わってきます。
-このため、上の二つの場合について、
+\texttt{is.kanji.str\$}、\texttt{substring\$} という命令の動作が変わってきます
+\footnote{具体的にどう変わるかは
+\url{https://github.com/ShiroTakeda/pbibtex-check} というページのプログラムでわ
+かります。}。このため、上の二つの場合について、
 \begin{itemize}
  \item \texttt{jecon.bst} を少し修正
  \item \texttt{bib} ファイルの書き方を修正
@@ -783,7 +785,8 @@ FUNCTION {bst.sei.mei.order}
 \midashiii{\BibTeX エンジンとして \texttt{pbibtex} を使う人}
 
 この場合には、\texttt{jecon.bst} 内の \texttt{bst.pbibtex.version} の部分を以下
-のように書き換えてください。
+のように書き換えてください\footnote{これは \texttt{pbibtex} と \texttt{upbibtex}
+で \texttt{substring\$} という命令の動作が異なることに対応するための設定です。}。
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.pbibtex.version}
@@ -818,8 +821,10 @@ FUNCTION {bst.pbibtex.version}
 \end{screen}
 という指定を加えるようにしてください。古い \texttt{upbibtex} では
 \texttt{is.kanji.str\$} という命令が適切に機能しないため、その文献が日本語の文献
-かどうかの自動判別が上手くいきません。そのため、自分でその文献が日本語の文献だと
-指定する必要があります。この指定はそのためのものです。
+かどうかの自動判別が上手くいきません\footnote{具体的には、古い \texttt{upbibtex}
+の \texttt{is.kanji.str\$} では「ö」、「é」、「í」 などのアルファベットも日本語
+と判断してしまうためです。}。そのため、自分でその文献が日本語の文献だと指定する
+必要があります。この指定はそのためのものです。
 
 第 \ref{jecon-example-sec:langid} 節で \texttt{langid} フィールドの指定は特殊な
 場合に必要になると書きましたら、このケースがそれです。TeX Live 2021 以降の新しい
