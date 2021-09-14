@@ -3,7 +3,7 @@ Filename:       README.md
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2021-09-14 10:07:51 st>
+Time-stamp:     <2021-09-14 10:18:09 st>
 -->
 
 jecon.bst
@@ -34,7 +34,7 @@ jecon.bst
 
 ## 注
 
-* `jecon-example.tex` をコンパイルするときには LaTeX エンジンとして `lualatex`、BibTeX エンジンとしては `upbibtex` を使うようにしてください。（TeX Live 2020までの）古い upbibtex、あるいは pbibtex を使いたい場合は、[`jecon-exmple.pdf`](jecon-exmple.pdf) の「BibTeXエンジンの選択」という節を見てください。
+* `jecon-example.tex` をコンパイルするときには LaTeX エンジンとして `lualatex`、BibTeX エンジンとしては `upbibtex` を使うようにしてください。（TeX Live 2020までの）古い upbibtex、あるいは pbibtex を使いたい場合は、[`jecon-example.pdf`](jecon-example.pdf) の「BibTeXエンジンの選択」という節を見てください。
 
 
 * `bst.sei.mei.order`のデフォールト値を `#1` に変更しました。これは bibファイルにおいて日本語であっても「{姓,名}」という書き方で指定するということを意味します。これは最近の文献データベースや文献管理ソフトで、日本語であっても外国人と同様の扱いをしているものが多いためです。昔からの伝統的な書き方で指定したければ、`bst.sei.mei.order`に `#0`を指定してください。
