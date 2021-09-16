@@ -9,3 +9,4 @@ jecon-example-alt.pdf
 *.log
 *.out
 *.toc
+test/
