@@ -70,7 +70,7 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \newcommand{\midashiii}[1]{\noindent \textbf{□ #1}}
 
 %%% title, author, acknowledgement, and date
-\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 6.3)
+\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 6.4)
 \thanks{このファイルの配布場所: \url{https://github.com/ShiroTakeda/jecon-bst}}
 }
 
@@ -379,6 +379,10 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
        語文献と日本語文献は分けた形で列挙することが多いので，\texttt{yomi} フィー
        ルドをひらがなで書いておくのがよいと思います．
        \end{itemize}
+ \item \texttt{yomi} フィールドではなく、\texttt{sortname} フィールドを使っても
+       同じです。\texttt{sortname} フィールドは biblatex で同じような機能として
+       利用されるので、biblatex 用にもデータベースを利用したい人は \texttt{yomi}
+       ではなく \texttt{sortname} を使うのがよいと思います。
  \item その他
        \begin{itemize}
         \item 日本語文献の \texttt{yomi} フィールドを省略してしまうとおかしな順
@@ -389,6 +393,7 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
               語文献に混ざって表示されています）．
        \end{itemize}
 \end{itemize}
+
 
 \subsubsection{\texttt{pages} フィールド}
 
