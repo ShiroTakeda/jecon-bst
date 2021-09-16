@@ -4,8 +4,8 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2021-09-12 15:53:15 st>
-% Version 6.3
+% Time-stamp: <2021-09-16 10:38:06 st>
+% Version 6.4
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
 
@@ -38,7 +38,7 @@
 
 
 % version 指定
-FUNCTION {jecon.version} { "6.3" }
+FUNCTION {jecon.version} { "6.4" }
 
 % Debug mode．0 以外を指定すると様々な情報を表示させることが可能．
 FUNCTION {jecon.debug}
@@ -64,7 +64,7 @@ ENTRY
 
     % 以下は普通の bst ファイルでは利用されないフィールド
     jauthor jkanyaku jtitle jpublisher jyear jnote
-    order absorder translator kanyaku nameorder
+    order absorder translator kanyaku nameorder sortname
   }
 
   % 以下，エントリー変数の定義．エントリー変数とは，文献エントリー別に異なっ
@@ -75,7 +75,7 @@ ENTRY
 
   %% これは entry 別の文字列型変数 (文字列型エントリ変数)
   { label cyear flabel alabel extra.label sort.label sort.label.abb
-    extra.label.bysame }
+    extra.label.bysame sort.name }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -3848,6 +3848,34 @@ MACRO {dec} {"December"}
 %%% エントリを読み込む
 READ
 
+FUNCTION {set.sort.name.mess}
+{ jecon.debug #0 = not
+    { "\textbf{Iteration of set.sort.name}\\" write$
+      newline$ }
+    'skip$
+ if$
+}
+
+%%% author or editor が日本語かどうかを判断するための関数
+FUNCTION {set.sort.name}
+{ sortname empty$ not 
+    { sortname 'sort.name := }
+    { yomi empty$ not
+      { yomi 'sort.name := }
+      'skip$
+      if$
+    }
+  if$
+  jecon.debug #0 = not % for debug
+     { "\noindent sort.name = \texttt{" sort.name * "}\\" * write$ }
+     'skip$
+  if$
+}
+
+%%% 全てのエントリーに対し実行
+EXECUTE {set.sort.name.mess}
+ITERATE {set.sort.name}
+
 %%% author or editor が日本語かどうかを判断するための関数
 FUNCTION {set.is.kanji.entry.author}
 {
@@ -3927,9 +3955,9 @@ FUNCTION {chop.word}
 %%% ソート用に名前を加工
 FUNCTION {sort.format.names}
 { 's :=
-  yomi empty$
+  sort.name empty$
      'skip$
-     { yomi 's := }
+     { sort.name 's := }
   if$
   #1 'nameptr :=
   ""
@@ -3969,9 +3997,9 @@ FUNCTION {sort.format.names}
 %%% ソート用に名前を加工
 FUNCTION {sort.format.names.abb}
 { 's :=
-  yomi empty$
+  sort.name empty$
      'skip$
-     { yomi 's := }
+     { sort.name 's := }
   if$
   s num.names$ 'numnames :=
   numnames bst.and.others.num <
@@ -4147,22 +4175,22 @@ FUNCTION {author.editor.key.label.sort}
 	    { key #3 text.prefix$ }
 	  if$
 	}
-	{ yomi empty$
+	{ sort.name empty$
 	   { editor sort.format.names }
 	   { bst.mixed.order #0 = 
 	      { editor sort.format.names }
-	      { yomi sort.format.names }
+	      { sort.name sort.format.names }
 	if$
 	  }
 	  if$
 	}
       if$
     }
-    { yomi empty$
+    { sort.name empty$
        { author sort.format.names }
        { bst.mixed.order #0 = 
 	  { author sort.format.names }
-	  { yomi sort.format.names }
+	  { sort.name sort.format.names }
 	if$
       }
       if$
@@ -4358,7 +4386,7 @@ FUNCTION {calc.cyear}
 }
 
 FUNCTION {calc.sort.label.abb}
-{ yomi empty$
+{ sort.name empty$
     { author empty$
 	{ editor empty$
 	   { "" }
@@ -4368,7 +4396,7 @@ FUNCTION {calc.sort.label.abb}
 	{ author 's := }
       if$
     }
-    { yomi 's := }
+    { sort.name 's := }
   if$
   s sort.format.names.abb 't := 
   t sortify " " * year convert.year * 'sort.label.abb :=
