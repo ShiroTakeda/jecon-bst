@@ -2,7 +2,7 @@
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2016-03-16>
-Time-stamp:     <2021-09-13 10:05:55 st>
+Time-stamp:     <2021-09-16 10:48:07 st>
 -->
 
 このフォルダの説明
@@ -10,7 +10,7 @@ Time-stamp:     <2021-09-13 10:05:55 st>
 
 + このフォルダには、`jecon.bst` をカスタマイズした bst ファイルが置いてあります。
 + 自分でカスタマイズしたい人は例として参考にしてください。
-+ `jecon-use-pbibtex.tex` 以外の tex ファイルは全て LaTex エンジンに lualatex、BibTeX エンジンに upbibtex を使ってコンパイルするようになっています。
++ `jecon-use-pbibtex.tex` 以外の tex ファイルは全て LaTeX エンジンに lualatex、BibTeX エンジンに upbibtex を使ってコンパイルするようになっています。
 
 ## ファイル
 
@@ -25,7 +25,7 @@ Time-stamp:     <2021-09-13 10:05:55 st>
 | `jecon.bst`               | [`jecon-number.tex`](jecon-number.tex)             | [`jecon-number.pdf`](jecon-number.pdf)             | 「著者名（年）」ではなく、番号で引用するケース。                      |
 | `jecon.bst`               | [`jecon-many-authors.tex`](jecon-many-authors.tex) | [`jecon-many-authors.pdf`](jecon-many-authors.pdf) | 著者数が非常に多いケース。                                            |
 | `jecon.bst`               | [`jecon-cjk.tex`](jecon-cjk.tex)                   | [`jecon-cjk.pdf`](jecon-cjk.pdf)                   | 「源ノ角ゴシックCJK」+「源ノ明朝CJK」で日中韓の文字を混在させたもの   |
-| `jecon-pbibtex.bst`       | [`jecon-use-pbibtex.tex`](jecon-use-pbibtex.tex)   | [`jecon-use-pbibtex.pdf`](jecon-use-pbibtex.pdf)   | LaTex エンジンに platex、BibTeX エンジンに pbibtex を使うもの。       |
+| `jecon-pbibtex.bst`       | [`jecon-use-pbibtex.tex`](jecon-use-pbibtex.tex)   | [`jecon-use-pbibtex.pdf`](jecon-use-pbibtex.pdf)   | LaTeX エンジンに platex、BibTeX エンジンに pbibtex を使うもの。       |
 
 
 <!--
