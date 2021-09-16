@@ -3,13 +3,23 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2021-09-13 12:21:33 st>
+Time-stamp:     <2021-09-16 10:21:21 st>
 -->
 
 jecon.bst の変更履歴．
 ==============================
 
 ## 変更点（上が新しい）
+
+## Ver. 6.4
+
+* 2021-09-16: bib ファイルで yomi フィールドを指定すると、並べ替えの際に author
+  や editor ではなく、yomi の値を用いる設定になっているが、yomi ではなく、
+  sortname フィールドでも同じように動作するように変更。
+  
+  sortname フィールドは biblatex で並べ替えに利用されるフィールド。biblatex とデー
+  タベースを共通化しやすいように、この変更を加えた。
+
 
 ## Ver. 6.3
 
