@@ -3,7 +3,7 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2021-09-16 10:21:21 st>
+Time-stamp:     <2021-09-18 14:42:57 st>
 -->
 
 jecon.bst の変更履歴．
@@ -19,6 +19,10 @@ jecon.bst の変更履歴．
   
   sortname フィールドは biblatex で並べ替えに利用されるフィールド。biblatex とデー
   タベースを共通化しやすいように、この変更を加えた。
+  
+* 2021-09-18: bib ファイルを少し修正。
+
+* 2021-09-18: jecon-example.tex の説明を少し修正。
 
 
 ## Ver. 6.3
