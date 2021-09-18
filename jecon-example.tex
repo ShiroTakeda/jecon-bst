@@ -13,7 +13,7 @@
 %% jlreq クラスを利用
 \documentclass[article]{jlreq}
 
-%% 以下は lualatex 用の設定。
+%% 以下は lualatex 用の設定．
 \usepackage[no-math]{fontspec}
 \usepackage{luatexja-fontspec}
 \usepackage{luatexja-preset}
@@ -95,16 +95,15 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \section{導入}
 
 \midashii{注} \textbf{Version 6.3 より，この \texttt{jecon-example.tex} ファイル
-は「\texttt{jlreq} クラスファイル」を利用するようにし、さらに
-「\texttt{lulalatex}」+「\texttt{upbibtex}」でコンパイルするように修正しました。}
+は「\texttt{jlreq} クラスファイル」を利用するようにし，さらに
+「\texttt{lulalatex}」+「\texttt{upbibtex}」でコンパイルするように修正しました．}
 \begin{itemize}
  \item プリアンプルを書き換えれば \texttt{uplatex} や \texttt{xelatex} でもコン
-       パイルできます。
- \item ユニコード文字を使っているので、\texttt{platex} + \texttt{pbibtex} ではコ
-       ンパイルできません。
+       パイルできます．
+ \item ユニコード文字を使っているので，\texttt{platex} + \texttt{pbibtex} ではコ
+       ンパイルできません．
 \end{itemize}
 \vspace*{1em}
-
 
 \midashii{注} Version 5.5より，データベース（bibファイル）における日
 本語の著者名の指定方法（姓名の順序）を英語の著者名と同じとするようデフォールトの
@@ -174,15 +173,15 @@ Economics 形式のスタイルファイルです．}．これらの \BibTeX ス
 言葉で説明してもわかりにくいので \texttt{jecon.bst} の使用例を挙げます．例えば，
 \begin{screen}
 \begin{verbatim}
-\citet{miyazawa02:_io_intr}，\citet{isikawa02jp:_env_trade}，
-\citet{oyama99:_mark_stru}，\citet{kuroda97jp:keo}，
-\citet{kiyono93:_regu_comp_1}，\citet{iwamoto91jp:haito-keika}，
-\citet{ito85:_inte_trad}，\citet{nishimura90:_micr_econ}，
-\citet*{imai72:_micr_2}，\citet*{imai71:_micr_1}，
-\citet{somusho04jp:2000io-kaisetsu}，
-\citet{barro97jp}，\citet*{markusen99jp:trade_vol_1}．\\
-省略形では，\citet{imai71:_micr_1}，\citet{markusen99jp:trade_vol_1}
-のようになる．
+ \citet{miyazawa02:_io_intr}，\citet{isikawa02jp:_env_trade}，
+ \citet{oyama99:_mark_stru}，\citet{kuroda97jp:keo}，
+ \citet{kiyono93:_regu_comp_1}，\citet{iwamoto91jp:haito-keika}，
+ \citet{ito85:_inte_trad}，\citet{nishimura90:_micr_econ}，
+ \citet*{imai72:_micr_2}，\citet*{imai71:_micr_1}，
+ \citet{somusho04jp:2000io-kaisetsu}，
+ \citet{barro97jp}，\citet*{markusen99jp:trade_vol_1}．\\
+ 省略形では，\citet{imai71:_micr_1}，\citet{markusen99jp:trade_vol_1}
+ のようになる．
 \end{verbatim}
 \end{screen}
 というような命令を書くと，次のような出力になります\footnote{Backslash は Windows
@@ -209,24 +208,24 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 \texttt{natbib.sty} を一緒に使うので，\texttt{cite} 命令を変え
 るだけで次のような引用も可能です．
 \begin{screen}
-\hspace*{1cm} \citet{ito85:_inte_trad}\\
-\hspace*{1cm} \citep{ito85:_inte_trad}\\
-\hspace*{1cm} \citet[p.100]{ito85:_inte_trad}\\
-\hspace*{1cm} \citet[p.200 参照]{ito85:_inte_trad}\\
-\hspace*{1cm} \citep[詳しくは][]{ito85:_inte_trad}
+\hspace*{1em} \citet{ito85:_inte_trad}\\
+\hspace*{1em} \citep{ito85:_inte_trad}\\
+\hspace*{1em} \citet[p.100]{ito85:_inte_trad}\\
+\hspace*{1em} \citet[p.200 参照]{ito85:_inte_trad}\\
+\hspace*{1em} \citep[詳しくは][]{ito85:_inte_trad}
 \end{screen}
 
 こう出力するには次のように \texttt{tex} のファイルで書きます
 \footnote{\texttt{citet} や \texttt{citep} は \texttt{natbib.sty} に特有の命令です．}．
 
 \begin{screen}
- \begin{verbatim}
-\citet{ito85:_inte_trad}
-\citep{ito85:_inte_trad}
-\citet[p.100]{ito85:_inte_trad}
-\citet[p.200 参照]{ito85:_inte_trad}
-\citep[詳しくは][]{ito85:_inte_trad}
- \end{verbatim}
+\begin{verbatim}
+ \citet{ito85:_inte_trad}
+ \citep{ito85:_inte_trad}
+ \citet[p.100]{ito85:_inte_trad}
+ \citet[p.200 参照]{ito85:_inte_trad}
+ \citep[詳しくは][]{ito85:_inte_trad}
+\end{verbatim}
 \end{screen}
 \\
 
@@ -265,7 +264,6 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 \end{verbatim}
 \end{screen}
 
-
 \section{使用法}
 
 基本的に他の \BibTeX スタイルファイルを使う場合と同じですが，いくつか違う部分，
@@ -274,8 +272,7 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 \subsection{必要なもの}
 
 \texttt{jecon.bst} を利用するには，\texttt{natbib.sty}が必要になりますが，最近の
-\LaTeX システムでしたら標準で \texttt{natbib.sty} もインストールされていると思い
-ます．
+\LaTeX システムでしたら標準で \texttt{natbib.sty} もインストールされています．
 
 
 \subsection{\texttt{jecon.bst} のインストール}
@@ -285,11 +282,11 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
  \item 1) \texttt{jplain.bst}，\texttt{jalpha.bst} 等と同じ場所
  \item 2) 編集している \TeX のファイルと同じ場所
 \end{itemize}
-という選択肢があります。1 の場所に置いておけば、様々な \TeX のファイルから共有で
-きます\footnote{この場合、\texttt{jecon.bst} をコピーした後に、\texttt{mktexlsr}
-を実行して \texttt{ls-R} ファイルのアップデートが必要になると思います}。編集する
-\TeX ファイル毎に \texttt{jecon.bst} をカスタマイズして使う場合は、2 のように
-\TeX のファイルと同じ場所に置くのがいいと思います（私はそうしています）。
+という選択肢があります．1 の場所に置いておけば，様々な \TeX のファイルから共有で
+きます\footnote{この場合，\texttt{jecon.bst} をコピーした後に，\texttt{mktexlsr}
+を実行して \texttt{ls-R} ファイルのアップデートが必要になると思います}．編集する
+\TeX ファイル毎に \texttt{jecon.bst} をカスタマイズして使う場合は，2 のように
+\TeX のファイルと同じ場所に置くのがいいと思います（私はそうしています）．
 
 \subsection{\texttt{bib} ファイルの書き方}
 
@@ -298,7 +295,7 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 独自の部分もあります．いくつか例を挙げときます．
 
 \begin{screen}
- \begin{verbatim}
+\begin{verbatim}
 @InCollection{oyama99:_mark_stru,
   author       = {大山, 道広},
   title        = {市場構造・経済厚生・国際貿易},
@@ -316,14 +313,17 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 \subsubsection{\texttt{langid} フィールド}
 \label{jecon-example-sec:langid}
 
-\texttt{langid} フィールドはその文献が書かれている言語を指定するフィールドです。
-このフィールドに \texttt{japanese} と指定されていると、日本語文献として処理しま
-すが、これが指定されていなくても、基本的には自動判定で日本語文献を判別します。で
-すので、特殊な場合を除いて必要はないです（どういうときに必要かは第
-\ref{jecon-example-sec:bibtex-engine} 節で説明します）。
+\texttt{langid} フィールドはその文献が書かれている言語を指定するフィールドです．
+このフィールドに \texttt{japanese} と指定されていると，日本語文献として処理しま
+すが，これが指定されていなくても，基本的には自動判定で日本語文献を判別します
+\footnote{author や title に日本語が含まれていると，日本語文献と判断するといよう
+な仕組みです．これには \texttt{(u)pbibtex} の \texttt{is.kanji.str\$} という命令
+を利用しています．}．ですので，特殊な場合を除いて \texttt{langid} フィールドの指
+定必要はないです（どういうときに必要かは第\ref{jecon-example-sec:bibtex-engine}
+節で説明します）．
 
-ただ、\texttt{langid} フィールの指定は \texttt{biblatex} などでも利用される可能
-性がありますので、指定しておいてもいいと思います。
+ただ，\texttt{langid} フィールの指定は \texttt{biblatex} などでも利用される可能
+性がありますので，指定しておいてもいいと思います．
 
 
 
@@ -331,10 +331,10 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 \label{jecon-example-sec:author}
 
 \begin{itemize}
- \item まず，\textbf{authorの名前の書き方が普通の書き方と違います．}
- \item 通常，\textbf{日本語対応のbstファイルではbibファイルで日本語文献の人名を
-       書くときに「姓　名」という形式にします}．例えば，「大山　道広」というよう
-       にです．
+ \item \textbf{authorの名前の書き方が普通の書き方と違います．}
+ \item 通常，\texttt{jplain.bst} などの \textbf{日本語対応のbstファイルではbibファ
+       イルで日本語文献の人名を書くときに「姓　名」という形式（順序）にします}．
+       例えば，「大山　道広」というようにです．
  \item しかし，\textbf{\texttt{jecon.bst} ではauthorの名前は日本語文献でも英語文
        献と同様の形式，つまり 「姓, 名」の形式で指定してください}．例えば，「大
        山,道広」というような指定です．
@@ -350,8 +350,9 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
        ください．
 \end{itemize}
 
-\midashii{注} 昔からの普通の書き方もできるようにしています．それには関数
-\texttt{bst.sei.mei.order} に \verb|#0| を指定してください．
+\midashii{注} 昔からの普通の書き方もできるようにしています．それには
+\texttt{jecon.bst} 内の関数\texttt{bst.sei.mei.order} に \verb|#0| を指定してく
+ださい．
 
 
 \subsubsection{\texttt{yomi} フィールドの指定}
@@ -372,17 +373,22 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
        \end{itemize}
  \item ひらがなで書くケース
        \begin{itemize}
-        \item   ひらがなで書く場合には「姓, 名」，あるいは「姓」のみで書いてくださ
-       い．ひらがなで書いた場合，日本語の文献は著者名のあいうえお順で，英語文献
-       とは別に並べられます．日本語文献・英語文献を分けた形で列挙したい場合は，
-       \texttt{yomi} フィールドをひらがなで書くようにしてください．経済学では英
-       語文献と日本語文献は分けた形で列挙することが多いので，\texttt{yomi} フィー
-       ルドをひらがなで書いておくのがよいと思います．
+        \item ひらがなで書く場合には「姓, 名」，あるいは「姓」のみで書いてくださ
+              い．ひらがなで書いた場合，日本語の文献は著者名の\textbf{「あいうえ
+              お順」}で，英語文献とは別に並べられます．日本語文献・英語文献を分
+              けた形で列挙したい場合は，\texttt{yomi} フィールドをひらがなで書く
+              ようにしてください．経済学では英語文献と日本語文献は分けた形で列挙
+              することが多いので，\texttt{yomi} フィールドをひらがなで書いておく
+              のがよいと思います．
        \end{itemize}
- \item \texttt{yomi} フィールドではなく、\texttt{sortname} フィールドを使っても
-       同じです。\texttt{sortname} フィールドは biblatex で同じような機能として
-       利用されるので、biblatex 用にもデータベースを利用したい人は \texttt{yomi}
-       ではなく \texttt{sortname} を使うのがよいと思います。
+ \item \texttt{yomi} フィールドではなく，\textbf{「\texttt{sortname}」 フィール
+       ド}を使っても同じです．\texttt{sortname} フィールドは biblatex で同じよう
+       な機能として利用されるので，biblatex 用にもデータベースを利用したい人は
+       \texttt{yomi}ではなく \texttt{sortname} を使うのがよいと思います
+       \footnote{この文書では，以下の文献で \texttt{sortname} フィールドによる指
+       定を使っています．\citet{takeda-gtap-2016ja}，
+       \citet{takeda07jp:CGE_for_rieti}，\citet{isikawa02jp:_env_trade}，
+       \citet{kiyono93:_regu_comp_1}}．
  \item その他
        \begin{itemize}
         \item 日本語文献の \texttt{yomi} フィールドを省略してしまうとおかしな順
@@ -415,7 +421,7 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 \cite{romer19jp:_advan_macroecon}を見て確認してください．\\
 
 \begin{screen}
- \begin{verbatim}
+\begin{verbatim}
 @Book{fujita99jp:_spatial_econom,
   author       = {Masahisa Fujita and Paul R. Krugman and Anthony J. Venables},
   title        = {The Spatial Economy},
@@ -429,11 +435,11 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
   jyear        = 2000,
   jnote        = {和訳紹介ページ: \url{https://str.toyokeizai.net/books/9784492312858/}}
 }
- \end{verbatim}
+\end{verbatim}
 \end{screen}
 \vspace*{1em}
 \begin{screen}
- \begin{verbatim}
+\begin{verbatim}
 @book{romer19jp:_advan_macroecon,
   author       = {Romer, David},
   title        = {Advanced Macroeconomics},
@@ -447,7 +453,7 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
   jpublusher   = {日本評論社},
   jnote        = {原著第3版訳}
 }
- \end{verbatim}
+\end{verbatim}
 \end{screen}
 \vspace*{1em}
 
@@ -466,7 +472,7 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 場合が思います．このようなときには次のように指定してください．\\
 
 \begin{screen}
- \begin{verbatim}
+\begin{verbatim}
 @Book{barro97jp,
   author       = {バロー, R. J.},
   title        = {経済学の正しい使用法 --- 政府は経済に手を出すな ---},
@@ -476,7 +482,7 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
   langid       = {japanese},
   yomi         = {ばろー}
 }
- \end{verbatim}
+\end{verbatim}
 \end{screen}
 \vspace*{1em}
 
@@ -550,10 +556,15 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 「姓, 名」（区切は半角カンマ）という記述で指定します．例えば，著者が Barack
 Obama であるときには
 \begin{screen}
- \begin{verbatim}
-  author =       {Barack Obama}
-  author =       {Obama, Barack}
- \end{verbatim}
+\begin{verbatim}
+ author =       {Barack Obama}
+\end{verbatim}
+\end{screen}
+あるいは，
+\begin{screen}
+\begin{verbatim}
+ author =       {Obama, Barack}
+\end{verbatim}
 \end{screen}
 のような指定をします．これは\texttt{author}フィールドだけではなく，
 \texttt{editor}についても同じです．
@@ -562,10 +573,15 @@ Obama であるときには
 という記法，あるいは「名, 姓」（区切は半角カンマ）という記法になります．例えば，
 著者が「安倍晋三」なら，
 \begin{screen}
- \begin{verbatim}
-  author =       {安倍 晋三}
-  author =       {晋三, 安倍}
- \end{verbatim}
+\begin{verbatim}
+ author =       {安倍 晋三}
+\end{verbatim}
+\end{screen}
+あるいは，
+\begin{screen}
+\begin{verbatim}
+ author =       {晋三, 安倍}
+\end{verbatim}
 \end{screen}
 という指定になります．これは\texttt{editor}フィールドでも同じように指定します．
 \vspace*{1em}
@@ -582,10 +598,15 @@ Obama であるときには
 \textbf{\texttt{jecon.bst}では日本語文献の場合でも英語文献と同様な指定方法をしま
 す}．つまり，以下のように指定します．
 \begin{screen}
- \begin{verbatim}
-  author =       {安倍, 晋三}
-  author =       {晋三 安倍}
- \end{verbatim}
+\begin{verbatim}
+ author =       {安倍, 晋三}
+\end{verbatim}
+\end{screen}
+あるいは，
+\begin{screen}
+\begin{verbatim}
+ author =       {晋三 安倍}
+\end{verbatim}
 \end{screen}
 
 これは\texttt{author}フィールドだけの話ではなく，人名を指定するフィールド
@@ -620,26 +641,26 @@ Mendeley\footnote{\url{http://www.mendeley.com/}}のような文献管理ソフ�
 で出力すると次のようになります．
 \begin{screen}
 \begin{verbatim}
-@article{白井大地:2013-09,
-author="白井, 大地 and 武田, 史郎 and 落合, 勝昭",
-title="温室効果ガス排出規制の地域間CGE分析",
-journal="環境経済・政策研究",
-ISSN="1882-3742",
-publisher="岩波書店",
-year="2013",
-month="sep",
-volume="6",
-number="2",
-pages="12-25",
-URL="http://ci.nii.ac.jp/naid/40019823794/",
-DOI="",
-}
+ @article{白井大地:2013-09,
+ author="白井, 大地 and 武田, 史郎 and 落合, 勝昭",
+ title="温室効果ガス排出規制の地域間CGE分析",
+ journal="環境経済・政策研究",
+ ISSN="1882-3742",
+ publisher="岩波書店",
+ year="2013",
+ month="sep",
+ volume="6",
+ number="2",
+ pages="12-25",
+ URL="http://ci.nii.ac.jp/naid/40019823794/",
+ DOI="",
+ }
 \end{verbatim}
 \end{screen}
 \texttt{author}フィールドが
 \begin{screen}
 \begin{verbatim}
-author="白井, 大地 and 武田, 史郎 and 落合, 勝昭",
+ author="白井, 大地 and 武田, 史郎 and 落合, 勝昭",
 \end{verbatim}
 \end{screen}
 となっており，英語文献と同じ姓名の順序で指定されていることがわかります．このよう
@@ -655,15 +676,15 @@ author="白井, 大地 and 武田, 史郎 and 落合, 勝昭",
 す．それには\texttt{jecon.bst}の
 \begin{screen}
 \begin{verbatim}
-FUNCTION {bst.sei.mei.order}
-{ #1 }
+ FUNCTION {bst.sei.mei.order}
+ { #1 }
 \end{verbatim}
 \end{screen}
 という部分を
 \begin{screen}
 \begin{verbatim}
-FUNCTION {bst.sei.mei.order}
-{ #0 }
+ FUNCTION {bst.sei.mei.order}
+ { #0 }
 \end{verbatim}
 \end{screen}
 に書き換えてください．
@@ -681,70 +702,58 @@ FUNCTION {bst.sei.mei.order}
 
 \vspace*{1em}
 
-\midashii{注} Version 5.5より，データベース（bibファイル）における日
-本語の著者名の指定方法（姓名の順序）を英語の著者名と同じとするようデフォールトの
-設定を変更しました．
-
-
 \subsection{\texttt{tex} ファイルの書き方}
 
 \texttt{tex} ファイル（\TeX のファイル）の書き方も普通と同じです．まず，プリアン
 プルで \texttt{natbib.sty} を読み込みます．
 
 \begin{screen}
- \begin{verbatim}
-
+\begin{verbatim}
  \usepackage{natbib}
- \end{verbatim}
+\end{verbatim}
 \end{screen}
 
 さらに，\verb|\begin{document}| の後で，\BibTeX のスタイルファイルとして 
 \texttt{jecon.bst} を指定します．
 
 \begin{screen}
- \begin{verbatim}
-
+\begin{verbatim}
  \bibliographystyle{jecon}
- \end{verbatim}
+\end{verbatim}
 \end{screen}
 
 引用したい部分では，
-
-\begin{screen}
- \begin{verbatim}
-        
- \citet{ito85:_inte_trad} によれば．．．
- \end{verbatim}
-\end{screen}
-
+% \begin{screen}
+% \begin{verbatim}
+%  \citet{ito85:_inte_trad} によれば．．．
+% \end{verbatim}
+% \end{screen}
 というように書きます．
 
 最後に参考文献を付けたい部分で，
-
 \begin{screen}
- \begin{verbatim}
-        
+\begin{verbatim}
  \bibliography{jecon-example}
- \end{verbatim}
+\end{verbatim}
 \end{screen}
-
 というようにデータベースファイル（ここでは，\texttt{jecon-example.bib} というファ
-イル）を指定します．
+イル）を指定します．bib ファイルの指定は拡張
+子は省略しておこないます．
 
 \subsection{コンパイルの方法}
 
 \midashii{注} この \texttt{jecon-example.tex} ファイルをコンパイルするには文献の
-データが入った \texttt{jecon-example.bib}、\texttt{jecon-example-unicode.bib} の
-二つのファイルを同じフォルダに置いておく必要があります。
+データが入った \texttt{jecon-example.bib}，\texttt{jecon-example-unicode.bib} の
+二つのファイルを同じフォルダに置いておく必要があります．
 
 \vspace*{2em}
 
 
 
-コンパイルの方法は \LaTeX のエンジン、\BibTeX のエンジンに何を使うかによって変わ
-ります。この \texttt{jecon-example.tex} というファイルは、\LaTeX のエンジンとし
-て \texttt{lualatex} を利用し、\BibTeX のエンジンとして \texttt{upbibtex} を利用
-するという前提で作成されていますので、コンパイルは以下のような手順になります。
+コンパイルの方法は \LaTeX のエンジン，\BibTeX のエンジンに何を使うかによって変わ
+ります．この \texttt{jecon-example.tex} というファイルは，\LaTeX のエンジンとし
+て \texttt{lualatex} を利用し，\BibTeX のエンジンとして \texttt{upbibtex} を利用
+するという前提で作成されていますので，コンパイルは以下のような手順になります．
 \begin{itemize}
  \item 一回 \texttt{lualatex} を実行
  \item 一回 \texttt{upbibtex} を実行
@@ -754,10 +763,10 @@ FUNCTION {bst.sei.mei.order}
 
 \subsubsection{\LaTeX エンジンの選択}
 
-上では \LaTeX エンジンに \texttt{lualatex} を利用するという前提で説明しましたが、
-もちろん他のエンジン、例えば、\texttt{uplatex}、\texttt{xelatex} でも使えます
-（ユニコード文字を使わないのなら、\texttt{platex} でもいいです）。ただし、その場
-合は当然プリアンプルなどの書き方は変更する必要があります。
+上では \LaTeX エンジンに \texttt{lualatex} を利用するという前提で説明しましたが，
+もちろん他のエンジン，例えば，\texttt{uplatex}，\texttt{xelatex} でも使えます
+（ユニコード文字を使わないのなら，\texttt{platex} でもいいです）．ただし，その場
+合は当然プリアンプルなどの書き方は変更する必要があります．
 
 
 \subsubsection{\BibTeX エンジンの選択（ここは飛ばしていいです）}
@@ -769,29 +778,29 @@ FUNCTION {bst.sei.mei.order}
  \item B) TeX Live 2020 までの \texttt{upbibtex}
 \end{itemize}
 のどちらかしか利用できない人が読んでください（TeX Live 2021 以降の
-\texttt{upbibtex} を利用する人は読まなくてよいです）。
+\texttt{upbibtex} を利用する人は読まなくてよいです）．
 
 \vspace*{1em}
 
-\BibTeX は、\texttt{pbibtex} か \texttt{upbibtex}か、また、\texttt{upbibtex} の
-どのバージョンかによって、\texttt{bst} ファイル内で利用されている
-\texttt{is.kanji.str\$}、\texttt{substring\$} という命令の動作が変わってきます
+\BibTeX は，\texttt{pbibtex} か \texttt{upbibtex}か，また，\texttt{upbibtex} の
+どのバージョンかによって，\texttt{bst} ファイル内で利用されている
+\texttt{is.kanji.str\$}，\texttt{substring\$} という命令の動作が変わってきます
 \footnote{具体的にどう変わるかは
 \url{https://github.com/ShiroTakeda/pbibtex-check} というページのプログラムでわ
-かります。}。このため、上の二つの場合について、
+かります．}．このため，上の二つの場合について，
 \begin{itemize}
  \item \texttt{jecon.bst} を少し修正
  \item \texttt{bib} ファイルの書き方を修正
 \end{itemize}
-する必要がでてきます。
+する必要がでてきます．
 
 \vspace*{1em}
 
 \midashiii{\BibTeX エンジンとして \texttt{pbibtex} を使う人}
 
-この場合には、\texttt{jecon.bst} 内の \texttt{bst.pbibtex.version} の部分を以下
+この場合には，\texttt{jecon.bst} 内の \texttt{bst.pbibtex.version} の部分を以下
 のように書き換えてください\footnote{これは \texttt{pbibtex} と \texttt{upbibtex}
-で \texttt{substring\$} という命令の動作が異なることに対応するための設定です。}。
+で \texttt{substring\$} という命令の動作が異なることに対応するための設定です．}．
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.pbibtex.version}
@@ -799,16 +808,16 @@ FUNCTION {bst.pbibtex.version}
 \end{verbatim}
 \end{screen}
 
-あとはこれまで説明した通りにすればよいです。
+あとはこれまで説明した通りにすればよいです．
 
 \vspace*{1em}
 
 \midashiii{TeX Live 2020 までの \texttt{upbibtex} を使う人\footnote{正確には
        \texttt{0.99d-j0.33-u1.27} より前のバージョンの \texttt{upbibtex} のケー
-       スです。}}
+       スです．}}
 
-この場合には、まず \texttt{jecon.bst} 内の \texttt{bst.pbibtex.version} の部分を
-以下のように書き換えてください。
+この場合には，まず \texttt{jecon.bst} 内の \texttt{bst.pbibtex.version} の部分を
+以下のように書き換えてください．
 \begin{screen}
 \begin{verbatim}
 FUNCTION {bst.pbibtex.version}
@@ -818,23 +827,23 @@ FUNCTION {bst.pbibtex.version}
 
 \vspace*{1em}
 
-さらに、\texttt{bib} ファイルにおいて、日本語文献に
+さらに，\texttt{bib} ファイルにおいて，日本語文献に
 \begin{screen}
 \begin{verbatim}
-	langid = {japanese}
+ langid = {japanese}
 \end{verbatim}
 \end{screen}
-という指定を加えるようにしてください。古い \texttt{upbibtex} では
-\texttt{is.kanji.str\$} という命令が適切に機能しないため、その文献が日本語の文献
-かどうかの自動判別が上手くいきません\footnote{具体的には、古い \texttt{upbibtex}
-の \texttt{is.kanji.str\$} では「ö」、「é」、「í」 などのアルファベットも日本語
-と判断してしまうためです。}。そのため、自分でその文献が日本語の文献だと指定する
-必要があります。この指定はそのためのものです。
+という指定を加えるようにしてください．古い \texttt{upbibtex} では
+\texttt{is.kanji.str\$} という命令が適切に機能しないため，その文献が日本語の文献
+かどうかの自動判別が上手くいきません\footnote{具体的には，古い \texttt{upbibtex}
+の \texttt{is.kanji.str\$} では「ö」，「é」，「í」 などのアルファベットも日本語
+と判断してしまうためです．}．そのため，自分でその文献が日本語の文献だと指定する
+必要があります．この指定はそのためのものです．
 
 第 \ref{jecon-example-sec:langid} 節で \texttt{langid} フィールドの指定は特殊な
-場合に必要になると書きましたが、このケースがそれです。TeX Live 2021 以降の新しい
-\texttt{upbibtex} では、日本語文献かどうかの自動判別が適切に機能するため、この
-\texttt{langid} フィールドの指定は必要ないです。
+場合に必要になると書きましたが，このケースがそれです．TeX Live 2021 以降の新しい
+\texttt{upbibtex} では，日本語文献かどうかの自動判別が適切に機能するため，この
+\texttt{langid} フィールドの指定は必要ないです．
 
 
 \section{カスタマイズ}
@@ -1065,8 +1074,8 @@ FUNCTION {bst.author.name}
 \texttt{bst.first.name.initial} はもともとは次のように定義されています．
 \begin{screen}
 \begin{verbatim}
-FUNCTION {bst.first.name.initial}
-{ #0 }
+ FUNCTION {bst.first.name.initial}
+ { #0 }
 \end{verbatim}
 \end{screen}
 この \verb|#0| を \verb|#0| 以外（例えば，\verb|#1|）に変更すると
@@ -1094,7 +1103,7 @@ Fujita, M., P.~R. Krugman, and A.~J. Venables
 るようになります．
 \begin{screen}
 \begin{verbatim}
-FUNCTION {bst.title.lower.case}
+ FUNCTION {bst.title.lower.case}
  { #1 }
 \end{verbatim}
 \end{screen}
@@ -1230,57 +1239,57 @@ FUNCTION {bst.journal.pre}
 
 \subsubsection{著者数が非常に多いケース}
 
-経済学の研究論文ではあまりないと思いますが、分野によっては論文の著者数が数百人、
-数千人になる場合があるようです。当然ですが、そのような場合に、著者名を全て参考文
-献に掲載することはできません。そのようなときの対処方法としては、bib データにおけ
-る author フィールドの部分を自分で書き換えるという方法があります。具体的には、以
-下のように「\texttt{and others}」で置き換えてしまうという方法があります。
+経済学の研究論文ではあまりないと思いますが，分野によっては論文の著者数が数百人，
+数千人になる場合があるようです．当然ですが，そのような場合に，著者名を全て参考文
+献に掲載することはできません．そのようなときの対処方法としては，bib データにおけ
+る author フィールドの部分を自分で書き換えるという方法があります．具体的には，以
+下のように「\texttt{and others}」で置き換えてしまうという方法があります．
 \begin{screen}
 \begin{verbatim}
 author = {Alpha, X. and Beta, X. and others}
 \end{verbatim}
 \end{screen}
-こうしておくと、参考文献部分では
+こうしておくと，参考文献部分では
 \begin{screen}
 \begin{verbatim}
 Alpha, X., Beta, X. et al.(2020) "The economics ...",...
 \end{verbatim}
 \end{screen}
-というように処理されます。
+というように処理されます．
 
-これでも一応対応できますが、この方法では著者数が多い論文を引用しようとするたびに
-自分で bib ファイル（データベース）を書き換える必要があり、少し面倒です。そこで、
-\texttt{jecon.bst} では、著者数が多い論文に対しては以下のように処理するようにし
+これでも一応対応できますが，この方法では著者数が多い論文を引用しようとするたびに
+自分で bib ファイル（データベース）を書き換える必要があり，少し面倒です．そこで，
+\texttt{jecon.bst} では，著者数が多い論文に対しては以下のように処理するようにし
 ています\footnote{この処理には \texttt{aasjournal.bst}（American Astronomical
-Society Journal用の bst ファイル）を参考にしました。\texttt{aasjournal.bst} で
-はこのように著者数が多いときには著者名を省略する処理がおこなわれます。}。
+Society Journal用の bst ファイル）を参考にしました．\texttt{aasjournal.bst} で
+はこのように著者数が多いときには著者名を省略する処理がおこなわれます．}．
 \begin{screen}
 \begin{itemize}
- \item N1 人以上の著者がいる場合には、参考文献部分において最初の N2 人の著者名の
-       み表示し、残りは「et al.」や「他」で省略する。
+ \item N1 人以上の著者がいる場合には，参考文献部分において最初の N2 人の著者名の
+       み表示し，残りは「et al.」や「他」で省略する．
 \end{itemize}
 \end{screen}
-このような処理をするため自分で bib ファイルを書き換える必要はありません。N1 と
-N2 の数値ですが、
+このような処理をするため自分で bib ファイルを書き換える必要はありません．N1 と
+N2 の数値ですが，
 \begin{itemize}
  \item N1: ``\texttt{bst.max.author.num}''で設定（デフォールト値は 8）
  \item N2: ``\texttt{bst.max.author.num.display}'' で設定（デフォールト値は 3）
 \end{itemize}
-しています。もちろん自分で数を変更できます。
+しています．もちろん自分で数を変更できます．
 
-このファイルでは以下の 3 つの文献がこの処理の対象になっています。
+このファイルでは以下の 3 つの文献がこの処理の対象になっています．
 \begin{itemize}
  \item \citet{doi:10.1175/2009BAMS2778.1}, \citet{doi:10.1175/2009BAMS2778.1}, \citet{Li_2018}
 \end{itemize}
 
-また、\texttt{customization} フォルダの \texttt{jecon-many-authors.tex} ではもっ
-と著者数が多い文献を扱っていますので、そちらも参考にしてください。
+また，\texttt{customization} フォルダの \texttt{jecon-many-authors.tex} ではもっ
+と著者数が多い文献を扱っていますので，そちらも参考にしてください．
 
 \vspace*{1em}
 
-\midashii{注} 上で説明したのは参考文献部分での処理です。著者数が N1より大のとき
- には、引用部分では常に「Alpha et al.」のように「第一著者 + et al.」で省略されま
- す。日本語文献の場合は「et al.」ではなく、「他」になります。
+\midashii{注} 上で説明したのは参考文献部分での処理です．著者数が N1より大のとき
+ には，引用部分では常に「Alpha et al.」のように「第一著者 + et al.」で省略されま
+ す．日本語文献の場合は「et al.」ではなく，「他」になります．
 
 \vspace*{1em}
 
@@ -1308,14 +1317,15 @@ N2 の数値ですが、
  （や\verb|\href| 命令）が利用できるようになっていなければいけないです．
  \verb|\url|命令は例えば\texttt{hyperref} パッケージで定義されていますので，次の
  ようにプリアンプルで読み込んでおいてください．
- \begin{verbatim}
-\usepackage{hyperref}
- \end{verbatim} 
+\begin{verbatim}
+ \usepackage{hyperref}
+\end{verbatim} 
 \end{screen}
 
 \subsubsection{urlとaccessフィールド}
 
 例えば，\texttt{jecon-example.bib}に次のような文献があります．
+\begin{screen}
 \begin{verbatim}
 @unpublished{rutherford00:_gtapin_gtap_eg,
   author       = {Thomas F. Rutherford and Sergey V. Paltsev},
@@ -1328,7 +1338,7 @@ N2 の数値ですが、
   note         = {Working Paper, University of Colorad, Department of Economics}
 }
 \end{verbatim}
-
+\end{screen}
 これは参考文献では次のような表示になります．
 \begin{screen}
  \begin{itemize}
@@ -1352,6 +1362,7 @@ URLですと論文の置き場に変更が生じたときにリンク切れに�
 にしました．
 
 例えば，次の文献はDOIを指定しています．
+\begin{screen}
 \begin{verbatim}
 @article{Takeda2012a,
   author       = {Takeda, Shiro and Tetsuya, Horie and Arimura, Toshi H.},
@@ -1364,7 +1375,7 @@ URLですと論文の置き場に変更が生じたときにリンク切れに�
   year         = 2012
 }
 \end{verbatim}
-
+\end{screen}
 これは参考文献では次のような表示になります．
 \begin{screen}
  \begin{itemize}
@@ -1648,9 +1659,11 @@ FUNCTION {bst.hide.month}
        \url{https://github.com/ShiroTakeda/jecon-bst} で配布しています．
 \end{itemize}
 
+\vspace*{2em}
+
 \nocite{*}
 
-その他
+以下，文献の引用．
 \begin{itemize}
  \item \citet{zhang2016Deep}, \citet{imbens2019Optimized}.
 \end{itemize}
