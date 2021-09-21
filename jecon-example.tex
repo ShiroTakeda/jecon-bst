@@ -18,6 +18,8 @@
 \usepackage{luatexja-fontspec}
 \usepackage{luatexja-preset}
 
+%% LaTeXやBibTeX関連のロゴ
+\usepackage{bxtexlogo}
 %% natbib.sty を使う．
 \usepackage{natbib}
 %% Fancybox
@@ -96,11 +98,11 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 \midashii{注} \textbf{Version 6.3 より，この \texttt{jecon-example.tex} ファイル
 は「\texttt{jlreq} クラスファイル」を利用するようにし，さらに
-「\texttt{lulalatex}」+「\texttt{upbibtex}」でコンパイルするように修正しました．}
+「\LuaLaTeX」+「\upBibTeX」でコンパイルするように修正しました．}
 \begin{itemize}
- \item プリアンプルを書き換えれば \texttt{uplatex} や \texttt{xelatex} でもコン
+ \item プリアンプルを書き換えれば \upLaTeX や \XeLaTeX でもコン
        パイルできます．
- \item ユニコード文字を使っているので，\texttt{platex} + \texttt{pbibtex} ではコ
+ \item ユニコード文字を使っているので，\pLaTeX + \pBibTeX ではコ
        ンパイルできません．
 \end{itemize}
 \vspace*{1em}
@@ -317,7 +319,7 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 このフィールドに \texttt{japanese} と指定されていると，日本語文献として処理しま
 すが，これが指定されていなくても，基本的には自動判定で日本語文献を判別します
 \footnote{author や title に日本語が含まれていると，日本語文献と判断するといよう
-な仕組みです．これには \texttt{(u)pbibtex} の \texttt{is.kanji.str\$} という命令
+な仕組みです．これには \pBibTeX (\upBibTeX) の \texttt{is.kanji.str\$} という命令
 を利用しています．}．ですので，特殊な場合を除いて \texttt{langid} フィールドの指
 定必要はないです（どういうときに必要かは第\ref{jecon-example-sec:bibtex-engine}
 節で説明します）．
@@ -752,7 +754,7 @@ Mendeley\footnote{\url{http://www.mendeley.com/}}のような文献管理ソフ�
 
 コンパイルの方法は \LaTeX のエンジン，\BibTeX のエンジンに何を使うかによって変わ
 ります．この \texttt{jecon-example.tex} というファイルは，\LaTeX のエンジンとし
-て \texttt{lualatex} を利用し，\BibTeX のエンジンとして \texttt{upbibtex} を利用
+て \LuaLaTeX を利用し，\BibTeX のエンジンとして \upBibTeX を利用
 するという前提で作成されていますので，コンパイルは以下のような手順になります．
 \begin{itemize}
  \item 一回 \texttt{lualatex} を実行
@@ -763,9 +765,9 @@ Mendeley\footnote{\url{http://www.mendeley.com/}}のような文献管理ソフ�
 
 \subsubsection{\LaTeX エンジンの選択}
 
-上では \LaTeX エンジンに \texttt{lualatex} を利用するという前提で説明しましたが，
-もちろん他のエンジン，例えば，\texttt{uplatex}，\texttt{xelatex} でも使えます
-（ユニコード文字を使わないのなら，\texttt{platex} でもいいです）．ただし，その場
+上では \LaTeX エンジンに \LuaLaTeX を利用するという前提で説明しましたが，
+もちろん他のエンジン，例えば，\upLaTeX，\XeLaTeX でも使えます
+（ユニコード文字を使わないのなら，\pLaTeX でもいいです）．ただし，その場
 合は当然プリアンプルなどの書き方は変更する必要があります．
 
 
@@ -774,15 +776,15 @@ Mendeley\footnote{\url{http://www.mendeley.com/}}のような文献管理ソフ�
 
 この第 \ref{jecon-example-sec:bibtex-engine} 節は
 \begin{itemize}
- \item A) \texttt{pbibtex}
- \item B) TeX Live 2020 までの \texttt{upbibtex}
+ \item A) \pBibTeX
+ \item B) TeX Live 2020 までの \upBibTeX
 \end{itemize}
 のどちらかしか利用できない人が読んでください（TeX Live 2021 以降の
-\texttt{upbibtex} を利用する人は読まなくてよいです）．
+\upBibTeX を利用する人は読まなくてよいです）．
 
 \vspace*{1em}
 
-\BibTeX は，\texttt{pbibtex} か \texttt{upbibtex}か，また，\texttt{upbibtex} の
+\BibTeX は，\pBibTeX か \upBibTeX か，また，\upBibTeX の
 どのバージョンかによって，\texttt{bst} ファイル内で利用されている
 \texttt{is.kanji.str\$}，\texttt{substring\$} という命令の動作が変わってきます
 \footnote{具体的にどう変わるかは
@@ -796,10 +798,10 @@ Mendeley\footnote{\url{http://www.mendeley.com/}}のような文献管理ソフ�
 
 \vspace*{1em}
 
-\midashiii{\BibTeX エンジンとして \texttt{pbibtex} を使う人}
+\midashiii{\BibTeX エンジンとして \pBibTeX を使う人}
 
 この場合には，\texttt{jecon.bst} 内の \texttt{bst.pbibtex.version} の部分を以下
-のように書き換えてください\footnote{これは \texttt{pbibtex} と \texttt{upbibtex}
+のように書き換えてください\footnote{これは \pBibTeX と \upBibTeX
 で \texttt{substring\$} という命令の動作が異なることに対応するための設定です．}．
 \begin{screen}
 \begin{verbatim}
@@ -812,8 +814,8 @@ FUNCTION {bst.pbibtex.version}
 
 \vspace*{1em}
 
-\midashiii{TeX Live 2020 までの \texttt{upbibtex} を使う人\footnote{正確には
-       \texttt{0.99d-j0.33-u1.27} より前のバージョンの \texttt{upbibtex} のケー
+\midashiii{TeX Live 2020 までの \upBibTeX を使う人\footnote{正確には
+       \texttt{0.99d-j0.33-u1.27} より前のバージョンの \upBibTeX のケー
        スです．}}
 
 この場合には，まず \texttt{jecon.bst} 内の \texttt{bst.pbibtex.version} の部分を
@@ -833,16 +835,16 @@ FUNCTION {bst.pbibtex.version}
  langid = {japanese}
 \end{verbatim}
 \end{screen}
-という指定を加えるようにしてください．古い \texttt{upbibtex} では
+という指定を加えるようにしてください．古い \upBibTeX では
 \texttt{is.kanji.str\$} という命令が適切に機能しないため，その文献が日本語の文献
-かどうかの自動判別が上手くいきません\footnote{具体的には，古い \texttt{upbibtex}
+かどうかの自動判別が上手くいきません\footnote{具体的には，古い \upBibTeX
 の \texttt{is.kanji.str\$} では「ö」，「é」，「í」 などのアルファベットも日本語
 と判断してしまうためです．}．そのため，自分でその文献が日本語の文献だと指定する
 必要があります．この指定はそのためのものです．
 
 第 \ref{jecon-example-sec:langid} 節で \texttt{langid} フィールドの指定は特殊な
 場合に必要になると書きましたが，このケースがそれです．TeX Live 2021 以降の新しい
-\texttt{upbibtex} では，日本語文献かどうかの自動判別が適切に機能するため，この
+\upBibTeX では，日本語文献かどうかの自動判別が適切に機能するため，この
 \texttt{langid} フィールドの指定は必要ないです．
 
 
@@ -1651,7 +1653,7 @@ FUNCTION {bst.hide.month}
        き方，文献の登録の仕方はそちらも参考にしてください．
  \item ここをこうして欲しい，こうしたいという要望がありましたらおっしゃってくださ
        い．私に直せるようなものだったら直しますので．不具合があるときには，不具合
-       の出る文献のサンプル（bib ファイル），bibtex のログ（blg ファイル）等を送っ
+       の出る文献のサンプル（bib ファイル），\BibTeX のログ（blg ファイル）等を送っ
        てくださると助かります．要望の際も同じようにサンプルがあると助かります（ど
        ういう文献をどう表示したいのかがわかるもの）．
  \item 連絡は \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}} まで．
