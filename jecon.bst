@@ -4679,7 +4679,7 @@ FUNCTION {presort.one}
 	  { month add.zero.to.number "000" =
 	     % 000 のときは /// (これは数字よりは前)
 	     { * month add.zero.to.number * "/// " * }
-	     { * month add.zero.to.number * " " * }
+	     { * month convert.month convert.month.kanji add.zero.to.number * " " * }
 	    if$
 	  }
 	 if$
@@ -4785,7 +4785,7 @@ FUNCTION {presort.two}
 	  { month add.zero.to.number "000" =
 	     % 000 のときは /// (これは数字よりは前)
 	     { * month add.zero.to.number * "/// " * }
-	     { * month add.zero.to.number * " " * }
+	     { * month convert.month convert.month.kanji add.zero.to.number * " " * }
 	    if$
 	  }
 	 if$
