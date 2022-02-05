@@ -4,8 +4,8 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2021-09-16 10:13:50 st>
-% Version 6.4
+% Time-stamp: <2022-02-05 14:32:47 st>
+% Version 6.5
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
 
@@ -38,7 +38,7 @@
 
 
 % version 指定
-FUNCTION {jecon.version} { "6.4" }
+FUNCTION {jecon.version} { "6.5" }
 
 % Debug mode．0 以外を指定すると様々な情報を表示させることが可能．
 FUNCTION {jecon.debug}
