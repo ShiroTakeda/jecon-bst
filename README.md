@@ -3,7 +3,7 @@ Filename:       README.md
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2021-09-14 10:18:09 st>
+Time-stamp:     <2022-02-05 16:43:18 st>
 -->
 
 jecon.bst
@@ -31,6 +31,13 @@ jecon.bst
 | [`customization`](customization)         | jecon.bst のカスタマイズの例を置いてあるフォルダです。     |
 | [`CHANGES.md`](CHANGES.md)               | 変更点を説明したファイルです。                             |
 | `README.md`                              | このファイルです。                                         |
+
+
+## 使い方
+
+* 使い方は [`jecon-example.pdf`](jecon-example.pdf) を読んでください。
+* カスタマイズして使いたい方は [`customization`](customization) フォルダの中のファイルを参考にしてください。このフォルダには `jecon.bst` をカスタマイズしたファイルが多数含まれています。
+
 
 ## 注
 
