@@ -1,0 +1,17 @@
+jecon-example-unicode-alt.bib
+*.bat
+*.org
+unicode/
+jecon-example-alt.pdf
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+test/
+jecon-example-new.*
+jecon-example-test.*
+jecon-new.bst
+jecon-test.bst
+customization/jecon-test.*
