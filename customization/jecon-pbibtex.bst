@@ -4,8 +4,8 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2022-02-05 14:35:39 st>
-% Version 6.5
+% Time-stamp: <2022-02-08 22:51:17 st>
+% Version 6.5.1
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
 
@@ -38,7 +38,7 @@
 
 
 % version 指定
-FUNCTION {jecon.version} { "6.5" }
+FUNCTION {jecon.version} { "6.5.1" }
 
 % Debug mode．0 以外を指定すると様々な情報を表示させることが可能．
 FUNCTION {jecon.debug}
@@ -474,8 +474,8 @@ FUNCTION {bst.author.post.jp}
 % (姓名のどちらか一方が一文字のケース)
 %
 FUNCTION {bst.sei.mei.one.jp}
-{ "" }	  % (default)
-% { "　" }
+% { "" }	  % (default)
+{ "　" }
 
 %%% 日本語文献の author, editor の姓・名の間に入れる文字列 
 % (姓・名とも二文字以上のケース)
@@ -1703,11 +1703,23 @@ FUNCTION {set.alphabet.in.author}
 % 日本語の場合 1 文字が 2 文字と判断されることに注意。
 FUNCTION {count.number.of.letters}
 { 'sss :=
-   sss text.length$ #2 =
-      % 一文字のケースでは "1" を返す。
-      { "1" }
-      % 一文字以外のケースでは "0" を返す。
-      { "0" }
+  bst.pbibtex.version #2 =
+     % pbibtex のケース    
+     { sss text.length$ #2 =
+        % 一文字のケースでは "1" を返す。
+        { "1" }
+        % 一文字以外のケースでは "0" を返す。
+        { "0" }
+       if$
+     }
+     % upbibtex のケース    
+     { sss text.length$ #3 =
+        % 一文字のケースでは "1" を返す。
+        { "1" }
+        % 一文字以外のケースでは "0" を返す。
+        { "0" }
+       if$
+     }
    if$
 }
 
