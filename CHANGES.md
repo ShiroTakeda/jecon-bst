@@ -11,6 +11,11 @@ jecon.bst の変更履歴．
 
 ## 変更点（上が新しい）
 
+##
+
+* `bst.blindmode` オプション, `xauthor` フィールドを追加. 
+
+
 ## Ver. 6.5.1
 
 * `bst.sei.mei.one.jp`、`bst.sei.mei.two.jp` に関連するバグを修正。
