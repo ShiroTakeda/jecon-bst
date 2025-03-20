@@ -65,6 +65,9 @@ ENTRY
     % 以下は普通の bst ファイルでは利用されないフィールド
     jauthor jkanyaku jtitle jpublisher jyear jnote
     order absorder translator kanyaku nameorder sortname
+
+    % 以下は普通の jecon.bst ファイルでは利用されないフィールド
+    xauthor
   }
 
   % 以下，エントリー変数の定義．エントリー変数とは，文献エントリー別に異なっ
@@ -82,6 +85,14 @@ ENTRY
 %%	カスタマイズのための関数
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% blindにするか否か.
+% #0 通常通り
+% #1 xauthorのあるエントリは匿名. (文献リストにはxauthorとyearとnoteのみ)
+FUNCTION {bst.blindmode}
+ { #0 }    % 通常
+% { #1 } % xauthorのあるエントリは匿名
+
 
 % \bysame を使うか否か。使わないなら 0、使うなら 0 以外を指定 (bst ファイ
 % ルでは整数を表すとき数字に # を付ける)。
@@ -1638,37 +1649,52 @@ FUNCTION {check.kanji.str}
 
 %%% booktitle の整形。
 FUNCTION {format.btitle}
-{ booktitle empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.btitle.pre.jp booktitle * bst.btitle.post.jp * }
-	{ bst.btitle.pre booktitle * bst.btitle.post * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { booktitle empty$
+        { "" }
+        { is.kanji.entry
+	  { bst.btitle.pre.jp booktitle * bst.btitle.post.jp * }
+	  { bst.btitle.pre booktitle * bst.btitle.post * }
+          if$
+        }
       if$
     }
+    {}
   if$
 }
 
 %%% journal の整形。
 FUNCTION {format.journal}
-{ journal empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.journal.pre.jp journal * bst.journal.post.jp * }
-	{ bst.journal.pre journal * bst.journal.post * }
-      if$
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { journal empty$
+        { "" }
+        { is.kanji.entry
+	    { bst.journal.pre.jp journal * bst.journal.post.jp * }
+	    { bst.journal.pre journal * bst.journal.post * }
+          if$
+        }
+     if$
     }
+    {}
   if$
 }
 
 %%% book の title の整形。
 FUNCTION {format.book}
-{ title empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.book.pre.jp title * bst.book.post.jp * }
-	{ bst.book.pre title * bst.book.post * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { title empty$
+        { "" }
+        { is.kanji.entry
+	    { bst.book.pre.jp title * bst.book.post.jp * }
+	    { bst.book.pre title * bst.book.post * }
+          if$
+        }
       if$
     }
+    {}
   if$
 }
 
@@ -2039,32 +2065,66 @@ FUNCTION {compare.names.jecon}
 
 %%% author の整形
 FUNCTION {format.authors}
-{ author empty$
-    { "" }
-    { bst.use.bysame #2 =
-	% 2 のタイプの bysame を利用するとき。
-	{ prev.author.jecon author compare.names.jecon 's :=
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { author empty$
+        { "" }
+        { bst.use.bysame #2 =
+	    % 2 のタイプの bysame を利用するとき。
+	    { prev.author.jecon author compare.names.jecon 's :=
 
-	  jecon.debug #0 = not % for debug
-	    { "prev.author.jecon = \texttt{" prev.author.jecon * "}\\" * write$
-	      "\noindent s = \texttt{" s * "}\\" * write$
+	      jecon.debug #0 = not % for debug
+	        { "prev.author.jecon = \texttt{" prev.author.jecon * "}\\" * write$
+	          "\noindent s = \texttt{" s * "}\\" * write$
+	        }
+	        'skip$
+	      if$
+
+    	      % prev.author.jecon に現在の author を代入しておく
+	      author 'prev.author.jecon :=
 	    }
-	    'skip$
-	  if$
-
-	  % prev.author.jecon に現在の author を代入しておく
-	  author 'prev.author.jecon :=
-	}
-	% bysame を利用しないか、1 のタイプの bysame を利用するときは author を
-	% s に代入。
-	{ author 's := }
+	    % bysame を利用しないか、1 のタイプの bysame を利用するときは author を
+	    % s に代入。
+	    { author 's := }
+          if$
+           % extra.label.bysame に bysame という値が入っているか？
+          extra.label.bysame "bysame" =
+	    % Yes なら bysame を挿入。
+	    { author insert.bysame }
+	    % No なら ? を返す。
+	    { author s remove.ss.period.auth }
+          if$
+        }
       if$
-      % extra.label.bysame に bysame という値が入っているか？
-      extra.label.bysame "bysame" =
-	% Yes なら bysame を挿入。
-	{ author insert.bysame }
-	% No なら ? を返す。
-	{ author s remove.ss.period.auth }
+    }
+    { xauthor empty$
+        { "" }
+        { bst.use.bysame #2 =
+	    % 2 のタイプの bysame を利用するとき。
+	    { prev.author.jecon author compare.names.jecon 's :=
+
+	      jecon.debug #0 = not % for debug
+	        { "prev.author.jecon = \texttt{" prev.author.jecon * "}\\" * write$
+	          "\noindent s = \texttt{" s * "}\\" * write$
+	        }
+	        'skip$
+	      if$
+
+    	      % prev.author.jecon に現在の xauthor を代入しておく
+	      xauthor 'prev.author.jecon :=
+	    }
+	    % bysame を利用しないか、1 のタイプの bysame を利用するときは xauthor を
+	    % s に代入。
+	    { xauthor 's := }
+          if$
+           % extra.label.bysame に bysame という値が入っているか？
+          extra.label.bysame "bysame" =
+	    % Yes なら bysame を挿入。
+	    { xauthor insert.bysame }
+	    % No なら ? を返す。
+	    { xauthor s remove.ss.period.auth }
+          if$
+        }
       if$
     }
   if$
@@ -2072,56 +2132,80 @@ FUNCTION {format.authors}
 
 %%% editor の整形
 FUNCTION {format.editors}
-{ editor empty$
-    { "" }
-    { bst.use.bysame #2 =
-	{ prev.author.jecon editor compare.names.jecon 's :=
-	  jecon.debug #0 = not
-	    { "prev.author.jecon = \texttt{" prev.author.jecon * "}\\" * write$ % for debug
-	      "\noindent s = \texttt{" s * "}\\" * write$ % for debug
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { editor empty$
+        { "" }
+        { bst.use.bysame #2 =
+	    { prev.author.jecon editor compare.names.jecon 's :=
+	        jecon.debug #0 = not
+	          { "prev.author.jecon = \texttt{" prev.author.jecon * "}\\" * write$ % for debug
+	            "\noindent s = \texttt{" s * "}\\" * write$ % for debug
+	          }
+	          'skip$
+	        if$
+	        editor 'prev.author.jecon :=
 	    }
-	    'skip$
-	  if$
-	  editor 'prev.author.jecon :=
-	}
-	{ editor 's := }
-      if$
-      % extra.label.bysame に bysame という値が入っているか？
-      extra.label.bysame "bysame" =
-	% Yes なら bysame.check に 1 を代入し、bysame を挿入
-	{ #1 'bysame.check :=
-	  editor insert.bysame }
-	{ editor s remove.ss.period.auth }
-      if$
-      editor num.names$ #1 >
-        { editor check.kanji.str
-            { bst.editor.jp * }
-            { bst.editors * }
+	    { editor 's := }
           if$
-        }
-        { editor check.kanji.str
-            { bst.editor.jp * }
-            { bst.editor * }
+          % extra.label.bysame に bysame という値が入っているか？
+          extra.label.bysame "bysame" =
+	    % Yes なら bysame.check に 1 を代入し、bysame を挿入
+	    { #1 'bysame.check :=
+	      editor insert.bysame }
+	    { editor s remove.ss.period.auth }
+          if$
+          editor num.names$ #1 >
+            { editor check.kanji.str
+                { bst.editor.jp * }
+                { bst.editors * }
+              if$
+            }
+            { editor check.kanji.str
+                { bst.editor.jp * }
+                { bst.editor * }
+              if$
+            }
           if$
         }
       if$
     }
+    {}
   if$
 }
 
 %%% author の整形
 FUNCTION {format.authors.alt}
-{ author empty$
-    { "" }
-    % extra.label.bysame に bysame という値が入っているか？
-    { extra.label.bysame "bysame" =
-	% Yes なら bysame を挿入
-	{ author insert.bysame }
-	{ author check.kanji.str
-	    { bst.author.pre.jp "xxx" author format.names * bst.author.post.jp * }
-	    { bst.author.pre "xxx" author format.names * bst.author.post * }
-	  if$
-	}
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { author empty$
+        { "" }
+        % extra.label.bysame に bysame という値が入っているか？
+        { extra.label.bysame "bysame" =
+	    % Yes なら bysame を挿入
+	    { author insert.bysame }
+	    { author check.kanji.str
+	        { bst.author.pre.jp "xxx" author format.names * bst.author.post.jp * }
+	        { bst.author.pre "xxx" author format.names * bst.author.post * }
+	      if$
+	    }
+          if$
+        }
+      if$
+    }
+    { xauthor empty$
+        { "" }
+        % extra.label.bysame に bysame という値が入っているか？
+        { extra.label.bysame "bysame" =
+	    % Yes なら bysame を挿入
+	    { xauthor insert.bysame }
+	    { xauthor check.kanji.str
+	        { bst.author.pre.jp "xxx" xauthor format.names * bst.author.post.jp * }
+	        { bst.author.pre "xxx" xauthor format.names * bst.author.post * }
+	      if$
+	    }
+          if$
+        }
       if$
     }
   if$
@@ -2129,42 +2213,52 @@ FUNCTION {format.authors.alt}
 
 %%% editor の整形
 FUNCTION {format.editors.alt}
-{ editor empty$
-    { "" }
-    % extra.label.bysame に bysame という値が入っているか？
-    { extra.label.bysame "bysame" =
-	% Yes なら bysame.check に 1 を代入し、bysame を挿入
-	{ #1 'bysame.check :=
-	  editor insert.bysame }
-	{ editor check.kanji.str
-	    { bst.author.pre.jp "xxx" editor format.names * }
-	    { bst.author.pre "xxx" editor format.names * bst.author.post * }
-	  if$
-	}
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { editor empty$
+        { "" }
+        % extra.label.bysame に bysame という値が入っているか？
+        { extra.label.bysame "bysame" =
+	    % Yes なら bysame.check に 1 を代入し、bysame を挿入
+	    { #1 'bysame.check :=
+	      editor insert.bysame }
+	    { editor check.kanji.str
+	        { bst.author.pre.jp "xxx" editor format.names * }
+	        { bst.author.pre "xxx" editor format.names * bst.author.post * }
+	      if$
+	    }
+          if$
+        }
       if$
     }
+    {}
   if$
 }
 
 %%% format.in.ed.booktitle 用
 FUNCTION {format.editors.x}
-{ editor empty$
-    { "" }
-    { "xxx" editor format.names 
-      editor num.names$ #1 >
-	{ editor check.kanji.str
-	    { bst.editor.jp * }
-	    { bst.editors * }
-	  if$
-	}
-	{ editor check.kanji.str
-	    { bst.editor.jp * }
-	    { bst.editor * }
-	  if$
-	}
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { editor empty$
+        { "" }
+        { "xxx" editor format.names 
+          editor num.names$ #1 >
+	    { editor check.kanji.str
+	        { bst.editor.jp * }
+	        { bst.editors * }
+	      if$
+	    }
+	    { editor check.kanji.str
+	        { bst.editor.jp * }
+	        { bst.editor * }
+	      if$
+	    }
+          if$
+        }
       if$
     }
-  if$
+    {}
+    if$
 }
 
 %%% 「?.」、「?,」のようなケースで、period、comma を除去する関数
@@ -2260,41 +2354,61 @@ FUNCTION {remove.irrelevant.pre.kutoten}
 
 %%% title の整形
 FUNCTION {format.title.sub}
-{ bst.title.lower.case #0 =
-     { bst.title.pre title * bst.title.post * }
-     { bst.title.pre title "t" change.case$ * bst.title.post * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { bst.title.lower.case #0 =
+         { bst.title.pre title * bst.title.post * }
+         { bst.title.pre title "t" change.case$ * bst.title.post * }
+      if$
+    }
+    {}
   if$
 }
 
 FUNCTION {format.title}
-{ title empty$
-  bst.hide.title #0 = not or
-    { "" }
-    { is.kanji.entry
-      { bst.title.pre.jp title * bst.title.post.jp * }
-      { format.title.sub remove.irrelevant.period.comma }
-     if$
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { title empty$
+      bst.hide.title #0 = not or
+        { "" }
+        { is.kanji.entry
+            { bst.title.pre.jp title * bst.title.post.jp * }
+            { format.title.sub remove.irrelevant.period.comma }
+          if$
+        }
+      if$
     }
+    {}
   if$
 }
 
 %%% jtitle の整形
 FUNCTION {format.jtitle}
-{ jtitle empty$
-    { "" }
-    { bst.book.pre.jp jtitle * bst.book.post.jp * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { jtitle empty$
+        { "" }
+        { bst.book.pre.jp jtitle * bst.book.post.jp * }
+      if$
+    }
+    {}
   if$
 }
 
 %%% misc の title の処理
 FUNCTION {format.misc.title}
-{ title empty$
-    { "" }
-    { is.kanji.entry
-      { bst.title.pre.jp title * bst.title.post.jp * }
-      { bst.title.pre title * bst.title.post * }
-     if$
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { title empty$
+        { "" }
+        { is.kanji.entry
+            { bst.title.pre.jp title * bst.title.post.jp * }
+            { bst.title.pre title * bst.title.post * }
+          if$
+        }
+      if$
     }
+    {}
   if$
 }
 
@@ -2522,13 +2636,18 @@ FUNCTION {format.year}
 
 %%% book の page の処理
 FUNCTION {format.book.pages}
-{ pages empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.page.pre.jp pages convert.num.pages * bst.page.post.jp * }
-	{ bst.pages.pre pages * bst.pages.post * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { pages empty$
+        { "" }
+        { is.kanji.entry
+	    { bst.page.pre.jp pages convert.num.pages * bst.page.post.jp * }
+	    { bst.pages.pre pages * bst.pages.post * }
+          if$
+        }
       if$
     }
+    {}
   if$
 }
 
@@ -2550,22 +2669,27 @@ FUNCTION {either.or.check}
 
 %%% book の volume の整形
 FUNCTION {format.bvolume}
-{ volume empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.volume.pre.jp volume convert.num * bst.volume.post.jp * }
-	{ bst.volume.pre volume * bst.volume.post * }
-      if$
-      series empty$
-	'skip$
-	%% series もあるとき
-	{ is.kanji.entry
-	   { bst.series.pre.jp * series convert.num * bst.series.post.jp * }
-	   { " of " * series * bst.series.post * }
-	  if$
-	}
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { volume empty$
+        { "" }
+        { is.kanji.entry
+	    { bst.volume.pre.jp volume convert.num * bst.volume.post.jp * }
+	    { bst.volume.pre volume * bst.volume.post * }
+          if$
+          series empty$
+	    'skip$
+	    %% series もあるとき
+	    { is.kanji.entry
+	       { bst.series.pre.jp * series convert.num * bst.series.post.jp * }
+	       { " of " * series * bst.series.post * }
+	      if$
+	    }
+          if$
+        }
       if$
     }
+    {}
   if$
 }
 
@@ -2583,37 +2707,42 @@ FUNCTION {output.series}
 
 %%% number と series を出力
 FUNCTION {format.number.series}
-{ volume empty$
-    { number empty$
-      bst.hide.number #0 = not or
-	% number is empty
-	{ series empty$
-	    { "" }
-	    % series is not empty.
-	    { output.series }
-	  if$
-	}
-	% number is not empty$
-	{ series empty$
-	    { is.kanji.entry
-		{ bst.number.pre.jp number convert.num * bst.number.post.jp * }
-		{ bst.number.pre number * bst.number.post * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { volume empty$
+        { number empty$
+          bst.hide.number #0 = not or
+	    % number is empty
+	    { series empty$
+	        { "" }
+	        % series is not empty.
+	        { output.series }
 	      if$
 	    }
-	    % series is not empty.  日本語と英語で順序逆にする。
-	    { is.kanji.entry
-		{ bst.series.pre.jp series convert.num * bst.series.post.jp *
-		  bst.number.pre.jp * number convert.num * bst.number.post.jp * }
-		{ bst.in bst.series.pre * series * bst.series.post *
-		  bst.number.pre * number * bst.number.post * }
+	    % number is not empty$
+	    { series empty$
+	        { is.kanji.entry
+		    { bst.number.pre.jp number convert.num * bst.number.post.jp * }
+		    { bst.number.pre number * bst.number.post * }
+	          if$
+	        }
+	        % series is not empty.  日本語と英語で順序逆にする。
+	        { is.kanji.entry
+		    { bst.series.pre.jp series convert.num * bst.series.post.jp *
+		      bst.number.pre.jp * number convert.num * bst.number.post.jp * }
+		    { bst.in bst.series.pre * series * bst.series.post *
+		      bst.number.pre * number * bst.number.post * }
+	          if$
+	        }
 	      if$
 	    }
-	  if$
-	}
+          if$
+        }
+        { "" }
       if$
     }
-    { "" }
-  if$
+    {}
+    if$
 }
 
 %%% 数字かどうか判断する
@@ -2804,31 +2933,41 @@ FUNCTION {convert.month.kanji}
 
 %%% edition の整形
 FUNCTION {format.edition}
-{ edition empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.edition.pre.jp edition convert.num * bst.edition.post.jp * }
-	{ output.state mid.sentence =
-	    { bst.edition.pre convert.edition "l" change.case$ * bst.edition.post * }
-	    { bst.edition.pre convert.edition "t" change.case$ * bst.edition.post * }
-	  if$
-	}
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { edition empty$
+        { "" }
+        { is.kanji.entry
+	    { bst.edition.pre.jp edition convert.num * bst.edition.post.jp * }
+	    { output.state mid.sentence =
+	        { bst.edition.pre convert.edition "l" change.case$ * bst.edition.post * }
+	        { bst.edition.pre convert.edition "t" change.case$ * bst.edition.post * }
+	      if$
+	    }
+          if$
+        }
       if$
     }
-  if$
+    {}
+    if$
 }
 
 %%% month の整形。
 FUNCTION {format.month}
-{ month empty$
-  % bst.hide.month が非ゼロなら month は出力せず
-  bst.hide.month #0 = not or
-    { "" }
-    { is.kanji.entry
-	{ bst.month.pre.jp month convert.month convert.month.kanji convert.num * bst.month.post.jp * }
-	{ bst.month.pre month convert.month * bst.month.post * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { month empty$
+      % bst.hide.month が非ゼロなら month は出力せず
+      bst.hide.month #0 = not or
+        { "" }
+        { is.kanji.entry
+	    { bst.month.pre.jp month convert.month convert.month.kanji convert.num * bst.month.post.jp * }
+	    { bst.month.pre month convert.month * bst.month.post * }
+          if$
+        }
       if$
     }
+    {}
   if$
 }
 
@@ -2865,51 +3004,66 @@ FUNCTION { multi.page.check }
 
 %%% pages の整形。
 FUNCTION {format.pages}
-{ pages empty$
-    { "" }
-    { is.kanji.entry
-	{ pages multi.page.check
-	  { bst.page.pre.jp pages n.dashify convert.num.pages * bst.page.post.jp * }
-	  { bst.page.pre.jp pages convert.num.pages * bst.page.post.jp * }
-	 if$
-	}
-	{ pages multi.page.check
-	  { bst.pages.pre pages n.dashify tie.or.space.connect * bst.pages.post }
-	  { bst.page.pre pages tie.or.space.connect * bst.page.post }
-	 if$
-	}
-       if$
-   }
- if$
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { pages empty$
+        { "" }
+        { is.kanji.entry
+	    { pages multi.page.check
+	        { bst.page.pre.jp pages n.dashify convert.num.pages * bst.page.post.jp * }
+	        { bst.page.pre.jp pages convert.num.pages * bst.page.post.jp * }
+	      if$
+	    }
+	    { pages multi.page.check
+	        { bst.pages.pre pages n.dashify tie.or.space.connect * bst.pages.post }
+	        { bst.page.pre pages tie.or.space.connect * bst.page.post }
+	      if$
+	    }
+           if$
+        }
+      if$
+    }
+    {}
+  if$
 }
 
 %%% number を整形
 FUNCTION {format.number}
-{ number empty$
-  % bst.hide.number が非ゼロなら number は出力せず
-  bst.hide.number #0 = not or
-    { "" }
-    { is.kanji.entry
-	{ bst.number.pre.jp number convert.num * bst.number.post.jp * }
-	{ bst.number.pre number * bst.number.post * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { number empty$
+      % bst.hide.number が非ゼロなら number は出力せず
+      bst.hide.number #0 = not or
+        { "" }
+        { is.kanji.entry
+	    { bst.number.pre.jp number convert.num * bst.number.post.jp * }
+	    { bst.number.pre number * bst.number.post * }
+          if$
+        }
       if$
     }
+    {}
   if$
 }
 
 %%% volume を整形
 FUNCTION {format.volume}
-{ volume empty$
-    'skip$
-    { is.kanji.entry
-	{ bst.volume.pre.jp volume convert.num * bst.volume.post.jp * }
-	{ bst.volume.pre volume * bst.volume.post * }
-      if$
-      bst.year.position #3 =
-	{ format.year * }
-	'skip$
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { volume empty$
+        'skip$
+        { is.kanji.entry
+	    { bst.volume.pre.jp volume convert.num * bst.volume.post.jp * }
+	    { bst.volume.pre volume * bst.volume.post * }
+          if$
+          bst.year.position #3 =
+	    { format.year * }
+	    'skip$
+          if$
+        }
       if$
     }
+    {}
   if$
 }
 
@@ -2976,21 +3130,26 @@ FUNCTION {format.vol.num.pages}
 
 %%% chapter の整形。
 FUNCTION {format.chapter}
-{ chapter empty$
-    { "" }
-    { type empty$
-	{ is.kanji.entry
-	    { bst.chapter.pre.jp chapter convert.num * bst.chapter.post.jp * }
-	    { bst.chapter.pre chapter tie.or.space.connect * bst.chapter.post }
-	  if$
-	}
-	{ is.kanji.entry
-	    { bst.touten.jp * type " " * chapter convert.num * }
-	    { ", " * type " " * chapter * }
-	  if$
-	}
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { chapter empty$
+        { "" }
+        { type empty$
+	    { is.kanji.entry
+	        { bst.chapter.pre.jp chapter convert.num * bst.chapter.post.jp * }
+	        { bst.chapter.pre chapter tie.or.space.connect * bst.chapter.post }
+	      if$
+	    }
+	    { is.kanji.entry
+	        { bst.touten.jp * type " " * chapter convert.num * }
+	        { ", " * type " " * chapter * }
+	      if$
+	    }
+          if$
+        }
       if$
     }
+  {}
   if$
 }
 
@@ -3012,86 +3171,116 @@ FUNCTION {format.chapter.pages}
 
 %%% editor and booktitle の整形。
 FUNCTION {format.in.ed.booktitle}
-{ booktitle empty$
-    { "" }
-    { editor empty$
-	{ is.kanji.entry
-	    { format.btitle remove.pre.comma.period }
-	    { bst.in format.btitle * }
-	  if$
-	}
-	{ is.kanji.entry
-	    { format.editors.x "" * format.btitle * }
-	    { bst.in format.editors.x * " " * format.btitle * }
-	  if$
-	}
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { booktitle empty$
+        { "" }
+        { editor empty$
+	    { is.kanji.entry
+	        { format.btitle remove.pre.comma.period }
+	        { bst.in format.btitle * }
+	      if$
+	    }
+	    { is.kanji.entry
+	        { format.editors.x "" * format.btitle * }
+	        { bst.in format.editors.x * " " * format.btitle * }
+	      if$
+	    }
+          if$
+        }
       if$
     }
-  if$
+    {}
+    if$
 }
 
 %%% translator & kanyaku の整形。
 FUNCTION {format.translator}
-{ kanyaku empty$
-   { translator empty$
-      { "" }
-      { bst.translator.pre.jp "xxx" translator format.names * bst.translator.post.jp * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { kanyaku empty$
+        { translator empty$
+            { "" }
+            { bst.translator.pre.jp "xxx" translator format.names * bst.translator.post.jp * }
+          if$
+        }
+        { translator empty$
+            { bst.kanyaku.pre.jp "xxx" kanyaku format.names * bst.kanyaku.post.jp * }
+            { bst.kanyaku.pre.jp "xxx" kanyaku format.names * bst.kanyaku.post.jp * 
+	      bst.translator.pre.jp * "xxx" translator format.names * bst.translator.post.jp * }
+          if$
+        }
+      if$
+    }
+    {}
     if$
-   }
-   { translator empty$
-      { bst.kanyaku.pre.jp "xxx" kanyaku format.names * bst.kanyaku.post.jp * }
-      { bst.kanyaku.pre.jp "xxx" kanyaku format.names * bst.kanyaku.post.jp * 
-	bst.translator.pre.jp * "xxx" translator format.names * bst.translator.post.jp * }
-     if$
-   }
-  if$
 }
 
 %%% howpublished の整形。
 FUNCTION {format.howpublished}
-{ howpublished empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.howpublished.pre.jp howpublished * bst.howpublished.post.jp * }
-	{ bst.howpublished.pre howpublished * bst.howpublished.post * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { howpublished empty$
+        { "" }
+        { is.kanji.entry
+	    { bst.howpublished.pre.jp howpublished * bst.howpublished.post.jp * }
+	    { bst.howpublished.pre howpublished * bst.howpublished.post * }
+          if$
+        }
       if$
     }
+    {}
   if$
 }
 
 %%% address の整形。
 FUNCTION {format.address}
-{ address empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.address.pre.jp address * bst.address.post.jp * }
-	{ bst.address.pre address * bst.address.post * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { address empty$
+        { "" }
+        { is.kanji.entry
+	    { bst.address.pre.jp address * bst.address.post.jp * }
+	    { bst.address.pre address * bst.address.post * }
+          if$
+        }
       if$
     }
+    {}
   if$
 }
 
 %%% publisher の整形。
 FUNCTION {format.publisher}
-{ publisher empty$
-    { "" }
-    { is.kanji.entry 
-	{ bst.publisher.pre.jp publisher * bst.publisher.post.jp * }
-	{ bst.publisher.pre publisher * bst.publisher.post * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { publisher empty$
+        { "" }
+        { is.kanji.entry 
+	    { bst.publisher.pre.jp publisher * bst.publisher.post.jp * }
+	    { bst.publisher.pre publisher * bst.publisher.post * }
+          if$
+        }
       if$
     }
+    {}
   if$
 }
 
 %%% organization の整形。
 FUNCTION {format.organization}
-{ organization empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.organization.pre.jp organization * bst.organization.post.jp * }
-	{ bst.organization.pre organization * bst.organization.post * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { organization empty$
+        { "" }
+        { is.kanji.entry
+	    { bst.organization.pre.jp organization * bst.organization.post.jp * }
+	    { bst.organization.pre organization * bst.organization.post * }
+          if$
+        }
       if$
     }
+    {}
   if$
 }
 
@@ -3180,60 +3369,90 @@ FUNCTION {empty.misc.check}
 }
 
 FUNCTION {format.thesis.type}
-{ type empty$
-    'skip$
-    { pop$ " " type * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { type empty$
+        'skip$
+        { pop$ " " type * }
+      if$
+    }
+    {}
   if$
 }
 
 FUNCTION {format.tr.number}
-{ type empty$
-    { "Technical Report" }
-    { " " type * }
-  if$
-  number empty$
-    { "t" change.case$ }
-    { number tie.or.space.connect }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { type empty$
+        { "Technical Report" }
+        { " " type * }
+      if$
+      number empty$
+        { "t" change.case$ }
+        { number tie.or.space.connect }
+      if$
+    }
+    {}
   if$
 }
 
 %%% phdthesis の整形
 FUNCTION {format.phd}
-{ is.kanji.entry
-    { bst.phdthesis.jp }
-    { bst.phdthesis }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { is.kanji.entry
+        { bst.phdthesis.jp }
+        { bst.phdthesis }
+      if$
+    }
+    {}
   if$
 }
 
 %%% mastersthesis の整形
 FUNCTION {format.mthesis}
-{ is.kanji.entry
-    { bst.mthesis.jp }
-    { bst.mthesis }
-   if$
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { is.kanji.entry
+        { bst.mthesis.jp }
+        { bst.mthesis }
+      if$
+    }
+    {}
+  if$
 }
 
 %%% school の整形
 FUNCTION {format.school}
-{ school empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.school.pre.jp school * bst.school.post.jp * }
-	{ bst.school.pre school * bst.school.post * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { school empty$
+        { "" }
+        { is.kanji.entry
+	    { bst.school.pre.jp school * bst.school.post.jp * }
+	    { bst.school.pre school * bst.school.post * }
+          if$
+        }
       if$
     }
+    {}
   if$
 }
 
 %%% institution の整形
 FUNCTION {format.institution}
-{ institution empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.institution.pre.jp institution * bst.institution.post.jp * }
-	{ bst.institution.pre institution * bst.institution.post * }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { institution empty$
+        { "" }
+        { is.kanji.entry
+	    { bst.institution.pre.jp institution * bst.institution.post.jp * }
+	    { bst.institution.pre institution * bst.institution.post * }
+          if$
+        }
       if$
     }
+    {}
   if$
 }  
 
@@ -3288,27 +3507,32 @@ FUNCTION {format.hoyakusho}
 }
 
 FUNCTION {format.url}
-{ url empty$
-    { "" }
-    { type$ "online" = bst.show.url or
-	{ is.kanji.entry
-	    { bst.url.pre.jp url * bst.url.post.jp *
-		access empty$
-		    { "" * }
-		    { bst.access.pre.jp * access * bst.access.post.jp * }
-		if$
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { url empty$
+        { "" }
+        { type$ "online" = bst.show.url or
+	    { is.kanji.entry
+	        { bst.url.pre.jp url * bst.url.post.jp *
+		    access empty$
+		        { "" * }
+		        { bst.access.pre.jp * access * bst.access.post.jp * }
+		    if$
+	        }
+	        { bst.url.pre url * bst.url.post *
+		    access empty$
+		        { "" * }
+		        { bst.access.pre * access * bst.access.post * }
+		    if$
+	        }
+	      if$
 	    }
-	    { bst.url.pre url * bst.url.post *
-		access empty$
-		    { "" * }
-		    { bst.access.pre * access * bst.access.post * }
-		if$
-	    }
-	  if$
-	}
-	{ "" }
+	    { "" }
+          if$
+        }
       if$
     }
+    {}
   if$
 }
 
@@ -3324,22 +3548,27 @@ FUNCTION {format.doi}
 }
 
 FUNCTION {format.url.doi}
-{ url empty$
-    { format.doi }
-    { doi empty$
-	{ format.url }
-	{ bst.url.doi #0 =
-	    { format.url output.nocomma
-	      format.doi }
-	    { bst.url.doi #1 =
-		{ format.url } 
-		{ format.doi }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { url empty$
+        { format.doi }
+        { doi empty$
+	    { format.url }
+	    { bst.url.doi #0 =
+	        { format.url output.nocomma
+	          format.doi }
+	        { bst.url.doi #1 =
+		    { format.url } 
+		    { format.doi }
+	          if$
+	        }
 	      if$
 	    }
-	  if$
-	}
+          if$
+        }
       if$
     }
+    {}
   if$
 }
 
@@ -4144,161 +4373,211 @@ FUNCTION {format.lab.names.abb}
 
 %%% これは abbreviated author 名
 FUNCTION {author.key.label.abb}
-{ author empty$
-    { key empty$
-	{ cite$ #1 #3 substring$ }
-	{ key #3 text.prefix$ }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { author empty$
+        { key empty$
+	    { cite$ #1 #3 substring$ }
+	    { key #3 text.prefix$ }
+          if$
+        }
+        { author format.lab.names.abb }
       if$
     }
-    { author format.lab.names.abb }
+    { xauthor format.lab.names.abb }
   if$
 }
 
 %%% これは full author 名
 FUNCTION {author.key.label.full}
-{ author empty$
-    { key empty$
-	{ cite$ #1 #3 substring$ }
-	{ key #3 text.prefix$ }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { author empty$
+        { key empty$
+	    { cite$ #1 #3 substring$ }
+	    { key #3 text.prefix$ }
+          if$
+        }
+        { author format.lab.names.full }
       if$
     }
-    { author format.lab.names.full }
+    { xauthor format.lab.names.full }
   if$
 }
 
 %%% これは sort 用の author 名
 FUNCTION {author.key.label.sort}
-{ author empty$
-    { key empty$
-	{ cite$ #1 #3 substring$ }
-	{ key #3 text.prefix$ }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { author empty$
+        { key empty$
+	    { cite$ #1 #3 substring$ }
+	    { key #3 text.prefix$ }
+          if$
+        }
+        { author sort.format.names }
       if$
     }
-    { author sort.format.names }
+    { xauthor sort.format.names }
   if$
 }
 
 %%% これは sort 用の名前を作成
 FUNCTION {author.editor.key.label.sort}
-{ author empty$
-    { editor empty$
-	{ key empty$
-	    { cite$ #1 #3 substring$ }
-	    { key #3 text.prefix$ }
-	  if$
-	}
-	{ sort.name empty$
-	   { editor sort.format.names }
-	   { bst.mixed.order #0 = 
-	      { editor sort.format.names }
-	      { sort.name sort.format.names }
-	if$
-	  }
-	  if$
-	}
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { author empty$
+        { editor empty$
+	    { key empty$
+	        { cite$ #1 #3 substring$ }
+	        { key #3 text.prefix$ }
+	      if$
+	    }
+	    { sort.name empty$
+	       { editor sort.format.names }
+	       { bst.mixed.order #0 = 
+	          { editor sort.format.names }
+	          { sort.name sort.format.names }
+	         if$
+	       }
+	      if$
+	    }
+          if$
+        }
+        { sort.name empty$
+            { author sort.format.names }
+            { bst.mixed.order #0 = 
+	        { author sort.format.names }
+	        { sort.name sort.format.names }
+	      if$
+            }
+          if$
+        }
       if$
     }
-    { sort.name empty$
-       { author sort.format.names }
-       { bst.mixed.order #0 = 
-	  { author sort.format.names }
-	  { sort.name sort.format.names }
-	if$
-      }
-      if$
-    }
-  if$
+    { xauthor sort.format.names }
+  if$    
 }
 
 %%% これは abbreviated author 名を作成する関数
 FUNCTION {author.editor.key.label.abb}
-{ author empty$
-    { editor empty$
-	{ key empty$
-	    { cite$ #1 #3 substring$ }
-	    { key #3 text.prefix$ }
-	  if$
-	}
-	{ editor format.lab.names.abb }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { author empty$
+        { editor empty$
+	    { key empty$
+	        { cite$ #1 #3 substring$ }
+	        { key #3 text.prefix$ }
+	      if$
+	    }
+	    { editor format.lab.names.abb }
+          if$
+        }
+        { author format.lab.names.abb }
       if$
     }
-    { author format.lab.names.abb }
+    { xauthor format.lab.names.abb }
   if$
 }
 
 %%% これは full author 名
 FUNCTION {author.editor.key.label.full}
-{ author empty$
-    { editor empty$
-	{ key empty$
-	    { cite$ #1 #3 substring$ }
-	    { key #3 text.prefix$ }
-	  if$
-	}
-	{ editor format.lab.names.full }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { author empty$
+        { editor empty$
+	    { key empty$
+	        { cite$ #1 #3 substring$ }
+	        { key #3 text.prefix$ }
+	      if$
+	    }
+	    { editor format.lab.names.full }
+          if$
+        }
+        { author format.lab.names.full }
       if$
     }
-    { author format.lab.names.full }
+    { xauthor format.lab.names.full }
   if$
 }
 
 FUNCTION {author.key.organization.label.full}
-{ author empty$
-    { key empty$
-	{ organization empty$
-	    { cite$ #1 #3 substring$ }
-	    { "The " #4 organization chop.word #3 text.prefix$ }
-	  if$
-	}
-	{ key #3 text.prefix$ }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { author empty$
+        { key empty$
+	    { organization empty$
+	        { cite$ #1 #3 substring$ }
+	        { "The " #4 organization chop.word #3 text.prefix$ }
+	      if$
+	    }
+	    { key #3 text.prefix$ }
+          if$
+        }
+        { author format.lab.names.full }
       if$
     }
-    { author format.lab.names.full }
+    { xauthor format.lab.names.full }
   if$
 }
 
 FUNCTION {author.key.organization.label.abb}
-{ author empty$
-    { key empty$
-	{ organization empty$
-	    { cite$ #1 #3 substring$ }
-	    { "The " #4 organization chop.word #3 text.prefix$ }
-	  if$
-	}
-	{ key #3 text.prefix$ }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { author empty$
+        { key empty$
+	    { organization empty$
+	        { cite$ #1 #3 substring$ }
+	        { "The " #4 organization chop.word #3 text.prefix$ }
+	      if$
+	    }
+	    { key #3 text.prefix$ }
+          if$
+        }
+        { author format.lab.names.abb }
       if$
     }
-    { author format.lab.names.abb }
+    { xauthor format.lab.names.abb }
   if$
 }
 
 FUNCTION {editor.key.organization.label.full}
-{ editor empty$
-    { key empty$
-	{ organization empty$
-	    { cite$ #1 #3 substring$ }
-	    { "The " #4 organization chop.word #3 text.prefix$ }
-	  if$
-	}
-	{ key #3 text.prefix$ }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { editor empty$
+        { key empty$
+	    { organization empty$
+	        { cite$ #1 #3 substring$ }
+	        { "The " #4 organization chop.word #3 text.prefix$ }
+	      if$
+	    }
+	    { key #3 text.prefix$ }
+          if$
+        }
+        { editor format.lab.names.full }
       if$
     }
-    { editor format.lab.names.full }
+    {}
   if$
 }
 
 FUNCTION {editor.key.organization.label.abb}
-{ editor empty$
-    { key empty$
-	{ organization empty$
-	    { cite$ #1 #3 substring$ }
-	    { "The " #4 organization chop.word #3 text.prefix$ }
-	  if$
-	}
-	{ key #3 text.prefix$ }
+{ bst.blindmode #0 =
+  xauthor empty$ or
+    { editor empty$
+        { key empty$
+	    { organization empty$
+	        { cite$ #1 #3 substring$ }
+	        { "The " #4 organization chop.word #3 text.prefix$ }
+	      if$
+	    }
+	    { key #3 text.prefix$ }
+          if$
+        }
+        { editor format.lab.names.abb }
       if$
     }
-    { editor format.lab.names.abb }
+    {}
   if$
 }
 
