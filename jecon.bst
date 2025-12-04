@@ -4,8 +4,8 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2022-02-08 22:49:14 st>
-% Version 6.5.1
+% Time-stamp: <2025-12-04 10:53:35 st>
+% Version 6.6
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
 
@@ -38,7 +38,7 @@
 
 
 % version 指定
-FUNCTION {jecon.version} { "6.5.1" }
+FUNCTION {jecon.version} { "6.6" }
 
 % Debug mode．0 以外を指定すると様々な情報を表示させることが可能．
 FUNCTION {jecon.debug}
@@ -1239,7 +1239,7 @@ INTEGERS { multiresult }
 INTEGERS { index }
 INTEGERS { len }
 INTEGERS { last.extra.num }
-INTEGERS { output.state before.all mid.sentence after.sentence after.block int }
+INTEGERS { output.state before.all mid.sentence after.block int }
 INTEGERS { last.period.comma }
 INTEGERS { len1.jecon len2.jecon i.jecon }
 
@@ -1299,7 +1299,6 @@ FUNCTION {or}
 FUNCTION {init.state.consts}
 { #0 'before.all :=
   #1 'mid.sentence :=
-  #2 'after.sentence :=
   #3 'after.block :=
 }
 
@@ -1571,17 +1570,6 @@ FUNCTION {new.block}
 { output.state before.all =
     'skip$
     { after.block 'output.state := }
-  if$
-}
-
-FUNCTION {new.sentence}
-{ output.state after.block =
-    'skip$
-    { output.state before.all =
-	'skip$
-	{ after.sentence 'output.state := }
-      if$
-    }
   if$
 }
 
