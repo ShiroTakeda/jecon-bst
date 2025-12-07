@@ -4,7 +4,7 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2025-12-07 23:13:24 st>
+% Time-stamp: <2025-12-07 23:22:17 st>
 % Version 6.6
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -2289,6 +2289,21 @@ FUNCTION {format.title}
   if$
 }
 
+FUNCTION {format.output.title}
+{ title empty$
+    { "there's no title in " cite$ * warning$ }
+    { bst.hide.title #0 = not
+	 'skip$
+         { is.kanji.entry
+             { bst.title.pre.jp title * bst.title.post.jp * output.field }
+             { format.title.sub remove.irrelevant.period.comma output.field }
+	   if$
+	 }
+      if$
+    }
+  if$
+}
+
 %%% jtitle の整形
 FUNCTION {format.jtitle}
 { jtitle empty$
@@ -3458,7 +3473,8 @@ FUNCTION {article}
     { format.year "year" output.check.nocomma }
     'skip$
   if$
-  format.title "title" output.check.nocomma
+%   format.title "title" output.check.nocomma
+  format.output.title
 
   format.journal "journal" output.check.nocomma
   bst.year.position #2 =
@@ -3518,7 +3534,8 @@ FUNCTION {booklet}
 { output.bibitem
   format.authors output.nocomma
   format.year output.nocomma
-  format.misc.title "title" output.check.nocomma
+%   format.misc.title "title" output.check.nocomma
+  format.output.title
   format.howpublished output.nocomma
   format.address output.nocomma
 
@@ -3570,7 +3587,8 @@ FUNCTION {incollection}
     { format.year "year" output.check.nocomma }
     'skip$
   if$
-  format.title "title" output.check.nocomma
+%   format.title "title" output.check.nocomma
+  format.output.title
 
   format.in.ed.booktitle "booktitle" output.check.nocomma
   format.bvolume output.nocomma
@@ -3598,7 +3616,8 @@ FUNCTION {inproceedings}
     { format.year "year" output.check.nocomma }
     'skip$
   if$
-  format.title "title" output.check.nocomma
+%   format.title "title" output.check.nocomma
+  format.output.title
 
   format.in.ed.booktitle "booktitle" output.check.nocomma
   format.bvolume output.nocomma
@@ -3671,7 +3690,8 @@ FUNCTION {mastersthesis}
     { format.year "year" output.check.nocomma }
     'skip$
   if$
-  format.title "title" output.check.nocomma
+%   format.title "title" output.check.nocomma
+  format.output.title
   format.mthesis format.thesis.type output.nonnull.nocomma
   format.school "school" output.check.nocomma
   format.address output.nocomma
@@ -3748,7 +3768,8 @@ FUNCTION {phdthesis}
     { format.year "year" output.check.nocomma }
     'skip$
   if$
-  format.title "title" output.check.nocomma
+%   format.title "title" output.check.nocomma
+  format.output.title
   format.phd
   format.thesis.type output.nonnull.nocomma
   format.school "school" output.check.nocomma
@@ -3805,7 +3826,8 @@ FUNCTION {techreport}
     { format.year "year" output.check.nocomma }
     'skip$
   if$
-  format.title "title" output.check.nocomma
+%   format.title "title" output.check.nocomma
+  format.output.title
   format.tr.number output.nonnull.nocomma
   format.institution "institution" output.check.nocomma
   format.address output.nocomma
@@ -3831,7 +3853,8 @@ FUNCTION {unpublished}
     { format.year "year" output.check.nocomma }
     'skip$
   if$
-  format.title "title" output.check.nocomma
+%   format.title "title" output.check.nocomma
+  format.output.title
 
   bst.year.position #0 = not
     { format.date remove.pre.comma.period output.nocomma }
