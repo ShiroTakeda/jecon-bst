@@ -4,7 +4,7 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2025-12-04 10:53:35 st>
+% Time-stamp: <2025-12-07 22:50:29 st>
 % Version 6.6
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -1239,7 +1239,7 @@ INTEGERS { multiresult }
 INTEGERS { index }
 INTEGERS { len }
 INTEGERS { last.extra.num }
-INTEGERS { output.state before.all mid.sentence after.block int }
+INTEGERS { output.state before.all mid.sentence int }
 INTEGERS { last.period.comma }
 INTEGERS { len1.jecon len2.jecon i.jecon }
 
@@ -1299,43 +1299,34 @@ FUNCTION {or}
 FUNCTION {init.state.consts}
 { #0 'before.all :=
   #1 'mid.sentence :=
-  #3 'after.block :=
 }
 
 %%% comma を除去し、period を付ける(に変える)関数 (英語文献用)
 %
-% #-1 #1 substring$ は後ろから一文字目を抜き出す処理をする。
+% t #-1 #1 substring$ はtの後ろから一文字目を抜き出す処理をする。
 %%%
 FUNCTION {add.period.x}
-{ duplicate$
+{ duplicate$ 't :=
   % 後ろから1文字とって比較
-  #-1 #1 substring$ "," =
+  t #-1 #1 substring$ "," =
     { #-2 global.max$ substring$ "." * }
-    { duplicate$
-      % 後ろから2文字とって比較
-      #-1 #2 substring$ ". " =
+    { % 後ろから2文字とって比較
+      t #-1 #2 substring$ ". " =
 	{ #-3 global.max$ substring$ "." * }
-	{ duplicate$
-	  #-1 #2 substring$ ". " =
+	{ t #-1 #2 substring$ ". " =
 	    { #-3 global.max$ substring$ "." * }
-	    { duplicate$
-	      #-1 #2 substring$ ",'" =
+	    { t #-1 #2 substring$ ",'" =
 		{ #-3 global.max$ substring$ ".'" * }
-		{ duplicate$
-		  #-1 #2 substring$ ".'" =
+		{ t #-1 #2 substring$ ".'" =
 		    { #-3 global.max$ substring$ ".'" * }
-		    { duplicate$
-		      #-1 #2 substring$ ".~" =
+		    { t #-1 #2 substring$ ".~" =
 			{ #-3 global.max$ substring$ ".~" * }
-			{ duplicate$
-			  #-1 #2 substring$ ",~" =
+			{ t #-1 #2 substring$ ",~" =
 			  { #-3 global.max$ substring$ ".~" * }
-			  { duplicate$
-			    % 後ろから3文字とって比較
-			    #-1 #3 substring$ ",''" =
+			  { % 後ろから3文字とって比較
+			    t #-1 #3 substring$ ",''" =
 			      { #-4 global.max$ substring$ ".''" * }
-			      { duplicate$
-				#-1 #3 substring$ ".''" =
+			      { t #-1 #3 substring$ ".''" =
 				  { #-4 global.max$ substring$ ".''" * }
 				  { add.period$ }
 				if$
@@ -1359,18 +1350,15 @@ FUNCTION {add.period.x}
 
 %%% "、" や "，" を除去し、"．" を付ける(に変える)関数 (日本語文献用)
 FUNCTION {add.kanji.period.x}
-{
-  duplicate$
+{ duplicate$ 't :=
   % 後ろから1文字とって比較
-  #-1 #1 substring$ "，" =
+  t #-1 #1 substring$ "，" =
     { #-2 global.max$ substring$ bst.kuten.jp * }
-    { duplicate$
-      % 後ろから1文字とって比較
-      #-1 #1 substring$ "、" =
+    { % 後ろから1文字とって比較
+      t #-1 #1 substring$ "、" =
 	{ #-2 global.max$ substring$ bst.kuten.jp * }
-	{ duplicate$
-	  % 後ろから1文字とって比較
-	  #-1 #1 substring$ "." =
+	{ % 後ろから1文字とって比較
+	  t #-1 #1 substring$ "." =
 	    {#-2 global.max$ substring$ bst.kuten.jp * }
 	    {#-1 global.max$ substring$ bst.kuten.jp * }
 	  if$
@@ -1493,28 +1481,16 @@ FUNCTION {output.nonnull.nocomma}
       write$
     }
     % mid.sentence ではないとき
-    { output.state after.block =
-
-	% after.block のとき。 period を付加して write。
-	{ is.kanji.entry
-	    { add.kanji.period.x write$}
-	    { add.period.x " " * write$ }
-	  if$
-	}
-	% after.block じゃないとき。
-	{ output.state before.all =
-	    % before.all のとき。そのまま write。
-	    'write$
-	    % before.all じゃないとき。 period を付加して write。
-	    { is.kanji.entry
-		{ add.kanji.period.x write$ }
-		{ add.period$ " " * write$ }
-	      if$
-	    }
-	  if$
-	}
+    { output.state before.all =
+        % before.all のとき。そのまま write。
+        'write$
+        % before.all じゃないとき。 period を付加して write。
+        { is.kanji.entry
+            { add.kanji.period.x write$ }
+            { add.period$ " " * write$ }
+          if$
+        }
       if$
-      
       % mid.sentence 以外のときは mid.sentence に状態を変更。
       mid.sentence 'output.state :=
     }
@@ -1564,20 +1540,6 @@ FUNCTION {fin.entry}
   if$
   write$
   newline$
-}
-
-FUNCTION {new.block}
-{ output.state before.all =
-    'skip$
-    { after.block 'output.state := }
-  if$
-}
-
-FUNCTION {new.block.check}
-{ empty$
-    'skip$
-    'new.block
-  if$
 }
 
 FUNCTION {field.or.null}
@@ -3619,9 +3581,7 @@ FUNCTION {manual}
   format.book "title" output.check.nocomma
   author empty$
     { organization empty$
-	{ format.address new.block.check
-	  format.address output.nocomma
-	}
+	{ format.address output.nocomma }
 	'skip$
       if$
     }
