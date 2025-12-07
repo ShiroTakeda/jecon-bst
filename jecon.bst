@@ -4,7 +4,7 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2025-12-07 23:22:17 st>
+% Time-stamp: <2025-12-07 23:45:30 st>
 % Version 6.6
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -2546,6 +2546,23 @@ FUNCTION {format.year}
   if$
 }
 
+FUNCTION {format.output.year}
+{ year empty$
+    { "there's no year in " cite$ * warning$ }
+    { is.kanji.entry
+	{ bst.kansuji.jp #0 =
+	   { bst.year.pre.jp year * extra.label * bst.year.post.jp * }
+	   { bst.year.pre.jp year convert.year.kanji *
+	     extra.label convert.alphabet.zenkaku * bst.year.post.jp * }
+	  if$
+	}
+	{ bst.year.pre year * extra.label * bst.year.post * }
+      if$
+      output.field
+    }
+  if$
+}
+
 %%% book の page の処理
 FUNCTION {format.book.pages}
 { pages empty$
@@ -3470,10 +3487,9 @@ FUNCTION {article}
 %   format.authors "author" output.check.nocomma
   format.output.authors
   bst.year.position #0 =
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
-%   format.title "title" output.check.nocomma
   format.output.title
 
   format.journal "journal" output.check.nocomma
@@ -3504,7 +3520,7 @@ FUNCTION {book}
     }
   if$
   bst.year.position #0 =
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
   format.book "title" output.check.nocomma
@@ -3518,7 +3534,7 @@ FUNCTION {book}
   format.book.pages output.nocomma
 
   bst.year.position #0 = not
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
   
@@ -3556,7 +3572,7 @@ FUNCTION {inbook}
     }
   if$
   bst.year.position #0 =
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
   format.book "title" output.check.nocomma
@@ -3568,7 +3584,7 @@ FUNCTION {inbook}
   output.publisher.address
 
   bst.year.position #0 = not
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
 
@@ -3584,10 +3600,9 @@ FUNCTION {incollection}
 { output.bibitem
   format.authors "author" output.check.nocomma
   bst.year.position #0 =
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
-%   format.title "title" output.check.nocomma
   format.output.title
 
   format.in.ed.booktitle "booktitle" output.check.nocomma
@@ -3597,7 +3612,7 @@ FUNCTION {incollection}
   output.address.organization.publisher
 
   bst.year.position #0 = not
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
 
@@ -3613,10 +3628,9 @@ FUNCTION {inproceedings}
 { output.bibitem
   format.authors "author" output.check.nocomma
   bst.year.position #0 =
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
-%   format.title "title" output.check.nocomma
   format.output.title
 
   format.in.ed.booktitle "booktitle" output.check.nocomma
@@ -3656,7 +3670,7 @@ FUNCTION {manual}
     { format.authors output.nonnull.nocomma }
   if$
   bst.year.position #0 =
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
   format.book "title" output.check.nocomma
@@ -3671,7 +3685,7 @@ FUNCTION {manual}
   format.edition output.nocomma
 
   bst.year.position #0 = not
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
 
@@ -3687,17 +3701,16 @@ FUNCTION {mastersthesis}
 { output.bibitem
   format.authors "author" output.check.nocomma
   bst.year.position #0 =
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
-%   format.title "title" output.check.nocomma
   format.output.title
   format.mthesis format.thesis.type output.nonnull.nocomma
   format.school "school" output.check.nocomma
   format.address output.nocomma
 
   bst.year.position #0 = not
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
 
@@ -3713,7 +3726,7 @@ FUNCTION {misc}
 { output.bibitem
   format.authors "author" output.check.nocomma
   bst.year.position #0 =
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
   format.misc.title output.nocomma
@@ -3739,7 +3752,7 @@ FUNCTION {online}
 { output.bibitem
   format.authors "author" output.check.nocomma
   bst.year.position #0 =
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
   format.misc.title output.nocomma
@@ -3765,10 +3778,9 @@ FUNCTION {phdthesis}
 { output.bibitem
   format.authors "author" output.check.nocomma
   bst.year.position #0 =
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
-%   format.title "title" output.check.nocomma
   format.output.title
   format.phd
   format.thesis.type output.nonnull.nocomma
@@ -3779,7 +3791,7 @@ FUNCTION {phdthesis}
   if$
 
   bst.year.position #0 = not
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
 
@@ -3798,7 +3810,7 @@ FUNCTION {proceedings}
     { format.editors output.nonnull.nocomma }
   if$
   bst.year.position #0 =
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
   format.btitle remove.pre.comma.period "title" output.check.nocomma
@@ -3807,7 +3819,7 @@ FUNCTION {proceedings}
   output.address.organization.publisher
 
   bst.year.position #0 = not
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
 
@@ -3823,10 +3835,9 @@ FUNCTION {techreport}
 { output.bibitem
   format.authors "author" output.check.nocomma
   bst.year.position #0 =
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
-%   format.title "title" output.check.nocomma
   format.output.title
   format.tr.number output.nonnull.nocomma
   format.institution "institution" output.check.nocomma
@@ -3834,7 +3845,7 @@ FUNCTION {techreport}
   format.chapter.pages output.nocomma %%% added
 
   bst.year.position #0 = not
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
 
@@ -3850,10 +3861,9 @@ FUNCTION {unpublished}
 { output.bibitem
   format.authors "author" output.check.nocomma
   bst.year.position #0 =
-    { format.year "year" output.check.nocomma }
+    { format.output.year }
     'skip$
   if$
-%   format.title "title" output.check.nocomma
   format.output.title
 
   bst.year.position #0 = not
