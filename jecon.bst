@@ -4,7 +4,7 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2025-12-07 22:50:29 st>
+% Time-stamp: <2025-12-07 23:13:24 st>
 % Version 6.6
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -1468,9 +1468,37 @@ FUNCTION {remove.pre.comma.period}
   if$
 }
 
-%
-% 
-%
+FUNCTION {output.field}
+{ 's :=
+  output.state mid.sentence =
+    % mid.sentence のとき。 
+    { % ついでに直近の field が period or comma で終っているか判断。
+      period.comma.p
+      % pop して書き込み。
+      write$
+    }
+    % mid.sentence ではないとき
+    { output.state before.all =
+        % before.all のとき。そのまま write。
+        'write$
+        % before.all じゃないとき。 period を付加して write。
+        { is.kanji.entry
+            { add.kanji.period.x write$ }
+            { add.period$ " " * write$ }
+          if$
+        }
+      if$
+      % mid.sentence 以外のときは mid.sentence に状態を変更。
+      mid.sentence 'output.state :=
+    }
+  if$
+  % 直近の filed が period or comma で終わっているなら、その後の comma は除去する。
+  last.period.comma #0 =
+    { s }
+    { s remove.pre.comma.period }
+  if$
+}
+
 FUNCTION {output.nonnull.nocomma}
 { 's :=
   output.state mid.sentence =
@@ -2016,6 +2044,39 @@ FUNCTION {format.authors}
 	% No なら ? を返す。
 	{ author s remove.ss.period.auth }
       if$
+    }
+  if$
+}
+
+FUNCTION {format.output.authors}
+{ author empty$
+    'skip$
+    { bst.use.bysame #2 =
+	% 2 のタイプの bysame を利用するとき。
+	{ prev.author.jecon author compare.names.jecon 's :=
+
+	  jecon.debug #0 = not % for debug
+	    { "prev.author.jecon = \texttt{" prev.author.jecon * "}\\" * write$
+	      "\noindent s = \texttt{" s * "}\\" * write$
+	    }
+	    'skip$
+	  if$
+
+	  % prev.author.jecon に現在の author を代入しておく
+	  author 'prev.author.jecon :=
+	}
+	% bysame を利用しないか、1 のタイプの bysame を利用するときは author を
+	% s に代入。
+	{ author 's := }
+      if$
+      % extra.label.bysame に bysame という値が入っているか？
+      extra.label.bysame "bysame" =
+	% Yes なら bysame を挿入。
+	{ author insert.bysame }
+	% No なら ? を返す。
+	{ author s remove.ss.period.auth }
+      if$
+      output.field
     }
   if$
 }
@@ -3391,7 +3452,8 @@ FUNCTION {test}
 %	 article の処理
 FUNCTION {article}
 { output.bibitem
-  format.authors "author" output.check.nocomma
+%   format.authors "author" output.check.nocomma
+  format.output.authors
   bst.year.position #0 =
     { format.year "year" output.check.nocomma }
     'skip$
