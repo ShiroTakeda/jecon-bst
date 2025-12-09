@@ -4,7 +4,7 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2025-12-07 23:45:30 st>
+% Time-stamp: <2025-12-09 15:29:43 st>
 % Version 6.6
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -618,6 +618,14 @@ FUNCTION {bst.editor}
 FUNCTION {bst.editor.jp}
 { "（編）" }	% (default)
 
+% incollection、inproceedingsエントリーでのeditorとbooktitleの順序（英語文献用）
+%
+% #0: editors -> booktitleの順番
+% 非ゼロ: booktitle -> editorsの順番
+%
+FUNCTION {bst.editor.btitle.order}
+{ #0 }    % (default)
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	kanyaku (監訳者)
 
@@ -688,6 +696,29 @@ FUNCTION {bst.volume.pre.jp}
 % volume の後に付ける文字列 (日本語文献用)
 %
 FUNCTION {bst.volume.post.jp}
+{ "巻" }    % (default)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	book 用の volume
+
+% book の volume の前に付ける文字列 (英語文献用)
+%
+FUNCTION {bst.bvolume.pre}
+{ ", Vol. " }	 % (default)
+
+% book の volume の後に付ける文字列 (英語文献用)
+%
+FUNCTION {bst.bvolume.post}
+{ "" }	  % (default)
+
+% book の volume の前に付ける文字列 (日本語文献用)
+%
+FUNCTION {bst.bvolume.pre.jp}
+{ "，第" }    % (default)
+
+% book の volume の後に付ける文字列 (日本語文献用)
+%
+FUNCTION {bst.bvolume.post.jp}
 { "巻" }    % (default)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -821,6 +852,15 @@ FUNCTION {bst.address.pre.jp}
 %
 FUNCTION {bst.address.post.jp}
 { "" }	  % (default)
+
+% address と publisher の順番の設定
+%
+% #0: address -> publisherの順番 (the default value).
+% non-zero: publisher -> address の順番
+
+FUNCTION {bst.address.position}
+{ #0 }    % address → publisher の順番 (default)
+% { #1 }    % publisher → address の順番
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	publisher
@@ -1638,6 +1678,31 @@ FUNCTION {format.journal}
   if$
 }
 
+%%% journal
+FUNCTION {format.output.journal}
+{ journal empty$
+    'skip$
+    { is.kanji.entry
+	{ bst.journal.pre.jp journal * bst.journal.post.jp * }
+	{ bst.journal.pre journal * bst.journal.post * }
+      if$
+      output.field
+    }
+  if$
+}
+
+FUNCTION {format.output.book}
+{ title empty$
+    { "there's no title in " cite$ * warning$ }
+    { is.kanji.entry
+	{ bst.book.pre.jp title * bst.book.post.jp * }
+	{ bst.book.pre title * bst.book.post * }
+      if$
+      output.field
+    }
+  if$
+}
+
 %%% book の title の整形。
 FUNCTION {format.book}
 { title empty$
@@ -2075,6 +2140,46 @@ FUNCTION {format.output.authors}
 	{ author insert.bysame }
 	% No なら ? を返す。
 	{ author s remove.ss.period.auth }
+      if$
+      output.field
+    }
+  if$
+}
+
+%%% editor
+FUNCTION {format.output.editors}
+{ editor empty$
+    'skip$
+    { bst.use.bysame #2 =
+	{ prev.author.jecon editor compare.names.jecon 's :=
+	  jecon.debug #0 = not
+	    { "prev.author.jecon = \texttt{" prev.author.jecon * "}\\" * write$ % for debug
+	      "\noindent s = \texttt{" s * "}\\" * write$ % for debug
+	    }
+	    'skip$
+	  if$
+	  editor 'prev.author.jecon :=
+	}
+	{ editor 's := }
+      if$
+      % extra.label.bysame に bysame という値が入っているか？
+      extra.label.bysame "bysame" =
+	% Yes なら bysame.check に 1 を代入し、bysame を挿入
+	{ #1 'bysame.check :=
+	  editor insert.bysame }
+	{ editor s remove.ss.period.auth }
+      if$
+      s num.names$ #1 >
+        { s check.kanji.str
+            { bst.editor.jp * }
+            { bst.editors * }
+          if$
+        }
+        { s check.kanji.str
+            { bst.editor.jp * }
+            { bst.editor * }
+          if$
+        }
       if$
       output.field
     }
@@ -2584,6 +2689,14 @@ FUNCTION {tie.or.space.connect}
   swap$ * *
 }
 
+FUNCTION {tie.or.space.connect.alt}
+{ duplicate$ text.length$ #3 <
+    { "~" }
+    { " " }
+  if$
+  swap$ *
+}
+
 FUNCTION {either.or.check}
 { empty$
     'pop$
@@ -2608,6 +2721,28 @@ FUNCTION {format.bvolume}
 	  if$
 	}
       if$
+    }
+  if$
+}
+
+%%% volume for book
+FUNCTION {format.output.bvolume}
+{ volume empty$
+    'skip$
+    { is.kanji.entry
+	{ bst.bvolume.pre.jp volume convert.num * bst.bvolume.post.jp * }
+        { bst.bvolume.pre volume * bst.bvolume.post * }
+      if$
+      series empty$
+         'skip$
+         %% series もあるとき
+         { is.kanji.entry
+             { bst.series.pre.jp * series convert.num * bst.series.post.jp * }
+             { " of " * series * bst.series.post * }
+           if$
+         }
+      if$
+      output.field
     }
   if$
 }
@@ -2656,6 +2791,52 @@ FUNCTION {format.number.series}
       if$
     }
     { "" }
+  if$
+}
+
+%%% series
+FUNCTION {format.output.series}
+{ series empty$
+    'skip$
+    { is.kanji.entry
+        { bst.series.pre.jp series convert.num * bst.series.post.jp * }
+        { bst.series.pre series * bst.series.post * }
+      if$
+      output.field
+    }
+ if$
+}
+
+%%% number and series
+FUNCTION {format.output.number.series}
+{ number empty$
+  bst.hide.number #0 = not or
+     % number is empty
+     { series empty$
+         'skip$
+         % series is not empty.
+         { format.output.series }
+       if$
+     }
+     % number is not empty$
+     { series empty$
+	 { is.kanji.entry
+	     { bst.number.pre.jp number convert.num * bst.number.post.jp * }
+	     { bst.number.pre number * bst.number.post * }
+	   if$
+	   output.field
+	 }
+	 % series is not empty.  日本語と英語で順序逆にする。
+	 { is.kanji.entry
+	     { bst.series.pre.jp series convert.num * bst.series.post.jp *
+	       bst.number.pre.jp * number convert.num * bst.number.post.jp * }
+	     { bst.in bst.series.pre * series * bst.series.post *
+	       bst.number.pre * number * bst.number.post * }
+	   if$
+	   output.field
+	 }
+       if$
+     }
   if$
 }
 
@@ -2861,6 +3042,23 @@ FUNCTION {format.edition}
   if$
 }
 
+%%% edition
+FUNCTION {format.output.edition}
+{ edition empty$
+    'skip$
+    { is.kanji.entry
+        { bst.edition.pre.jp edition convert.num * bst.edition.post.jp * }
+        { output.state mid.sentence =
+	    { bst.edition.pre convert.edition "l" change.case$ * bst.edition.post * }
+	    { bst.edition.pre convert.edition "t" change.case$ * bst.edition.post * }
+	  if$
+	}
+      if$
+      output.field
+    }
+  if$
+}
+
 %%% month の整形。
 FUNCTION {format.month}
 { month empty$
@@ -2875,6 +3073,20 @@ FUNCTION {format.month}
   if$
 }
 
+FUNCTION {format.output.month}
+{ month empty$
+  bst.hide.month #0 = not or
+    % bst.hide.month が非ゼロなら month は出力せず
+    'skip$
+    { is.kanji.entry
+	{ bst.month.pre.jp month convert.month convert.month.kanji convert.num * bst.month.post.jp * }
+        { bst.month.pre month convert.month * bst.month.post * }
+      if$
+      output.field
+    }
+  if$
+}
+
 %%% year と month を一緒に処理するためのもの。
 FUNCTION {format.date}
 { is.kanji.entry
@@ -2883,6 +3095,27 @@ FUNCTION {format.date}
    %% 英語 -> 月 - 年
    { format.month format.year * }
   if$
+}
+
+FUNCTION {format.output.date}
+{ month empty$
+    { year empty$
+        'skip$
+	{ format.output.year }
+      if$
+    }
+    { year empty$
+        { format.output.month }
+        { is.kanji.entry
+            %% 日本語文献 -> 年 - 月
+	    { format.output.year format.output.month }
+            %% 英語 -> 月 - 年
+	    { format.output.month format.output.year }
+	  if$
+	}
+      if$
+    }
+  if$ 
 }
 
 %%% 複数のページが指定されているかチェック (1-100等のように)．
@@ -2906,25 +3139,47 @@ FUNCTION { multi.page.check }
   multiresult
 }
 
-%%% pages の整形。
 FUNCTION {format.pages}
+{ is.kanji.entry
+    { pages multi.page.check
+        { bst.page.pre.jp pages n.dashify convert.num.pages * bst.page.post.jp * }
+        { bst.page.pre.jp pages convert.num.pages * bst.page.post.jp * }
+      if$
+    }
+    { pages multi.page.check
+        { bst.pages.pre pages n.dashify tie.or.space.connect.alt * bst.pages.post * }
+        { bst.page.pre pages tie.or.space.connect.alt * bst.page.post * }
+      if$
+    }
+  if$
+}
+
+FUNCTION {format.output.pages}
 { pages empty$
-    { "" }
-    { is.kanji.entry
-	{ pages multi.page.check
-	  { bst.page.pre.jp pages n.dashify convert.num.pages * bst.page.post.jp * }
-	  { bst.page.pre.jp pages convert.num.pages * bst.page.post.jp * }
-	 if$
-	}
-	{ pages multi.page.check
-	  { bst.pages.pre pages n.dashify tie.or.space.connect * bst.pages.post }
-	  { bst.page.pre pages tie.or.space.connect * bst.page.post }
-	 if$
-	}
-       if$
-   }
+    'skip$
+    { format.pages output.field }
  if$
 }
+
+% %%% pages の整形。
+% FUNCTION {format.pages}
+% { pages empty$
+%     { "" }
+%     { is.kanji.entry
+% 	{ pages multi.page.check
+% 	  { bst.page.pre.jp pages n.dashify convert.num.pages * bst.page.post.jp * }
+% 	  { bst.page.pre.jp pages convert.num.pages * bst.page.post.jp * }
+% 	 if$
+% 	}
+% 	{ pages multi.page.check
+% 	  { bst.pages.pre pages n.dashify tie.or.space.connect * bst.pages.post }
+% 	  { bst.page.pre pages tie.or.space.connect * bst.page.post }
+% 	 if$
+% 	}
+%        if$
+%    }
+%  if$
+% }
 
 %%% number を整形
 FUNCTION {format.number}
@@ -2935,6 +3190,32 @@ FUNCTION {format.number}
     { is.kanji.entry
 	{ bst.number.pre.jp number convert.num * bst.number.post.jp * }
 	{ bst.number.pre number * bst.number.post * }
+      if$
+    }
+  if$
+}
+
+%%% number
+FUNCTION {format.output.number}
+{ number empty$
+  bst.hide.number #0 = not or
+    'skip$
+    { is.kanji.entry
+	{ bst.number.pre.jp number convert.num * bst.number.post.jp * }
+	{ bst.number.pre number * bst.number.post * }
+      if$
+      output.field
+    }
+  if$
+}
+
+%%% volume
+FUNCTION {format.output.volume}
+{ volume empty$
+    'skip$
+    { is.kanji.entry
+	{ bst.volume.pre.jp volume convert.num * bst.volume.post.jp * output.field }
+        { bst.volume.pre volume * bst.volume.post * output.field }
       if$
     }
   if$
@@ -3037,6 +3318,19 @@ FUNCTION {format.chapter}
   if$
 }
 
+%%% chapter
+FUNCTION {format.output.chapter}
+{ chapter empty$
+    'skip$
+    { is.kanji.entry
+        { bst.chapter.pre.jp chapter convert.num * bst.chapter.post.jp * }
+        { bst.chapter.pre chapter tie.or.space.connect * bst.chapter.post }
+      if$
+      output.field
+    }
+  if$
+}
+
 %%% chapter, pages を一緒に処理する関数
 FUNCTION {format.chapter.pages}
 { chapter empty$
@@ -3073,6 +3367,31 @@ FUNCTION {format.in.ed.booktitle}
   if$
 }
 
+%%% editor and booktitle
+FUNCTION {format.output.in.ed.booktitle}
+{ booktitle empty$
+    'skip$
+    { editor empty$
+	{ is.kanji.entry
+	    { }
+	    { bst.in format.btitle * }
+	  if$
+	}
+	{ is.kanji.entry
+	    { format.editors.x "" * format.btitle * }
+            { bst.editor.btitle.order #0 =
+                { bst.in format.editors.x * " " * format.btitle * }
+                { bst.in format.btitle * " " * format.editors.x * }
+              if$
+            }
+	  if$
+	}
+      if$
+      output.field
+    }
+  if$
+}
+
 %%% translator & kanyaku の整形。
 FUNCTION {format.translator}
 { kanyaku empty$
@@ -3090,6 +3409,23 @@ FUNCTION {format.translator}
   if$
 }
 
+FUNCTION {format.output.translator}
+{ kanyaku empty$
+   { translator empty$
+       'skip$
+       { bst.translator.pre.jp "xxx" translator format.names * bst.translator.post.jp * output.field }
+    if$
+   }
+   { translator empty$
+       { bst.kanyaku.pre.jp "xxx" kanyaku format.names * bst.kanyaku.post.jp * }
+       { bst.kanyaku.pre.jp "xxx" kanyaku format.names * bst.kanyaku.post.jp * 
+	 bst.translator.pre.jp * "xxx" translator format.names * bst.translator.post.jp * }
+     if$
+     output.field
+   }
+  if$
+}
+
 %%% howpublished の整形。
 FUNCTION {format.howpublished}
 { howpublished empty$
@@ -3098,6 +3434,19 @@ FUNCTION {format.howpublished}
 	{ bst.howpublished.pre.jp howpublished * bst.howpublished.post.jp * }
 	{ bst.howpublished.pre howpublished * bst.howpublished.post * }
       if$
+    }
+  if$
+}
+
+%%% howpublished
+FUNCTION {format.output.howpublished}
+{ howpublished empty$
+    'skip$
+    { is.kanji.entry
+	{ bst.howpublished.pre.jp howpublished * bst.howpublished.post.jp * }
+	{ bst.howpublished.pre howpublished * bst.howpublished.post * }
+      if$
+    output.field
     }
   if$
 }
@@ -3114,6 +3463,19 @@ FUNCTION {format.address}
   if$
 }
 
+%%% address
+FUNCTION {format.output.address}
+{ address empty$
+    'skip$
+    { is.kanji.entry
+	{ bst.address.pre.jp address * bst.address.post.jp * }
+	{ bst.address.pre address * bst.address.post * }
+      if$
+      output.field
+    }
+  if$
+}
+
 %%% publisher の整形。
 FUNCTION {format.publisher}
 { publisher empty$
@@ -3122,6 +3484,19 @@ FUNCTION {format.publisher}
 	{ bst.publisher.pre.jp publisher * bst.publisher.post.jp * }
 	{ bst.publisher.pre publisher * bst.publisher.post * }
       if$
+    }
+  if$
+}
+
+%%% publisher
+FUNCTION {format.output.publisher}
+{ publisher empty$
+    'skip$
+    { is.kanji.entry 
+	{ bst.publisher.pre.jp publisher * bst.publisher.post.jp * }
+	{ bst.publisher.pre publisher * bst.publisher.post * }
+      if$
+      output.field
     }
   if$
 }
@@ -3138,6 +3513,19 @@ FUNCTION {format.organization}
   if$
 }
 
+%%% organization
+FUNCTION {format.output.organization}
+{ organization empty$
+    'skip$
+    { is.kanji.entry
+	{ bst.organization.pre.jp organization * bst.organization.post.jp * }
+	{ bst.organization.pre organization * bst.organization.post * }
+      if$
+      output.field
+    }
+  if$
+}
+
 %% publisher と address を出力する関数
 FUNCTION {output.publisher.address}
 { address empty$
@@ -3150,6 +3538,16 @@ FUNCTION {output.publisher.address}
 	  format.publisher "publisher" output.check.nocomma }
       if$
     }
+  if$
+}
+
+%% publisher and address
+FUNCTION {format.output.publisher.address}
+    { bst.address.position #0 = 
+    { format.output.address
+      format.output.publisher }
+    { format.output.publisher
+      format.output.address }
   if$
 }
 
@@ -3211,13 +3609,24 @@ FUNCTION {output.address.organization.publisher}
   if$
 }
 
+%% address, organization, publisher
+FUNCTION {format.output.address.organization.publisher}
+{ format.output.organization
+  bst.address.position #0 = 
+    { format.output.address
+      format.output.publisher }
+    { format.output.publisher
+      format.output.address }
+  if$
+}
+
 %%% misc 用
 FUNCTION {empty.misc.check}
 { author empty$ title empty$ howpublished empty$
   month empty$ year empty$ note empty$
   and and and and and
   key empty$ not and
-    { "all relevant fields are empty in " cite$ * warning$ }
+    { "All relevant fields are empty in " cite$ * warning$ }
     'skip$
   if$
 }
@@ -3248,6 +3657,15 @@ FUNCTION {format.phd}
   if$
 }
 
+%%% phdthesis
+FUNCTION {format.output.phd}
+{ is.kanji.entry
+    { bst.phdthesis.jp format.thesis.type }
+    { bst.phdthesis format.thesis.type }
+  if$
+  output.field
+}  
+
 %%% mastersthesis の整形
 FUNCTION {format.mthesis}
 { is.kanji.entry
@@ -3255,6 +3673,15 @@ FUNCTION {format.mthesis}
     { bst.mthesis }
    if$
 }
+
+%%% mastersthesis
+FUNCTION {format.output.mthesis}
+{ is.kanji.entry
+    { bst.mthesis.jp format.thesis.type }
+    { bst.mthesis format.thesis.type }
+  if$
+  output.field
+}  
 
 %%% school の整形
 FUNCTION {format.school}
@@ -3264,6 +3691,19 @@ FUNCTION {format.school}
 	{ bst.school.pre.jp school * bst.school.post.jp * }
 	{ bst.school.pre school * bst.school.post * }
       if$
+    }
+  if$
+}
+
+%%% school
+FUNCTION {format.output.school}
+{ school empty$
+    'skip$
+    { is.kanji.entry
+	{ bst.school.pre.jp school * bst.school.post.jp * }
+	{ bst.school.pre school * bst.school.post * }
+      if$
+      output.field
     }
   if$
 }
@@ -3278,7 +3718,20 @@ FUNCTION {format.institution}
       if$
     }
   if$
-}  
+}
+
+%%% institution
+FUNCTION {format.output.institution}
+{ institution empty$
+    'skip$
+    { is.kanji.entry
+	{ bst.institution.pre.jp institution * bst.institution.post.jp * }
+	{ bst.institution.pre institution * bst.institution.post * }
+      if$
+      output.field
+    }
+  if$
+}
 
 %%% hoyakusho の整形
 FUNCTION {format.hoyakusho}
@@ -3330,6 +3783,77 @@ FUNCTION {format.hoyakusho}
   if$
 }
 
+FUNCTION {format.output.hoyakusho}
+{ jauthor empty$
+  jkanyaku empty$
+  jtitle empty$
+  jpublisher empty$
+  jyear empty$
+  jnote empty$
+  and and and and and
+    'skip$
+    {
+      is.kanji.entry
+	{ bst.touten.jp }
+	{ ", " }
+      if$
+      bst.hoyakusho.pre.jp * 
+      jauthor empty$
+	{ jkanyaku empty$
+            'skip$
+	    { "xxx" jkanyaku format.names * "監訳" * }
+	  if$
+	}
+	{ "xxx" jauthor format.names * "訳" *
+	  jkanyaku empty$
+            'skip$
+	    { bst.touten.jp * "xxx" jkanyaku format.names * "監訳" * }
+	  if$
+	}
+      if$
+      jtitle empty$
+        'skip$
+	{ bst.touten.jp format.jtitle * bst.touten.jp * remove.irrelevant.pre.kutoten * }
+      if$
+      jpublisher empty$
+        'skip$
+	{ jpublisher * bst.touten.jp * }
+      if$
+      jyear empty$
+        'skip$
+	{ jyear convert.year.kanji * "年" * bst.touten.jp * }
+      if$
+      jnote empty$
+        'skip$
+        { jnote *}
+      if$
+      remove.irrelevant.kutoten bst.hoyakusho.post.jp *
+      output.field
+    }
+  if$
+}
+
+FUNCTION {format.output.url}
+{ type$ "online" = bst.show.url or
+    { is.kanji.entry
+        { bst.url.pre.jp url * bst.url.post.jp *
+	  access empty$
+	     { "" * output.field }
+	     { bst.access.pre.jp * access * bst.access.post.jp * output.field }
+	  if$
+	}
+        { bst.url.pre url * bst.url.post *
+          access empty$
+             { "" * output.field }
+             { bst.access.pre * access * bst.access.post * output.field }
+          if$
+        }
+      if$
+    }
+    'skip$
+  if$
+}
+
 FUNCTION {format.url}
 { url empty$
     { "" }
@@ -3352,6 +3876,17 @@ FUNCTION {format.url}
 	{ "" }
       if$
     }
+  if$
+}
+
+FUNCTION {format.output.doi}
+{ bst.show.doi
+    { is.kanji.entry
+	{ bst.doi.pre.jp doi * bst.doi.post.jp * output.field }
+	{ bst.doi.pre doi * bst.doi.post * output.field }
+      if$
+    }
+    'skip$
   if$
 }
 
@@ -3386,6 +3921,30 @@ FUNCTION {format.url.doi}
   if$
 }
 
+FUNCTION {format.output.url.doi}
+{ url empty$
+    { doi empty$
+        'skip$
+        { format.output.doi }
+      if$
+    }
+    { doi empty$
+        { format.output.url }
+        { bst.url.doi #0 =
+            { format.output.url 
+	      format.output.doi  }
+            { bst.url.doi #1 =
+                { format.output.url } 
+                { format.output.doi }
+              if$
+            }
+          if$
+        }
+      if$
+    }
+  if$
+}
+
 FUNCTION {format.note}
 { note empty$
     { "" }
@@ -3393,6 +3952,18 @@ FUNCTION {format.note}
 	{ bst.note.pre.jp note * bst.note.post.jp * }
 	{ bst.note.pre note * bst.note.post * }
       if$
+    }
+  if$
+}
+
+FUNCTION {format.output.note}
+{ note empty$
+    'skip$
+    { is.kanji.entry
+	{ bst.note.pre.jp note * bst.note.post.jp * }
+	{ bst.note.pre note * bst.note.post * }
+      if$
+      output.field
     }
   if$
 }
@@ -3482,171 +4053,166 @@ FUNCTION {test}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	 article の処理
+
 FUNCTION {article}
 { output.bibitem
-%   format.authors "author" output.check.nocomma
   format.output.authors
   bst.year.position #0 =
     { format.output.year }
     'skip$
   if$
   format.output.title
-
-  format.journal "journal" output.check.nocomma
+  format.output.journal
   bst.year.position #2 =
-    { format.date output.nocomma }
+    { format.output.date }
     'skip$
   if$
-  format.vol.num.pages output.nocomma
-
-  bst.year.position #1 =
-    { format.date output.nocomma }
-    { format.month output.nocomma }
+  format.output.volume
+  bst.year.position #3 =
+    { format.output.year }
+    'skip$
   if$
-
-  format.url.doi output.nocomma
-  format.note output.nocomma
+  format.output.number
+  format.output.pages
+  bst.year.position #1 =
+    { format.output.date }
+    { format.output.month }
+  if$
+  format.output.url.doi
+  format.output.note
   fin.entry
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	 book の処理
+
 FUNCTION {book}
 { output.bibitem
   author empty$
-    { format.editors "author and editor" output.check.nocomma }
-    { format.authors output.nonnull.nocomma
-      "author and editor" editor either.or.check 
-    }
+    { format.output.editors }
+    { format.output.authors
+      "author and editor" editor either.or.check }
   if$
   bst.year.position #0 =
     { format.output.year }
     'skip$
   if$
-  format.book "title" output.check.nocomma
-
-  format.translator output.nocomma
-  format.bvolume output.nocomma
-  format.number.series output.nocomma
-  output.publisher.address
-
-  format.edition output.nocomma
-  format.book.pages output.nocomma
-
+  format.output.book
+  format.output.translator
+  format.output.bvolume
+  format.output.number.series
+  format.output.edition
+  format.output.publisher.address
   bst.year.position #0 = not
     { format.output.year }
     'skip$
   if$
-  
-  format.url.doi output.nocomma
-  format.note output.nocomma
-  format.hoyakusho output.nocomma
+  format.output.url.doi
+  format.output.note
+  format.output.hoyakusho
   fin.entry
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	 booklet の処理
+
 FUNCTION {booklet}
 { output.bibitem
-  format.authors output.nocomma
-  format.year output.nocomma
-%   format.misc.title "title" output.check.nocomma
+  format.output.authors
+  bst.year.position #0 =
+    { format.output.year }
+    'skip$
+  if$
   format.output.title
-  format.howpublished output.nocomma
-  format.address output.nocomma
-
-  format.url.doi output.nocomma
-
-  format.note output.nocomma
+  format.output.howpublished
+  format.output.address
+  bst.year.position #0 = not
+    { format.output.year }
+    'skip$
+  if$
+  format.output.url.doi
+  format.output.note
   fin.entry
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	inbook の処理
+
 FUNCTION {inbook}
 { output.bibitem
   author empty$
-    { format.editors "author and editor" output.check.nocomma }
-    { format.authors output.nonnull.nocomma
-      "author and editor" editor either.or.check
-    }
+    { format.output.editors }
+    { format.output.authors
+      "author and editor" editor either.or.check }
   if$
   bst.year.position #0 =
     { format.output.year }
     'skip$
   if$
-  format.book "title" output.check.nocomma
-  format.edition output.nocomma
-
-  format.bvolume output.nocomma
-  format.chapter.pages "chapter and pages" output.check.nocomma
-  format.number.series output.nocomma
-  output.publisher.address
-
+  format.output.book
+  format.output.edition
+  format.output.bvolume
+  format.output.chapter
+  format.output.pages
+  format.output.number.series
+  format.output.publisher.address
   bst.year.position #0 = not
     { format.output.year }
     'skip$
   if$
-
-  format.url.doi output.nocomma
-
-  format.note output.nocomma
+  format.output.url.doi
+  format.output.note
   fin.entry
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	incollection の処理
+
 FUNCTION {incollection}
 { output.bibitem
-  format.authors "author" output.check.nocomma
+  format.output.authors
   bst.year.position #0 =
     { format.output.year }
     'skip$
   if$
   format.output.title
-
-  format.in.ed.booktitle "booktitle" output.check.nocomma
-  format.bvolume output.nocomma
-  format.edition output.nocomma
-  format.chapter.pages output.nocomma
-  output.address.organization.publisher
-
+  format.output.in.ed.booktitle
+  format.output.bvolume
+  format.output.edition
+  format.output.chapter
+  format.output.pages
+  format.output.address.organization.publisher
   bst.year.position #0 = not
     { format.output.year }
     'skip$
   if$
-
-  format.url.doi output.nocomma
-
-  format.note output.nocomma
+  format.output.url.doi
+  format.output.note
   fin.entry
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	inproceedings の処理
+
 FUNCTION {inproceedings}
 { output.bibitem
-  format.authors "author" output.check.nocomma
+  format.output.authors
   bst.year.position #0 =
     { format.output.year }
     'skip$
   if$
   format.output.title
-
-  format.in.ed.booktitle "booktitle" output.check.nocomma
-  format.bvolume output.nocomma
-  format.number.series output.nocomma
-  format.pages output.nocomma
-  output.address.organization.publisher
-
+  format.output.in.ed.booktitle
+  format.output.bvolume
+  format.output.number.series
+  format.output.pages
+  format.output.address.organization.publisher
   bst.year.position #0 = not
-    { format.date output.nocomma }
-    { format.month output.nocomma }
+    { format.output.date }
+    { format.output.month }
   if$
-
-  format.url.doi output.nocomma
-
-  format.note output.nocomma
+  format.output.url.doi
+  format.output.note
   fin.entry
 }
 
@@ -3657,228 +4223,192 @@ FUNCTION {conference}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	manual の処理
+
 FUNCTION {manual}
 { output.bibitem
   author empty$
     { organization empty$
 	'skip$
-	{ organization output.nonnull.nocomma
-	  address output.nocomma
-	}
+	{ format.output.organization }
       if$
     }
-    { format.authors output.nonnull.nocomma }
+    { format.output.authors }
   if$
   bst.year.position #0 =
     { format.output.year }
     'skip$
   if$
-  format.book "title" output.check.nocomma
-  author empty$
-    { organization empty$
-	{ format.address output.nocomma }
-	'skip$
-      if$
-    }
-    { output.address.organization.publisher }
-  if$
-  format.edition output.nocomma
-
+  format.output.book
+  format.output.address.organization.publisher
+  format.output.edition
   bst.year.position #0 = not
     { format.output.year }
     'skip$
   if$
-
-  format.url.doi output.nocomma
-
-  format.note output.nocomma
+  format.output.url.doi
+  format.output.note
   fin.entry
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	mastersthesis の処理
+
 FUNCTION {mastersthesis}
 { output.bibitem
-  format.authors "author" output.check.nocomma
+  format.output.authors
   bst.year.position #0 =
     { format.output.year }
     'skip$
   if$
   format.output.title
-  format.mthesis format.thesis.type output.nonnull.nocomma
-  format.school "school" output.check.nocomma
-  format.address output.nocomma
-
+  format.output.mthesis  
+  format.output.school
+  format.output.address
   bst.year.position #0 = not
     { format.output.year }
     'skip$
   if$
-
-  format.url.doi output.nocomma
-
-  format.note output.nocomma
+  format.output.url.doi
+  format.output.note
   fin.entry
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	misc の処理
-FUNCTION {misc}
-{ output.bibitem
-  format.authors "author" output.check.nocomma
-  bst.year.position #0 =
-    { format.output.year }
-    'skip$
-  if$
-  format.misc.title output.nocomma
-  format.howpublished output.nocomma
-
-  remove.irrelevant.kutoten
-
-  bst.year.position #0 = not
-    { format.date output.nocomma }
-    { format.month output.nocomma }
-  if$
-
-  format.url.doi output.nocomma
-
-  format.note output.nocomma
-  fin.entry
-  empty.misc.check
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	online の処理
-FUNCTION {online}
-{ output.bibitem
-  format.authors "author" output.check.nocomma
-  bst.year.position #0 =
-    { format.output.year }
-    'skip$
-  if$
-  format.misc.title output.nocomma
-  format.howpublished output.nocomma
-
-  remove.irrelevant.kutoten
-
-  bst.year.position #0 = not
-    { format.date output.nocomma }
-    { format.month output.nocomma }
-  if$
-
-  format.url.doi output.nocomma
-
-  format.note output.nocomma
-  fin.entry
-  empty.misc.check
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	phdthesis の処理
+
 FUNCTION {phdthesis}
 { output.bibitem
-  format.authors "author" output.check.nocomma
+  format.output.authors
   bst.year.position #0 =
     { format.output.year }
     'skip$
   if$
   format.output.title
-  format.phd
-  format.thesis.type output.nonnull.nocomma
-  format.school "school" output.check.nocomma
-  address empty$
-    'skip$
-    { format.address output.nocomma }
-  if$
-
+  format.output.phd
+  format.output.school
+  format.output.address
   bst.year.position #0 = not
     { format.output.year }
     'skip$
   if$
-
-  format.url.doi output.nocomma
-
-  format.note output.nocomma
+  format.output.url.doi
+  format.output.note
   fin.entry
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	proceedings の処理
+
 FUNCTION {proceedings}
 { output.bibitem
   editor empty$
-    { organization output.nocomma }
-    { format.editors output.nonnull.nocomma }
+    { format.output.organization }
+    { format.output.editors }
   if$
   bst.year.position #0 =
     { format.output.year }
     'skip$
   if$
-  format.btitle remove.pre.comma.period "title" output.check.nocomma
-  format.bvolume output.nocomma
-  format.number.series output.nocomma
-  output.address.organization.publisher
-
+  format.output.book
+  format.output.bvolume
+  format.output.number.series
+  format.output.address.organization.publisher
   bst.year.position #0 = not
     { format.output.year }
     'skip$
   if$
-
-  format.url.doi output.nocomma
-
-  format.note output.nocomma
+  format.output.url.doi
+  format.output.note
   fin.entry
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	techreport の処理
+
 FUNCTION {techreport}
 { output.bibitem
-  format.authors "author" output.check.nocomma
+  format.output.authors
   bst.year.position #0 =
     { format.output.year }
     'skip$
   if$
   format.output.title
-  format.tr.number output.nonnull.nocomma
-  format.institution "institution" output.check.nocomma
-  format.address output.nocomma
-  format.chapter.pages output.nocomma %%% added
-
+  format.tr.number output.field
+  format.output.institution
+  format.output.address
+  format.output.chapter
+  format.output.pages
   bst.year.position #0 = not
     { format.output.year }
     'skip$
   if$
-
-  format.url.doi output.nocomma
-
-  format.note output.nocomma
+  format.output.url.doi
+  format.output.note
   fin.entry
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	unpublished の処理
+
 FUNCTION {unpublished}
 { output.bibitem
-  format.authors "author" output.check.nocomma
+  format.output.authors
   bst.year.position #0 =
     { format.output.year }
     'skip$
   if$
   format.output.title
-
   bst.year.position #0 = not
-    { format.date remove.pre.comma.period output.nocomma }
-    { month empty$
-	'skip$
-	{ format.month remove.pre.comma.period output.nocomma }
-      if$
-    }
+     { format.output.date }
+     { format.output.month }
   if$
-
-  format.url.doi output.nocomma
-
-  format.note output.nocomma
+  format.output.url.doi
+  format.output.note
   fin.entry
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	online の処理
+
+FUNCTION {online}
+{ output.bibitem
+  format.output.authors
+  bst.year.position #0 =
+    { format.output.year }
+    'skip$
+  if$
+  format.output.title
+  remove.irrelevant.kutoten
+  bst.year.position #0 = not
+    { format.output.date }
+    { format.output.month }
+  if$
+  format.output.url.doi
+  format.output.note
+  fin.entry
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	misc の処理
+
+FUNCTION {misc}
+{ output.bibitem
+  format.output.authors
+  bst.year.position #0 =
+    { format.output.year }
+    'skip$
+  if$
+  format.output.title
+  format.output.howpublished
+  remove.irrelevant.kutoten
+  bst.year.position #0 = not
+    { format.output.date }
+    { format.output.month }
+  if$
+  format.output.url.doi
+  format.output.note
+  fin.entry
+  empty.misc.check
 }
 
 FUNCTION {default.type}
