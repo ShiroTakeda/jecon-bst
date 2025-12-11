@@ -4,7 +4,7 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2025-12-09 15:29:43 st>
+% Time-stamp: <2025-12-11 13:10:29 st>
 % Version 6.6
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -537,7 +537,7 @@ FUNCTION {bst.title.post.jp}
 % book の title 前に付ける文字列 (英語文献用)
 %
 FUNCTION {bst.book.pre}
-{ " \textit{ " }    % (default)
+{ " \textit{" }    % (default)
 
 % book の title 後に付ける文字列 (英語文献用)
 %
@@ -560,7 +560,7 @@ FUNCTION {bst.book.post.jp}
 % booktitle の前に付ける文字列 (英語文献用)
 %
 FUNCTION {bst.btitle.pre}
-{ " \textit{ " }    % (default)
+{ " \textit{" }    % (default)
 
 % booktitle の後に付ける文字列 (英語文献用)
 %
@@ -583,7 +583,7 @@ FUNCTION {bst.btitle.post.jp}
 % journal name の前に付ける文字列 (英語文献用)
 %
 FUNCTION {bst.journal.pre}
-{ " \textit{ " }    % (default)
+{ " \textit{" }    % (default)
 
 % journal name の後に付ける文字列 (英語文献用)
 %
@@ -1137,10 +1137,10 @@ FUNCTION {bst.harvarditem.off}
 %
 FUNCTION {bst.thebibliography.begin}
 {
-  "" write$ newline$
-  "\makeatletter\@ifundefined{ifNAT@openbib}{\@latex@error{Package 'natbib' is not loaded! Please load Package 'natbib' in your preamble.\MessageBreak Additionally, if you use url field in your bib record entry, please also load Package 'hyperref' or 'pxjahyper', 'url' package.}\@ehc}{}\relax\makeatother" write$ newline$
+  "\makeatletter" write$ newline$
+  "\@ifundefined{ifNAT@openbib}{\@latex@error{Package 'natbib' is not loaded! Please load Package 'natbib' in your preamble.\MessageBreak Additionally, if you use url field in your bib record entry, please also load Package 'hyperref' or 'pxjahyper', 'url' package.}\@ehc}{}\relax" write$ newline$
+  "\makeatother" write$ newline$ newline$
   "\begin{thebibliography}{xxx}" write$ newline$
-  "" write$ newline$
 }
 
 FUNCTION {bst.thebibliography.end}
@@ -1264,24 +1264,29 @@ FUNCTION {bst.th}
 %% 文字列型大域変数
 STRINGS { s t ss tt sss }
 STRINGS { year.num }
-STRINGS { num.kanji }
 STRINGS { preone preten }
 STRINGS { last.sort.label next.extra this.author prev.author prev.author.jecon }
 STRINGS { hang }
 STRINGS { item.type }
 STRINGS { tempa tempb tempc }
 STRINGS { templang }
+STRINGS { pc }
+STRINGS { kan.fn kan.ln zzz zz }
+STRINGS { da db dc dd }
 
 %% 整数型大域変数
-INTEGERS { nameptr namesleft numnames  alphabet.in.author name.num numtrunc }
+INTEGERS { nameptr namesleft numnames alphabet.in.author name.num numtrunc }
 INTEGERS { bysame.check }
 INTEGERS { multiresult }
 INTEGERS { index }
 INTEGERS { len }
 INTEGERS { last.extra.num }
-INTEGERS { output.state before.all mid.sentence int }
+INTEGERS { output.state before.all mid.sentence }
 INTEGERS { last.period.comma }
 INTEGERS { len1.jecon len2.jecon i.jecon }
+INTEGERS { comma.period.a.p comma.period.b.p }
+INTEGERS { l1 l2 f1 f2 kan.p }
+INTEGERS { order.num }
 
 %%% 変数の説明
 
@@ -1314,6 +1319,21 @@ INTEGERS { len1.jecon len2.jecon i.jecon }
 % prev.author.jecon: 一個前の author (or editor) を入れる変数
 % len1.jecon len2.jecon i.jecon
 
+% debug.write: (s --)  デバッグ時だけ write$
+FUNCTION {debug.write}
+{ jecon.debug #0 =
+    { pop$ }   % debug=0 → 文字列を捨てる
+    { write$ } % debug!=0 → write$
+  if$
+}
+
+% debug.newline: (s --)  デバッグ時だけ newline$
+FUNCTION {debug.newline}
+{ jecon.debug #0 =
+    'skip$
+    { newline$ } 
+  if$
+}
 
 %%% 汎用の関数の定義
 
@@ -1341,9 +1361,9 @@ FUNCTION {init.state.consts}
   #1 'mid.sentence :=
 }
 
-%%% comma を除去し、period を付ける(に変える)関数 (英語文献用)
+%%% comma を除去し、period を付ける（に変える）関数（英語文献用）
 %
-% t #-1 #1 substring$ はtの後ろから一文字目を抜き出す処理をする。
+% t #-1 #1 substring$ は文字列 t の後ろから一文字目を抜き出す処理をする。
 %%%
 FUNCTION {add.period.x}
 { duplicate$ 't :=
@@ -1388,7 +1408,7 @@ FUNCTION {add.period.x}
   if$
 }
 
-%%% "、" や "，" を除去し、"．" を付ける(に変える)関数 (日本語文献用)
+%%% "、" や "，" を除去し、"．" を付ける（に変える）関数（日本語文献用）
 FUNCTION {add.kanji.period.x}
 { duplicate$ 't :=
   % 後ろから1文字とって比較
@@ -1408,10 +1428,8 @@ FUNCTION {add.kanji.period.x}
   if$
 }
 
-%%% 最後の文字が period or comma かどうかを判定。 period or comma の場合には
-%%% last.period.comma に非ゼロを代入する。 
-INTEGERS { comma.period.a.p comma.period.b.p }
-STRINGS { pc }
+%%% 与えられた文字列の最後の文字が period or comma かどうかを判定。 period or
+%%% comma の場合には last.period.comma に非ゼロを代入しておく。
 FUNCTION {period.comma.a.p}
 { 'pc :=
   pc #-1 #1 substring$ "." = 
@@ -1480,12 +1498,13 @@ FUNCTION {remove.pre.comma.period}
   s empty$
     { "" }
     %% ascii character
-    { s #1 #1 substring$ "," =
-      s #1 #1 substring$ "." = or
+    { s #1 #1 substring$ "," =		% s の最初の1文字が「,」に等しいか
+      s #1 #1 substring$ "." = or	% s の最初の1文字が「.」に等しいか
        { s #2 global.max$ substring$ }
        %% multi-byte character
        { bst.pbibtex.version #2 =
-	   { s #1 #2 substring$ "，" =
+	   % pbibtex を使うケース
+	   { s #1 #2 substring$ "，" =		% s の最初の1文字が「，」に等しいか
 	     s #1 #2 substring$ "、" = or
 	     s #1 #2 substring$ "。" = or
 	     s #1 #2 substring$ "．" = or
@@ -1493,7 +1512,8 @@ FUNCTION {remove.pre.comma.period}
 	      's
 	     if$
 	   }
-	   { s #1 #3 substring$ "，" =
+	   % upbibtex を使うケース
+	   { s #1 #3 substring$ "，" =		% s の最初の1文字が「，」に等しいか
 	     s #1 #3 substring$ "、" = or
 	     s #1 #3 substring$ "。" = or
 	     s #1 #3 substring$ "．" = or
@@ -1508,6 +1528,7 @@ FUNCTION {remove.pre.comma.period}
   if$
 }
 
+%%% 出力のための関数
 FUNCTION {output.field}
 { 's :=
   output.state mid.sentence =
@@ -1536,53 +1557,6 @@ FUNCTION {output.field}
   last.period.comma #0 =
     { s }
     { s remove.pre.comma.period }
-  if$
-}
-
-FUNCTION {output.nonnull.nocomma}
-{ 's :=
-  output.state mid.sentence =
-    % mid.sentence のとき。 
-    { % ついでに直近の field が period or comma で終っているか判断。
-      period.comma.p
-      % pop して書き込み。
-      write$
-    }
-    % mid.sentence ではないとき
-    { output.state before.all =
-        % before.all のとき。そのまま write。
-        'write$
-        % before.all じゃないとき。 period を付加して write。
-        { is.kanji.entry
-            { add.kanji.period.x write$ }
-            { add.period$ " " * write$ }
-          if$
-        }
-      if$
-      % mid.sentence 以外のときは mid.sentence に状態を変更。
-      mid.sentence 'output.state :=
-    }
-  if$
-  % 直近の filed が period or comma で終わっているなら、その後の comma は除去する。
-  last.period.comma #0 =
-    { s }
-    { s remove.pre.comma.period }
-  if$
-}
-
-FUNCTION {output.nocomma}
-{ duplicate$ empty$
-    'pop$
-    'output.nonnull.nocomma
-  if$
-}
-%%% output.nonnull.nocomma にチェック機能を付加したもの。エントリーが空なら 
-%%% warning が出力される。
-FUNCTION {output.check.nocomma}
-{ 't :=
-  duplicate$ empty$
-    { pop$ "empty " t * " in " * cite$ * warning$ }
-    'output.nonnull.nocomma
   if$
 }
 
@@ -1617,8 +1591,6 @@ FUNCTION {field.or.null}
   if$
 }
 
-INTEGERS {l1 l2 f1 f2 kan.p}
-STRINGS {kan.fn kan.ln zzz zz}
 FUNCTION {check.kanji.str.sub}
 { 'zzz :=
   zzz #1 "{ll}" format.name$ 'kan.ln :=		% kan.ln	<- 1st author の Last name
@@ -1654,31 +1626,7 @@ FUNCTION {check.kanji.str}
   if$
 }
 
-%%% booktitle の整形。
-FUNCTION {format.btitle}
-{ booktitle empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.btitle.pre.jp booktitle * bst.btitle.post.jp * }
-	{ bst.btitle.pre booktitle * bst.btitle.post * }
-      if$
-    }
-  if$
-}
-
-%%% journal の整形。
-FUNCTION {format.journal}
-{ journal empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.journal.pre.jp journal * bst.journal.post.jp * }
-	{ bst.journal.pre journal * bst.journal.post * }
-      if$
-    }
-  if$
-}
-
-%%% journal
+%%% journal の出力
 FUNCTION {format.output.journal}
 { journal empty$
     'skip$
@@ -1691,6 +1639,7 @@ FUNCTION {format.output.journal}
   if$
 }
 
+%%% book の title の出力
 FUNCTION {format.output.book}
 { title empty$
     { "there's no title in " cite$ * warning$ }
@@ -1699,18 +1648,6 @@ FUNCTION {format.output.book}
 	{ bst.book.pre title * bst.book.post * }
       if$
       output.field
-    }
-  if$
-}
-
-%%% book の title の整形。
-FUNCTION {format.book}
-{ title empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.book.pre.jp title * bst.book.post.jp * }
-	{ bst.book.pre title * bst.book.post * }
-      if$
     }
   if$
 }
@@ -1726,41 +1663,38 @@ FUNCTION {set.alphabet.in.author}
   "" t =
     % first name がないときは 0。
     { #0 'alphabet.in.author := }
-    { 
-      % 記号除去
+    { % 記号除去
       t purify$ 't :=
       % 一文字目だけ取り出す。
       t #1 text.prefix$ 't :=
       % 日本語か alphabet か？
       t is.kanji.str$
-	{ #0 'alphabet.in.author :=
-	}
-	{ #1 'alphabet.in.author :=
-	}
+	{ #0 'alphabet.in.author := }
+	{ #1 'alphabet.in.author := }
       if$
     }
   if$
 }
 
-%%% 文字の数を判断する関数 (日本語用)。
+%%% 文字の数を判断する関数（日本語用）。
 % 日本語の場合 1 文字が 2 文字と判断されることに注意。
 FUNCTION {count.number.of.letters}
 { 'sss :=
   bst.pbibtex.version #2 =
      % pbibtex のケース    
      { sss text.length$ #2 =
-        % 一文字のケースでは "1" を返す。
-        { "1" }
-        % 一文字以外のケースでは "0" を返す。
-        { "0" }
+         % 一文字のケースでは "1" を返す。
+         { "1" }
+         % 一文字以外のケースでは "0" を返す。
+         { "0" }
        if$
      }
      % upbibtex のケース    
      { sss text.length$ #3 =
-        % 一文字のケースでは "1" を返す。
-        { "1" }
-        % 一文字以外のケースでは "0" を返す。
-        { "0" }
+         % 一文字のケースでは "1" を返す。
+         { "1" }
+         % 一文字以外のケースでは "0" を返す。
+         { "0" }
        if$
      }
    if$
@@ -1784,8 +1718,8 @@ FUNCTION {count.number.of.letters}
 % numtrunc: これには bst.max.author.num.display の値を入れる
 % 
 FUNCTION {format.names}
-{ 'sss :=  % こちらに省略されていない名前
-  's :=    % こちらに省略された名前
+{ 'sss :=  % sss に省略されていない名前を代入
+  's :=    % s に省略された名前を代入
 
   s "xxx" =
     { sss 's := }
@@ -1971,11 +1905,9 @@ FUNCTION {remove.ss.period.auth}
 { 's := % こちらは bysame で省略された名前
   'tempc :=  % こちらは元の author (or editor) 名
   s tempc format.names 'tempa :=
+
   % For debug
-  jecon.debug #0 = not % for debug
-     { "tempa = \texttt{" tempa * "}\\" * write$ }
-     'skip$
-  if$
+  "tempa = \texttt{" tempa * "}\\" * debug.write
 
   tempc check.kanji.str
     { bst.author.pre.jp tempa * 'tempa := }
@@ -1988,7 +1920,7 @@ FUNCTION {remove.ss.period.auth}
   if$
 
   tempb #1 #1 substring$ "}" =
-    % bst.author.post(.jp) の1文字目が"}"なら、何もしない。
+    % bst.author.post(.jp) の1文字目が" }" なら、何もしない。
     { tempa tempb * }
     % そうじゃないなら、tempa の最後の一文字と tempb の最初の一文字を比較
     { tempa #-1 #1 substring$ tempb #1 #1 substring$ =
@@ -2001,18 +1933,19 @@ FUNCTION {remove.ss.period.auth}
   if$
 }
 
+%%% \bysame (or \bysamejp) を挿入。
 FUNCTION {insert.bysame}
 { 'zz := 
   bst.pbibtex.version #0 =
   bst.pbibtex.version #2 = or
     { is.kanji.entry.author
-       { " \bysamejp{} " }
-       { " \bysame{} " }
+        { " \bysamejp{} " }
+        { " \bysame{} " }
       if$
     }
     { zz check.kanji.str.sub
-       { " \bysamejp{} " }
-       { " \bysame{} " }
+        { " \bysamejp{} " }
+        { " \bysame{} " }
       if$
     }
   if$
@@ -2022,12 +1955,12 @@ FUNCTION {insert.bysame}
 % この関数は bst.use.bysame が 2 のときのみ利用する。
 FUNCTION {compare.names.jecon}
 % <一個前の author> <現在の author> を引数にとる。
-{ 's :=
-  'tempa :=
+{ 's :=		% 1つ前の author
+  'tempa :=	% 現在の author
 
-%   "author = " author * "\\" * write$ newline$ % For debug
-%   "current author = " s * "\\" * write$ newline$ % For debug
-%   "prev.author = " tempa * "\\" * write$ newline$ % For dedug
+%   "author = " author * "\\" * debug.write debug.newline % For debug
+%   "current author = " s * "\\" * debug.write debug.newline % For debug
+%   "prev.author = " tempa * "\\" * debug.write debug.newline % For dedug
 
   tempa num.names$ 'len1.jecon :=  % len1 = the number of previous authors
   s num.names$ 'len2.jecon :=	   % len2 = the number of current authors
@@ -2036,7 +1969,7 @@ FUNCTION {compare.names.jecon}
 % len1 -> min{the number of previous authors, the number of current authors}
   len1.jecon len2.jecon >
     { len2.jecon 'len1.jecon := }
-    { }
+    'skip$
   if$
 
 % start with an empty string, then while the components are the same
@@ -2051,7 +1984,7 @@ FUNCTION {compare.names.jecon}
 	% 等しいとき
 	{ #1 i.jecon <
 	    { " and " * }	% bysame で省略する著者の前につく and 
-	    { }
+	    'skip$
 	  if$
 	  s insert.bysame *
 	  i.jecon #1 + 'i.jecon := }
@@ -2061,10 +1994,9 @@ FUNCTION {compare.names.jecon}
     }
   while$
 
-  jecon.debug #0 = not % for debug
-     { "i.jecon = " i.jecon int.to.str$ * "\\" * write$ }
-     'skip$
-  if$
+  % For debug
+  "i.jecon = " i.jecon int.to.str$ * "\\" * debug.write
+
   % i.jecon には「prev.author と等しい author の数 + 1」が入っている。
 
 % add the rest of the second string
@@ -2080,39 +2012,7 @@ FUNCTION {compare.names.jecon}
   while$
 }
 
-%%% author の整形
-FUNCTION {format.authors}
-{ author empty$
-    { "" }
-    { bst.use.bysame #2 =
-	% 2 のタイプの bysame を利用するとき。
-	{ prev.author.jecon author compare.names.jecon 's :=
-
-	  jecon.debug #0 = not % for debug
-	    { "prev.author.jecon = \texttt{" prev.author.jecon * "}\\" * write$
-	      "\noindent s = \texttt{" s * "}\\" * write$
-	    }
-	    'skip$
-	  if$
-
-	  % prev.author.jecon に現在の author を代入しておく
-	  author 'prev.author.jecon :=
-	}
-	% bysame を利用しないか、1 のタイプの bysame を利用するときは author を
-	% s に代入。
-	{ author 's := }
-      if$
-      % extra.label.bysame に bysame という値が入っているか？
-      extra.label.bysame "bysame" =
-	% Yes なら bysame を挿入。
-	{ author insert.bysame }
-	% No なら ? を返す。
-	{ author s remove.ss.period.auth }
-      if$
-    }
-  if$
-}
-
+%%% authors の出力
 FUNCTION {format.output.authors}
 { author empty$
     'skip$
@@ -2120,12 +2020,9 @@ FUNCTION {format.output.authors}
 	% 2 のタイプの bysame を利用するとき。
 	{ prev.author.jecon author compare.names.jecon 's :=
 
-	  jecon.debug #0 = not % for debug
-	    { "prev.author.jecon = \texttt{" prev.author.jecon * "}\\" * write$
-	      "\noindent s = \texttt{" s * "}\\" * write$
-	    }
-	    'skip$
-	  if$
+          % For debug
+	  "prev.author.jecon = \texttt{" prev.author.jecon * "}\\" * debug.write
+	  "\noindent s = \texttt{" s * "}\\" * debug.write
 
 	  % prev.author.jecon に現在の author を代入しておく
 	  author 'prev.author.jecon :=
@@ -2146,18 +2043,17 @@ FUNCTION {format.output.authors}
   if$
 }
 
-%%% editor
+%%% editor の出力
 FUNCTION {format.output.editors}
 { editor empty$
     'skip$
     { bst.use.bysame #2 =
 	{ prev.author.jecon editor compare.names.jecon 's :=
-	  jecon.debug #0 = not
-	    { "prev.author.jecon = \texttt{" prev.author.jecon * "}\\" * write$ % for debug
-	      "\noindent s = \texttt{" s * "}\\" * write$ % for debug
-	    }
-	    'skip$
-	  if$
+
+          % For debug
+	  "prev.author.jecon = \texttt{" prev.author.jecon * "}\\" * debug.write
+	  "\noindent s = \texttt{" s * "}\\" * debug.write
+
 	  editor 'prev.author.jecon :=
 	}
 	{ editor 's := }
@@ -2182,45 +2078,6 @@ FUNCTION {format.output.editors}
         }
       if$
       output.field
-    }
-  if$
-}
-
-%%% editor の整形
-FUNCTION {format.editors}
-{ editor empty$
-    { "" }
-    { bst.use.bysame #2 =
-	{ prev.author.jecon editor compare.names.jecon 's :=
-	  jecon.debug #0 = not
-	    { "prev.author.jecon = \texttt{" prev.author.jecon * "}\\" * write$ % for debug
-	      "\noindent s = \texttt{" s * "}\\" * write$ % for debug
-	    }
-	    'skip$
-	  if$
-	  editor 'prev.author.jecon :=
-	}
-	{ editor 's := }
-      if$
-      % extra.label.bysame に bysame という値が入っているか？
-      extra.label.bysame "bysame" =
-	% Yes なら bysame.check に 1 を代入し、bysame を挿入
-	{ #1 'bysame.check :=
-	  editor insert.bysame }
-	{ editor s remove.ss.period.auth }
-      if$
-      editor num.names$ #1 >
-        { editor check.kanji.str
-            { bst.editor.jp * }
-            { bst.editors * }
-          if$
-        }
-        { editor check.kanji.str
-            { bst.editor.jp * }
-            { bst.editor * }
-          if$
-        }
-      if$
     }
   if$
 }
@@ -2262,7 +2119,7 @@ FUNCTION {format.editors.alt}
   if$
 }
 
-%%% format.in.ed.booktitle 用
+%%% format.output.in.ed.booktitle 用
 FUNCTION {format.editors.x}
 { editor empty$
     { "" }
@@ -2382,18 +2239,7 @@ FUNCTION {format.title.sub}
   if$
 }
 
-FUNCTION {format.title}
-{ title empty$
-  bst.hide.title #0 = not or
-    { "" }
-    { is.kanji.entry
-      { bst.title.pre.jp title * bst.title.post.jp * }
-      { format.title.sub remove.irrelevant.period.comma }
-     if$
-    }
-  if$
-}
-
+%%% title の出力
 FUNCTION {format.output.title}
 { title empty$
     { "there's no title in " cite$ * warning$ }
@@ -2411,23 +2257,7 @@ FUNCTION {format.output.title}
 
 %%% jtitle の整形
 FUNCTION {format.jtitle}
-{ jtitle empty$
-    { "" }
-    { bst.book.pre.jp jtitle * bst.book.post.jp * }
-  if$
-}
-
-%%% misc の title の処理
-FUNCTION {format.misc.title}
-{ title empty$
-    { "" }
-    { is.kanji.entry
-      { bst.title.pre.jp title * bst.title.post.jp * }
-      { bst.title.pre title * bst.title.post * }
-     if$
-    }
-  if$
-}
+{ bst.book.pre.jp jtitle * bst.book.post.jp * }
 
 % - を -- にする関数 (pages 用)
 FUNCTION {n.dashify}
@@ -2595,7 +2425,6 @@ FUNCTION{convert.num}
 }
 
 %% 変数定義
-STRINGS { da db dc dd }
 %% pages の "--" を "-" に変換する．
 FUNCTION {remove.duplicate.dash}
 { 'da :=
@@ -2633,24 +2462,7 @@ FUNCTION{convert.num.pages}
  tt
 }
 
-%%% year の処理
-FUNCTION {format.year}
-{ year empty$
-    { "there's no year in " cite$ * warning$
-      "" }
-    { is.kanji.entry
-	{ bst.kansuji.jp #0 =
-	   { bst.year.pre.jp year * extra.label * bst.year.post.jp * }
-	   { bst.year.pre.jp year convert.year.kanji *
-	     extra.label convert.alphabet.zenkaku * bst.year.post.jp * }
-	  if$
-	}
-	{ bst.year.pre year * extra.label * bst.year.post * }
-      if$
-    }
-  if$
-}
-
+%%% year を出力
 FUNCTION {format.output.year}
 { year empty$
     { "there's no year in " cite$ * warning$ }
@@ -2664,18 +2476,6 @@ FUNCTION {format.output.year}
 	{ bst.year.pre year * extra.label * bst.year.post * }
       if$
       output.field
-    }
-  if$
-}
-
-%%% book の page の処理
-FUNCTION {format.book.pages}
-{ pages empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.page.pre.jp pages convert.num.pages * bst.page.post.jp * }
-	{ bst.pages.pre pages * bst.pages.post * }
-      if$
     }
   if$
 }
@@ -2704,28 +2504,7 @@ FUNCTION {either.or.check}
   if$
 }
 
-%%% book の volume の整形
-FUNCTION {format.bvolume}
-{ volume empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.volume.pre.jp volume convert.num * bst.volume.post.jp * }
-	{ bst.volume.pre volume * bst.volume.post * }
-      if$
-      series empty$
-	'skip$
-	%% series もあるとき
-	{ is.kanji.entry
-	   { bst.series.pre.jp * series convert.num * bst.series.post.jp * }
-	   { " of " * series * bst.series.post * }
-	  if$
-	}
-      if$
-    }
-  if$
-}
-
-%%% volume for book
+%%% book 用の volume を出力
 FUNCTION {format.output.bvolume}
 { volume empty$
     'skip$
@@ -2747,54 +2526,7 @@ FUNCTION {format.output.bvolume}
   if$
 }
 
-%%% series の出力
-FUNCTION {output.series}
-{ series empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.series.pre.jp series convert.num * bst.series.post.jp * }
-	{ bst.series.pre series * bst.series.post * }
-      if$
-    }
- if$
-}
-
-%%% number と series を出力
-FUNCTION {format.number.series}
-{ volume empty$
-    { number empty$
-      bst.hide.number #0 = not or
-	% number is empty
-	{ series empty$
-	    { "" }
-	    % series is not empty.
-	    { output.series }
-	  if$
-	}
-	% number is not empty$
-	{ series empty$
-	    { is.kanji.entry
-		{ bst.number.pre.jp number convert.num * bst.number.post.jp * }
-		{ bst.number.pre number * bst.number.post * }
-	      if$
-	    }
-	    % series is not empty.  日本語と英語で順序逆にする。
-	    { is.kanji.entry
-		{ bst.series.pre.jp series convert.num * bst.series.post.jp *
-		  bst.number.pre.jp * number convert.num * bst.number.post.jp * }
-		{ bst.in bst.series.pre * series * bst.series.post *
-		  bst.number.pre * number * bst.number.post * }
-	      if$
-	    }
-	  if$
-	}
-      if$
-    }
-    { "" }
-  if$
-}
-
-%%% series
+%%% series を出力
 FUNCTION {format.output.series}
 { series empty$
     'skip$
@@ -2807,7 +2539,7 @@ FUNCTION {format.output.series}
  if$
 }
 
-%%% number and series
+%%% number & seriesを一括で出力
 FUNCTION {format.output.number.series}
 { number empty$
   bst.hide.number #0 = not or
@@ -3026,23 +2758,7 @@ FUNCTION {convert.month.kanji}
   if$
 }
 
-%%% edition の整形
-FUNCTION {format.edition}
-{ edition empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.edition.pre.jp edition convert.num * bst.edition.post.jp * }
-	{ output.state mid.sentence =
-	    { bst.edition.pre convert.edition "l" change.case$ * bst.edition.post * }
-	    { bst.edition.pre convert.edition "t" change.case$ * bst.edition.post * }
-	  if$
-	}
-      if$
-    }
-  if$
-}
-
-%%% edition
+%%% edition の出力
 FUNCTION {format.output.edition}
 { edition empty$
     'skip$
@@ -3059,20 +2775,7 @@ FUNCTION {format.output.edition}
   if$
 }
 
-%%% month の整形。
-FUNCTION {format.month}
-{ month empty$
-  % bst.hide.month が非ゼロなら month は出力せず
-  bst.hide.month #0 = not or
-    { "" }
-    { is.kanji.entry
-	{ bst.month.pre.jp month convert.month convert.month.kanji convert.num * bst.month.post.jp * }
-	{ bst.month.pre month convert.month * bst.month.post * }
-      if$
-    }
-  if$
-}
-
+%%% month の出力
 FUNCTION {format.output.month}
 { month empty$
   bst.hide.month #0 = not or
@@ -3087,16 +2790,7 @@ FUNCTION {format.output.month}
   if$
 }
 
-%%% year と month を一緒に処理するためのもの。
-FUNCTION {format.date}
-{ is.kanji.entry
-   %% 日本語文献 -> 年 - 月
-   { format.year format.month * }
-   %% 英語 -> 月 - 年
-   { format.month format.year * }
-  if$
-}
-
+%%% year & date の出力
 FUNCTION {format.output.date}
 { month empty$
     { year empty$
@@ -3139,6 +2833,7 @@ FUNCTION { multi.page.check }
   multiresult
 }
 
+%%% pages の整形
 FUNCTION {format.pages}
 { is.kanji.entry
     { pages multi.page.check
@@ -3154,6 +2849,7 @@ FUNCTION {format.pages}
   if$
 }
 
+%%% pages の出力
 FUNCTION {format.output.pages}
 { pages empty$
     'skip$
@@ -3161,41 +2857,7 @@ FUNCTION {format.output.pages}
  if$
 }
 
-% %%% pages の整形。
-% FUNCTION {format.pages}
-% { pages empty$
-%     { "" }
-%     { is.kanji.entry
-% 	{ pages multi.page.check
-% 	  { bst.page.pre.jp pages n.dashify convert.num.pages * bst.page.post.jp * }
-% 	  { bst.page.pre.jp pages convert.num.pages * bst.page.post.jp * }
-% 	 if$
-% 	}
-% 	{ pages multi.page.check
-% 	  { bst.pages.pre pages n.dashify tie.or.space.connect * bst.pages.post }
-% 	  { bst.page.pre pages tie.or.space.connect * bst.page.post }
-% 	 if$
-% 	}
-%        if$
-%    }
-%  if$
-% }
-
-%%% number を整形
-FUNCTION {format.number}
-{ number empty$
-  % bst.hide.number が非ゼロなら number は出力せず
-  bst.hide.number #0 = not or
-    { "" }
-    { is.kanji.entry
-	{ bst.number.pre.jp number convert.num * bst.number.post.jp * }
-	{ bst.number.pre number * bst.number.post * }
-      if$
-    }
-  if$
-}
-
-%%% number
+%%% number の出力
 FUNCTION {format.output.number}
 { number empty$
   bst.hide.number #0 = not or
@@ -3209,7 +2871,7 @@ FUNCTION {format.output.number}
   if$
 }
 
-%%% volume
+%%% volume の出力
 FUNCTION {format.output.volume}
 { volume empty$
     'skip$
@@ -3221,104 +2883,7 @@ FUNCTION {format.output.volume}
   if$
 }
 
-%%% volume を整形
-FUNCTION {format.volume}
-{ volume empty$
-    'skip$
-    { is.kanji.entry
-	{ bst.volume.pre.jp volume convert.num * bst.volume.post.jp * }
-	{ bst.volume.pre volume * bst.volume.post * }
-      if$
-      bst.year.position #3 =
-	{ format.year * }
-	'skip$
-      if$
-    }
-  if$
-}
-
-%%% number、page を出力
-FUNCTION {format.number.pages}
-{ number empty$
-    { format.pages }
-    { format.number format.pages * }
-  if$
-}
-
-%%% volume、page を出力
-FUNCTION {format.volume.pages}
-{ volume empty$
-    { format.pages }
-    { format.volume format.pages * }
-  if$
-}
-
-%%% volume、number、page を出力
-FUNCTION {format.volume.number.pages}
-{ volume empty$
-    { number empty$
-	{ format.pages }
-	{ format.number format.pages * }
-      if$
-    }
-    { number empty$
-	{ format.volume format.pages * }
-	{ format.volume format.number * format.pages * }
-      if$
-    }
-  if$
-}
-
-% volume, number, page を一緒に処理する関数。
-FUNCTION {format.vol.num.pages}
-{ volume empty$
-    %% volume is empty.
-    { number empty$
-	%% number is empty.
-	{ pages empty$
-	    % この場合は warning を出す。
-	    { "there is no volume, number, and pages in " cite$ * warning$ "" } 
-	    { "" format.pages * }
-	 if$
-	}
-	%% number is not empty.
-	% この場合は warning を出す。
-	{ "there's a number but no volume in " cite$ * warning$
-	  format.number.pages }
-     if$
-    }
-    %% volume is not empty.
-    { number empty$
-	%% number is empty.
-	{ format.volume.pages }
-	%% number is not empty.
-	{ format.volume.number.pages }
-     if$
-    }
-  if$
-}
-
-%%% chapter の整形。
-FUNCTION {format.chapter}
-{ chapter empty$
-    { "" }
-    { type empty$
-	{ is.kanji.entry
-	    { bst.chapter.pre.jp chapter convert.num * bst.chapter.post.jp * }
-	    { bst.chapter.pre chapter tie.or.space.connect * bst.chapter.post }
-	  if$
-	}
-	{ is.kanji.entry
-	    { bst.touten.jp * type " " * chapter convert.num * }
-	    { ", " * type " " * chapter * }
-	  if$
-	}
-      if$
-    }
-  if$
-}
-
-%%% chapter
+%%% chapter の出力
 FUNCTION {format.output.chapter}
 { chapter empty$
     'skip$
@@ -3331,43 +2896,15 @@ FUNCTION {format.output.chapter}
   if$
 }
 
-%%% chapter, pages を一緒に処理する関数
-FUNCTION {format.chapter.pages}
-{ chapter empty$
-    { pages empty$
-	{ "" }
-	{ "" format.pages * }
-      if$
-    }
-    { pages empty$
-	{ "" format.chapter * }
-	{ "" format.chapter * format.pages * }
-      if$
-    }
+%%% booktitle の整形
+FUNCTION {format.btitle}
+{ is.kanji.entry
+    { bst.btitle.pre.jp booktitle * bst.btitle.post.jp * }
+    { bst.btitle.pre booktitle * bst.btitle.post * }
   if$
 }
 
-%%% editor and booktitle の整形。
-FUNCTION {format.in.ed.booktitle}
-{ booktitle empty$
-    { "" }
-    { editor empty$
-	{ is.kanji.entry
-	    { format.btitle remove.pre.comma.period }
-	    { bst.in format.btitle * }
-	  if$
-	}
-	{ is.kanji.entry
-	    { format.editors.x "" * format.btitle * }
-	    { bst.in format.editors.x * " " * format.btitle * }
-	  if$
-	}
-      if$
-    }
-  if$
-}
-
-%%% editor and booktitle
+%%% editor and booktitle の出力
 FUNCTION {format.output.in.ed.booktitle}
 { booktitle empty$
     'skip$
@@ -3392,23 +2929,7 @@ FUNCTION {format.output.in.ed.booktitle}
   if$
 }
 
-%%% translator & kanyaku の整形。
-FUNCTION {format.translator}
-{ kanyaku empty$
-   { translator empty$
-      { "" }
-      { bst.translator.pre.jp "xxx" translator format.names * bst.translator.post.jp * }
-    if$
-   }
-   { translator empty$
-      { bst.kanyaku.pre.jp "xxx" kanyaku format.names * bst.kanyaku.post.jp * }
-      { bst.kanyaku.pre.jp "xxx" kanyaku format.names * bst.kanyaku.post.jp * 
-	bst.translator.pre.jp * "xxx" translator format.names * bst.translator.post.jp * }
-     if$
-   }
-  if$
-}
-
+%%% translator & kankyaku の出力
 FUNCTION {format.output.translator}
 { kanyaku empty$
    { translator empty$
@@ -3426,19 +2947,7 @@ FUNCTION {format.output.translator}
   if$
 }
 
-%%% howpublished の整形。
-FUNCTION {format.howpublished}
-{ howpublished empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.howpublished.pre.jp howpublished * bst.howpublished.post.jp * }
-	{ bst.howpublished.pre howpublished * bst.howpublished.post * }
-      if$
-    }
-  if$
-}
-
-%%% howpublished
+%%% howpublished の出力
 FUNCTION {format.output.howpublished}
 { howpublished empty$
     'skip$
@@ -3451,19 +2960,7 @@ FUNCTION {format.output.howpublished}
   if$
 }
 
-%%% address の整形。
-FUNCTION {format.address}
-{ address empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.address.pre.jp address * bst.address.post.jp * }
-	{ bst.address.pre address * bst.address.post * }
-      if$
-    }
-  if$
-}
-
-%%% address
+%%% address の出力
 FUNCTION {format.output.address}
 { address empty$
     'skip$
@@ -3476,19 +2973,7 @@ FUNCTION {format.output.address}
   if$
 }
 
-%%% publisher の整形。
-FUNCTION {format.publisher}
-{ publisher empty$
-    { "" }
-    { is.kanji.entry 
-	{ bst.publisher.pre.jp publisher * bst.publisher.post.jp * }
-	{ bst.publisher.pre publisher * bst.publisher.post * }
-      if$
-    }
-  if$
-}
-
-%%% publisher
+%%% publisher の出力
 FUNCTION {format.output.publisher}
 { publisher empty$
     'skip$
@@ -3501,19 +2986,7 @@ FUNCTION {format.output.publisher}
   if$
 }
 
-%%% organization の整形。
-FUNCTION {format.organization}
-{ organization empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.organization.pre.jp organization * bst.organization.post.jp * }
-	{ bst.organization.pre organization * bst.organization.post * }
-      if$
-    }
-  if$
-}
-
-%%% organization
+%%% organization の出力
 FUNCTION {format.output.organization}
 { organization empty$
     'skip$
@@ -3527,21 +3000,6 @@ FUNCTION {format.output.organization}
 }
 
 %% publisher と address を出力する関数
-FUNCTION {output.publisher.address}
-{ address empty$
-    { format.publisher "publisher" output.check.nocomma }
-    % 日本語、英語で publisher と address の順序が逆
-    { is.kanji.entry
-	{ format.publisher "publisher" output.check.nocomma
-	  format.address output.nocomma }
-	{ format.address output.nocomma
-	  format.publisher "publisher" output.check.nocomma }
-      if$
-    }
-  if$
-}
-
-%% publisher and address
 FUNCTION {format.output.publisher.address}
     { bst.address.position #0 = 
     { format.output.address
@@ -3552,64 +3010,6 @@ FUNCTION {format.output.publisher.address}
 }
 
 %% address, organization, publisher を出力する関数
-FUNCTION {output.address.organization.publisher}
-{ address empty$
-    %% address is empty
-    { organization empty$
-	%% organization is empty
-	{ publisher empty$
-	    'skip$
-	    { format.publisher "publisher" output.check.nocomma }
-	  if$
-	}
-	%% organization is not empty
-	{ publisher empty$
-	    { format.organization "organization" output.check.nocomma }
-	    { format.organization "organization" output.check.nocomma
-	      format.publisher "publisher" output.check.nocomma }
-	  if$
-	}
-     if$
-    }
-    %% address is not empty
-    { organization empty$
-	%% organization is empty
-	{ publisher empty$
-	    %% publisher is empty
-	    { format.address output.nocomma }
-	    %% publisher is not empty
-	    { is.kanji.entry
-		{ format.publisher "publisher" output.check.nocomma
-		  format.address output.nocomma }
-		{ format.address output.nocomma
-		  format.publisher "publisher" output.check.nocomma }
-	      if$
-	    }
-	 if$
-	}
-	%% organization is not empty
-	{ publisher empty$
-	    %% publisher is empty
-	    { format.organization "organization" output.check.nocomma
-	      format.address output.nocomma }
-	    %% publisher is not empty
-	    { is.kanji.entry
-		{ format.organization "organization" output.check.nocomma
-		  format.publisher "publisher" output.check.nocomma
-		  format.address output.nocomma }
-		{ format.organization "organization" output.check.nocomma
-		  format.address output.nocomma
-		  format.publisher "publisher" output.check.nocomma }
-	      if$
-	    }
-	 if$
-	}
-     if$
-    }
-  if$
-}
-
-%% address, organization, publisher
 FUNCTION {format.output.address.organization.publisher}
 { format.output.organization
   bst.address.position #0 = 
@@ -3631,6 +3031,7 @@ FUNCTION {empty.misc.check}
   if$
 }
 
+%%% thesis type の整形
 FUNCTION {format.thesis.type}
 { type empty$
     'skip$
@@ -3638,9 +3039,14 @@ FUNCTION {format.thesis.type}
   if$
 }
 
+%%% technical report number の整形
 FUNCTION {format.tr.number}
 { type empty$
-    { "Technical Report" }
+    { is.kanji.entry
+	{ bst.techrep.jp }
+	{ bst.techrep }
+      if$
+    }
     { " " type * }
   if$
   number empty$
@@ -3649,15 +3055,7 @@ FUNCTION {format.tr.number}
   if$
 }
 
-%%% phdthesis の整形
-FUNCTION {format.phd}
-{ is.kanji.entry
-    { bst.phdthesis.jp }
-    { bst.phdthesis }
-  if$
-}
-
-%%% phdthesis
+%%% phdthesis の出力
 FUNCTION {format.output.phd}
 { is.kanji.entry
     { bst.phdthesis.jp format.thesis.type }
@@ -3666,15 +3064,7 @@ FUNCTION {format.output.phd}
   output.field
 }  
 
-%%% mastersthesis の整形
-FUNCTION {format.mthesis}
-{ is.kanji.entry
-    { bst.mthesis.jp }
-    { bst.mthesis }
-   if$
-}
-
-%%% mastersthesis
+%%% mastersthesis の出力
 FUNCTION {format.output.mthesis}
 { is.kanji.entry
     { bst.mthesis.jp format.thesis.type }
@@ -3683,19 +3073,7 @@ FUNCTION {format.output.mthesis}
   output.field
 }  
 
-%%% school の整形
-FUNCTION {format.school}
-{ school empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.school.pre.jp school * bst.school.post.jp * }
-	{ bst.school.pre school * bst.school.post * }
-      if$
-    }
-  if$
-}
-
-%%% school
+%%% school の出力
 FUNCTION {format.output.school}
 { school empty$
     'skip$
@@ -3708,19 +3086,7 @@ FUNCTION {format.output.school}
   if$
 }
 
-%%% institution の整形
-FUNCTION {format.institution}
-{ institution empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.institution.pre.jp institution * bst.institution.post.jp * }
-	{ bst.institution.pre institution * bst.institution.post * }
-      if$
-    }
-  if$
-}
-
-%%% institution
+%%% institution の出力
 FUNCTION {format.output.institution}
 { institution empty$
     'skip$
@@ -3733,56 +3099,7 @@ FUNCTION {format.output.institution}
   if$
 }
 
-%%% hoyakusho の整形
-FUNCTION {format.hoyakusho}
-{ jauthor empty$
-  jkanyaku empty$
-  jtitle empty$
-  jpublisher empty$
-  jyear empty$
-  jnote empty$
-  and and and and and
-    { "" }
-    {
-      is.kanji.entry
-	{ bst.touten.jp }
-	{ ", " }
-      if$
-      bst.hoyakusho.pre.jp * 
-      jauthor empty$
-	{ jkanyaku empty$
-	    { "" * }
-	    { "xxx" jkanyaku format.names * "監訳" * }
-	  if$
-	}
-	{ "xxx" jauthor format.names * "訳" *
-	  jkanyaku empty$
-	    { "" * }
-	    { bst.touten.jp * "xxx" jkanyaku format.names * "監訳" * }
-	  if$
-	}
-      if$
-      jtitle empty$
-	{ "" * }
-	{ bst.touten.jp format.jtitle * bst.touten.jp * remove.irrelevant.pre.kutoten * }
-      if$
-      jpublisher empty$
-	{ "" * }
-	{ jpublisher * bst.touten.jp * }
-      if$
-      jyear empty$
-	{ "" * }
-	{ "" * jyear convert.year.kanji * "年" * bst.touten.jp * }
-      if$
-      jnote empty$
-        { "" * }
-        { "" * jnote *}
-      if$
-      remove.irrelevant.kutoten bst.hoyakusho.post.jp *
-    }
-  if$
-}
-
+%%% 邦訳書の情報の出力
 FUNCTION {format.output.hoyakusho}
 { jauthor empty$
   jkanyaku empty$
@@ -3833,6 +3150,7 @@ FUNCTION {format.output.hoyakusho}
   if$
 }
 
+%%% url の出力
 FUNCTION {format.output.url}
 { type$ "online" = bst.show.url or
     { is.kanji.entry
@@ -3854,31 +3172,7 @@ FUNCTION {format.output.url}
   if$
 }
 
-FUNCTION {format.url}
-{ url empty$
-    { "" }
-    { type$ "online" = bst.show.url or
-	{ is.kanji.entry
-	    { bst.url.pre.jp url * bst.url.post.jp *
-		access empty$
-		    { "" * }
-		    { bst.access.pre.jp * access * bst.access.post.jp * }
-		if$
-	    }
-	    { bst.url.pre url * bst.url.post *
-		access empty$
-		    { "" * }
-		    { bst.access.pre * access * bst.access.post * }
-		if$
-	    }
-	  if$
-	}
-	{ "" }
-      if$
-    }
-  if$
-}
-
+%%% DOI の出力
 FUNCTION {format.output.doi}
 { bst.show.doi
     { is.kanji.entry
@@ -3890,37 +3184,7 @@ FUNCTION {format.output.doi}
   if$
 }
 
-FUNCTION {format.doi}
-{ doi empty$ bst.show.doi not or
-    { "" }
-    { is.kanji.entry
-	{ bst.doi.pre.jp doi * bst.doi.post.jp * }
-	{ bst.doi.pre doi * bst.doi.post * }
-      if$
-    }
-  if$
-}
-
-FUNCTION {format.url.doi}
-{ url empty$
-    { format.doi }
-    { doi empty$
-	{ format.url }
-	{ bst.url.doi #0 =
-	    { format.url output.nocomma
-	      format.doi }
-	    { bst.url.doi #1 =
-		{ format.url } 
-		{ format.doi }
-	      if$
-	    }
-	  if$
-	}
-      if$
-    }
-  if$
-}
-
+%%% URL & DOI の出力
 FUNCTION {format.output.url.doi}
 { url empty$
     { doi empty$
@@ -3945,17 +3209,7 @@ FUNCTION {format.output.url.doi}
   if$
 }
 
-FUNCTION {format.note}
-{ note empty$
-    { "" }
-    { is.kanji.entry
-	{ bst.note.pre.jp note * bst.note.post.jp * }
-	{ bst.note.pre note * bst.note.post * }
-      if$
-    }
-  if$
-}
-
+%%% note の出力
 FUNCTION {format.output.note}
 { note empty$
     'skip$
@@ -4014,8 +3268,7 @@ FUNCTION {output.number.index}
 
 FUNCTION {output.bibitem}
 { bst.harvarditem.off
-    { before.all 'output.state :=
-      "" }
+    { "" }
     { newline$
       "\harvarditem[" write$
       alabel write$			% alabel が abbreviated citation
@@ -4030,26 +3283,17 @@ FUNCTION {output.bibitem}
       "}{" write$
       cite$ write$			% cite$ で keyword がプッシュされる。
       "}" write$
-      before.all 'output.state :=
-    
       % 以下は、number index を付ける場合の処理
       output.number.index
     }
   if$
+  before.all 'output.state :=
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	 エントリーのタイプ別の処理
 
 % FUNCTION {article} は article タイプのエントリーを処理するための関数。
-
-FUNCTION {test}
-{
-  output.bibitem
-  author output.nocomma
-  year output.nocomma
-  fin.entry
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	 article の処理
@@ -4378,7 +3622,6 @@ FUNCTION {online}
     'skip$
   if$
   format.output.title
-  remove.irrelevant.kutoten
   bst.year.position #0 = not
     { format.output.date }
     { format.output.month }
@@ -4400,7 +3643,6 @@ FUNCTION {misc}
   if$
   format.output.title
   format.output.howpublished
-  remove.irrelevant.kutoten
   bst.year.position #0 = not
     { format.output.date }
     { format.output.month }
@@ -4434,14 +3676,12 @@ MACRO {dec} {"December"}
 READ
 
 FUNCTION {set.sort.name.mess}
-{ jecon.debug #0 = not
-    { "\textbf{Iteration of set.sort.name}\\" write$
-      newline$ }
-    'skip$
- if$
+{ "\noindent \textbf{Iteration of set.sort.name}\\" debug.write
+  "sort.name の値 → sortname or yomi フィールドが設定されていればその値。なければ空\\ \\" debug.write
+  newline$
 }
 
-%%% author or editor が日本語かどうかを判断するための関数
+%%% sortname or yomi フィールドの値を sort.name に代入。
 FUNCTION {set.sort.name}
 { sortname empty$ not 
     { sortname 'sort.name := }
@@ -4451,10 +3691,10 @@ FUNCTION {set.sort.name}
       if$
     }
   if$
-  jecon.debug #0 = not % for debug
-     { "\noindent sort.name = \texttt{" sort.name * "}\\" * write$ }
-     'skip$
-  if$
+
+  % For debug
+  "\noindent sort.name = \texttt{" sort.name * "}\\" * debug.write
+
 }
 
 %%% 全てのエントリーに対し実行
@@ -4505,7 +3745,6 @@ ITERATE {set.is.kanji.entry.author}
 ITERATE {set.is.kanji.entry}
 
 %%% 引用順を保持する変数
-INTEGERS { order.num }
 FUNCTION {initialize.order.num}
 {
   #1 'order.num :=
@@ -4959,15 +4198,13 @@ FUNCTION {calc.cyear}
   year 'cyear :=
   " " year convert.year * field.or.null *
   sortify 'sort.label :=
+
   % For debug
-  jecon.debug #0 = not
-    { "sort.label = ``\texttt{" write$
-      sort.label write$
-      "}''\\" write$
-      newline$
-    }
-    'skip$
- if$
+  "sort.label = ``\texttt{" debug.write
+  sort.label debug.write
+  "}''\\" debug.write
+  debug.newline
+
 }
 
 FUNCTION {calc.sort.label.abb}
@@ -4985,14 +4222,13 @@ FUNCTION {calc.sort.label.abb}
   if$
   s sort.format.names.abb 't := 
   t sortify " " * year convert.year * 'sort.label.abb :=
-  jecon.debug #0 = not
-    { "sort.label.abb = ``\texttt{" write$
-      sort.label.abb write$
-      "}''\\" write$
-      newline$
-    }
-    'skip$
-  if$
+
+  % For debug
+  "sort.label.abb = ``\texttt{" debug.write
+  sort.label.abb debug.write
+  "}''\\" debug.write
+  debug.newline
+
 }
 
 %%% flabel を計算．flabel は引用部分の著者名を保持する変数．reference 部分には
@@ -5022,15 +4258,13 @@ FUNCTION {calc.flabel}
       if$
     }
   if$
+
   % For debug
-  jecon.debug #0 = not
-    { "flabel = ``\texttt{" write$
-      flabel write$
-      "}''\\" write$
-      newline$
-    }
-    'skip$
- if$
+  "flabel = ``\texttt{" debug.write
+  flabel debug.write
+  "}''\\" debug.write
+  debug.newline
+
 }
 
 %%% alabel を計算．alabel は引用部分の著者名 (短縮形表示) を保持する変数．
@@ -5051,15 +4285,13 @@ FUNCTION {calc.alabel}
     }
   if$
   'alabel :=
+
   % For debug
-  jecon.debug #0 = not
-    { "alabel = ``\texttt{" write$
-      alabel write$
-      "}''\\" write$
-      newline$
-    }
-    'skip$
- if$
+  "alabel = ``\texttt{" debug.write
+  alabel debug.write
+  "}''\\" debug.write
+  debug.newline
+
 }
 
 %%% ソート用に title を加工
@@ -5072,40 +4304,6 @@ FUNCTION {sort.format.title}
   chop.word
   sortify
   #1 global.max$ substring$
-}
-
-FUNCTION {author.organization.sort}
-{ author empty$
-    { organization empty$
-	{ key empty$
-	    { "to sort, need author, organization, or key in " cite$ * warning$
-	      ""
-	    }
-	    { key sortify }
-	  if$
-	}
-	{ "The " #4 organization chop.word sortify }
-      if$
-    }
-    { author sort.format.names }
-  if$
-}
-
-FUNCTION {editor.organization.sort}
-{ editor empty$
-    { organization empty$
-	{ key empty$
-	    { "to sort, need editor, organization, or key in " cite$ * warning$
-	      ""
-	    }
-	    { key sortify }
-	  if$
-	}
-	{ "The " #4 organization chop.word sortify }
-      if$
-    }
-    { editor sort.format.names }
-  if$
 }
 
 %%% 数字が一文字 (つまり, 1,...,9等) ならその前に 00 を，数字が二文字
@@ -5274,16 +4472,14 @@ FUNCTION {presort.one}
   *
   #1 entry.max$ substring$
   'sort.key$ :=
+
   % For debug．デバッグするときにはこの関数で作成される sort.key$の中身を出力
   % する．
-  jecon.debug #0 = not
-    { "\verb|sort.key$| = ``\texttt{" write$
-      sort.key$ write$
-      "}''\\" write$
-      newline$
-    }
-    'skip$
-  if$
+  "\verb|sort.key$| = ``\texttt{" debug.write
+  sort.key$ debug.write
+  "}''\\" debug.write
+  debug.newline
+
 }
 
 %%% これは absorder -> author -> year -> order -> month -> title で sort.key$ を
@@ -5296,13 +4492,7 @@ FUNCTION {presort.two}
   if$
   bst.sort.year #0 = not
     %% year をキーとして並べるための設定．
-    { is.kanji.entry
-	%% 日本語文献
-	{ year convert.year * }
-	%% 英語文献
-	{ year convert.year * }
-      if$
-    }
+    { year convert.year * }
     'skip$
   if$
   bst.sort.entry.type #0 = not
@@ -5330,9 +4520,7 @@ FUNCTION {presort.two}
       if$
     }
   if$
-  " " *
-  sort.label.abb *
-  " " *	 
+  " " * sort.label.abb * " " *
   is.kanji.entry
     { bst.mixed.order #0 =
        { "" }
@@ -5380,57 +4568,46 @@ FUNCTION {presort.two}
   *
   #1 entry.max$ substring$
   'sort.key$ :=
+
   % For debug．デバッグするときにはこの関数で作成される sort.key$の中身を出力
   % する．
-  jecon.debug #0 = not
-    { "\verb|sort.key$| = ``\texttt{" write$
-      sort.key$ write$
-      "+}''\\" write$
-      newline$
-    }
-    'skip$
- if$
+  "\verb|sort.key$| = ``\texttt{" debug.write
+  sort.key$ debug.write
+  "+}''\\" debug.write
+  debug.newline
+
 }
 
 %%% 以下はデバッグ用のコード
 FUNCTION {calc.alabel.mess}
-{ jecon.debug #0 = not
-    { "\textbf{Iteration of calc.alabel}\\" write$
-      newline$ }
-    'skip$
- if$
+{ "\\ \noindent \textbf{Iteration of calc.alabel}\\" debug.write
+  "alabel: 引用部分で利用される author (editor) 名 (省略形)を保持する変数．\\ \\" debug.write
+  debug.newline
 }
 
 FUNCTION {calc.flabel.mess}
-{ jecon.debug #0 = not
-    { "\textbf{Iteration of calc.flabel}\\" write$
-      newline$ }
-    'skip$
- if$
+{ "\\ \noindent \textbf{Iteration of calc.flabel}\\" debug.write
+  "flabel: 引用部分で利用される author (editor) 名（full）を保持する変数．\\ \\" debug.write
+  debug.newline
 }
 
 FUNCTION {calc.sort.label.abb.mess}
-{ jecon.debug #0 = not
-    { "\textbf{Iteration of calc.sort.label.abb}\\" write$
-      newline$ }
-    'skip$
- if$
+{ "\\ \noindent \textbf{Iteration of calc.sort.label.abb}\\" debug.write
+  "sort.label.abb: 文献のソートのための author (editor) 名（省略形）を保持する変数\\ \\" debug.write
+  debug.newline
 }
 
 FUNCTION {presort.one.mess}
-{ jecon.debug #0 = not
-    { "\textbf{Iteration of presort.one (ソート1回目)}\\" write$
-      newline$ }
-    'skip$
- if$
+{ "\\ \noindent \textbf{Iteration of presort.one (ソート1回目)}\\" debug.write
+  "sort.label: 文献のソートのための author (editor) 名を保持する変数．\\" debug.write
+  "sort.key\$: 文献のソート (並べ替え) のために利用される文字列を保持する．\\ \\" debug.write
+  debug.newline
 }
 
 FUNCTION {presort.two.mess}
-{ jecon.debug #0 = not
-    { "\textbf{Iteration of presort.two (ソート2回目)}\\" write$
-      newline$ }
-    'skip$
- if$
+{ "\\ \noindent \textbf{Iteration of presort.two (ソート2回目)}\\" debug.write
+  "sort.key\$: 文献のソート (並べ替え) のために利用される文字列を保持する．\\ \\" debug.write
+  debug.newline
 }
 %%% デバッグ用コードここまで．
 
@@ -5452,10 +4629,10 @@ ITERATE {presort.one}
 
 %%% sort.key$ を利用して文献の並べ替え．一回目の並べ替え．
 
-% これは仮の並び順を決めるためのもので，最終的にはもう一度並べ替えをおこなう．
-% 二回並び替えをするのは bst.mixed.order で指定する "同じ年に同じ著者の英語、
-% 日本語文献の両方があり、かつ日本語文献の yomi に英語文献の著者と同じものが指
-% 定してあるときに、両者を混ぜて表示する"に対応するため．
+% これは仮の並び順を決めるためのもので，最終的にはもう一度並べ替えをおこなう．二
+% 回並び替えをするのは bst.mixed.order で指定する「同じ年に同じ著者の英語、日本
+% 語文献の両方があり、かつ日本語文献の yomi に英語文献の著者と同じものが指定して
+% あるときに、両者を混ぜて表示する」に対応するため．
 
 SORT
 
@@ -5466,7 +4643,7 @@ FUNCTION {forward.pass}
       last.extra.num int.to.chr$ 'extra.label :=
     }
     { "a" chr.to.int$ 'last.extra.num :=
-     "" 'extra.label :=
+      "" 'extra.label :=
       sort.label.abb 'last.sort.label :=
     }
   if$
@@ -5477,8 +4654,8 @@ FUNCTION {forward.pass}
     % this.author に現在の author (or editor) を代入
     { author empty$
 	{ editor empty$
-	  { "" }
-	  'format.editors.alt
+	    { "" }
+	    'format.editors.alt
 	  if$
 	}
 	'format.authors.alt
@@ -5500,7 +4677,7 @@ FUNCTION {forward.pass}
   if$
 }
 
-%%% 同じ年、同じ著者の文献が複数あるときの year に a を付けるための関数
+%%% 同じ年に同じ著者の文献が複数あるときの year に alphabet を付けるための関数
 FUNCTION {reverse.pass}
 { next.extra "b" =
     { "a" 'extra.label := }
@@ -5508,7 +4685,7 @@ FUNCTION {reverse.pass}
   if$
   extra.label empty$ not
     { cyear extra.label * }
-    { cyear "" * }
+    { cyear }
   if$
   "" field.or.null *
   'cyear :=
@@ -5519,14 +4696,14 @@ FUNCTION {reverse.pass}
 %%% bysame を付ける。
 ITERATE {forward.pass}
 
-%%% 同じ著者の同じ年の文献が複数あるとき a を付ける。
+%%% 同じ著者の同じ年の文献が複数あるとき alphabet を付ける。
 REVERSE {reverse.pass}
 
-%%% ２回目の並べ替え．これで最終的に文献の並び順が選択される．
+%%% 2回目の並べ替え．これで最終的に文献の並び順が選択される．
 EXECUTE {presort.two.mess}
 ITERATE {presort.two}
 
-%%% sort.key$ を利用して文献の並べ替え (２回目)
+%%% sort.key$ を利用して文献の並べ替え (2回目)
 SORT
 
 FUNCTION {reset.prev.author}
@@ -5539,15 +4716,15 @@ FUNCTION {forward.pass.two}
     % Type 1 の bysame を使うケース。
     { author empty$
 	{ editor empty$
-	  { "" }
-	  'format.editors.alt
+	    { "" }
+	    'format.editors.alt
 	  if$
 	}
 	'format.authors.alt
-     if$
-     'this.author :=
-     % 現在の author (this.author) が一個前の author (prev.author) と同じか？
-     this.author prev.author =
+      if$
+      'this.author :=
+      % 現在の author (this.author) が一個前の author (prev.author) と同じか？
+      this.author prev.author =
 	% 同じなら extra.labe.bysame に bysame を代入
 	{ "bysame" 'extra.label.bysame := }
 	% 同じではないなら prev.author に this.author を代入しておく。
@@ -5557,10 +4734,10 @@ FUNCTION {forward.pass.two}
 	  if$
 	  'prev.author :=
 	}
-     if$
+      if$
     }
     % bysame を利用しないか、Type 2 の bysame を使うケースではなにもしない。
-   'skip$
+    'skip$
   if$
 }
 
@@ -5572,7 +4749,7 @@ FUNCTION{punctuation}
   "%"									 write$ newline$
   "%  This bbl file is created by jecon.bst ver." jecon.version *	 write$ newline$
   "%  The latest jecon.bst is available at"				 write$ newline$
-  "%  <http://shirotakeda.org/ja/tex-ja/jecon-ja.html>"		    write$ newline$
+  "%  <https://github.com/ShiroTakeda/jecon-bst>"		         write$ newline$
   "%"									 write$ newline$
   "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"	 write$ newline$
   newline$
@@ -5590,18 +4767,18 @@ FUNCTION {begin.bib}
      'skip$
      % bysame を使うケース
      { "%%% Definition of \bysame" write$ newline$
-       "\ifx\undefined\bysame" write$ newline$
+       "\ifx\undefined\bysame%" write$ newline$
        "\newcommand{\bysame}{" bst.bysame.definition * "}" *
        write$ newline$
        "\fi" write$ newline$ newline$
        "%%% Definition of \bysamejp" write$ newline$
-       "\ifx\undefined\bysamejp" write$ newline$
+       "\ifx\undefined\bysamejp%" write$ newline$
        "\newcommand{\bysamejp}{" bst.bysame.definition.jp * "}" *
        write$ newline$
        "\fi" write$ newline$ newline$
      }
   if$
-  %% 数字を漢数字に変換するときの
+  %% 数字を漢数字に変換するときの処理
   bst.kansuji.jp #0 =
      'skip$
      { "%%% Definition of \tatebo" write$ newline$
@@ -5610,7 +4787,7 @@ FUNCTION {begin.bib}
        write$ newline$
        "\fi" write$ newline$ newline$ }
   if$
-  %% 文献に number index を付けるときの:
+  %% 文献に number index を付けるときの処理
   bst.use.number.index #0 =
      'skip$
      { bst.number.index.digit "1" =
@@ -5642,9 +4819,7 @@ FUNCTION {begin.bib}
 }
 
 FUNCTION {end.bib}
-{
-  bst.thebibliography.end
- }
+{ bst.thebibliography.end }
 
 EXECUTE {begin.bib}
 

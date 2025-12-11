@@ -72,7 +72,7 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \newcommand{\midashiii}[1]{\noindent \textbf{□ #1}}
 
 %%% title, author, acknowledgement, and date
-\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 6.5.1)
+\title{\texttt{jecon.bst}:\\ 経済学用 \BibTeX{} スタイルファイル\\ (ver. 6.6)
 \thanks{このファイルの配布場所: \url{https://github.com/ShiroTakeda/jecon-bst}}
 }
 
@@ -776,15 +776,15 @@ Mendeley\footnote{\url{http://www.mendeley.com/}}のような文献管理ソフ�
 
 この第 \ref{jecon-example-sec:bibtex-engine} 節は
 \begin{itemize}
- \item A) \pBibTeX
- \item B) TeX Live 2020 までの \upBibTeX
+ \item A) \texttt{pbibtex}
+ \item B) TeX Live 2020 までの \texttt{upbibtex}
 \end{itemize}
 のどちらかしか利用できない人が読んでください（TeX Live 2021 以降の
-\upBibTeX を利用する人は読まなくてよいです）．
+\texttt{upbibtex} を利用する人は読まなくてよいです）．
 
 \vspace*{1em}
 
-\BibTeX は，\pBibTeX か \upBibTeX か，また，\upBibTeX の
+\BibTeX は，\texttt{pbibtex} か \texttt{upbibtex} か，また，\texttt{upbibtex} の
 どのバージョンかによって，\texttt{bst} ファイル内で利用されている
 \texttt{is.kanji.str\$}，\texttt{substring\$} という命令の動作が変わってきます
 \footnote{具体的にどう変わるかは
@@ -798,10 +798,10 @@ Mendeley\footnote{\url{http://www.mendeley.com/}}のような文献管理ソフ�
 
 \vspace*{1em}
 
-\midashiii{\BibTeX エンジンとして \pBibTeX を使う人}
+\midashiii{\BibTeX エンジンとして \texttt{pbibtex} を使う人}
 
 この場合には，\texttt{jecon.bst} 内の \texttt{bst.pbibtex.version} の部分を以下
-のように書き換えてください\footnote{これは \pBibTeX と \upBibTeX
+のように書き換えてください\footnote{これは \texttt{pbibtex} と \texttt{upbibtex}
 で \texttt{substring\$} という命令の動作が異なることに対応するための設定です．}．
 \begin{screen}
 \begin{verbatim}
@@ -814,9 +814,8 @@ FUNCTION {bst.pbibtex.version}
 
 \vspace*{1em}
 
-\midashiii{TeX Live 2020 までの \upBibTeX を使う人\footnote{正確には
-       \texttt{0.99d-j0.33-u1.27} より前のバージョンの \upBibTeX のケー
-       スです．}}
+\midashiii{TeX Live 2020 までの \texttt{upbibtex} を使う人\footnote{正確には
+       \texttt{0.99d-j0.33-u1.27} より前のバージョンの \texttt{upbibtex} のケースです．}}
 
 この場合には，まず \texttt{jecon.bst} 内の \texttt{bst.pbibtex.version} の部分を
 以下のように書き換えてください．
@@ -835,12 +834,12 @@ FUNCTION {bst.pbibtex.version}
  langid = {japanese}
 \end{verbatim}
 \end{screen}
-という指定を加えるようにしてください．古い \upBibTeX では
+という指定を加えるようにしてください．古い \texttt{upbibtex} では
 \texttt{is.kanji.str\$} という命令が適切に機能しないため，その文献が日本語の文献
-かどうかの自動判別が上手くいきません\footnote{具体的には，古い \upBibTeX
-の \texttt{is.kanji.str\$} では「ö」，「é」，「í」 などのアルファベットも日本語
-と判断してしまうためです．}．そのため，自分でその文献が日本語の文献だと指定する
-必要があります．この指定はそのためのものです．
+かどうかの自動判別が上手くいきません\footnote{具体的には，古い \texttt{upbibtex}
+の \texttt{is.kanji.str\$} では「ö」，「é」，「í」 などのアルファベットも日本
+語と判断してしまうためです．}．そのため，自分でその文献が日本語の文献だと指定す
+る必要があります．この指定はそのためのものです．
 
 第 \ref{jecon-example-sec:langid} 節で \texttt{langid} フィールドの指定は特殊な
 場合に必要になると書きましたが，このケースがそれです．TeX Live 2021 以降の新しい

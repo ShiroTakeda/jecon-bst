@@ -3,7 +3,7 @@ Filename:       CHANGES.txt
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2006/12/04>
-Time-stamp:     <2022-02-08 22:50:10 st>
+Time-stamp:     <2025-12-09 18:46:41 st>
 -->
 
 jecon.bst の変更履歴．
@@ -11,10 +11,17 @@ jecon.bst の変更履歴．
 
 ## 変更点（上が新しい）
 
-## Ver. 6.5.1
+## Ver. 6.6
 
+* 関数 `bst.editor.btitle.order` を追加。英語文献で、editor と booktitle の順番
+  を変更するための関数。
+* 関数 `bst.address.position` を追加。address と publisher の順番を変更するため
+  の関数。
+* 関数 bst.bvolume.pre`、`bst.bvolume.post`、`bst.bvolume.pre.jp`、
+  `bst.bvolume.post.jp`を追加。book 用の volume の前後に付ける文字列を指定するた
+  めの関数。
 * `bst.sei.mei.one.jp`、`bst.sei.mei.two.jp` に関連するバグを修正。
-
+* コードを全体的に修正（機能はそのまま）。
 
 
 ## Ver. 6.5
