@@ -4,7 +4,7 @@
 % Maintainer: Shiro Takeda (武田史郎)
 % Copyright (C) 2002-2018 Shiro Takeda
 % First-written: <2002/11/03>
-% Time-stamp: <2025-12-11 12:37:54 st>
+% Time-stamp: <2025-12-11 14:47:59 st>
 % Version 6.6
 % Keywords: TeX, BibTeX, bst 
 % URL: https://github.com/ShiroTakeda/jecon-bst
@@ -1094,7 +1094,7 @@ FUNCTION {bst.show.doi}
 % DOIの前に付ける文字列 (英語文献用)
 %
 FUNCTION {bst.doi.pre}
-{ ", DOI: \href{http://dx.doi.org/" doi * "}{\urlstyle{rm} \nolinkurl{" * } % (default)
+{ ", DOI: \href{https://doi.org/" doi * "}{\urlstyle{tt}\nolinkurl{" * } % (default)
 
 % DOIの後に付ける文字列 (英語文献用)
 %
@@ -1104,7 +1104,7 @@ FUNCTION {bst.doi.post}
 % DOIの前に付ける文字列 (日本語文献用)
 %
 FUNCTION {bst.doi.pre.jp}
-{ "，DOI: \href{http://dx.doi.org/" doi * "}{\urlstyle{rm} \nolinkurl{" * } % (default)
+{ "，DOI: \href{https://doi.org/" doi * "}{\urlstyle{tt}\nolinkurl{" * } % (default)
 
 % DOIの後に付ける文字列 (日本語文献用)
 %
@@ -3137,11 +3137,7 @@ FUNCTION {format.output.hoyakusho}
   and and and and and
     'skip$
     {
-      is.kanji.entry
-	{ bst.touten.jp }
-	{ ", " }
-      if$
-      bst.hoyakusho.pre.jp * 
+      bst.hoyakusho.pre.jp
       jauthor empty$
 	{ jkanyaku empty$
             'skip$

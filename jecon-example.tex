@@ -58,10 +58,10 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \fi
 \makeatother
 
-\setlength{\leftmarginii}{1cm}  
+\setlength{\leftmarginii}{1cm}
 \jlreqsetup{
   itemization_label_length={1\zw, i=1\zw},
-  itemization_labelsep={1\zw},  
+  itemization_labelsep={1\zw},
 }
 
 \setlength{\leftmargini}{2\zw}% 2+0.5
@@ -96,9 +96,9 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 \section{導入}
 
-\midashii{注} \textbf{Version 6.3 より，この \texttt{jecon-example.tex} ファイル
-は「\texttt{jlreq} クラスファイル」を利用するようにし，さらに
-「\LuaLaTeX」+「\upBibTeX」でコンパイルするように修正しました．}
+\midashii{注} Version 6.3 より，この \texttt{jecon-example.tex} ファイルは
+「\texttt{jlreq} クラスファイル」を利用するようにし，さらに「\LuaLaTeX」
++「\upBibTeX」でコンパイルするように修正しました．
 \begin{itemize}
  \item プリアンプルを書き換えれば \upLaTeX や \XeLaTeX でもコン
        パイルできます．
@@ -114,23 +114,24 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \ref{sec:nihonjin}節をご覧ください．
 \\
 
-\midashii{注} この \texttt{jecon.bst} を利用するには， 当然 \BibTeX
-自体を使えるようになっていなければいけませんが，以下では \BibTeX の説明はしてい
-ません．\BibTeX については，\TeX 関連の書籍・ウェブサイト等で調べてください．\\
+\midashii{注} この \texttt{jecon.bst} を利用するには，当然 \BibTeX{}自体を使える
+ようになっていなければいけませんが，以下では \BibTeX の使い方の説明はしていませ
+ん．\BibTeX については，\TeX 関連の書籍・ウェブサイト等で調べてください．
+\\
 
-\midashii{注} \TeX において引用・参考文献を扱う仕組みとして本稿で紹
-介する \BibTeX 以外に，biblatex というパッケージもあります
-\footnote{\url{https://texwiki.texjp.org/?Biblatex}}．英語の文献だけを扱うのでし
-たら biblatex を使うほうが簡単かもしれせん．
+\midashii{注} \TeX において引用・参考文献を扱う仕組みとして本稿で紹介する
+\BibTeX 以外に，biblatex というパッケージもあります
+\footnote{\url{https://jp.mirrors.cicku.me/ctan/macros/latex/contrib/biblatex/doc/biblatex.pdf}}
+．英語の文献だけを扱うのでしたら biblatex を使うほうが簡単かもしれせん．
 \\
 \\
 
 \BibTeX の標準的なスタイルファイルの中には，\texttt{jplain.bst}，
 \texttt{jalpha.bst}，\texttt{jabbrev.bst} 等のように日本語の文献にも対応している
-ものがすでに幾つもあります．しかし，これらのスタイルファイルでは，経済学でよく用
-いられる author-year 形式，つまり「著者名（年）」という形式で引用することはできま
-せん\footnote{\texttt{cite} 命令を使ったときのはなしです．}．また，Reference に列
-挙する形式も経済学で通常使われている形式とは異なっています．
+ものがあります．しかし，これらのスタイルファイルでは，経済学でよく用いられる
+author-year 形式，つまり「著者名（年）」という形式で引用することはできません
+\footnote{\texttt{cite} 命令を使ったときのはなしです．}．また，Reference に列挙
+する形式も経済学で通常使われている形式とは異なっています．
 
 一方，経済学で用いられる参照形式を実現する \BibTeX スタイルファイルとして，
 \texttt{aer.bst}，\texttt{ecta.bst}，\texttt{cje.bst} 等があります\footnote{それ
@@ -139,18 +140,17 @@ Economics 形式のスタイルファイルです．}．これらの \BibTeX ス
 \texttt{natbib.sty}と同時に使うことで「著者名（年）」形式で引用することができます．
 また，Reference 形式も経済学でよく見られる形式のものにすることができます．しかし，
 これらのスタイルファイルは，英語の文献を前提として作られているため，日本語の文献
-を適切に扱うことができません\footnote{「英語」対象というより，正確には欧米の言語
-対象ですが．}．
+を適切に扱うことができません．
 
 飯田修さんという方が\footnote{\url{http://www.bol.ucla.edu/~oiida/jpolisci/}（注：
-もうこのページは存在していないです）．}，英語・日本語の両方の文献を扱えて，しかも
-「（著者名，年）」という形式で引用することが可能な \texttt{jpolisci.bst} というス
-タイルファイルを作成してくれているのですが，これの引用形式は「（著者名，年）」で
-すので，ちょっと経済学の標準的な形式とはずれています．
+もうこのページは存在していないです）．}，英語・日本語の両方の文献を扱えて，しか
+も「（著者名，年）」という形式で引用することが可能な \texttt{jpolisci.bst} とい
+うスタイルファイルを作成してくれているのですが，これの引用形式は「（著者名，年）」
+ですので，経済学の標準的な形式とは少しずれています．
 
 このように，経済学の標準的な形式で日本語・英語を両方扱える \BibTeX のスタイルファ
 イルがないようでしたので， \texttt{jpolisci.bst} を修正し\texttt{jecon.bst} とい
-うものを作成してみました．
+うものを作成しました．
 \vspace*{1em}
 
 \texttt{jecon.bst} を使うと次のようなことができます．
@@ -187,8 +187,8 @@ Economics 形式のスタイルファイルです．}．これらの \BibTeX ス
 \end{verbatim}
 \end{screen}
 というような命令を書くと，次のような出力になります\footnote{Backslash は Windows
-では円マークになるかもしれません．}．\texttt{citet} 命令の \verb|{ }| の中は私が
-自分の文献データベースファイルの中で各文献に付けているキーワードです．
+では円マークで表示されるかもしれません．}．\texttt{citet} 命令の \verb|{ }| の中
+は私が自分の文献データベースファイルの中で各文献に付けているキーワードです．
 
 \begin{screen}
 \citet{miyazawa02:_io_intr}，\citet{isikawa02jp:_env_trade}，
@@ -273,13 +273,12 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 
 \subsection{必要なもの}
 
-\texttt{jecon.bst} を利用するには，\texttt{natbib.sty}が必要になりますが，最近の
-\LaTeX システムでしたら標準で \texttt{natbib.sty} もインストールされています．
+\texttt{jecon.bst} を利用するには，\texttt{natbib} パッケージも必要になります．
 
 
 \subsection{\texttt{jecon.bst} のインストール}
 
-\texttt{jecon.bst} のファイルの置き場所には
+\texttt{jecon.bst} ファイルの置き場所には
 \begin{itemize}
  \item 1) \texttt{jplain.bst}，\texttt{jalpha.bst} 等と同じ場所
  \item 2) 編集している \TeX のファイルと同じ場所
@@ -319,10 +318,10 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 このフィールドに \texttt{japanese} と指定されていると，日本語文献として処理しま
 すが，これが指定されていなくても，基本的には自動判定で日本語文献を判別します
 \footnote{author や title に日本語が含まれていると，日本語文献と判断するといよう
-な仕組みです．これには \pBibTeX (\upBibTeX) の \texttt{is.kanji.str\$} という命令
-を利用しています．}．ですので，特殊な場合を除いて \texttt{langid} フィールドの指
-定必要はないです（どういうときに必要かは第\ref{jecon-example-sec:bibtex-engine}
-節で説明します）．
+な仕組みです．これには \texttt{pbibtex}（\texttt{upbibtex}）の
+\texttt{is.kanji.str\$} という命令を利用しています．}．ですので，\textbf{特殊な
+場合を除いて \texttt{langid} フィールドの指定必要はないです}（どういうときに必要
+かは第\ref{jecon-example-sec:bibtex-engine}節で説明します）．
 
 ただ，\texttt{langid} フィールの指定は \texttt{biblatex} などでも利用される可能
 性がありますので，指定しておいてもいいと思います．
@@ -333,13 +332,13 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 \label{jecon-example-sec:author}
 
 \begin{itemize}
- \item \textbf{authorの名前の書き方が普通の書き方と違います．}
- \item 通常，\texttt{jplain.bst} などの \textbf{日本語対応のbstファイルではbibファ
-       イルで日本語文献の人名を書くときに「姓　名」という形式（順序）にします}．
-       例えば，「大山　道広」というようにです．
- \item しかし，\textbf{\texttt{jecon.bst} ではauthorの名前は日本語文献でも英語文
-       献と同様の形式，つまり 「姓, 名」の形式で指定してください}．例えば，「大
-       山,道広」というような指定です．
+ \item \textbf{authorの名前の書き方が普通の書き方と違いますので注意してください．}
+ \item 通常，\texttt{jplain.bst} などの 日本語対応のbstファイルではbibファイルで
+       日本語文献の人名を書くときに「姓　名」という形式（順序）にします．例えば，
+       「大山　道広」というようにです．
+ \item しかし，\texttt{jecon.bst} ではauthorの名前は日本語文献でも英語文献と同様
+       の形式，つまり 「姓, 名」の形式で指定してください．例えば，「大山,道広」
+       というような指定です．
        \begin{itemize}
         \item あるいは，「道広 大山」のように「名 姓」という形式でもいいのですが，
               日本語文献の場合にこのような記述を使うのはちょっと違和感があると思
@@ -551,8 +550,9 @@ Reference 部分の形式がどうなるかは，この文書の参考文献の�
 \subsubsection{bibファイルにおける日本語での人名の書き方（ここは飛ばしていいです）}
 \label{sec:nihonjin}
 
-ここまで \texttt{bib} ファイルの書き方を説明してきました．ここで人名の指定方法に
-ついて補足説明をしておきます．
+第\ref{jecon-example-sec:author}節で、著者名（author、editor フィールド）の指定
+方法について説明しましたが、なぜ「姓」、「名」を通常とは異なる順番で指定するかを
+以下で説明したいと思います。
 
 通常，\texttt{bib}ファイルにおいて英語文献の人名を指定するときには「名 姓」か
 「姓, 名」（区切は半角カンマ）という記述で指定します．例えば，著者が Barack
@@ -620,7 +620,7 @@ Obama であるときには
 ないと困る場合が最近多くなってきたためです．
 
 まず第一にZotero\footnote{\url{https://www.zotero.org/}}や
-Mendeley\footnote{\url{http://www.mendeley.com/}}のような文献管理ソフトを利用し
+Mendeley\footnote{\url{https://www.mendeley.com/}}のような文献管理ソフトを利用し
 て文献を管理し，そこから\texttt{bib}ファイルを生成するというような場合です．文献
 管理ソフトでは英語文献の人名であろうが，日本語文献の人名であろうが，普通は同じ扱
 いをすると思います．実際，私もZoteroを利用していますが，英語文献でも日本語文献で
@@ -633,30 +633,30 @@ Mendeley\footnote{\url{http://www.mendeley.com/}}のような文献管理ソフ�
 ます）．\vspace*{1em}
 
 もう一つは文献データベースで日本語文献も英語文献と同じように人名を扱っているケー
-スがあることです．例えば，CiNiiという日本語の論文，書籍，雑誌のデータベースを提供
-するウェブサイトがあります（\url{http://ci.nii.ac.jp/}）．CiNiiでは様々な形式で文
-献情報を出力することができ，\BibTeX 形式でも出力できます．しかし，そのCiNiiが提供
-する \BibTeX 形式では著者名の扱いが普通の \texttt{bib} ファイルのルールとは逆になっ
-ています．
+スがあることです．例えば，CiNiiという日本語の論文，書籍，雑誌のデータベースを提
+供するウェブサイトがあります（\url{https://cir.nii.ac.jp/}）．CiNiiでは様々な形
+式で文献情報を出力することができ，\BibTeX 形式でも出力できます．しかし，その
+CiNiiが提供する \BibTeX 形式では著者名の扱いが普通の \texttt{bib} ファイルのルー
+ルとは逆になっています．
 
-例えば，\url{http://ci.nii.ac.jp/naid/40019823794}という文献の情報を \BibTeX 形式
-で出力すると次のようになります．
+例えば，\url{https://cir.nii.ac.jp/crid/1390005822569621120}という文献の情報を
+\BibTeX 形式で出力すると次のようになります．
 \begin{screen}
 \begin{verbatim}
- @article{白井大地:2013-09,
- author="白井, 大地 and 武田, 史郎 and 落合, 勝昭",
- title="温室効果ガス排出規制の地域間CGE分析",
- journal="環境経済・政策研究",
- ISSN="1882-3742",
- publisher="岩波書店",
- year="2013",
- month="sep",
- volume="6",
- number="2",
- pages="12-25",
- URL="http://ci.nii.ac.jp/naid/40019823794/",
- DOI="",
- }
+@article{1390005822569621120,
+author="白井, 大地 and 武田, 史郎 and 落合, 勝昭",
+title="温室効果ガス排出規制の地域間CGE分析",
+journal="環境経済・政策研究",
+ISSN="18823742",
+publisher="環境経済・政策学会",
+year="2013",
+month="09",
+volume="6",
+number="2",
+pages="12-25",
+DOI="10.14927/reeps.6.2_12",
+URL="https://cir.nii.ac.jp/crid/1390005822569621120"
+}
 \end{verbatim}
 \end{screen}
 \texttt{author}フィールドが
@@ -1174,17 +1174,16 @@ FUNCTION {bst.sei.mei.two.jp}
 \subsubsection{年の表示される位置を後ろにもってくる}
 
 標準では「年」は著者名のすぐ後ろに表示されるようになっていますが，これを
-後ろにもっていくことができます．これには \texttt{bst.year.backward} とい
-う関数の中身を 0 以外にしてください．
+後ろにもっていくことができます．例えば、year を最後の位置（note フィールドの前）
+に表示させるには \texttt{bst.year.position} という関数の中身を 1 にしてください．
 \begin{screen}
 \begin{verbatim}
-FUNCTION {bst.year.backward}
+FUNCTION {bst.year.position}
 { #1 }
 \end{verbatim}
 \end{screen}
 
-後ろとは \texttt{note} フィールドがなければ最後の位置，\texttt{note} フィー
-ルドがあればその前です．例えば，以下のようになります．
+こうすると以下のようになります．
 \begin{center}
  Krugman, Paul R. (1991a) \textit{Geography and Trade}, Cambridge, MA:
  MIT Press. \\
@@ -1380,10 +1379,10 @@ URLですと論文の置き場に変更が生じたときにリンク切れに�
 これは参考文献では次のような表示になります．
 \begin{screen}
  \begin{itemize}
-  \item Takeda, Shiro, Horie Tetsuya, and Toshi~H. Arimura (2012) ``A CGE Analysis of
+  \item Takeda, Shiro, Horie Tetsuya, and Toshi~H. Arimura (2012) ``A {CGE} Analysis of
   Border Adjustments under the Cap-and-Trade System: A Case Study of the
-  Japanese Economy,'' \textit{Climate Change Economics}, Vol. 3, No. 1, DOI:
-  \href{http://dx.doi.org/10.1142/S2010007812500030}{10.1142/S2010007812500030}.
+  {Japanese} Economy,'' \textit{Climate Change Economics}, Vol. 3, No. 1, DOI:
+  \href{https://doi.org/10.1142/S2010007812500030}{\urlstyle{tt}\nolinkurl{10.1142/S2010007812500030}}.
  \end{itemize}
 \end{screen}
 
@@ -1636,26 +1635,24 @@ FUNCTION {bst.hide.month}
 
 \begin{itemize}
  \item この \texttt{jecon.bst} の元になった \texttt{jpolisci.bst} を作成
-       してくださった飯田修さんに感謝します．そもそも \texttt{jecon.bst} 
-       なんて名前を付けてますが，プログラムの重要な部分のほとんどは
-       \texttt{jpolisci.bst} をそのまま利用させてもらっています．
- \item 改変には \texttt{aer.bst}，萩平哲さんのウェブサイト
-       \footnote{
-       \url{http://www.med.osaka-u.ac.jp/pub/anes/www/latex/bibtex.html}}，樋
-       口耕一さんによる \texttt{nissya.bst}\footnote{
-       \url{http://koichi.nihon.to/psnl/} より入手可能です．} 等も参考にさせ
-       ていただきました．これらの有益なプログラム，ページを作成してくだ
-       さった方々に感謝します．
+       してくださった飯田修さんに感謝します．
+ \item また，改変には \texttt{aer.bst}，萩平哲さんのウェブサイト\footnote{
+       \url{http://www.med.osaka-u.ac.jp/pub/anes/www/latex/bibtex.html}}，樋口
+       耕一さんによる \texttt{nissya.bst}\footnote{
+       \url{http://koichi.nihon.to/psnl/} より入手可能です．} 等も参考にさせてい
+       ただきました．これらの有益なプログラム，ページを作成してくださった方々に
+       感謝します．
  \item この PDF ファイルと一緒に，このファイルの元となる \TeX ファイル 
       （\texttt{jecon-example.tex}）と文献ファイル 
-      （\texttt{jecon-example.bib}）も配布しているので，\TeX ファイルの書
-       き方，文献の登録の仕方はそちらも参考にしてください．
- \item ここをこうして欲しい，こうしたいという要望がありましたらおっしゃってくださ
-       い．私に直せるようなものだったら直しますので．不具合があるときには，不具合
-       の出る文献のサンプル（bib ファイル），\BibTeX のログ（blg ファイル）等を送っ
-       てくださると助かります．要望の際も同じようにサンプルがあると助かります（ど
-       ういう文献をどう表示したいのかがわかるもの）．
- \item 連絡は \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}} まで．
+      （\texttt{jecon-example.bib}）も配布していますので，\TeX ファイルの書き方，
+       文献の登録の仕方はそちらも参考にしてください．
+ \item 問い合わせは
+       \texttt{\href{mailto:shiro.takeda@gmail.com}{shiro.takeda@gmail.com}} ま
+       で．あるいは，↓にある GitHub のページからお願いします．
+ \item 不具合があるときには，不具合の出る文献のサンプル（bib ファイル），\BibTeX
+       のログ（blg ファイル）等を送ってくださると助かります．要望の際も同じよう
+       にサンプルがあると助かります（どういう文献をどう表示したいのかがわかるも
+       の）．
  \item \texttt{jecon.bst} は GitHub
        \url{https://github.com/ShiroTakeda/jecon-bst} で配布しています．
 \end{itemize}

@@ -2,7 +2,7 @@
 Author:         Shiro Takeda
 e-mail          <shiro.takeda@gmail.com>
 First-written:  <2016-03-16>
-Time-stamp:     <2021-09-16 10:48:07 st>
+Time-stamp:     <2025-12-11 14:44:43 st>
 -->
 
 このフォルダの説明
@@ -24,7 +24,7 @@ Time-stamp:     <2021-09-16 10:48:07 st>
 | `jecon-reverse.bst`       | [`jecon-reverse.tex`](jecon-reverse.tex)           | [`jecon-reverse.pdf`](jecon-reverse.pdf)           | 日本語の著者名の姓名の順序が普通の順序のbibファイルを処理するケース。 |
 | `jecon.bst`               | [`jecon-number.tex`](jecon-number.tex)             | [`jecon-number.pdf`](jecon-number.pdf)             | 「著者名（年）」ではなく、番号で引用するケース。                      |
 | `jecon.bst`               | [`jecon-many-authors.tex`](jecon-many-authors.tex) | [`jecon-many-authors.pdf`](jecon-many-authors.pdf) | 著者数が非常に多いケース。                                            |
-| `jecon.bst`               | [`jecon-cjk.tex`](jecon-cjk.tex)                   | [`jecon-cjk.pdf`](jecon-cjk.pdf)                   | 「源ノ角ゴシックCJK」+「源ノ明朝CJK」で日中韓の文字を混在させたもの   |
+<!-- | `jecon.bst`               | [`jecon-cjk.tex`](jecon-cjk.tex)                   | [`jecon-cjk.pdf`](jecon-cjk.pdf)                   | 「源ノ角ゴシックCJK」+「源ノ明朝CJK」で日中韓の文字を混在させたもの   | -->
 | `jecon-pbibtex.bst`       | [`jecon-use-pbibtex.tex`](jecon-use-pbibtex.tex)   | [`jecon-use-pbibtex.pdf`](jecon-use-pbibtex.pdf)   | LaTeX エンジンに platex、BibTeX エンジンに pbibtex を使うもの。       |
 
 
